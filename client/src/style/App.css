@@ -1,0 +1,640 @@
+@font-face {
+  font-family: "CaviarOzesRegular";
+  src: url("../Components/assets/fonts/Caviarozesregular.ttf");
+}
+@font-face {
+  font-family: "CaviarOzesBold";
+  src: url("../Components/assets/fonts/Caviarozesbold.ttf");
+}
+@font-face {
+  font-family: "Caviar Dreams";
+  src: url("../Components/assets/fonts/CaviarDreams.ttf");
+}
+@font-face {
+  font-family: "Caviar Dreams Bold";
+  src: url("../Components/assets/fonts/CaviarDreams_Bold.ttf");
+}
+@font-face {
+  font-family: "NeutraTextBook";
+  src: url("../Components/assets/fonts/NeutraText-Book.otf");
+}
+@font-face {
+  font-family: "NeutraTextLight";
+  src: url("../Components/assets/fonts/NeutraText-Light.otf");
+}
+/* GENERALES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 18px;
+  font-family: "NeutraTextBook";
+}
+
+a {
+  text-decoration: none;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ACCUEIL  */
+.home_header {
+  display: none;
+}
+
+#home_body {
+  height: 100vh;
+  background-image: url("../Components/assets/img/home/BackgroundVert.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  display: flex;
+}
+#home_body a {
+  font-size: 30px;
+  font-family: "CaviarOzesBold";
+  text-transform: uppercase;
+  text-align: center;
+  color: rgb(240, 240, 240);
+}
+#home_body .home_main {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+#home_body a {
+  opacity: 0;
+  animation: EntrerAppear 0.5s 1.5s forwards;
+}
+@keyframes EntrerAppear {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.home_footer {
+  position: absolute;
+  right: 5%;
+  bottom: 0;
+  padding: 25px 0px;
+}
+.home_footer .copyright {
+  color: rgb(255, 196, 50);
+  font-size: 12px;
+}
+.home_footer .sociallinks, .home_footer .other_pages {
+  display: none;
+}
+
+/* COMMUNES */
+.navigation_header {
+  background-image: url("../Components/assets/img/Header_Footer.jpg");
+  background-attachment: fixed;
+  padding-top: 25px;
+  font-family: "CaviarOzesBold";
+}
+.navigation_header .french_label {
+  left: 5%;
+  bottom: 0;
+  font-family: "NeutraTextLight";
+  font-weight: 100;
+  font-size: 14px;
+  color: rgb(240, 240, 240);
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+.navigation_header .french_label .blue {
+  background-color: rgb(26, 28, 93);
+}
+.navigation_header .french_label .white {
+  background-color: rgb(240, 240, 240);
+  color: rgb(15, 15, 15);
+}
+.navigation_header .french_label .red {
+  background-color: #C71212;
+}
+.navigation_header .header_width {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navigation_header a {
+  color: rgb(15, 15, 15);
+}
+.navigation_header div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.navigation_header div img {
+  height: 75px;
+}
+.navigation_header div h1 {
+  font-size: 30px;
+}
+.navigation_header nav {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15px;
+}
+.navigation_header nav a {
+  text-align: center;
+  font-size: 20px;
+  text-transform: uppercase;
+  padding: 6px 30px;
+  margin: 5px 0;
+}
+.navigation_header nav a:hover {
+  background-color: rgba(15, 15, 15, 0.5);
+  color: rgb(240, 240, 240);
+}
+.navigation_header nav .active {
+  background-color: rgba(15, 15, 15, 0.5);
+  color: rgb(255, 196, 50);
+}
+.navigation_header .picto_header {
+  height: 40px;
+  margin: 5px 0;
+  padding: 5px;
+  border-radius: 50%;
+}
+.navigation_header .picto_header:hover {
+  background-color: rgba(15, 15, 15, 0.5);
+}
+
+.navigation_footer {
+  background-image: url("../Components/assets/img/Header_Footer.jpg");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 0;
+  margin-top: 50px;
+}
+.navigation_footer .sociallinks {
+  margin: 0 25px 25px 25px;
+}
+.navigation_footer .sociallinks img {
+  margin: 25px 15px;
+}
+.navigation_footer .other_pages {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Caviar Dreams Bold";
+}
+.navigation_footer .other_pages a, .navigation_footer .other_pages p {
+  color: rgb(15, 15, 15);
+  margin: 25px;
+}
+.navigation_footer .other_pages .copyright {
+  font-size: 12px;
+}
+
+.navigation_main {
+  position: relative;
+  width: 100vw;
+  margin: auto;
+}
+
+h2 {
+  font-family: "CaviarOzesBold";
+  font-size: 35px;
+  color: rgb(15, 15, 15);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.blog_title, .community_title, .ulule_page_title, .size_guide_title, .brand_title {
+  margin: 100px 0 50px 0;
+}
+
+h3 {
+  font-family: "Caviar Dreams";
+  font-size: 30px;
+  text-transform: uppercase;
+  color: #C71212;
+  text-align: center;
+}
+
+article {
+  margin-bottom: 25px;
+}
+
+.back_to_store {
+  display: block;
+  width: 130px;
+  margin: 100px auto;
+}
+.back_to_store img {
+  display: block;
+  width: 100%;
+  margin-bottom: 25px;
+  border-radius: 50%;
+  box-shadow: 0px 5px 25px 0px rgb(15, 15, 15);
+}
+.back_to_store figcaption p {
+  text-align: center;
+  color: rgb(15, 15, 15);
+  border-radius: 25px 0 25px 0;
+}
+
+/* CONTENU SITE  */
+/* LE STORE & BLOG */
+.store_page_main_images {
+  width: 100%;
+}
+
+.store_page_title {
+  position: absolute;
+  top: 50px;
+  right: 10%;
+}
+
+.shipping_costs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid rgb(15, 15, 15);
+  border-bottom: 1px solid rgb(15, 15, 15);
+  margin: 50px 0;
+  padding: 25px 0;
+}
+.shipping_costs img {
+  width: 50px;
+}
+.shipping_costs p {
+  width: 80%;
+  text-align: center;
+  margin: 25px 0;
+}
+
+.sorting_list {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 25px auto 50px auto;
+}
+
+.sorting_list button {
+  text-decoration: none;
+  color: rgb(15, 15, 15);
+  background-color: rgb(255, 196, 50);
+  font-weight: bold;
+  padding: 10px 25px;
+  margin: 15px 15px;
+  border: none;
+  transition: color 0.2s, background-color 0.5s;
+}
+
+.sorting_list button:hover {
+  background-color: rgb(15, 15, 15);
+  color: rgb(255, 196, 50);
+  cursor: pointer;
+}
+
+/*     .sort_active {
+    background-color: $textColorPrimary;
+    color: $textColorSecondary;
+} */
+.shop, .shop_tshirts, .community,
+.social_medias_post,
+.size_guide_t-shirts, .size_guide_rings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 25px;
+}
+.shop .product_grid,
+.shop .community_elements, .shop_tshirts .product_grid,
+.shop_tshirts .community_elements, .community .product_grid,
+.community .community_elements,
+.social_medias_post .product_grid,
+.social_medias_post .community_elements,
+.size_guide_t-shirts .product_grid,
+.size_guide_t-shirts .community_elements, .size_guide_rings .product_grid,
+.size_guide_rings .community_elements {
+  display: flex;
+  width: 90%;
+  margin: 1% 1%;
+}
+.shop figure, .shop_tshirts figure, .community figure,
+.social_medias_post figure,
+.size_guide_t-shirts figure, .size_guide_rings figure {
+  position: relative;
+}
+.shop figure .italic, .shop_tshirts figure .italic, .community figure .italic,
+.social_medias_post figure .italic,
+.size_guide_t-shirts figure .italic, .size_guide_rings figure .italic {
+  margin-top: 50px;
+  color: rgb(240, 240, 240);
+  font-style: italic;
+  background-color: rgba(255, 196, 50, 0.7);
+  padding: 5px 10px;
+}
+.shop figure:hover, .shop_tshirts figure:hover, .community figure:hover,
+.social_medias_post figure:hover,
+.size_guide_t-shirts figure:hover, .size_guide_rings figure:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.shop .product_grid img, .shop .community_elements img, .shop_tshirts .product_grid img, .shop_tshirts .community_elements img, .community .product_grid img, .community .community_elements img,
+.social_medias_post .product_grid img,
+.social_medias_post .community_elements img,
+.size_guide_t-shirts .product_grid img,
+.size_guide_t-shirts .community_elements img, .size_guide_rings .product_grid img, .size_guide_rings .community_elements img {
+  width: 100%;
+  display: block;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 1% auto;
+}
+.shop .product_grid figcaption, .shop_tshirts .product_grid figcaption, .community .product_grid figcaption,
+.social_medias_post .product_grid figcaption,
+.size_guide_t-shirts .product_grid figcaption, .size_guide_rings .product_grid figcaption {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  background-color: rgba(255, 196, 50, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: rgb(15, 15, 15);
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.7s all;
+}
+.shop .community_elements figcaption, .shop_tshirts .community_elements figcaption, .community .community_elements figcaption,
+.social_medias_post .community_elements figcaption,
+.size_guide_t-shirts .community_elements figcaption, .size_guide_rings .community_elements figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  color: rgb(255, 196, 50);
+  font-size: 18px;
+  font-weight: bold;
+}
+.shop figure:hover figcaption, .shop_tshirts figure:hover figcaption, .community figure:hover figcaption,
+.social_medias_post figure:hover figcaption,
+.size_guide_t-shirts figure:hover figcaption, .size_guide_rings figure:hover figcaption {
+  opacity: 1;
+}
+
+.blog_page_article, .ulule_page, .size_guide {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+.blog_page_article figure, .blog_page_article .community_figure_main, .ulule_page figure, .ulule_page .community_figure_main, .size_guide figure, .size_guide .community_figure_main {
+  margin-bottom: 25px;
+}
+.blog_page_article figure img, .blog_page_article .community_figure_main img, .ulule_page figure img, .ulule_page .community_figure_main img, .size_guide figure img, .size_guide .community_figure_main img {
+  width: 200px;
+  border: 50%;
+}
+.blog_page_article h4, .ulule_page h4, .size_guide h4 {
+  font-size: 25px;
+  text-align: center;
+}
+.blog_page_article p, .ulule_page p, .size_guide p {
+  width: 80%;
+  line-height: 25px;
+  margin: 25px auto;
+}
+
+.size_guide .warning {
+  margin: 25px auto 100px auto;
+  font-size: 18px;
+  font-style: italic;
+}
+.size_guide div {
+  text-align: center;
+  margin: 1% 5%;
+}
+.size_guide div h3 {
+  margin-bottom: 25px;
+}
+.size_guide div .fa-solid {
+  color: rgb(255, 196, 50);
+}
+.size_guide div p {
+  margin: 10px auto;
+  font-size: 18px;
+}
+.size_guide .size_guide_rings {
+  display: flex;
+  flex-direction: column;
+}
+.size_guide .size_guide_rings img {
+  box-shadow: 2px 2px 10px rgba(15, 15, 15, 0.5);
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+/* PAGE PRODUIT */
+.previous_store {
+  margin: 50px 0 25px 10%;
+  color: rgb(15, 15, 15);
+}
+
+.product_page {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 80%;
+  margin: 0 auto 50px auto;
+}
+.product_page .product_image {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.product_page .product_name {
+  font-family: "Caviar Dreams";
+  font-size: 25px;
+}
+.product_page .product_description {
+  width: 100%;
+  margin: 0;
+}
+.product_page .product_description p {
+  font-family: "NeutraTextLight";
+  text-align: center;
+  line-height: 24px;
+  font-size: 18px;
+  margin: 10px 0;
+}
+.product_page .product_description .price, .product_page .product_description .color {
+  font-size: 25px;
+}
+.product_page .product_description form {
+  margin-top: 10px;
+}
+.product_page .product_description form label {
+  margin: 5px 0 -5px 12.5%;
+}
+.product_page .product_description .choose {
+  display: flex;
+  flex-direction: column;
+}
+.product_page .product_description .choose .options {
+  width: 75%;
+  height: 25px;
+  text-align: center;
+  background-color: transparent;
+  color: rgb(15, 15, 15);
+  border: 1px solid rgb(3, 149, 8);
+  margin: 15px auto;
+}
+.product_page .product_description .choose .add_to_cart {
+  width: 40%;
+  height: 35px;
+  background-color: rgb(255, 196, 50);
+  color: rgb(15, 15, 15);
+  border: 1px solid rgb(255, 196, 50);
+  margin: 25px auto;
+}
+.product_page .product_description .choose .add_to_cart:hover {
+  cursor: pointer;
+}
+
+.page_product_links, .page_blog_links {
+  margin-top: 10px;
+  font-style: italic;
+  color: rgb(15, 15, 15);
+}
+
+.cotonpicto {
+  width: 50px;
+}
+
+.bio, .ricin, .bronze, .silver, .ring_description, .infosup, .infosupplus {
+  width: 100%;
+  margin: 25px auto;
+  font-family: "NeutraTextLight";
+  line-height: 24px;
+  font-size: 18px;
+}
+
+.infosupplus {
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.bio, .ricin, .bronze, .silver {
+  text-align: center;
+  color: rgb(240, 240, 240);
+}
+
+.bio, .ricin {
+  background-color: rgb(3, 149, 8);
+}
+
+.bronze {
+  background-color: #aa8818;
+}
+
+.silver {
+  background-color: #777777;
+}
+
+.other_products {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 50px auto;
+}
+.other_products img {
+  width: 18%;
+}
+.other_products img:hover {
+  transform: scale(1.1);
+}
+
+/* LA MARQUE */
+.brand {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 50px auto;
+}
+.brand .brand_logo {
+  display: none;
+  width: 25%;
+  height: 25%;
+}
+.brand .history {
+  width: 80%;
+  margin: auto;
+}
+.brand p {
+  margin: 10px 0;
+  line-height: 25px;
+}
+
+.mail {
+  margin-top: 50px;
+  text-align: center;
+}
+
+/* ULULE */
+.ulule_page figure a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: rgb(255, 196, 50);
+  font-family: "CaviarOzesBold";
+  font-size: 20px;
+}
+.ulule_page ul {
+  margin-bottom: 50px;
+}
+.ulule_page li {
+  list-style: none;
+}
+
+/* CGV */
+.cgv {
+  width: 80%;
+  margin: 50px auto;
+}
+.cgv h2, .cgv h3 {
+  margin-bottom: 25px;
+}
+.cgv article {
+  width: 90%;
+  margin: 50px auto 0px auto;
+  font-size: 18px;
+  text-align: justify;
+}
+.cgv ul {
+  margin: 15px 0 25px 25px;
+}/*# sourceMappingURL=App.css.map */

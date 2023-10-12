@@ -1,6 +1,6 @@
 import BackToStore from '../Containers/BackToStore/index'
-import Guide from '../../assets/img/store/Guide.jpg'
-import Guide_Ronds from '../../assets/img/store/Guide_Ronds.jpg'
+import Guide from '../../../assets/img/store/Guide.jpg'
+import Guide_Ronds from '../../../assets/img/store/Guide_Ronds.jpg'
 
 function SizeGuide() {
 

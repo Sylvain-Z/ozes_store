@@ -1,17 +1,17 @@
-import { NavLink } from 'react-router-dom';
-import Back from '../../../assets/img/Back.png';
+import { Link } from 'react-router-dom';
+import Back from '../../../../assets/img/Back.png';
 
 function BackToStore (){
 
     return (
         <>
         <figure className="back_to_store">
-			<NavLink to="/le_store">
+			<Link to="/le_store">
 				<img src={Back} alt="photo de t-shirt de plusieurs couleurs sur des cintres" />
 				<figcaption>
 					<p>Aller à la boutique</p>
 				</figcaption>
-			</NavLink>
+			</Link>
 		</figure>
         </>
     )

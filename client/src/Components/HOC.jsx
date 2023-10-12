@@ -1,9 +1,9 @@
 import { useLocation , Link , NavLink } from "react-router-dom";
-import cart_empty from './assets/img/cart_empty.png'
-import user_out from './assets/img/user_out.png'
-import LogoPeQ from './assets/img/LogoPeQ.png';
-import picto_insta from './assets/img/picto_insta.png';
-import picto_fb from './assets/img/picto_fb.png';
+import cart_empty from '../assets/img/cart_empty.png'
+import user_out from '../assets/img/user_out.png'
+import LogoPeQ from '../assets/img/LogoPeQ.png';
+import picto_insta from '../assets/img/picto_insta.png';
+import picto_fb from '../assets/img/picto_fb.png';
 
 function HOC({ child }) {
     const { pathname } = useLocation();
@@ -25,7 +25,7 @@ function HOC({ child }) {
                             <NavLink to="/la_marque" className="onglet_marque">La marque</NavLink>
                         </nav>
                         
-                        <Link to="/connexion"><img className="picto_header" src={user_out} alt="pictogramme de chariot" /></Link>
+                        <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de chariot" /></Link>
                         <Link to="/panier" ><img className="picto_header" src={cart_empty} alt="pictogramme de chariot" /></Link>
                         
                     </div>

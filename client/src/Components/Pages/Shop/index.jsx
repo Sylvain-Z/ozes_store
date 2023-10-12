@@ -1,6 +1,6 @@
-import Store from '../../assets/img/store/Store.jpg';
-import Drapeau_FR from '../../assets/img/store/Drapeau_FR.png';
-import Drapeau_RUN from '../../assets/img/store/Drapeau_RUN.png';
+import Store from '../../../assets/img/store/Store.jpg';
+import Drapeau_FR from '../../../assets/img/store/Drapeau_FR.png';
+import Drapeau_RUN from '../../../assets/img/store/Drapeau_RUN.png';
 import ProductGalery from './product_galery';
 
 function Shop (){

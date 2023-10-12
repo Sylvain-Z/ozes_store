@@ -1,11 +1,11 @@
 import { Link } from 'react-router-dom'
 import BackToStore from '../Containers/BackToStore/index'
 
-import LogoPeQ from '../../assets/img/LogoPeQ.png';
-import Drapeau_Ozes from '../../assets/img/brand/Drapeau_Insta_Bulle.png';
-import OeufUlule from '../../assets/img/brand/OeufUlule_bulle.png';
-import Avis_Client_FB from '../../assets/img/brand/Avis_Client_FB.png';
-import Avis_Client_Insta from '../../assets/img/brand/Avis_Client_Insta.png';
+import LogoPeQ from '../../../assets/img/LogoPeQ.png';
+import Drapeau_Ozes from '../../../assets/img/brand/Drapeau_Insta_Bulle.png';
+import OeufUlule from '../../../assets/img/brand/OeufUlule_bulle.png';
+import Avis_Client_FB from '../../../assets/img/brand/Avis_Client_FB.png';
+import Avis_Client_Insta from '../../../assets/img/brand/Avis_Client_Insta.png';
 
 
 function Brand(){

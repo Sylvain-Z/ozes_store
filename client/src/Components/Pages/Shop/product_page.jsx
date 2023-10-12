@@ -48,7 +48,7 @@ function ProductPage (){
                     <div className="product_page">
                         <div className="shop">
 
-                            <img className="product_image" src={require("../../assets/img/store/" + detail.file_name1)} alt={detail.caption1}/>
+                            <img className="product_image" src={require("../../../assets/img/store/" + detail.file_name1)} alt={detail.caption1}/>
 
                             <article className="product_description">
                                 <h2 className="product_name">{detail.title}</h2>

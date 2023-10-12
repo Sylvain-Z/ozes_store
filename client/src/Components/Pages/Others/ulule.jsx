@@ -1,6 +1,8 @@
-import BackToStore from '../Containers/BackToStore/index'
+import { Link } from 'react-router-dom';
 
-import OeufUlule from '../../assets/img/brand/OeufUlule_bulle.png';
+import BackToStore from '../Containers/BackToStore/index';
+
+import OeufUlule from '../../../assets/img/brand/OeufUlule_bulle.png';
 
 function Ulule(){
 
@@ -12,11 +14,11 @@ function Ulule(){
                     <h2 class="ulule_page_title">WALL OF FAME</h2>
                     
                     <figure>
-                        <a href="https://fr.ulule.com/ozes-store/">
+                        <Link to="https://fr.ulule.com/ozes-store/">
                         <img src={OeufUlule} alt="Oeuf du site ulule sur fond bleu"/>
                         <figcaption>
                             <p>Voir la campagne de financement participatif</p>
-                        </figcaption></a>
+                        </figcaption></Link>
                     </figure>
 
                     <p>Si votre nom apparaît ici c'est que vous nous avez aidé pour le lancement de notre marque en contribuant pour notre campagne Ulule. Nous vous en remercions infiniment !</p>

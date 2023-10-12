@@ -15,7 +15,7 @@ export const auth = (req, res, next) => {
                 res.status(401).json({status: 401, msg: "token invalid"});
                 return;
             } else {
-                req.params.label = decoded.label;
+                req.params.email = decoded.email;
                 next();
             }
         });

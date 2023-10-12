@@ -1,31 +1,31 @@
 @font-face
 {
 	font-family: 'CaviarOzesRegular';
-    src: url('../Components/assets/fonts/Caviarozesregular.ttf');
+    src: url('../assets/fonts/Caviarozesregular.ttf');
 }
 @font-face
 {
 	font-family: 'CaviarOzesBold';
-    src: url('../Components/assets/fonts/Caviarozesbold.ttf');	
+    src: url('../assets/fonts/Caviarozesbold.ttf');	
 }
 @font-face
 {
 	font-family: 'Caviar Dreams';
-    src: url('../Components/assets/fonts/CaviarDreams.ttf');		
+    src: url('../assets/fonts/CaviarDreams.ttf');		
 }
 @font-face {
 	font-family: 'Caviar Dreams Bold';
-	src: url('../Components/assets/fonts/CaviarDreams_Bold.ttf');
+	src: url('../assets/fonts/CaviarDreams_Bold.ttf');
 }
 @font-face
 {
 	font-family: 'NeutraTextBook';
-    src: url('../Components/assets/fonts/NeutraText-Book.otf');		
+    src: url('../assets/fonts/NeutraText-Book.otf');		
 }
 @font-face
 {
 	font-family: 'NeutraTextLight';
-    src: url('../Components/assets/fonts/NeutraText-Light.otf');		
+    src: url('../assets/fonts/NeutraText-Light.otf');		
 }
 
 $textColorPrimary : rgb(15, 15, 15);
@@ -63,6 +63,11 @@ a {
 .hidden {
     display : none;
 }
+.notFound {
+    margin-top: 100px;
+    font-family: $subtitle-font;
+    color : $ponctualBlue;
+}
 
 /* ACCUEIL  */
 
@@ -72,7 +77,7 @@ a {
 
 #home_body {
     height: 100vh;
-    background-image: url("../Components/assets/img/home/BackgroundVert.jpg");
+    background-image: url("../assets/img/home/BackgroundVert.jpg");
     background-size: cover;
 	background-attachment: fixed;
     display: flex;
@@ -123,7 +128,7 @@ a {
 /* COMMUNES */
 
 .navigation_header {
-    background-image: url("../Components/assets/img/Header_Footer.jpg");
+    background-image: url("../assets/img/Header_Footer.jpg");
     background-attachment: fixed;
     padding-top: 25px;
     font-family: $title-font-bold;
@@ -200,7 +205,7 @@ a {
     }
 }
 .navigation_footer {
-    background-image: url("../Components/assets/img/Header_Footer.jpg");
+    background-image: url("../assets/img/Header_Footer.jpg");
     display: flex;
     flex-direction: column;
     align-items: center;

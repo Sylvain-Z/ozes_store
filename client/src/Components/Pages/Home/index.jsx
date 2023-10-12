@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Home(){
 
@@ -7,7 +7,7 @@ function Home(){
         
         <main className="home_main">
 
-        <NavLink to="/le_store">Entrer</NavLink>
+        <Link to="/le_store">Entrer</Link>
 
         </main>
         

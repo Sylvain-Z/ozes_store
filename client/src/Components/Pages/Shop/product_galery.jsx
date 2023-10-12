@@ -31,7 +31,7 @@ function ProductGalery(){
 
                         <div className={`product_grid`}>
                             <figure><Link to={`/le_store/${product.cate_url}/${product.title_url}`}>
-                                <img src={require("../../assets/img/store/" + product.file_name1)} alt={product.caption1}/>
+                                <img src={require("../../../assets/img/store/" + product.file_name1)} alt={product.caption1}/>
                                 <figcaption>
                                     <p>{product.title}</p>
                                     <p>{product.price}€</p>

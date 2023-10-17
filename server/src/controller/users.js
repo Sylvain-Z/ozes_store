@@ -64,14 +64,14 @@ const signin = async (req, res) => {
             msg = "Votre compte a été trouvé";
 
             console.log("4444444", user);
-            console.log("333333", user[0].password);
+            console.log("333333", "mdp hashé :", user[0].password, "//// mdp formulaire :" ,req.body.password);
             const matchPassword = await bcrypt.compare(req.body.password, user[0].password);
             console.log("22222", matchPassword);
             if (matchPassword){       
             console.log("111111", user[0].password); 
             const TOKEN = sign({ email: user[0].email }, SK);
             res.status(200).json({ msg, TOKEN });
-            } else {
+            } if(!matchPassword) {
                 msg = "Mot de passe incorrecte";
                 res.status(401).json({msg})
             }

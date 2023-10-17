@@ -12,7 +12,7 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         signin: (state, action) => {
-            state.info = {isLogged: true, id: action.payload.lastname};
+            state.info = {isLogged: true, id: action.payload.email};
         },
         signout: (state, action) => {
             state.info = {

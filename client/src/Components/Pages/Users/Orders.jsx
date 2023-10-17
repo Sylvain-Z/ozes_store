@@ -5,9 +5,10 @@ import DashboardNav from './Components/Container/Nav'
 function Orders() {
   return (
     <>
-    <DashboardNav/>
+      <DashboardNav/>
 
-    <h3>L'historique de vos commandes</h3>
+      <h3>L'historique de vos commandes</h3>
+
     </>
   )
 }

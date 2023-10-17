@@ -1,0 +1,68 @@
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
+
+import { signout } from "../../store/slices/user";
+
+import Header from './Header'
+import Footer from './Footer'
+
+function HOC({ child, auth }) {
+
+    const { pathname } = useLocation();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [tokenIsValid, setTokenIsValid] = useState(false);
+    const TOKEN = localStorage.getItem("auth");
+
+
+    useEffect(() => {
+        async function checkAuth() {
+            if (auth) {
+                if (!TOKEN) {
+                    navigate("/");
+                }
+                if (TOKEN) {
+                    const res = await fetch("/api/v1/users/check_token", {
+                        headers: { Authentication: "Bearer " + TOKEN },
+                    });
+                    if (res.status === 401) {                        
+                        localStorage.removeItem("auth")
+                        dispatch(signout());
+                        navigate("/");
+                    }
+                    if (res.status === 200) {
+                        const json = await res.json();
+                        console.log("200");
+                        setTokenIsValid(true);
+                    }
+                }
+            }
+        }
+
+        checkAuth();
+    }, [auth]);
+
+
+
+    const Child = child;
+    
+    return (
+        <>
+            <div id={pathname === "/" ? "home_body" : ""}>
+
+                {(!auth || (auth && tokenIsValid)) && <Header/>}
+                
+                {(!auth || (auth && tokenIsValid)) && <Child />}
+
+                <Footer />
+
+                
+            </div>
+
+        </>
+    );
+}
+
+export default HOC;

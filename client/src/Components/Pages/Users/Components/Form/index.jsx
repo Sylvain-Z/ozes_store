@@ -39,7 +39,7 @@ function Form({ type }) {
         }
         
         if (type === "up" && res.status === 201) {
-            navigate("/utilisateur/creer-un-compte");
+            navigate("/utilisateurs/creer-un-compte");
         }
     }
 

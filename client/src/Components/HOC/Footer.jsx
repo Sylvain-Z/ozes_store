@@ -1,0 +1,31 @@
+import { useLocation , Link } from "react-router-dom";
+
+import picto_insta from '../../assets/img/picto_insta.png';
+import picto_fb from '../../assets/img/picto_fb.png';
+
+function Footer() {
+
+    const { pathname } = useLocation();
+    
+    return (
+        <>
+            <footer className={pathname === "/" ? "home_footer" : "navigation_footer"}>
+    
+                <div className="other_pages" >
+                    <Link to="/la_marque">LA MARQUE/CONTACT</Link>
+                    <Link to="/guide_des_tailles">GUIDE DES TAILLES</Link>
+                    <Link to="/cgu_cgv">CONDITIONS GENERALES D'UTILISATION</Link>
+                </div>
+
+                <aside className="sociallinks" >
+                    <Link to="https://www.facebook.com/ozes.store" target="_blank"> <img src={picto_fb} alt="pictoinsta"/></Link>
+                    <Link to="https://www.instagram.com/ozes.store/" target="_blank"> <img src={picto_insta} alt="pictoface"/></Link>
+                </aside>
+                <p className="copyright">@2023, OZES STORE</p>
+            </footer>
+
+        </>
+    );
+}
+
+export default Footer;

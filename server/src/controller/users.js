@@ -1,6 +1,7 @@
 import { hash } from "bcrypt";
 import Query from "../model/Query.js";
 import jsonwebtoken from "jsonwebtoken";
+import bcrypt from "bcrypt"
 
 const { sign } = jsonwebtoken;
 const { SK }   = process.env;
@@ -60,10 +61,21 @@ const signin = async (req, res) => {
         const [user] = await Query.findByDatas(queryUser, datas);
 
         if (user.length) {
-            msg = "Votre compte a été trouvé";            
-            const TOKEN = sign({ email: user[0].email }, SK); 
-            
+            msg = "Votre compte a été trouvé";
+
+            console.log("4444444", user);
+            console.log("333333", user[0].password);
+            const matchPassword = await bcrypt.compare(req.body.password, user[0].password);
+            console.log("22222", matchPassword);
+            if (matchPassword){       
+            console.log("111111", user[0].password); 
+            const TOKEN = sign({ email: user[0].email }, SK);
             res.status(200).json({ msg, TOKEN });
+            } else {
+                msg = "Mot de passe incorrecte";
+                res.status(401).json({msg})
+            }
+
         } else if (!user.length) {
             msg = "L'email ou le mot de passe est incorrecte";
             res.status(409).json({ msg });

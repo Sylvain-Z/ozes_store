@@ -39,7 +39,7 @@ function ProductPage (){
                 
     return (
         <>
-            <Link to="/le_store"><p className="previous_store">Retour à la liste des produits</p></Link>
+            <Link to="/le_store"><p className="previous_page">Retour à la liste des produits</p></Link>
 
                 {!details ? (
                     <Loading/>

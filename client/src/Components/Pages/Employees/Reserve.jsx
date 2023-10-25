@@ -1,18 +1,16 @@
 import React from 'react'
 
-import DashboardNav from './Components/Container/Nav'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 
-function Informations() {
+function Reserve() {
   return (
     <>
-      <DashboardNav/>
     
-      <h3>Vos informations</h3>
+      <h3>L'Entrepôt Ozes Store</h3>
 
       <FontAwesomeIcon icon={faCircleCheck} style={{color: "#21832b",}} /> {/* solid */}
 
@@ -22,4 +20,4 @@ function Informations() {
   )
 }
 
-export default Informations;
+export default Reserve;

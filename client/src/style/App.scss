@@ -19,6 +19,11 @@
 }
 @font-face
 {
+	font-family: 'NeutraTextBold';
+    src: url('../assets/fonts/NeutraText-Bold.otf');		
+}
+@font-face
+{
 	font-family: 'NeutraTextBook';
     src: url('../assets/fonts/NeutraText-Book.otf');		
 }
@@ -31,14 +36,15 @@
 $textColorPrimary : rgb(15, 15, 15);
 $textColorSecondary : rgb(240, 240, 240);
 $ponctualYellow : rgb(255, 196, 50);
-$ponctualRed : #C71212;
+$ponctualRed : rgb(199, 18, 18);
 $ponctualBlue : rgb(26, 28, 93);
 $ponctualGreen : rgb(3, 149, 8);
 $title-font : 'CaviarOzesRegular';
 $title-font-bold : 'CaviarOzesBold';
-$subtitle-font : 'Caviar Dreams Bold';
-$subtitle-font-bold : 'Caviar Dreams';
+$subtitle-font : 'Caviar Dreams';
+$subtitle-font-bold : 'Caviar Dreams Bold';
 $text-font : 'NeutraTextBook';
+$text-font-bold : 'NeutraTextBold';
 $text-font-light : 'NeutraTextLight';
 $background-darked : rgba(15, 15, 15, 0.5);
 
@@ -59,6 +65,9 @@ body {
 }
 a {
     text-decoration: none;
+}
+button:hover {
+    cursor: pointer;
 }
 .hidden {
     display : none;
@@ -128,10 +137,11 @@ a {
 /* COMMUNES */
 
 .navigation_header {
-    background-image: url("../assets/img/Header_Footer.jpg");
+    background-image: url("../assets/img/Fond_Noir.jpg");
     background-attachment: fixed;
     padding-top: 25px;
     font-family: $title-font-bold;
+    margin-bottom: 50px;
     .french_label{
         left: 5%;
         bottom: 0;
@@ -140,7 +150,7 @@ a {
         font-size: 14px;
         color: $textColorSecondary;
         text-transform: uppercase;
-        margin-top: 5px;
+        margin-top: 50px;
         .blue{
             background-color: $ponctualBlue;
         }
@@ -171,8 +181,10 @@ a {
         }
         h1 {
             font-size: 30px;
+            color: $textColorSecondary;
         }
     }
+    
     nav {
         width: 100vw;
         display: flex;
@@ -182,6 +194,7 @@ a {
             text-align: center;
             font-size: 20px;
             text-transform: uppercase;
+            color: $ponctualYellow;
             padding: 6px 30px;
             margin: 5px 0;
         }
@@ -191,7 +204,7 @@ a {
         }
         .active {
             background-color: $background-darked;
-            color: $ponctualYellow;            
+            color: $textColorSecondary;            
         }
     }
     .picto_header {
@@ -203,9 +216,20 @@ a {
     .picto_header:hover {
         background-color: $background-darked;
     }
+    .faBars, .faXmark {
+        margin-top: 25px;
+    }
+    .faBars:hover,
+    .faXmark:hover {
+        cursor: pointer;
+    }
+    .burger_hidden {
+        display: none;
+    }
+
 }
 .navigation_footer {
-    background-image: url("../assets/img/Header_Footer.jpg");
+    background-image: url("../assets/img/Fond_Noir.jpg");
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -213,7 +237,7 @@ a {
     padding: 25px 0;
     margin-top: 50px;
     .sociallinks {
-        margin: 0 25px 25px 25px;
+        margin: 25px;
         img {
             margin: 25px 15px;
         }
@@ -222,14 +246,11 @@ a {
         display: flex;
         flex-direction: column;
         align-items: center;
-        font-family: $subtitle-font;
-        a, p {
-            color: $textColorPrimary;
-            margin: 25px;
-        }
-        .copyright {
-            font-size: 12px;
-        }
+        font-family: $subtitle-font-bold;
+    }
+    a, p {
+        color: $ponctualYellow;
+        margin: 25px;
     }
 }
 .navigation_main {
@@ -244,14 +265,15 @@ h2 {
     color: $textColorPrimary;
     text-align: center;
     text-transform: uppercase;
+    margin-bottom: 50px;
 }
-.blog_title, .community_title, .ulule_page_title, .size_guide_title, .brand_title {
-    margin: 100px 0 50px 0;
+.product_name {
+    margin: 0px;
 }
 h3
 {
 	font-family: $subtitle-font-bold;
-	font-size: 30px;
+	font-size: 25px;
     text-transform: uppercase;
 	color: $ponctualRed;
 	text-align: center;
@@ -260,20 +282,28 @@ article {
     margin-bottom: 25px;
 }
 .back_to_store {
-    display: block;
-    width : 130px;
-    margin: 100px auto;
+    position: relative;
+    width : 100px;
+    margin: 50px auto;
     img {
-        display: block;
         width : 100%;
         margin-bottom: 25px; 
         border-radius: 50%;
         box-shadow: 0px 5px 25px 0px $textColorPrimary;
     }
     figcaption p {
+        position: absolute;
+        width: 150%;
+        top: 45px;
+        left: -28px;
+        background-color: $ponctualYellow;
         text-align: center;
         color: $textColorPrimary;
-        border-radius: 25px 0 25px 0;
+        font-family: $subtitle-font-bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        border: 1px solid $ponctualYellow;
+        margin: 25px auto;
     }
     
 }
@@ -284,10 +314,11 @@ article {
  .store_page_main_images
 {
     width: 100%;
+    margin-top: -50px; // pour coller l'image au header
 }
 .store_page_title { //h2
     position: absolute;
-    top : 50px;
+    top : 0px;
     right: 10%; // collé au bord du main
 }
 .shipping_costs {
@@ -309,7 +340,7 @@ article {
     }
 }
 
-.sorting_list {
+/* .sorting_list {
     width: 70%;
     margin: auto;
     display: flex;
@@ -332,7 +363,7 @@ article {
     color: $ponctualYellow;
     cursor: pointer;
 }
-/*     .sort_active {
+     .sort_active {
     background-color: $textColorPrimary;
     color: $textColorSecondary;
 } */
@@ -461,7 +492,7 @@ article {
 
 /* PAGE PRODUIT */
 
-.previous_store{
+.previous_page{
     margin: 50px 0 25px 10%;
     color: rgb(15, 15, 15);
 }
@@ -494,35 +525,35 @@ article {
             font-size: 25px;
         }
         form {
-            margin-top: 10px;
+            margin-top: 15px;
             label {
-                margin: 5px 0 -5px 12.5%;
+                margin: 5px 0 -5px 0;
             }
         }
         .choose {
             display: flex;
             flex-direction: column;
             .options {
-                width: 75%;
-                height: 25px;
+                width: 100%;
+                height: 30px;
                 text-align: center;
-                background-color: transparent;
-                color: $textColorPrimary;
-                border: 1px solid $ponctualGreen;
+                background-color: $ponctualBlue;
+                color: $textColorSecondary;
+                font-family: $text-font;
+                font-size: 16px;
+                border: transparent;
                 margin: 15px auto;
             }
             .add_to_cart {
-                width: 40%;
-                height: 35px;
+                width: 75%;
+                height: 40px;
                 background-color: $ponctualYellow;
                 color: $textColorPrimary;
+                font-family: $subtitle-font-bold;
+                text-transform: uppercase;
                 border: 1px solid $ponctualYellow;
                 margin: 25px auto;
-            }
-            .add_to_cart:hover {
-                cursor: pointer;
-            }
-            
+            }         
         }
     }
 }
@@ -536,7 +567,7 @@ article {
 }
 .bio, .ricin, .bronze, .silver, .ring_description, .infosup, .infosupplus  {
     width: 100%;
-    margin: 25px auto;
+    margin: 10px auto;
     font-family: $text-font-light;
     line-height: 24px;
     font-size: 18px;
@@ -629,14 +660,95 @@ article {
     h2, h3 {
         margin-bottom: 25px;
     }
+    p {
+        text-align: center;
+    }
     article {
         width: 90%;
         margin: 50px auto 0px auto;
         font-size: 18px;
-        text-align: justify;
     }
     ul {
         margin: 15px 0 25px 25px;
-
     }
+}
+
+/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES USER */
+
+.form_section {
+    width: 80%;
+    margin: 25px auto;
+    padding: 50px 0;
+    background-image: url("../assets/img/Fond_Noir.jpg");
+    text-align: center;
+    display: flex; // pour le loading
+    flex-direction: column; // pour le loading
+    align-items: center; // pour le loading
+}
+.form_title {
+    font-size: 25px;
+    margin: 0 0 25px 0;
+    color: $textColorSecondary;
+}
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    input {
+        width: 80%;
+        height: 30px;
+        text-align: center;
+        background-color: $background-darked;
+        color: $textColorSecondary;
+        font-family: $text-font;
+        font-size: 16px;
+        border: transparent;
+        margin: 15px auto;
+    }
+    button {
+        width: 50%;
+        height: 40px;
+        background-color: $ponctualYellow;
+        color: $textColorPrimary;
+        font-family: $subtitle-font-bold;
+        text-transform: uppercase;
+        border: 1px solid $ponctualYellow;
+        margin: 25px auto;
+    }
+}
+.signin_to_up {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    color: $textColorSecondary;
+    a {
+        color: $ponctualYellow;
+        font-family: $text-font-bold;
+    }
+}
+.msg {
+    text-align: center;
+    color: $ponctualRed;
+}
+
+/* PAGES UTILISATEURS */
+
+.dashboard_nav {
+    text-align: center;
+    margin: 50px auto;
+}
+.dashboard_titles {
+    text-transform: uppercase;
+    background-color: $ponctualYellow;
+    color: $textColorPrimary;
+    width: 60%;
+    height: 40px;
+    line-height: 40px;
+    margin: 10px auto 25px auto;
+}
+.read, .update{
+    margin-top: 25px;
+}
+.update {
+    color : $ponctualRed;
 }

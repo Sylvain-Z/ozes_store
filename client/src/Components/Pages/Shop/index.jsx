@@ -23,14 +23,6 @@ function Shop (){
                     <article>
                         <h3>Nos Produits</h3>
 
-                        {/* <div className="sorting_list">
-                            <button data-filter=".t-shirts">T-SHIRTS</button>
-                            <button data-filter=".rings">BAGUES</button>
-                            <button data-filter=".men">HOMMES</button>
-                            <button data-filter=".women">FEMMES</button>
-                            <button data-filter=".all">TOUS</button>
-                        </div> */}
-
                         <ProductGalery />
 
                     </article>

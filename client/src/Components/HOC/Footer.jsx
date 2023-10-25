@@ -1,5 +1,8 @@
 import { useLocation , Link } from "react-router-dom";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareFacebook } from '@fortawesome/free-brands-svg-icons';
+import { faInstagram } from '@fortawesome/free-brands-svg-icons';
 import picto_insta from '../../assets/img/picto_insta.png';
 import picto_fb from '../../assets/img/picto_fb.png';
 
@@ -18,8 +21,8 @@ function Footer() {
                 </div>
 
                 <aside className="sociallinks" >
-                    <Link to="https://www.facebook.com/ozes.store" target="_blank"> <img src={picto_fb} alt="pictoinsta"/></Link>
-                    <Link to="https://www.instagram.com/ozes.store/" target="_blank"> <img src={picto_insta} alt="pictoface"/></Link>
+                    <Link to="https://www.facebook.com/ozes.store" target="_blank"><FontAwesomeIcon icon={faSquareFacebook} size="xl" /></Link>
+                    <Link to="https://www.instagram.com/ozes.store/" target="_blank"><FontAwesomeIcon icon={faInstagram} size="xl" /></Link>
                 </aside>
                 <p className="copyright">@2023, OZES STORE</p>
             </footer>

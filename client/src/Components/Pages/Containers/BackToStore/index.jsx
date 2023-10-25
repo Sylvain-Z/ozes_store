@@ -9,7 +9,7 @@ function BackToStore (){
 			<Link to="/le_store">
 				<img src={Back} alt="photo de t-shirt de plusieurs couleurs sur des cintres" />
 				<figcaption>
-					<p>Aller à la boutique</p>
+					<p>Retour Boutique</p>
 				</figcaption>
 			</Link>
 		</figure>

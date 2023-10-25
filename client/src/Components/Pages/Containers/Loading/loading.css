@@ -5,7 +5,7 @@
     background: url("./loading.png") no-repeat right center/cover;
     border-radius: 50%;
     border: 5px solid rgb(255, 196, 50);
-    margin: 50px 0;
+    margin: 50px auto;
 }
 
 .product_loader::before,

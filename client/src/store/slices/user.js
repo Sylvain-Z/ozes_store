@@ -3,7 +3,7 @@ import {createSlice} from "@reduxjs/toolkit"
 const initialState = {
     info : {
         isLogged: false,
-        id: "Invité",
+        id: "Invite",
     },
 };
 
@@ -17,7 +17,7 @@ export const userSlice = createSlice({
         signout: (state, action) => {
             state.info = {
                 isLogged: false,
-                id: "Invité",
+                id: "Invite",
             };
         }
     }

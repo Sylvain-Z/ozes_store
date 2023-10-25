@@ -10,8 +10,7 @@ function CguCgv(){
 
                     <h2>Conditions générales d'utilisation et vente</h2>
                         <p>Le client déclare avoir pris connaissance et avoir accepté les conditions générales de vente antérieurement à la passation de sa commande. La validation de la commande vaut donc acceptation des conditions générales de vente. Les conditions ne concernent que les achats effectués sur le site de ozes-store.com .</p>
-                        <p>La société OZES Store se réserve le droit d'adapter ou modifier à tout moment les présentes CGV sans préavis. La version des CGV applicable à toute vente étant celle figurant sur notre site au moment de la commande.
-                        </p>
+                        <p>La société OZES Store se réserve le droit d'adapter ou modifier à tout moment les présentes CGV sans préavis. La version des CGV applicable à toute vente étant celle figurant sur notre site au moment de la commande.</p>
 
                         <article>
                             <h3>APPLICATION DES CONDITIONS GENERALES DE VENTE</h3>

@@ -38,7 +38,7 @@ function RingsForm () {
             <label for="engraving" >Gravure</label>
             <input type="text" name="engraving" placeholder="Ecrivez le mot que vous souhaitez graver" class="options" value=""/>
 
-            <input type="submit" name="button" value="Ajouter au panier" class="add_to_cart"/>
+            <button type="submit" class="add_to_cart">Ajouter au panier</button>
 
             <Link to="/size_guide" className="page_product_links"><p>Le guide des tailles</p></Link>
         </>

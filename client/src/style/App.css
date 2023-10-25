@@ -15,6 +15,10 @@
   src: url("../assets/fonts/CaviarDreams_Bold.ttf");
 }
 @font-face {
+  font-family: "NeutraTextBold";
+  src: url("../assets/fonts/NeutraText-Bold.otf");
+}
+@font-face {
   font-family: "NeutraTextBook";
   src: url("../assets/fonts/NeutraText-Book.otf");
 }
@@ -42,13 +46,17 @@ a {
   text-decoration: none;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .hidden {
   display: none;
 }
 
 .notFound {
   margin-top: 100px;
-  font-family: "Caviar Dreams Bold";
+  font-family: "Caviar Dreams";
   color: rgb(26, 28, 93);
 }
 
@@ -109,10 +117,11 @@ a {
 
 /* COMMUNES */
 .navigation_header {
-  background-image: url("../assets/img/Header_Footer.jpg");
+  background-image: url("../assets/img/Fond_Noir.jpg");
   background-attachment: fixed;
   padding-top: 25px;
   font-family: "CaviarOzesBold";
+  margin-bottom: 50px;
 }
 .navigation_header .french_label {
   left: 5%;
@@ -122,7 +131,7 @@ a {
   font-size: 14px;
   color: rgb(240, 240, 240);
   text-transform: uppercase;
-  margin-top: 5px;
+  margin-top: 50px;
 }
 .navigation_header .french_label .blue {
   background-color: rgb(26, 28, 93);
@@ -132,7 +141,7 @@ a {
   color: rgb(15, 15, 15);
 }
 .navigation_header .french_label .red {
-  background-color: #C71212;
+  background-color: rgb(199, 18, 18);
 }
 .navigation_header .header_width {
   width: 80%;
@@ -154,6 +163,7 @@ a {
 }
 .navigation_header div h1 {
   font-size: 30px;
+  color: rgb(240, 240, 240);
 }
 .navigation_header nav {
   width: 100vw;
@@ -165,6 +175,7 @@ a {
   text-align: center;
   font-size: 20px;
   text-transform: uppercase;
+  color: rgb(255, 196, 50);
   padding: 6px 30px;
   margin: 5px 0;
 }
@@ -174,7 +185,7 @@ a {
 }
 .navigation_header nav .active {
   background-color: rgba(15, 15, 15, 0.5);
-  color: rgb(255, 196, 50);
+  color: rgb(240, 240, 240);
 }
 .navigation_header .picto_header {
   height: 40px;
@@ -185,9 +196,19 @@ a {
 .navigation_header .picto_header:hover {
   background-color: rgba(15, 15, 15, 0.5);
 }
+.navigation_header .faBars, .navigation_header .faXmark {
+  margin-top: 25px;
+}
+.navigation_header .faBars:hover,
+.navigation_header .faXmark:hover {
+  cursor: pointer;
+}
+.navigation_header .burger_hidden {
+  display: none;
+}
 
 .navigation_footer {
-  background-image: url("../assets/img/Header_Footer.jpg");
+  background-image: url("../assets/img/Fond_Noir.jpg");
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,7 +217,7 @@ a {
   margin-top: 50px;
 }
 .navigation_footer .sociallinks {
-  margin: 0 25px 25px 25px;
+  margin: 25px;
 }
 .navigation_footer .sociallinks img {
   margin: 25px 15px;
@@ -207,12 +228,9 @@ a {
   align-items: center;
   font-family: "Caviar Dreams Bold";
 }
-.navigation_footer .other_pages a, .navigation_footer .other_pages p {
-  color: rgb(15, 15, 15);
+.navigation_footer a, .navigation_footer p {
+  color: rgb(255, 196, 50);
   margin: 25px;
-}
-.navigation_footer .other_pages .copyright {
-  font-size: 12px;
 }
 
 .navigation_main {
@@ -227,17 +245,18 @@ h2 {
   color: rgb(15, 15, 15);
   text-align: center;
   text-transform: uppercase;
+  margin-bottom: 50px;
 }
 
-.blog_title, .community_title, .ulule_page_title, .size_guide_title, .brand_title {
-  margin: 100px 0 50px 0;
+.product_name {
+  margin: 0px;
 }
 
 h3 {
-  font-family: "Caviar Dreams";
-  font-size: 30px;
+  font-family: "Caviar Dreams Bold";
+  font-size: 25px;
   text-transform: uppercase;
-  color: #C71212;
+  color: rgb(199, 18, 18);
   text-align: center;
 }
 
@@ -246,32 +265,41 @@ article {
 }
 
 .back_to_store {
-  display: block;
-  width: 130px;
-  margin: 100px auto;
+  position: relative;
+  width: 100px;
+  margin: 50px auto;
 }
 .back_to_store img {
-  display: block;
   width: 100%;
   margin-bottom: 25px;
   border-radius: 50%;
   box-shadow: 0px 5px 25px 0px rgb(15, 15, 15);
 }
 .back_to_store figcaption p {
+  position: absolute;
+  width: 150%;
+  top: 45px;
+  left: -28px;
+  background-color: rgb(255, 196, 50);
   text-align: center;
   color: rgb(15, 15, 15);
-  border-radius: 25px 0 25px 0;
+  font-family: "Caviar Dreams Bold";
+  text-transform: uppercase;
+  font-size: 14px;
+  border: 1px solid rgb(255, 196, 50);
+  margin: 25px auto;
 }
 
 /* CONTENU SITE  */
 /* LE STORE & BLOG */
 .store_page_main_images {
   width: 100%;
+  margin-top: -50px;
 }
 
 .store_page_title {
   position: absolute;
-  top: 50px;
+  top: 0px;
   right: 10%;
 }
 
@@ -294,33 +322,30 @@ article {
   margin: 25px 0;
 }
 
-.sorting_list {
-  width: 70%;
-  margin: auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: 25px auto 50px auto;
+/* .sorting_list {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 25px auto 50px auto;
 }
-
 .sorting_list button {
-  text-decoration: none;
-  color: rgb(15, 15, 15);
-  background-color: rgb(255, 196, 50);
-  font-weight: bold;
-  padding: 10px 25px;
-  margin: 15px 15px;
-  border: none;
-  transition: color 0.2s, background-color 0.5s;
+    text-decoration: none;
+    color: $textColorPrimary;
+    background-color: $ponctualYellow;
+    font-weight: bold;
+    padding: 10px 25px;
+    margin: 15px 15px;
+    border: none;
+    transition: color 0.2s, background-color 0.5s;
 }
-
 .sorting_list button:hover {
-  background-color: rgb(15, 15, 15);
-  color: rgb(255, 196, 50);
-  cursor: pointer;
+    background-color: $textColorPrimary;
+    color: $ponctualYellow;
+    cursor: pointer;
 }
-
-/*     .sort_active {
+     .sort_active {
     background-color: $textColorPrimary;
     color: $textColorSecondary;
 } */
@@ -467,7 +492,7 @@ article {
 }
 
 /* PAGE PRODUIT */
-.previous_store {
+.previous_page {
   margin: 50px 0 25px 10%;
   color: rgb(15, 15, 15);
 }
@@ -484,7 +509,7 @@ article {
   margin-bottom: 50px;
 }
 .product_page .product_name {
-  font-family: "Caviar Dreams";
+  font-family: "Caviar Dreams Bold";
   font-size: 25px;
 }
 .product_page .product_description {
@@ -502,34 +527,35 @@ article {
   font-size: 25px;
 }
 .product_page .product_description form {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 .product_page .product_description form label {
-  margin: 5px 0 -5px 12.5%;
+  margin: 5px 0 -5px 0;
 }
 .product_page .product_description .choose {
   display: flex;
   flex-direction: column;
 }
 .product_page .product_description .choose .options {
-  width: 75%;
-  height: 25px;
+  width: 100%;
+  height: 30px;
   text-align: center;
-  background-color: transparent;
-  color: rgb(15, 15, 15);
-  border: 1px solid rgb(3, 149, 8);
+  background-color: rgb(26, 28, 93);
+  color: rgb(240, 240, 240);
+  font-family: "NeutraTextBook";
+  font-size: 16px;
+  border: transparent;
   margin: 15px auto;
 }
 .product_page .product_description .choose .add_to_cart {
-  width: 40%;
-  height: 35px;
+  width: 75%;
+  height: 40px;
   background-color: rgb(255, 196, 50);
   color: rgb(15, 15, 15);
+  font-family: "Caviar Dreams Bold";
+  text-transform: uppercase;
   border: 1px solid rgb(255, 196, 50);
   margin: 25px auto;
-}
-.product_page .product_description .choose .add_to_cart:hover {
-  cursor: pointer;
 }
 
 .page_product_links, .page_blog_links {
@@ -544,7 +570,7 @@ article {
 
 .bio, .ricin, .bronze, .silver, .ring_description, .infosup, .infosupplus {
   width: 100%;
-  margin: 25px auto;
+  margin: 10px auto;
   font-family: "NeutraTextLight";
   line-height: 24px;
   font-size: 18px;
@@ -635,12 +661,99 @@ article {
 .cgv h2, .cgv h3 {
   margin-bottom: 25px;
 }
+.cgv p {
+  text-align: center;
+}
 .cgv article {
   width: 90%;
   margin: 50px auto 0px auto;
   font-size: 18px;
-  text-align: justify;
 }
 .cgv ul {
   margin: 15px 0 25px 25px;
+}
+
+/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES USER */
+.form_section {
+  width: 80%;
+  margin: 25px auto;
+  padding: 50px 0;
+  background-image: url("../assets/img/Fond_Noir.jpg");
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form_title {
+  font-size: 25px;
+  margin: 0 0 25px 0;
+  color: rgb(240, 240, 240);
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+form input {
+  width: 80%;
+  height: 30px;
+  text-align: center;
+  background-color: rgba(15, 15, 15, 0.5);
+  color: rgb(240, 240, 240);
+  font-family: "NeutraTextBook";
+  font-size: 16px;
+  border: transparent;
+  margin: 15px auto;
+}
+form button {
+  width: 50%;
+  height: 40px;
+  background-color: rgb(255, 196, 50);
+  color: rgb(15, 15, 15);
+  font-family: "Caviar Dreams Bold";
+  text-transform: uppercase;
+  border: 1px solid rgb(255, 196, 50);
+  margin: 25px auto;
+}
+
+.signin_to_up {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  color: rgb(240, 240, 240);
+}
+.signin_to_up a {
+  color: rgb(255, 196, 50);
+  font-family: "NeutraTextBold";
+}
+
+.msg {
+  text-align: center;
+  color: rgb(199, 18, 18);
+}
+
+/* PAGES UTILISATEURS */
+.dashboard_nav {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.dashboard_titles {
+  text-transform: uppercase;
+  background-color: rgb(255, 196, 50);
+  color: rgb(15, 15, 15);
+  width: 60%;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px auto 25px auto;
+}
+
+.read, .update {
+  margin-top: 25px;
+}
+
+.update {
+  color: rgb(199, 18, 18);
 }/*# sourceMappingURL=App.css.map */

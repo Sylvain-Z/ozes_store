@@ -26,7 +26,7 @@ function ClothesForm () {
                 <option value="9"> 9 </option>
             </select>
 
-            <input type="submit" name="button" value="Ajouter au panier" className="add_to_cart"/>
+            <button type="submit" class="add_to_cart">Ajouter au panier</button>
 
             <Link to="/guide_des_tailles" className="page_product_links"><p>Le guide des tailles</p></Link>
         </>

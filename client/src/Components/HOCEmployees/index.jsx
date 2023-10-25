@@ -7,7 +7,7 @@ import { signout } from "../../store/slices/user";
 import Header from './Header'
 import Footer from './Footer'
 
-function HOC({ child, auth }) {
+function HOCEmployees({ child, auth }) {
 
     const { pathname } = useLocation();
     const dispatch = useDispatch();
@@ -65,4 +65,4 @@ function HOC({ child, auth }) {
     );
 }
 
-export default HOC;
+export default HOCEmployees;

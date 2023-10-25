@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import Loading from "../Containers/Loading";
 
 function ProductGalery(){
-    const [ products, setProducts ] = useState(null);
     
+    const [ products, setProducts ] = useState(null);
     
     useEffect(() => {
             async function getData() {

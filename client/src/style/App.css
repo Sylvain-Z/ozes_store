@@ -26,6 +26,10 @@
   font-family: "NeutraTextLight";
   src: url("../assets/fonts/NeutraText-Light.otf");
 }
+@font-face {
+  font-family: "NeutraTextItalic";
+  src: url("../assets/fonts/NeutraText-LightItalic.otf");
+}
 /* GENERALES */
 * {
   margin: 0;
@@ -696,7 +700,10 @@ form {
   display: flex;
   flex-direction: column;
 }
-form input {
+form label {
+  color: rgb(255, 196, 50);
+}
+form input, form .form_input {
   width: 80%;
   height: 30px;
   text-align: center;
@@ -707,6 +714,9 @@ form input {
   border: transparent;
   margin: 15px auto;
 }
+form .textarea {
+  height: 300px;
+}
 form button {
   width: 50%;
   height: 40px;
@@ -714,7 +724,7 @@ form button {
   color: rgb(15, 15, 15);
   font-family: "Caviar Dreams Bold";
   text-transform: uppercase;
-  border: 1px solid rgb(255, 196, 50);
+  border: none;
   margin: 25px auto;
 }
 
@@ -729,9 +739,27 @@ form button {
   font-family: "NeutraTextBold";
 }
 
-.msg {
+.form_advise {
+  width: 75%;
+  margin: auto;
+  font-family: "NeutraTextItalic";
+  color: grey;
+}
+
+.msg_red {
   text-align: center;
   color: rgb(199, 18, 18);
+}
+
+.msg_green {
+  text-align: center;
+  color: rgb(3, 149, 8);
+  margin-bottom: 25px;
+}
+
+.msg_yellow {
+  color: rgb(255, 196, 50);
+  margin-bottom: 25px;
 }
 
 /* PAGES UTILISATEURS */
@@ -750,10 +778,42 @@ form button {
   margin: 10px auto 25px auto;
 }
 
+.contact_button {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  color: rgb(26, 28, 93);
+}
+.contact_button p {
+  margin: 20px;
+}
+.contact_button button {
+  width: 50%;
+  height: 40px;
+  background-color: rgb(26, 28, 93);
+  color: rgb(240, 240, 240);
+  font-family: "Caviar Dreams Bold";
+  border: none;
+  border-radius: 20px;
+  margin: 10px auto;
+}
+
 .read, .update {
   margin-top: 25px;
 }
 
 .update {
   color: rgb(199, 18, 18);
+}
+
+.fontawesomeGreen {
+  color: rgb(3, 149, 8);
+}
+
+.fontawesomeRed {
+  color: rgb(199, 18, 18);
+}
+
+.fontawesomeYellow {
+  color: rgb(255, 196, 50);
 }/*# sourceMappingURL=App.css.map */

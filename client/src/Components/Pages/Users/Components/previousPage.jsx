@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 
-function PreviousPage (){
-
-    const goBack = () => window.history.back();
+function PreviousPage ({user}){
 
     return (
-    <Link onClick={goBack}><p className="previous_page">Votre compte</p></Link>
+    <Link to={`/utilisateurs/${user.id}`}><p className="previous_page">Votre compte</p></Link>
     )
 };
 

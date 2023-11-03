@@ -1,6 +1,6 @@
-import { useNavigate, Link ,  /*useParams ,  useLocation */ } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import { useSelector , /* useDispatch */ } from "react-redux";
+import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router-dom';
+import { useState, useEffect, useReducer } from "react";
+import { /*useSelector ,  useDispatch */ } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -11,55 +11,62 @@ import Loading from "../Containers/Loading";
 
 function InfoUserUpdate() {
   
-  const { info } = useSelector((state) => state.user);
-  const [ users, setUsers ] = useState(null);
+  // const { info } = useSelector((state) => state.user);
   // const params   = useParams();
-
-  const navigate = useNavigate();
-
+  // const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const [firstname, setFirstname]       = useState("");
+  const [users, setUsers] = useState(null);
+  const [firstname, setFirstname]     = useState("");
   const [lastname, setLastname]       = useState("");
-  const [email, setEmail]       = useState("");
-  const [birthdate, setBirthdate]       = useState("");
   const [password, setPassword]       = useState("");
-
-
+  const [email, setEmail]             = useState("");
   const [msg, setMsg] = useState(null);
     
-  useEffect(() => {
-          async function getData() {
-              try {
-                const users = await fetch("/api/v1/users/"+ info.id);
-                if (users.status === 404) {
-                  navigate("users/not-found");
-                }
-                if (users.status === 200) {
-                  const json = await users.json();
-                  setUsers(json);
-                }
-            } catch (error) {
-              throw Error(error);
-          }
-      }
-      getData();
-  }, []);
+  const myuserid = localStorage.getItem("myuserid");
 
-  console.log("UPDATE INFO ---->", info.id)
+  useEffect(() => {
+    async function getData() {
+        try {
+            let id="Invite"; 
+
+            if(!myuserid){ 
+                id="Invite"; 
+            }else{ 
+            id=myuserid; 
+            } 
+
+            const users = await fetch("/api/v1/users/"+ id);
+
+            if (users.status === 200) {
+                const json = await users.json();
+                
+                setUsers(json);
+                
+                setFirstname(json[0].firstname);
+                setLastname(json[0].lastname);
+                setPassword(json[0].password);
+                setEmail(json[0].email);
+                
+            }
+        } catch (error) {
+        throw Error(error);
+        }
+    }
+    getData();
+    }, []);
 
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch(`/api/v1/users/infos-perso-update/${info.id}`, {
+    const res = await fetch(`/api/v1/users/infos-perso-update/${myuserid}`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstname, lastname, email, birthdate, password }),
+        body: JSON.stringify({ firstname, lastname, password, email }),
     });
     const json = await res.json();
     setMsg(json.msg);
-
     if (res.status === 201) {
-      window.history.back();
+      setTimeout(()=>{ window.history.back()}, 2000)
     }
 }
 
@@ -73,58 +80,59 @@ function InfoUserUpdate() {
                       <Link to={`/utilisateurs/infos-perso/${user.id}`}><p className="previous_page">Retour</p></Link>
 
                       <section className="form_section">
+    
+                        <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
+                        <h3 className="form_title update">Modification de vos informations personnelles</h3>
 
-                      <FontAwesomeIcon icon={faIdBadge} size="lg" style={{color: "rgb(255, 196, 50)"}}/> 
-                      <h3 className="form_title update">Modification de vos informations personnelles</h3>
+                        {msg && <p className="msg_green">{msg}</p>}
 
-                      <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit}>
+
+                        {/* <label for="firstname">Votre prénom</label> */}
                         <input
-                              placeholder={user.firstname}
-                              type="text"
-                              name="firstname"
-                              value={firstname}
-                              onChange={(e) => setFirstname(e.target.value)}
-                        />
-                        <input
-                              placeholder={user.lastname}
-                              type="text"
-                              name="lastname"
-                              value={lastname}
-                              onChange={(e) => setLastname(e.target.value)}
-                        />
-                        <input
-                              placeholder={user.email}
-                              type="text"
-                              name="email"
-                              value={email}
-                              onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <input
-                              placeholder={user.birthdate}
-                              type="date"
-                              name="birthdate"
-                              value={birthdate}
-                              onChange={(e) => setBirthdate(e.target.value)}
-                        />
-                        <input
+                                placeholder="Votre prénom"
+                                type="text"
+                                name="firstname"
+                                value={firstname}
+                                onChange={(e) => setFirstname(e.target.value)}                          
+                          />
+                          {/* <label for="lastname">Votre nom</label> */}
+                          <input
+                                placeholder="Votre nom"
+                                type="text"
+                                name="lastname"
+                                value={lastname}
+                                onChange={(e) => setLastname(e.target.value)}
+                          />
+                          {/* <label for="password">Mot de passe</label> */}
+                          <input
                               placeholder="Tapez un nouveau mot de passe pour le changer"
                               type="password"
                               name="password"
                               value={password}
                               onChange={(e) => setPassword(e.target.value)}
-                        />
+                          />
+                          {/* <label for="complement">Votre adresse mail</label> */}
+                          <input
+                                placeholder="Votre adresse email"
+                                type="email"
+                                name="email"
+                                value={email}
+                                disabled="disabled"
+                          />
 
-                        {/* <button type="submit"><FontAwesomeIcon icon={faCircleCheck} style={{color: "#21832b",}} /></button>
-                        <button type="button" onClick={() => window.history.back()}><FontAwesomeIcon icon={faDeleteLeft} style={{color: "#d10a23",}} /></button> */}
+                          <p className="form_advise">
+                            <em>Contactez-nous pour changer votre adresse mail de connexion</em></p>
+                          
+                          <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
+                          <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
 
-                        <Link to={`/utilisateurs/infos-perso/${user.id}`}><button type="submit"><FontAwesomeIcon icon={faCircleCheck} style={{color: "#21832b",}} /></button></Link>
-                        <Link to={`/utilisateurs/infos-perso/${user.id}`}><button type="button"><FontAwesomeIcon icon={faDeleteLeft} style={{color: "#d10a23",}} /></button></Link>
+                        </form>
 
-
-                      </form>
-                    </section>
-                  </>
-                ))}
+                        <p></p>
+                      </section>
+                    </>
+                  ))}
     </>
   )
 }

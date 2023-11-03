@@ -21,8 +21,8 @@ function Footer() {
                 </div>
 
                 <aside className="sociallinks" >
-                    <Link to="https://www.facebook.com/ozes.store" target="_blank"><FontAwesomeIcon icon={faSquareFacebook} size="xl" /></Link>
-                    <Link to="https://www.instagram.com/ozes.store/" target="_blank"><FontAwesomeIcon icon={faInstagram} size="xl" /></Link>
+                    <Link to="https://www.facebook.com/ozes.store" target="_blank"><FontAwesomeIcon icon={faSquareFacebook} size="xl" className="fontawesomeYellows"/></Link>
+                    <Link to="https://www.instagram.com/ozes.store/" target="_blank"><FontAwesomeIcon icon={faInstagram} size="xl" className="fontawesomeYellows"/></Link>
                 </aside>
                 <p className="copyright">@2023, OZES STORE</p>
             </footer>

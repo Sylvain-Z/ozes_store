@@ -15,6 +15,7 @@ function SignOut() {
 
   function navigateToStore(){
     localStorage.removeItem("auth");
+    localStorage.removeItem("myuserid");
     setTimeout(()=>
     {navigate("/le_store")}
     , 2000)

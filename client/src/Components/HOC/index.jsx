@@ -9,13 +9,14 @@ import Footer from './Footer'
 
 function HOC({ child, auth }) {
 
+    const Child = child;
+
     const { pathname } = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [tokenIsValid, setTokenIsValid] = useState(false);
     const TOKEN = localStorage.getItem("auth");
-
 
     useEffect(() => {
         async function checkAuth() {
@@ -29,6 +30,7 @@ function HOC({ child, auth }) {
                     });
                     if (res.status === 401) {                        
                         localStorage.removeItem("auth")
+                        localStorage.removeItem("myuserid") /* ++++++++++++++++ */
                         dispatch(signout());
                         navigate("/le_store");
                     }
@@ -43,10 +45,6 @@ function HOC({ child, auth }) {
 
         checkAuth();
     }, [auth]);
-
-
-
-    const Child = child;
     
     return (
         <>

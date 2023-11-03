@@ -1,42 +1,43 @@
-import { useNavigate, Link , /*useParams ,  useLocation*/ } from 'react-router-dom';
+import {/*  Link , useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../Containers/Loading";
-import PreviousPage from "./Components/previousPage";
-
+import PreviousPage from './Components/previousPage';
 
 function Delivery() {
   
-  const { info } = useSelector((state) => state.user);
+  // const { info } = useSelector((state) => state.user);
 
   const [ users, setUsers ] = useState(null);
-  // const params   = useParams();
+  const myuserid = localStorage.getItem("myuserid");
 
-  const navigate = useNavigate();
-    
   useEffect(() => {
-          async function getData() {
-              try {
-                const users = await fetch("/api/v1/users/"+ info.id);
-                if (users.status === 404) {
-                  navigate("users/not-found");
-                }
-                if (users.status === 200) {
-                  const json = await users.json();
-                  setUsers(json);
-                }
-              } catch (error) {
-              throw Error(error);
-          }
-      }
-      getData();
-  }, []);
+    async function getData() {
+        try {
+            let id="Invite"; 
 
-  console.log("PAGE INFORMATION Fetch 222222222222222222 --->", users);
+            if(!myuserid){ 
+                id="Invite"; 
+            }else{ 
+            id=myuserid; 
+            } 
+
+            const users = await fetch("/api/v1/users/"+ id);
+        
+            if (users.status === 200) {
+                const json = await users.json();
+                setUsers(json);
+            }
+        } catch (error) {
+        throw Error(error);
+        }
+    }
+    getData();
+    }, []);
 
   return (
     <>
@@ -45,14 +46,17 @@ function Delivery() {
                 ) : ( users.map( user =>
 
                   <>
-                  <Link to={`/utilisateurs/${user.id}`}><p className="previous_page">Votre compte</p></Link>
+                  {/* <Link to={`/utilisateurs/${user.id}`}><p className="previous_page">Votre compte</p></Link> */}
+
+                  <PreviousPage user={user}/>
 
                   <section className="form_section">
 
-                    <FontAwesomeIcon icon={faTruckFast} size="lg" style={{color: "rgb(255, 196, 50)"}}/>
+                    <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
                     <h3 className="form_title read">Vos informations de livraison</h3>
                   
                      <form>
+                      
                      <input
                             placeholder="Numéro de la rue"
                             type="text"
@@ -88,13 +92,24 @@ function Delivery() {
                             value={user.city}
                             disabled="disabled"
                       />
-
-                      <Link to={`/utilisateurs/infos-livraison-update/${user.id}`}><button type="button">Modifier mes informations</button></Link>
-
-                      {/* <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison-update/${user.user_id}`}>Modifier mes informations</button> */} {/* Cette version du boutton ne fonctionne pas à cause de la non persistance de la connexion */}
+                      <input
+                            placeholder="Votre numéro de téléphone"
+                            type="tel"
+                            name="phone"
+                            value={user.phone}
+                            disabled="disabled"
+                      />
+                      <input
+                            placeholder="Adresse email"
+                            type="hidden"
+                            name="email"
+                            value={user.email}
+                            disabled="disabled"
+                      />
+                      
+                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</button>
                     </form>
-                    
-                    </section>
+                  </section>
                   </>
                 ))}
     </>

@@ -18,7 +18,7 @@ import DeliveryUpdate from "./Components/Pages/Users/DeliveryUpdate";
 import InfoUser from "./Components/Pages/Users/InfoUser";
 import InfoUserUpdate from "./Components/Pages/Users/InfoUserUpdate";
 import Orders from "./Components/Pages/Users/Orders";
-import CustomersServices from "./Components/Pages/Users/CustomersServices";
+
 
 import HOCEmployees from "./Components/HOCEmployees/index";
 import Takeup from "./Components/Pages/Employees/takeup";
@@ -62,7 +62,6 @@ function App() {
             <Route path="infos-perso/:id" element={<HOC child={InfoUser} auth={true}/>} />
             <Route path="infos-perso-update/:id" element={<HOC child={InfoUserUpdate} auth={true}/>} />
             <Route path="vos-commandes/:id" element={<HOC child={Orders} auth={true}/>} />
-            <Route path="sav-message/:id" element={<HOC child={CustomersServices} auth={true}/>} />
             <Route path="not-found" element={<HOCEmployees child={NotFoundUser} auth={true}/>} />
           </Route>
           

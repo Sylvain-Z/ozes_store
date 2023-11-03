@@ -32,6 +32,11 @@
 	font-family: 'NeutraTextLight';
     src: url('../assets/fonts/NeutraText-Light.otf');		
 }
+@font-face
+{
+	font-family: 'NeutraTextItalic';
+    src: url('../assets/fonts/NeutraText-LightItalic.otf');		
+}
 
 $textColorPrimary : rgb(15, 15, 15);
 $textColorSecondary : rgb(240, 240, 240);
@@ -694,7 +699,10 @@ form {
     width: 100%;
     display: flex;
     flex-direction: column;
-    input {
+    label { 
+        color: $ponctualYellow;
+    }
+    input, .form_input {
         width: 80%;
         height: 30px;
         text-align: center;
@@ -705,6 +713,9 @@ form {
         border: transparent;
         margin: 15px auto;
     }
+    .textarea {
+        height: 300px;
+    }
     button {
         width: 50%;
         height: 40px;
@@ -712,7 +723,7 @@ form {
         color: $textColorPrimary;
         font-family: $subtitle-font-bold;
         text-transform: uppercase;
-        border: 1px solid $ponctualYellow;
+        border: none;
         margin: 25px auto;
     }
 }
@@ -726,9 +737,25 @@ form {
         font-family: $text-font-bold;
     }
 }
-.msg {
+.form_advise {
+    width: 75%;
+    margin: auto;
+    font-family: 'NeutraTextItalic' ;
+    color: grey;
+}
+.msg_red {
     text-align: center;
     color: $ponctualRed;
+}
+.msg_green {
+    text-align: center;
+    color: $ponctualGreen;
+    margin-bottom: 25px;
+}
+.msg_yellow {
+    color : $ponctualYellow;
+
+    margin-bottom: 25px;
 }
 
 /* PAGES UTILISATEURS */
@@ -746,9 +773,37 @@ form {
     line-height: 40px;
     margin: 10px auto 25px auto;
 }
+.contact_button {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+    color: $ponctualBlue;
+    p {
+        margin: 20px;
+    }
+    button {
+        width: 50%;
+        height: 40px;
+        background-color: $ponctualBlue;
+        color: $textColorSecondary;
+        font-family: $subtitle-font-bold;
+        border: none;
+        border-radius: 20px;
+        margin: 10px auto;
+    }
+}
 .read, .update{
     margin-top: 25px;
 }
 .update {
     color : $ponctualRed;
+}
+.fontawesomeGreen {
+    color: $ponctualGreen;
+}
+.fontawesomeRed {
+    color: $ponctualRed;
+}
+.fontawesomeYellow {
+    color: $ponctualYellow;
 }

@@ -14,7 +14,7 @@ import LogoPeQ from '../../assets/img/LogoPeQ.png';
 
 function Header() {
 
-    const { info } = useSelector((state) => state.user);
+    // const { info } = useSelector((state) => state.user);
 
     const [ menuHidden, setMenuHidden ] = useState(false);
     const toggleMenu = () => setMenuHidden(!menuHidden);
@@ -27,17 +27,26 @@ function Header() {
     useEffect(() => {
         async function getData() {
             try {
-              const users = await fetch("/api/v1/users/"+ info.id);
-              if (users.status === 200) {
-                const json = await users.json();
-                setUsers(json);
-              }
+                let id="Invite"; 
+             
+                if(!localStorage.getItem("myuserid")){ 
+                    id="Invite"; 
+                }else{ 
+                   id=localStorage.getItem("myuserid"); 
+                } 
+
+                const users = await fetch("/api/v1/users/"+ id);
+              
+                if (users.status === 200) {
+                    const json = await users.json();
+                    setUsers(json);
+                }
             } catch (error) {
             throw Error(error);
         }
-    }
-    getData();
-    }, []);
+        }
+        getData();
+        }, []);
     
     
     return (
@@ -50,8 +59,8 @@ function Header() {
                             <Link to="/"><h1>OZES STORE</h1></Link>
                         </div>
 
-                        <FontAwesomeIcon icon={faBars} style={{color: "rgb(255, 196, 50)",}} size="2xl" className={menuHidden ? "faBars burger_hidden" : "faBars"} onClick={toggleMenu}/>
-                        <FontAwesomeIcon icon={faXmark} style={{color: "rgb(255, 196, 50)",}} size="2xl" className={menuHidden ? "faXmark" : "faXmark burger_hidden"} onClick={toggleMenu}/>
+                        <FontAwesomeIcon icon={faBars} size="2xl" className={menuHidden ? "faBars fontawesomeYellow burger_hidden" : "faBars fontawesomeYellow"} onClick={toggleMenu}/>
+                        <FontAwesomeIcon icon={faXmark} size="2xl" className={menuHidden ? "faXmark fontawesomeYellow" : "faXmark fontawesomeYellow burger_hidden"} onClick={toggleMenu}/>
                         
                         <div className={menuHidden ? "" : "burger_hidden"}>
                             <nav>
@@ -59,7 +68,7 @@ function Header() {
                                 <NavLink to="/la_marque">La marque</NavLink>
                             </nav>
 
-                            {!info.isLogged ? (
+                            {!localStorage.getItem("myuserid") ? (
                                 <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                 ) : ( 
                                     <>
@@ -67,11 +76,11 @@ function Header() {
                                         <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                         ) : ( users.map ( user => 
                                             <>
-                                                <Link to={`/utilisateurs/${user.user_id}`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
+                                                <Link to={`/utilisateurs/${user.id}`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
                                                 <Link to={"/utilisateurs/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
                                             </>
                                         ))
-                                    };
+                                    }
                                         
                                     </>
                                 )}                

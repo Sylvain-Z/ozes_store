@@ -2,7 +2,6 @@ import Query from "../model/Query.js";
 import { hash } from "bcrypt";
 import bcrypt from "bcrypt"
 import jsonwebtoken from "jsonwebtoken";
-import jwt from 'jsonwebtoken';
 
 const { sign } = jsonwebtoken;
 const { SK }   = process.env;
@@ -17,25 +16,6 @@ const check_token = async (req, res) => {
         throw Error(error);
     }
 };
-
-const getSession = async (req, res) => {
-    try {
-        const token = req.headers.authentication.split(' ')[1];
-        const decodedToken = jwt.verify(token, SK);
-
-        const query = "SELECT * from users WHERE email = ?";
-        const [datas] = await Query.findByDatas(query, [decodedToken.email]);
-
-        if (!datas.lenght) {
-            res.status(404).json({ msg: "Utilisateur non reconnu" })
-        }
-        res.status(200).json(datas);
-    } catch (error) {
-        throw Error(error);
-    }
-};
-
-
 
 const createAccount = async (req, res) => {
     try {
@@ -114,6 +94,8 @@ const userInformations = async (req, res) => {
     const queryUser = "SELECT * FROM users WHERE users.email = ?";
     const [user] = await Query.findByDatas(queryUser, req.params);
 
+    console.log("USERINFORMATIONS CONTROLLER user --->", user);
+
     if(!user.length){
         res.status(404).json({msg: "utilisateur non reconnu"})
     }
@@ -128,22 +110,25 @@ const updatePersonalsInformations = async (req, res) => {
         let msg = "";
         const datas = { firstname : req.body.firstname,
                         lastname: req.body.lastname,
-                        email: req.body.email,
-                        birthdate: req.body.birthdate,
-                        password: await hash(req.body.password, SALT),         
+                        password: await hash(req.body.password, SALT),
+                        email: req.body.email,       
                        };
         const queryUser =
-            "SELECT id, firstname, lastname, email, birthdate, password FROM users WHERE users.email = ?";
+            "SELECT id, email, firstname, lastname, password FROM users WHERE users.email = ?";
         const [user] = await Query.findByDatas(queryUser, req.params);
+
+        console.log("updatePersonalsInformations CONTROLLER REQ.PARAMS --->", req.params);
+        console.log("updatePersonalsInformations CONTROLLER user --->", user);
+        console.log("updatePersonalsInformations CONTROLLER DATAS --->", datas);
         
-        const query =
-                // "INSERT INTO users (firstname, lastname, email, password, birthdate) VALUES(?, ?, ?, ?, ?)";
-                "UPDATE users SET firstname = ?, lastname = ?, email = ?, birthdate = ?, password = ? WHERE users.email = ?";
+        if(user.length){
+            const query =
+                "UPDATE users SET firstname = ? , lastname = ? , password = ? , email = ? WHERE users.email = ?";
             await Query.write(query, datas);
 
             msg = "Vos informations ont été mise à jour !";
             res.status(201).json({ msg });
-        
+        }
     } catch (error) {
         throw Error(error);
     }
@@ -153,28 +138,21 @@ const updateDeliveryInformations = async (req, res) => {
     try {
         let msg = "";
         const datas = {
-            email: req.body.email,
             number: req.body.number,
             street: req.body.street,
             complement: req.body.complement,
             postal_code: req.body.postal_code,
-            city: req.body.city                        
+            city: req.body.city,
+            phone: req.body.phone,                 
+            email: req.body.email,                   
                        };
         const queryUser =
-            "SELECT id, email, number, street, complement, postal_code, city FROM users WHERE users.email = ?";
+            "SELECT id, email, number, street, complement, postal_code, city, phone FROM users WHERE email = ?";
         const [user] = await Query.findByDatas(queryUser, req.params);
 
         if(user.length){
-            const datas = {
-                email: req.body.email,
-                number: req.body.number,
-                street: req.body.street,
-                complement: req.body.complement,
-                postal_code: req.body.postal_code,
-                city: req.body.city                        
-            };
             const query =
-                "UPDATE users SET number = ? , street = ? , complement = ? , postal_code = ? , city = ?  WHERE users.email = ?";
+                "UPDATE users SET number = ? , street = ? , complement = ? , postal_code = ? , city = ?, phone = ?  WHERE email = ?";
             await Query.write(query, datas);
 
             msg = "Vos informations ont été mise à jour !";
@@ -186,4 +164,29 @@ const updateDeliveryInformations = async (req, res) => {
     }
 };
 
-export { check_token, getSession, createAccount, signin , getAllUsers, userInformations , updatePersonalsInformations, updateDeliveryInformations };
+const updatePassword = async (req, res) => {
+    try {
+        let msg = "";
+        const datas = {
+            // password: req.body.password,
+            password: await hash(req.body.password, SALT),                  
+                       };
+        const queryUser =
+            "SELECT id, email, password FROM users WHERE email = ?";
+        const [user] = await Query.findByDatas(queryUser, req.params);
+
+        if(user.length){
+            const query =
+                "UPDATE users SET password = ?  WHERE email = ?";
+            await Query.write(query, datas);
+
+            msg = "Votre mot de passe à été mis à jour !";
+            res.status(201).json({ msg });
+            }
+
+    } catch (error) {
+        throw Error(error);
+    }
+};
+
+export { check_token, createAccount, signin , getAllUsers, userInformations , updatePersonalsInformations, updateDeliveryInformations, updatePassword };

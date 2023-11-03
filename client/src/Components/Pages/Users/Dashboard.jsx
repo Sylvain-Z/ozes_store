@@ -1,8 +1,8 @@
 import React from 'react'
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
-import { Link , useNavigate } from 'react-router-dom';
+import { Link , /* useNavigate */ } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge, faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -13,55 +13,34 @@ import Loading from "../Containers/Loading";
 
 function Dashboard() {
 
-  const { info } = useSelector((state) => state.user);
+  // const { info } = useSelector((state) => state.user);
   const [ users, setUsers ] = useState(null);
-  const [ session, setSession ] = useState(null);
+  const myuserid = localStorage.getItem("myuserid");
 
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getData() {
         try {
-          const users = await fetch("/api/v1/users/" + info.id);
-          if (users.status === 404) {
-            navigate("utilisateurs/not-found");
-          }
-          if (users.status === 200) {
-            const json = await users.json();
-            setUsers(json);
-          }
+            let id="Invite"; 
+
+            if(!myuserid){ 
+                id="Invite"; 
+            }else{ 
+            id=myuserid; 
+            } 
+
+            const users = await fetch("/api/v1/users/"+ id);
+        
+            if (users.status === 200) {
+                const json = await users.json();
+                setUsers(json);
+            }
         } catch (error) {
         throw Error(error);
+        }
     }
-}
-getData();
-}, []);
-
-  useEffect(() => {
-    async function getSession() {
-      try {
-        const TOKEN = localStorage.getItem('auth');
-        const res = await fetch("api/v1/users/session/${info.id}", {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authentication' : `Bearer ${TOKEN}`
-          }
-        });
-        const json = await res.json();
-        setSession(json);
-
-      } catch (error) {
-        throw Error(error);
-      }
-    }
-    getSession();
-  },[]);
-  console.log("SESSION DASHBOARD ->", session)
-    
-  
-
-  
+    getData();
+    }, []);
 
   return (
     <>
@@ -84,15 +63,17 @@ getData();
                         <p className="dashboard_titles dt2">Mes commandes</p>
                       </Link>
 
-                      <FontAwesomeIcon icon={faMessage} />
-                      <Link to={`/utilisateurs/sav-message/${user.id}`}>
-                        <p className="dashboard_titles dt3">Service Client</p>
-                      </Link>
-
                       <FontAwesomeIcon icon={faIdBadge} />
                       <Link to={`/utilisateurs/infos-perso/${user.id}`}>
                         <p className="dashboard_titles dt3">Infos Personelles</p>
                       </Link>
+
+                      <div className='contact_button'>
+                        <FontAwesomeIcon icon={faMessage} />
+                        <p>Vous souhaitez nous contacter ? Appelez ou écrivez-nous</p>
+                        <button onClick={() => window.location = 'tel:+0000000000'} >0799154295</button>
+                        <button onClick={() => window.location = 'mailto:ozes.store@gmail.com'}>ozes.store@gmail.com</button>
+                      </div>
                     </>
                     ))}
 

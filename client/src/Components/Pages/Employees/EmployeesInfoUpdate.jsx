@@ -3,19 +3,19 @@ import { useState, useEffect, /* useReducer */ } from "react";
 import { /*useSelector ,  useDispatch */ } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../Containers/Loading";
 
-function DeliveryUpdate() {
+function EmployeesInfoUpdate() {
   
   // const { info } = useSelector((state) => state.user);
   // const params   = useParams();
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
-  const [users, setUsers]               = useState(null);
+  const [employees, setEmployees]       = useState(null);
   const [firstname, setFirstname]       = useState("");
   const [lastname, setLastname]         = useState("");
   const [number, setNumber]             = useState("");
@@ -24,28 +24,28 @@ function DeliveryUpdate() {
   const [postal_code, setPostal_code]   = useState("");
   const [city, setCity]                 = useState("");
   const [phone, setPhone]               = useState("");
-  const [pseudo, setPseudo]               = useState("");
+  const [email, setEmail]               = useState("");
   const [msg, setMsg]                   = useState(null);
     
-  const myuserid = localStorage.getItem("myuserid");
+  const myemployeeid = localStorage.getItem("myemployeeid");
 
   useEffect(() => {
     async function getData() {
         try {
             let id="Invite"; 
 
-            if(!myuserid){ 
+            if(!myemployeeid){ 
                 id="Invite"; 
             }else{ 
-            id=myuserid; 
+            id=myemployeeid; 
             } 
 
-            const users = await fetch("/api/v1/users/"+ id);
+            const employees = await fetch("/api/v1/employees/"+ id);
 
-            if (users.status === 200) {
-                const json = await users.json();
+            if (employees.status === 200) {
+                const json = await employees.json();
                 
-                setUsers(json);
+                setEmployees(json);
                 
                 setFirstname(json[0].firstname);
                 setLastname(json[0].lastname);
@@ -54,9 +54,8 @@ function DeliveryUpdate() {
                 setComplement(json[0].complement);
                 setPostal_code(json[0].postal_code);
                 setCity(json[0].city);
-                setPhone(json[0].phone);
-                setPseudo(json[0].pseudo);
-                
+                setPhone(json[0].phone);            
+                setEmail(json[0].email);            
             }
         } catch (error) {
         throw Error(error);
@@ -68,10 +67,10 @@ function DeliveryUpdate() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch(`/api/v1/users/infos-livraison-update/${myuserid}`, {
+    const res = await fetch(`/api/v1/employees/update/${myemployeeid}`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, pseudo }),
+        body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, email }),
     });
     const json = await res.json();
     setMsg(json.msg);
@@ -82,17 +81,17 @@ function DeliveryUpdate() {
 
   return (
     <>
-          {!users ? (
+          {!employees ? (
                       <Loading/>
-                  ) : ( users.map( user =>
+                  ) : ( employees.map( employee =>
 
                     <>
-                      <Link to={`/utilisateurs/infos-livraison/${user.id}`}><p className="previous_page">Retour</p></Link>
+                      <Link to={`/employes/${employee.id}`}><p className="previous_page">Retour</p></Link>
 
                       <section className="form_section">
     
-                        <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
-                        <h3 className="form_title update">Modification de vos informations de livraison</h3>
+                        <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
+                        <h3 className="form_title update">Modification de vos informations personnelles</h3>
 
                         {msg && <p className="msg_green">{msg}</p>}
 
@@ -100,59 +99,59 @@ function DeliveryUpdate() {
 
                           {/* <label for="firstname">Votre prénom</label> */}
                           <input
-                                placeholder="Votre prénom"
-                                type="text"
-                                name="firstname"
-                                value={firstname}
-                                onChange={(e) => setFirstname(e.target.value)}                          
+                            placeholder="Votre prénom"
+                            type="text"
+                            name="firstname"
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}                          
                           />
                           {/* <label for="lastname">Votre nom</label> */}
                           <input
-                                placeholder="Votre nom"
-                                type="text"
-                                name="lastname"
-                                value={lastname}
-                                onChange={(e) => setLastname(e.target.value)}
+                            placeholder="Votre nom"
+                            type="text"
+                            name="lastname"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
                           />
                           {/* <label for="number">Numéro de la rue</label> */}
                           <input
-                                placeholder="Numéro de la rue"
-                                type="number"
-                                name="number"
-                                value={number}
-                                onChange={(e) => setNumber(e.target.value)}                          
+                            placeholder="Numéro de la rue"
+                            type="number"
+                            name="number"
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}                          
                           />
                           {/* <label for="street">Nom de la rue</label> */}
                           <input
-                                placeholder="Nom de la rue"
-                                type="text"
-                                name="street"
-                                value={street}
-                                onChange={(e) => setStreet(e.target.value)}
+                            placeholder="Nom de la rue"
+                            type="text"
+                            name="street"
+                            value={street}
+                            onChange={(e) => setStreet(e.target.value)}
                           />
                           {/* <label for="complement">Complément d'adresse</label> */}
                           <input
-                                placeholder="Complément d'adresse"
-                                type="text"
-                                name="complement"
-                                value={complement}
-                                onChange={(e) => setComplement(e.target.value)}
+                            placeholder="Complément d'adresse"
+                            type="text"
+                            name="complement"
+                            value={complement}
+                            onChange={(e) => setComplement(e.target.value)}
                           />
                           {/* <label for="postal_code">Code postal</label> */}
                           <input
-                                placeholder="Code postal"
-                                type="text"
-                                name="postal_code"
-                                value={postal_code}
-                                onChange={(e) => setPostal_code(e.target.value)}
+                            placeholder="Code postal"
+                            type="text"
+                            name="postal_code"
+                            value={postal_code}
+                            onChange={(e) => setPostal_code(e.target.value)}
                           />
                           {/* <label for="city">Ville</label> */}
                           <input
-                                placeholder="Ville"
-                                type="text"
-                                name="city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
+                            placeholder="Ville"
+                            type="text"
+                            name="city"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
                           />
                           {/* <label for="city">Numéro de téléphone</label> */}
                           <input
@@ -162,17 +161,17 @@ function DeliveryUpdate() {
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                           />
-                          {/* <label for="pseudo">Votre pseudo</label> */}
+                          {/* <label for="lastname">Votre email</label> */}
                           <input
-                            placeholder="Votre pseudo"
+                            placeholder="Email"
                             type="hidden"
-                            name="pseudo"
-                            value={pseudo}
-                            onChange={(e) => setPseudo(e.target.value)}
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                           />
                          
                           <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                          <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                          <button type="button" onClick={() => window.location.href =`/employes/${employee.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
 
                         </form>
                       </section>
@@ -182,4 +181,4 @@ function DeliveryUpdate() {
   )
 }
 
-export default DeliveryUpdate;
+export default EmployeesInfoUpdate;

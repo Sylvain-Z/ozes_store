@@ -17,7 +17,6 @@ function Dashboard() {
   const [ users, setUsers ] = useState(null);
   const myuserid = localStorage.getItem("myuserid");
 
-
   useEffect(() => {
     async function getData() {
         try {
@@ -44,40 +43,40 @@ function Dashboard() {
 
   return (
     <>
-
-      <h2>Bienvenue sur votre compte</h2>
-
-      <div className="dashboard_nav">
-
       {!users ? (
                     <Loading/>
                 ) : ( users.map( user =>
                     <>
-                      <FontAwesomeIcon icon={faTruckFast} size="lg"/> 
-                      <Link to={`/utilisateurs/infos-livraison/${user.id}`}>
-                        <p className="dashboard_titles dt1">Infos de livraison </p>
-                      </Link>
 
-                      <FontAwesomeIcon icon={faBoxOpen} /> 
-                      <Link to={`/utilisateurs/vos-commandes/${user.id}`}>
-                        <p className="dashboard_titles dt2">Mes commandes</p>
-                      </Link>
+                      <h2>Bienvenue sur votre compte {user.pseudo}</h2>
 
-                      <FontAwesomeIcon icon={faIdBadge} />
-                      <Link to={`/utilisateurs/infos-perso/${user.id}`}>
-                        <p className="dashboard_titles dt3">Infos Personelles</p>
-                      </Link>
+                        <div className="dashboard_nav">
+                          <FontAwesomeIcon icon={faTruckFast} size="lg"/> 
+                          <Link to={`/utilisateurs/infos-livraison/${user.id}`}>
+                            <p className="dashboard_titles dt1">Infos de livraison </p>
+                          </Link>
 
-                      <div className='contact_button'>
-                        <FontAwesomeIcon icon={faMessage} />
-                        <p>Vous souhaitez nous contacter ? Appelez ou écrivez-nous</p>
-                        <button onClick={() => window.location = 'tel:+0000000000'} >0799154295</button>
-                        <button onClick={() => window.location = 'mailto:ozes.store@gmail.com'}>ozes.store@gmail.com</button>
-                      </div>
+                          <FontAwesomeIcon icon={faBoxOpen} /> 
+                          <Link to={`/utilisateurs/vos-commandes/${user.id}`}>
+                            <p className="dashboard_titles dt2">Mes commandes</p>
+                          </Link>
+
+                          <FontAwesomeIcon icon={faIdBadge} />
+                          <Link to={`/utilisateurs/infos-connexion/${user.id}`}>
+                            <p className="dashboard_titles dt3">Infos de connexion</p>
+                          </Link>
+
+                          <div className='contact_button'>
+                            <FontAwesomeIcon icon={faMessage} />
+                            <p>Vous souhaitez nous contacter ? Appelez ou écrivez-nous</p>
+                            <button onClick={() => window.location = 'tel:+0000000000'} >0799154295</button>
+                            <button onClick={() => window.location = 'mailto:ozes.store@gmail.com'}>ozes.store@gmail.com</button>
+                          </div>
+                        </div>
                     </>
                     ))}
 
-      </div>
+      
     
     </>
   )

@@ -8,7 +8,7 @@ import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../Containers/Loading";
 import PreviousPage from "./Components/previousPage";
 
-function InfoUser() {
+function InfoConnexion() {
   
   // const { info } = useSelector((state) => state.user);
 
@@ -54,22 +54,9 @@ function InfoUser() {
                   <section className="form_section">
 
                     <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
-                    <h3 className="form_title read">Vos informations Personnelles</h3>
+                    <h3 className="form_title read">Vos informations de connexion</h3>
                      <form>
-                      <input
-                            placeholder="Prénom"
-                            type="text"
-                            name="firstname"
-                            value={user.firstname}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Nom"
-                            type="text"
-                            name="lastname"
-                            value={user.lastname}
-                            disabled="disabled"
-                      />
+                      
                       <input
                             placeholder="Mot de passe"
                             type="password"
@@ -85,7 +72,7 @@ function InfoUser() {
                             disabled="disabled"
                       />
 
-                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-perso-update/${user.id}`}>Modifier mes informations</button>
+                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-connexion-update/${user.id}`}>Modifier mes informations</button>
 
                     </form>
                     </section>
@@ -96,4 +83,4 @@ function InfoUser() {
   )
 }
 
-export default InfoUser;
+export default InfoConnexion;

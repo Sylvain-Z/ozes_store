@@ -211,6 +211,19 @@ button:hover {
   display: none;
 }
 
+.cart {
+  position: relative;
+}
+
+.cart_content {
+  position: absolute;
+  font-family: "NeutraTextBook";
+  color: rgb(3, 149, 8);
+  top: -5px;
+  left: 35%;
+  transform: translateY(5px);
+}
+
 .navigation_footer {
   background-image: url("../assets/img/Fond_Noir.jpg");
   display: flex;
@@ -336,8 +349,8 @@ article {
 }
 .sorting_list button {
     text-decoration: none;
-    color: $textColorPrimary;
-    background-color: $ponctualYellow;
+    color: $Black;
+    background-color: $Yellow;
     font-weight: bold;
     padding: 10px 25px;
     margin: 15px 15px;
@@ -345,13 +358,13 @@ article {
     transition: color 0.2s, background-color 0.5s;
 }
 .sorting_list button:hover {
-    background-color: $textColorPrimary;
-    color: $ponctualYellow;
+    background-color: $Black;
+    color: $Yellow;
     cursor: pointer;
 }
      .sort_active {
-    background-color: $textColorPrimary;
-    color: $textColorSecondary;
+    background-color: $Black;
+    color: $White;
 } */
 .shop, .shop_tshirts, .community,
 .social_medias_post,
@@ -534,6 +547,7 @@ article {
   margin-top: 15px;
 }
 .product_page .product_description form label {
+  color: rgb(26, 28, 93);
   margin: 5px 0 -5px 0;
 }
 .product_page .product_description .choose {
@@ -715,7 +729,7 @@ form input, form .form_input {
   margin: 15px auto;
 }
 form .textarea {
-  height: 300px;
+  height: 150px;
 }
 form button {
   width: 50%;
@@ -741,7 +755,7 @@ form button {
 
 .form_advise {
   width: 75%;
-  margin: auto;
+  margin: 50px auto 0 auto;
   font-family: "NeutraTextItalic";
   color: grey;
 }
@@ -816,4 +830,55 @@ form button {
 
 .fontawesomeYellow {
   color: rgb(255, 196, 50);
+}
+
+/* PAGES EMPLOYES */
+.reserve {
+  width: 90vw;
+  margin: auto;
+  padding: 25px 0;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255, 196, 50);
+  border-radius: 10px;
+}
+.reserve a {
+  color: rgb(15, 15, 15);
+}
+.reserve thead {
+  margin-bottom: 15px;
+}
+.reserve tr {
+  width: 100%;
+  display: flex;
+}
+.reserve tr .img_cell {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reserve th, .reserve td {
+  width: 16%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+.reserve .products_list {
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid rgb(240, 240, 240);
+}
+.reserve .products_list img {
+  width: 50px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+.reserve .products_list p {
+  text-align: center;
+  width: 100px;
 }/*# sourceMappingURL=App.css.map */

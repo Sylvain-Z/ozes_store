@@ -38,12 +38,13 @@
     src: url('../assets/fonts/NeutraText-LightItalic.otf');		
 }
 
-$textColorPrimary : rgb(15, 15, 15);
-$textColorSecondary : rgb(240, 240, 240);
-$ponctualYellow : rgb(255, 196, 50);
-$ponctualRed : rgb(199, 18, 18);
-$ponctualBlue : rgb(26, 28, 93);
-$ponctualGreen : rgb(3, 149, 8);
+$Black : rgb(15, 15, 15);
+$White : rgb(240, 240, 240);
+$Yellow : rgb(255, 196, 50);
+$Red : rgb(199, 18, 18);
+$Blue : rgb(26, 28, 93);
+$Green : rgb(3, 149, 8);
+$Darked : rgba(15, 15, 15, 0.5);
 $title-font : 'CaviarOzesRegular';
 $title-font-bold : 'CaviarOzesBold';
 $subtitle-font : 'Caviar Dreams';
@@ -51,7 +52,6 @@ $subtitle-font-bold : 'Caviar Dreams Bold';
 $text-font : 'NeutraTextBook';
 $text-font-bold : 'NeutraTextBold';
 $text-font-light : 'NeutraTextLight';
-$background-darked : rgba(15, 15, 15, 0.5);
 
 
 /* GENERALES */
@@ -80,7 +80,7 @@ button:hover {
 .notFound {
     margin-top: 100px;
     font-family: $subtitle-font;
-    color : $ponctualBlue;
+    color : $Blue;
 }
 
 /* ACCUEIL  */
@@ -100,7 +100,7 @@ button:hover {
         font-family: $title-font-bold;
         text-transform: uppercase;
         text-align: center;
-        color: $textColorSecondary;
+        color: $White;
     }
     .home_main {
         width: 100vw;
@@ -130,7 +130,7 @@ button:hover {
     bottom: 0;
     padding: 25px 0px;
     .copyright {
-        color: $ponctualYellow;
+        color: $Yellow;
         font-size: 12px;
     }
     .sociallinks, .other_pages{
@@ -153,18 +153,18 @@ button:hover {
         font-family: $text-font-light;
         font-weight: 100;
         font-size: 14px;
-        color: $textColorSecondary;
+        color: $White;
         text-transform: uppercase;
         margin-top: 50px;
         .blue{
-            background-color: $ponctualBlue;
+            background-color: $Blue;
         }
         .white{
-            background-color: $textColorSecondary;
-            color: $textColorPrimary;
+            background-color: $White;
+            color: $Black;
         }
         .red{
-            background-color: $ponctualRed;
+            background-color: $Red;
         }
     }
     .header_width {
@@ -175,7 +175,7 @@ button:hover {
         align-items: center;
     }
     a {
-    color: $textColorPrimary;
+    color: $Black;
     }
     div {
         display: flex;
@@ -186,7 +186,7 @@ button:hover {
         }
         h1 {
             font-size: 30px;
-            color: $textColorSecondary;
+            color: $White;
         }
     }
     
@@ -199,17 +199,17 @@ button:hover {
             text-align: center;
             font-size: 20px;
             text-transform: uppercase;
-            color: $ponctualYellow;
+            color: $Yellow;
             padding: 6px 30px;
             margin: 5px 0;
         }
         a:hover{
-            background-color: $background-darked;
-            color: $textColorSecondary;
+            background-color: $Darked;
+            color: $White;
         }
         .active {
-            background-color: $background-darked;
-            color: $textColorSecondary;            
+            background-color: $Darked;
+            color: $White;            
         }
     }
     .picto_header {
@@ -219,7 +219,7 @@ button:hover {
         border-radius: 50%;
     }
     .picto_header:hover {
-        background-color: $background-darked;
+        background-color: $Darked;
     }
     .faBars, .faXmark {
         margin-top: 25px;
@@ -232,6 +232,17 @@ button:hover {
         display: none;
     }
 
+}
+.cart {
+    position: relative;
+}
+.cart_content {
+    position: absolute;
+    font-family: $text-font;
+    color : $Green;
+    top: -5px;
+    left : 35%;
+    transform: translateY(5px);
 }
 .navigation_footer {
     background-image: url("../assets/img/Fond_Noir.jpg");
@@ -254,7 +265,7 @@ button:hover {
         font-family: $subtitle-font-bold;
     }
     a, p {
-        color: $ponctualYellow;
+        color: $Yellow;
         margin: 25px;
     }
 }
@@ -267,7 +278,7 @@ button:hover {
 h2 {
     font-family: $title-font-bold;
     font-size: 35px;
-    color: $textColorPrimary;
+    color: $Black;
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 50px;
@@ -280,7 +291,7 @@ h3
 	font-family: $subtitle-font-bold;
 	font-size: 25px;
     text-transform: uppercase;
-	color: $ponctualRed;
+	color: $Red;
 	text-align: center;
 }
 article {
@@ -294,20 +305,20 @@ article {
         width : 100%;
         margin-bottom: 25px; 
         border-radius: 50%;
-        box-shadow: 0px 5px 25px 0px $textColorPrimary;
+        box-shadow: 0px 5px 25px 0px $Black;
     }
     figcaption p {
         position: absolute;
         width: 150%;
         top: 45px;
         left: -28px;
-        background-color: $ponctualYellow;
+        background-color: $Yellow;
         text-align: center;
-        color: $textColorPrimary;
+        color: $Black;
         font-family: $subtitle-font-bold;
         text-transform: uppercase;
         font-size: 14px;
-        border: 1px solid $ponctualYellow;
+        border: 1px solid $Yellow;
         margin: 25px auto;
     }
     
@@ -331,8 +342,8 @@ article {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid $textColorPrimary;
-    border-bottom: 1px solid $textColorPrimary;
+    border-top: 1px solid $Black;
+    border-bottom: 1px solid $Black;
     margin: 50px 0;
     padding: 25px 0;
     img {
@@ -355,8 +366,8 @@ article {
 }
 .sorting_list button {
     text-decoration: none;
-    color: $textColorPrimary;
-    background-color: $ponctualYellow;
+    color: $Black;
+    background-color: $Yellow;
     font-weight: bold;
     padding: 10px 25px;
     margin: 15px 15px;
@@ -364,13 +375,13 @@ article {
     transition: color 0.2s, background-color 0.5s;
 }
 .sorting_list button:hover {
-    background-color: $textColorPrimary;
-    color: $ponctualYellow;
+    background-color: $Black;
+    color: $Yellow;
     cursor: pointer;
 }
      .sort_active {
-    background-color: $textColorPrimary;
-    color: $textColorSecondary;
+    background-color: $Black;
+    color: $White;
 } */
 .shop, .shop_tshirts, .community,
 .social_medias_post,
@@ -391,7 +402,7 @@ article {
         position: relative;
         .italic {
             margin-top: 50px;
-            color: $textColorSecondary;
+            color: $White;
             font-style: italic;
             background-color: rgba(255, 196, 50, 0.7);
             padding: 5px 10px;
@@ -420,7 +431,7 @@ article {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: $textColorPrimary;
+    color: $Black;
     font-size: 20px;
     font-weight: bold;
     transition: .7s all;
@@ -432,7 +443,7 @@ article {
         bottom: 30px;
         display: flex;
         justify-content: center;
-        color: $ponctualYellow;
+        color: $Yellow;
         font-size: 18px;
         font-weight: bold;
         }
@@ -477,7 +488,7 @@ article {
             margin-bottom: 25px;
         }
         .fa-solid {
-            color: $ponctualYellow;
+            color: $Yellow;
         }
         p {
         margin: 10px auto;
@@ -488,7 +499,7 @@ article {
         display: flex;
         flex-direction: column;
         img {
-        box-shadow: 2px 2px 10px $background-darked;
+        box-shadow: 2px 2px 10px $Darked;
         width: 100%;
         margin-bottom: 50px;
         }
@@ -532,6 +543,7 @@ article {
         form {
             margin-top: 15px;
             label {
+                color: $Blue;
                 margin: 5px 0 -5px 0;
             }
         }
@@ -542,8 +554,8 @@ article {
                 width: 100%;
                 height: 30px;
                 text-align: center;
-                background-color: $ponctualBlue;
-                color: $textColorSecondary;
+                background-color: $Blue;
+                color: $White;
                 font-family: $text-font;
                 font-size: 16px;
                 border: transparent;
@@ -552,11 +564,11 @@ article {
             .add_to_cart {
                 width: 75%;
                 height: 40px;
-                background-color: $ponctualYellow;
-                color: $textColorPrimary;
+                background-color: $Yellow;
+                color: $Black;
                 font-family: $subtitle-font-bold;
                 text-transform: uppercase;
-                border: 1px solid $ponctualYellow;
+                border: 1px solid $Yellow;
                 margin: 25px auto;
             }         
         }
@@ -565,7 +577,7 @@ article {
 .page_product_links, .page_blog_links {
     margin-top: 10px;
     font-style: italic;
-    color: $textColorPrimary;
+    color: $Black;
 }
 .cotonpicto {
     width: 50px;
@@ -583,10 +595,10 @@ article {
 }
 .bio, .ricin, .bronze, .silver {
     text-align: center;
-    color: $textColorSecondary; 
+    color: $White; 
 }
 .bio, .ricin {
-    background-color: $ponctualGreen;
+    background-color: $Green;
 }
 .bronze {
     background-color: #aa8818;
@@ -642,7 +654,7 @@ article {
         a {
             text-decoration: none;
             text-transform: uppercase;
-            color: $ponctualYellow;
+            color: $Yellow;
             font-family: $title-font-bold;
             font-size: 20px;
         }
@@ -693,34 +705,34 @@ article {
 .form_title {
     font-size: 25px;
     margin: 0 0 25px 0;
-    color: $textColorSecondary;
+    color: $White;
 }
 form {
     width: 100%;
     display: flex;
     flex-direction: column;
     label { 
-        color: $ponctualYellow;
+        color: $Yellow;
     }
     input, .form_input {
         width: 80%;
         height: 30px;
         text-align: center;
-        background-color: $background-darked;
-        color: $textColorSecondary;
+        background-color: $Darked;
+        color: $White;
         font-family: $text-font;
         font-size: 16px;
         border: transparent;
         margin: 15px auto;
     }
     .textarea {
-        height: 300px;
+        height: 150px;
     }
     button {
         width: 50%;
         height: 40px;
-        background-color: $ponctualYellow;
-        color: $textColorPrimary;
+        background-color: $Yellow;
+        color: $Black;
         font-family: $subtitle-font-bold;
         text-transform: uppercase;
         border: none;
@@ -731,29 +743,29 @@ form {
     width: 80%;
     margin: auto;
     text-align: center;
-    color: $textColorSecondary;
+    color: $White;
     a {
-        color: $ponctualYellow;
+        color: $Yellow;
         font-family: $text-font-bold;
     }
 }
 .form_advise {
     width: 75%;
-    margin: auto;
+    margin: 50px auto 0 auto;
     font-family: 'NeutraTextItalic' ;
     color: grey;
 }
 .msg_red {
     text-align: center;
-    color: $ponctualRed;
+    color: $Red;
 }
 .msg_green {
     text-align: center;
-    color: $ponctualGreen;
+    color: $Green;
     margin-bottom: 25px;
 }
 .msg_yellow {
-    color : $ponctualYellow;
+    color : $Yellow;
 
     margin-bottom: 25px;
 }
@@ -766,8 +778,8 @@ form {
 }
 .dashboard_titles {
     text-transform: uppercase;
-    background-color: $ponctualYellow;
-    color: $textColorPrimary;
+    background-color: $Yellow;
+    color: $Black;
     width: 60%;
     height: 40px;
     line-height: 40px;
@@ -777,15 +789,15 @@ form {
     display: flex;
     flex-direction: column;
     margin-top: 50px;
-    color: $ponctualBlue;
+    color: $Blue;
     p {
         margin: 20px;
     }
     button {
         width: 50%;
         height: 40px;
-        background-color: $ponctualBlue;
-        color: $textColorSecondary;
+        background-color: $Blue;
+        color: $White;
         font-family: $subtitle-font-bold;
         border: none;
         border-radius: 20px;
@@ -796,14 +808,66 @@ form {
     margin-top: 25px;
 }
 .update {
-    color : $ponctualRed;
+    color : $Red;
 }
 .fontawesomeGreen {
-    color: $ponctualGreen;
+    color: $Green;
 }
 .fontawesomeRed {
-    color: $ponctualRed;
+    color: $Red;
 }
 .fontawesomeYellow {
-    color: $ponctualYellow;
+    color: $Yellow;
 }
+
+
+/* PAGES EMPLOYES */
+
+.reserve {
+    width : 90vw;
+    margin: auto;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    background-color: $Yellow;
+    border-radius: 10px;
+    a {
+        color: $Black;
+    }
+        thead {
+            margin-bottom: 15px;
+        }
+        tr {
+            width: 100%;
+            display: flex;
+            .img_cell {
+                width : 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        th, td {
+            width: 16%;
+            justify-content: center;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+     .products_list {
+        padding: 10px 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        border-bottom: 1px solid $White;
+        img {
+            width: 50px;
+            margin-right: 10px;
+            border-radius: 10px;
+        }
+        p {
+            text-align: center;
+            width: 100px;
+        }
+}}

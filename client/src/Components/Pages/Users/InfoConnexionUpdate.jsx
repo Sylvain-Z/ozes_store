@@ -9,17 +9,17 @@ import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../Containers/Loading";
 
-function InfoUserUpdate() {
+function InfoConnexionUpdate() {
   
   // const { info } = useSelector((state) => state.user);
   // const params   = useParams();
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
   const [users, setUsers] = useState(null);
-  const [firstname, setFirstname]     = useState("");
-  const [lastname, setLastname]       = useState("");
+
   const [password, setPassword]       = useState("");
   const [email, setEmail]             = useState("");
+  const [pseudo, setPseudo]             = useState("");
   const [msg, setMsg] = useState(null);
     
   const myuserid = localStorage.getItem("myuserid");
@@ -42,10 +42,9 @@ function InfoUserUpdate() {
                 
                 setUsers(json);
                 
-                setFirstname(json[0].firstname);
-                setLastname(json[0].lastname);
                 setPassword(json[0].password);
                 setEmail(json[0].email);
+                setPseudo(json[0].pseudo);
                 
             }
         } catch (error) {
@@ -58,10 +57,10 @@ function InfoUserUpdate() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch(`/api/v1/users/infos-perso-update/${myuserid}`, {
+    const res = await fetch(`/api/v1/users/infos-connexion-update/${myuserid}`, {
         method: "post",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ firstname, lastname, password, email }),
+        body: JSON.stringify({ password, email , pseudo }),
     });
     const json = await res.json();
     setMsg(json.msg);
@@ -77,33 +76,17 @@ function InfoUserUpdate() {
                   ) : ( users.map( user =>
 
                     <>
-                      <Link to={`/utilisateurs/infos-perso/${user.id}`}><p className="previous_page">Retour</p></Link>
+                      <Link to={`/utilisateurs/infos-connexion/${user.id}`}><p className="previous_page">Retour</p></Link>
 
                       <section className="form_section">
     
                         <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
-                        <h3 className="form_title update">Modification de vos informations personnelles</h3>
+                        <h3 className="form_title update">Modification de vos informations de connexion</h3>
 
                         {msg && <p className="msg_green">{msg}</p>}
 
                         <form onSubmit={handleSubmit}>
 
-                        {/* <label for="firstname">Votre prénom</label> */}
-                        <input
-                                placeholder="Votre prénom"
-                                type="text"
-                                name="firstname"
-                                value={firstname}
-                                onChange={(e) => setFirstname(e.target.value)}                          
-                          />
-                          {/* <label for="lastname">Votre nom</label> */}
-                          <input
-                                placeholder="Votre nom"
-                                type="text"
-                                name="lastname"
-                                value={lastname}
-                                onChange={(e) => setLastname(e.target.value)}
-                          />
                           {/* <label for="password">Mot de passe</label> */}
                           <input
                               placeholder="Tapez un nouveau mot de passe pour le changer"
@@ -118,11 +101,18 @@ function InfoUserUpdate() {
                                 type="email"
                                 name="email"
                                 value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                          />
+                          <input
+                                placeholder="Votre pseudo"
+                                type="hidden"
+                                name="pseudo"
+                                value={pseudo}
                                 disabled="disabled"
                           />
 
                           <p className="form_advise">
-                            <em>Contactez-nous pour changer votre adresse mail de connexion</em></p>
+                            <em>Votre pseudo est unique et n'est pas modifiable</em></p>
                           
                           <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
                           <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
@@ -137,4 +127,4 @@ function InfoUserUpdate() {
   )
 }
 
-export default InfoUserUpdate;
+export default InfoConnexionUpdate;

@@ -1,13 +1,44 @@
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { useLocation , Link } from "react-router-dom";
+import { useState , useEffect } from 'react';
 
+import user_out from '../../assets/img/user_out.png';
+import user_in from '../../assets/img/user_in.png';
+import user_logout from '../../assets/img/user_logout.png';
 import LogoPeQ from '../../assets/img/LogoPeQ.png';
 
 function Header() {
 
-    const { info } = useSelector((state) => state.user);
+    // const { info } = useSelector((state) => state.user);
     const { pathname } = useLocation();
-    console.log(info);
+    
+    const [ employees, setEmployees ] = useState(null);
+    const myemployeeid = localStorage.getItem("myemployeeid");
+    
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                let id; 
+             
+                if(!myemployeeid){ 
+                    id="Invite"; 
+                }else{ 
+                   id=myemployeeid;
+                } 
+
+                const employees = await fetch("/api/v1/employees/"+ id);
+              
+                if (employees.status === 200) {
+                    const json = await employees.json();
+                    setEmployees(json);
+                }
+            } catch (error) {
+            throw Error(error);
+            }
+        }
+        getData();
+        }, []);
     
     return (
         <>
@@ -15,17 +46,26 @@ function Header() {
                     
                     <div className="header_width">
                         <div>
-                            <Link to="/la_marque"><img className="logo_PeQ" src={LogoPeQ} alt="Logo PeQ" /></Link>
-                            <Link to="/"><h1>OZES STORE</h1></Link>
+                            <img className="logo_PeQ" src={LogoPeQ} alt="Logo PeQ" />
+                            <h1>OZES STORE SAS</h1>
                         </div>
 
-                        {!info.isLogged ? (
-                            <></>
-                        ) : (
-                            <>
-                                <h3>Bienvenue nom d'employé</h3>
-                            </>
-                        )}
+                        {!localStorage.getItem("myemployeeid") ? (
+                                <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
+                                ) : ( 
+                                    <>
+                                    {!employees ? (
+                                        <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
+                                        ) : ( 
+                                            <>
+                                                <Link to={`/employes`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
+                                                <Link to={"/employes/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
+                                            </>
+                                        )
+                                    }
+                                        
+                                    </>
+                                )}
 
                     </div>
 

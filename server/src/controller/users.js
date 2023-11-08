@@ -9,9 +9,9 @@ const SALT = 10;
 
 const check_token = async (req, res) => {
     try {
-        const queryUser = "SELECT email FROM users WHERE email = ?";
-        await Query.findByValue(queryUser, req.params.email);
-        res.status(200).json({msg: "Vérifié", id: queryUser.email })
+        const queryUser = "SELECT pseudo FROM users WHERE pseudo = ?";
+        await Query.findByValue(queryUser, req.params.pseudo);
+        res.status(200).json({msg: "Vérifié", id: queryUser.pseudo })
     } catch (error) {
         throw Error(error);
     }
@@ -21,29 +21,30 @@ const createAccount = async (req, res) => {
     try {
         let msg = "";
         let msg2 = "";
-        const datas = { lastname: req.body.lastname, email: req.body.email };
+        let msg3 = "";
+        const datas = { pseudo: req.body.pseudo, email: req.body.email };
         const queryUser =
-            "SELECT lastname, email FROM users WHERE email = ?";
+            "SELECT pseudo, email FROM users WHERE pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, datas);
 
         if (user.length) {
-            msg = "Un utilisateur avec ce nom ou cet email existe déjà";
+            msg = "Un utilisateur avec ce pseudo existe déjà";
             res.status(409).json({ msg });
 
         } else if (!user.length) {
             const datas = {
-                lastname: req.body.lastname,
+                pseudo: req.body.pseudo,
                 email: req.body.email,
                 password: await hash(req.body.password, SALT),
             };
 
             const query =
-                "INSERT INTO users (lastname, email, password, role, registration_date) VALUES(?, ?, ?, '3', NOW())";
+                "INSERT INTO users (pseudo, email, password, registration_date) VALUES(?, ?, ?, NOW())";
             await Query.write(query, datas);
 
-            msg = "Votre compte a bien été créé";
-            msg2 = "Rendez-vous sur la page de connexion";
-            res.status(201).json({ msg , msg2 });
+            msg2 = "Votre compte a bien été créé";
+            msg3 = "Rendez-vous sur la page de connexion";
+            res.status(201).json({ msg2 , msg3 });
         }
     } catch (error) {
         throw Error(error);
@@ -54,8 +55,8 @@ const createAccount = async (req, res) => {
 const signin = async (req, res) => {
     try {
         let msg = "";
-        const datas = { email: req.body.email };
-        const queryUser = "SELECT * FROM users WHERE email = ?";
+        const datas = { pseudo: req.body.pseudo };
+        const queryUser = "SELECT * FROM users WHERE pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, datas);
 
         if (user.length) {
@@ -63,7 +64,7 @@ const signin = async (req, res) => {
             const matchPassword = await bcrypt.compare(req.body.password, user[0].password);
             
             if (matchPassword){
-            const TOKEN = sign({ email: user[0].email }, SK);
+            const TOKEN = sign({ pseudo: user[0].pseudo }, SK);
             res.status(200).json({ msg, TOKEN });
             } else {
                 msg = "Mot de passe incorrecte";
@@ -71,7 +72,7 @@ const signin = async (req, res) => {
             }
 
         } else if (!user.length) {
-            msg = "L'email ou le mot de passe est incorrecte";
+            msg = "Le pseudo ou le mot de passe est incorrecte";
             res.status(409).json({ msg });
         }
     } catch (error) {
@@ -81,7 +82,7 @@ const signin = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     
-    const queryUser = "SELECT * FROM users JOIN adresses ON adresses.user_id = users.id";
+    const queryUser = "SELECT * FROM users";
     const [user] = await Query.find(queryUser);
 
     console.log(user)
@@ -91,7 +92,7 @@ const getAllUsers = async (req, res) => {
 
 const userInformations = async (req, res) => {
     
-    const queryUser = "SELECT * FROM users WHERE users.email = ?";
+    const queryUser = "SELECT * FROM users WHERE users.pseudo = ?";
     const [user] = await Query.findByDatas(queryUser, req.params);
 
     console.log("USERINFORMATIONS CONTROLLER user --->", user);
@@ -105,16 +106,48 @@ const userInformations = async (req, res) => {
     } 
 };
 
-const updatePersonalsInformations = async (req, res) => {
+const updateDelivery = async (req, res) => {
     try {
         let msg = "";
-        const datas = { firstname : req.body.firstname,
-                        lastname: req.body.lastname,
-                        password: await hash(req.body.password, SALT),
-                        email: req.body.email,       
+        const datas = {
+            firstname : req.body.firstname,
+            lastname: req.body.lastname,
+            number: req.body.number,
+            street: req.body.street,
+            complement: req.body.complement,
+            postal_code: req.body.postal_code,
+            city: req.body.city,
+            phone: req.body.phone,                 
+            pseudo: req.body.pseudo,                   
                        };
         const queryUser =
-            "SELECT id, email, firstname, lastname, password FROM users WHERE users.email = ?";
+            "SELECT id, pseudo, firstname, lastname, number, street, complement, postal_code, city, phone FROM users WHERE pseudo = ?";
+        const [user] = await Query.findByDatas(queryUser, req.params);
+
+        if(user.length){
+            const query =
+                "UPDATE users SET firstname = ? , lastname = ? , number = ? , street = ? , complement = ? , postal_code = ? , city = ?, phone = ?  WHERE pseudo = ?";
+            await Query.write(query, datas);
+
+            msg = "Vos informations ont été mise à jour !";
+            res.status(201).json({ msg });
+            }
+
+    } catch (error) {
+        throw Error(error);
+    }
+};
+
+const updateLogin = async (req, res) => {
+    try {
+        let msg = "";
+        const datas = { 
+            password: await hash(req.body.password, SALT),
+            email: req.body.email,       
+            pseudo: req.body.pseudo,       
+                       };
+        const queryUser =
+            "SELECT id, pseudo, email, password FROM users WHERE users.pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, req.params);
 
         console.log("updatePersonalsInformations CONTROLLER REQ.PARAMS --->", req.params);
@@ -123,7 +156,7 @@ const updatePersonalsInformations = async (req, res) => {
         
         if(user.length){
             const query =
-                "UPDATE users SET firstname = ? , lastname = ? , password = ? , email = ? WHERE users.email = ?";
+                "UPDATE users SET password = ? , email = ? WHERE users.pseudo = ?";
             await Query.write(query, datas);
 
             msg = "Vos informations ont été mise à jour !";
@@ -134,59 +167,6 @@ const updatePersonalsInformations = async (req, res) => {
     }
 };
 
-const updateDeliveryInformations = async (req, res) => {
-    try {
-        let msg = "";
-        const datas = {
-            number: req.body.number,
-            street: req.body.street,
-            complement: req.body.complement,
-            postal_code: req.body.postal_code,
-            city: req.body.city,
-            phone: req.body.phone,                 
-            email: req.body.email,                   
-                       };
-        const queryUser =
-            "SELECT id, email, number, street, complement, postal_code, city, phone FROM users WHERE email = ?";
-        const [user] = await Query.findByDatas(queryUser, req.params);
 
-        if(user.length){
-            const query =
-                "UPDATE users SET number = ? , street = ? , complement = ? , postal_code = ? , city = ?, phone = ?  WHERE email = ?";
-            await Query.write(query, datas);
 
-            msg = "Vos informations ont été mise à jour !";
-            res.status(201).json({ msg });
-            }
-
-    } catch (error) {
-        throw Error(error);
-    }
-};
-
-const updatePassword = async (req, res) => {
-    try {
-        let msg = "";
-        const datas = {
-            // password: req.body.password,
-            password: await hash(req.body.password, SALT),                  
-                       };
-        const queryUser =
-            "SELECT id, email, password FROM users WHERE email = ?";
-        const [user] = await Query.findByDatas(queryUser, req.params);
-
-        if(user.length){
-            const query =
-                "UPDATE users SET password = ?  WHERE email = ?";
-            await Query.write(query, datas);
-
-            msg = "Votre mot de passe à été mis à jour !";
-            res.status(201).json({ msg });
-            }
-
-    } catch (error) {
-        throw Error(error);
-    }
-};
-
-export { check_token, createAccount, signin , getAllUsers, userInformations , updatePersonalsInformations, updateDeliveryInformations, updatePassword };
+export { check_token, createAccount, signin , getAllUsers, userInformations , updateDelivery, updateLogin };

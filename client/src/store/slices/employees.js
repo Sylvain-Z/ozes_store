@@ -7,12 +7,12 @@ const initialState = {
     },
 };
 
-export const userSlice = createSlice({
+export const employeesSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
         signin: (state, action) => {
-            state.info = {isLogged: true, id: action.payload.pseudo};
+            state.info = {isLogged: true, id: action.payload.lastname};
         },
         signout: (state, action) => {
             state.info = {
@@ -24,6 +24,6 @@ export const userSlice = createSlice({
 });
 
 
-export const {signin, signout} = userSlice.actions
+export const {signin, signout} = employeesSlice.actions
 
-export default userSlice.reducer;
+export default employeesSlice.reducer;

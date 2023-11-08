@@ -15,38 +15,49 @@ import LogoPeQ from '../../assets/img/LogoPeQ.png';
 function Header() {
 
     // const { info } = useSelector((state) => state.user);
-
+    
     const [ menuHidden, setMenuHidden ] = useState(false);
     const toggleMenu = () => setMenuHidden(!menuHidden);
 
     const { pathname } = useLocation();
 
     const [ users, setUsers ] = useState(null);
-    
+    const myuserid = localStorage.getItem("myuserid");
 
     useEffect(() => {
-        async function getData() {
-            try {
-                let id="Invite"; 
-             
-                if(!localStorage.getItem("myuserid")){ 
-                    id="Invite"; 
-                }else{ 
-                   id=localStorage.getItem("myuserid"); 
-                } 
+      async function getData() {
+          try {
+              let id="Invite"; 
+  
+              if(!myuserid){ 
+                  id="Invite"; 
+              }else{ 
+              id=myuserid; 
+              } 
+  
+              const users = await fetch("/api/v1/users/"+ id);
+          
+              if (users.status === 200) {
+                  const json = await users.json();
+                  setUsers(json);
+              }
+          } catch (error) {
+          throw Error(error);
+          }
+      }
+      getData();
+      }, []);
 
-                const users = await fetch("/api/v1/users/"+ id);
-              
-                if (users.status === 200) {
-                    const json = await users.json();
-                    setUsers(json);
-                }
-            } catch (error) {
-            throw Error(error);
+
+        const { cartInfo } = useSelector((state) => state.cart);
+
+        function computeCart(){
+            let sum = 0;
+            for (const item of cartInfo.product) {
+                sum += item.quantity * item.priceEach;
+            }
+            return sum.toFixed(2);
         }
-        }
-        getData();
-        }, []);
     
     
     return (
@@ -85,7 +96,10 @@ function Header() {
                                     </>
                                 )}                
 
-                            <Link to="/panier" ><img className="picto_header" src={cart_empty} alt="pictogramme de chariot" /></Link>
+                            <Link to="/panier" className="cart">
+                                <p className="cart_content">{cartInfo.product.length ? computeCart() + "€" : ""}</p>
+                                <img className="picto_header" src={cart_empty} alt="pictogramme de chariot" />
+                            </Link>
                         </div>
                         
                     </div>

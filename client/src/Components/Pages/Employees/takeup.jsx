@@ -1,4 +1,4 @@
-import Form from "./Components/Form/index";
+import Form from "./Components/takeUp_In_form";
 
 const Takeup = () => <Form type={"up"}/>
 

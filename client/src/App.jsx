@@ -8,6 +8,8 @@ import ProductPage from "./Components/Pages/Shop/product_page";
 import Brand from "./Components/Pages/Brand/index";
 import SizeGuide from "./Components/Pages/Others/size_guide";
 import CguCgv from "./Components/Pages/Others/cgu_cgv";
+import Cart from "./Components/Pages/Others/cart";
+
 import Ulule from "./Components/Pages/Others/ulule";
 import Signup from "./Components/Pages/Users/signup";
 import Signin from "./Components/Pages/Users/signin";
@@ -15,8 +17,8 @@ import SignOut from "./Components/Pages/Users/signout";
 import Dashboard from "./Components/Pages/Users/Dashboard";
 import Delivery from "./Components/Pages/Users/Delivery";
 import DeliveryUpdate from "./Components/Pages/Users/DeliveryUpdate";
-import InfoUser from "./Components/Pages/Users/InfoUser";
-import InfoUserUpdate from "./Components/Pages/Users/InfoUserUpdate";
+import InfoConnexion from "./Components/Pages/Users/InfoConnexion";
+import InfoConnexionUpdate from "./Components/Pages/Users/InfoConnexionUpdate";
 import Orders from "./Components/Pages/Users/Orders";
 
 
@@ -24,12 +26,18 @@ import HOCEmployees from "./Components/HOCEmployees/index";
 import Takeup from "./Components/Pages/Employees/takeup";
 import Takein from "./Components/Pages/Employees/takein";
 import TakeOut from "./Components/Pages/Employees/takeout";
-import Warehouse from "./Components/Pages/Employees/Warehouse";
-import Reserve from "./Components/Pages/Employees/Reserve";
+import Desk from "./Components/Pages/Employees/Desk";
 import Sales from "./Components/Pages/Employees/Sales";
-import CustomerMessages from "./Components/Pages/Employees/CustomerMessages";
+import Reserve from "./Components/Pages/Employees/Reserve";
+import ProductAdd from "./Components/Pages/Employees/ProductAdd";
+import ProductAddCategorie from "./Components/Pages/Employees/ProductAddCategorie";
+import ProductPicAdd from "./Components/Pages/Employees/ProductPicAdd";
+import ProductUpdate from "./Components/Pages/Employees/ProductUpdate";
+import EmployeesInfo from "./Components/Pages/Employees/EmployeesInfo";
+import EmployeesInfoUpdate from "./Components/Pages/Employees/EmployeesInfoUpdate";
 
 import NotFound from "./Components/Pages/Others/notFound";
+import NotFoundEmployees from "./Components/Pages/Others/NotFoundEmployees";
 import NotFoundUser from "./Components/Pages/Others/notFoundUser";
 
 function App() {
@@ -41,6 +49,7 @@ function App() {
         <Routes>
 
           <Route path="/" element={<HOC child={Home}/>} />
+          <Route path="/panier" element={<HOC child={Cart}/>} />
 
           <Route path="le_store">
             <Route path="" element={<HOC child={Shop}/>} />
@@ -59,8 +68,8 @@ function App() {
             <Route path=":id" element={<HOC child={Dashboard} auth={true}/>} />
             <Route path="infos-livraison/:id" element={<HOC child={Delivery} auth={true}/>} />
             <Route path="infos-livraison-update/:id" element={<HOC child={DeliveryUpdate} auth={true}/>} />
-            <Route path="infos-perso/:id" element={<HOC child={InfoUser} auth={true}/>} />
-            <Route path="infos-perso-update/:id" element={<HOC child={InfoUserUpdate} auth={true}/>} />
+            <Route path="infos-connexion/:id" element={<HOC child={InfoConnexion} auth={true}/>} />
+            <Route path="infos-connexion-update/:id" element={<HOC child={InfoConnexionUpdate} auth={true}/>} />
             <Route path="vos-commandes/:id" element={<HOC child={Orders} auth={true}/>} />
             <Route path="not-found" element={<HOCEmployees child={NotFoundUser} auth={true}/>} />
           </Route>
@@ -69,13 +78,21 @@ function App() {
             <Route path="creer-un-compte" element={<HOCEmployees child={Takeup}/>} />
             <Route path="connexion" element={<HOCEmployees child={Takein}/>} />
             <Route path="deconnexion" element={<HOCEmployees child={TakeOut}/>} />
-            <Route path="entrepot" element={<HOCEmployees child={Warehouse} auth={true}/>} />
-            <Route path="reserve" element={<HOCEmployees child={Reserve} auth={true}/>} />
-            <Route path="les-commandes" element={<HOCEmployees child={Sales} auth={true}/>} />
-            <Route path="messages-clients" element={<HOCEmployees child={CustomerMessages} auth={true}/>} />
+            <Route path="" element={<HOCEmployees child={Desk}/>} />
+            <Route path=":id" element={<HOCEmployees child={EmployeesInfo} auth={true}/>} />
+            <Route path="update/:id" element={<HOCEmployees child={EmployeesInfoUpdate} auth={true}/>} />
+            <Route path="ventes" element={<HOCEmployees child={Sales} auth={true}/>} />
+            <Route path="stock">
+              <Route path="" element={<HOCEmployees child={Reserve} auth={true}/>} />
+              <Route path="add-product" element={<HOCEmployees child={ProductAdd} auth={true}/>} />
+              <Route path="add-categorie" element={<HOCEmployees child={ProductAddCategorie} auth={true}/>} />
+              <Route path="add-imagesinfos" element={<HOCEmployees child={ProductPicAdd} auth={true}/>} />
+              <Route path=":cate_url/:title_url" element={<HOCEmployees child={ProductUpdate} auth={true}/>} />
+            </Route>
           </Route>
 
           <Route path="not-found" element={<HOC child={NotFound}/>}/>
+          <Route path="employes/not-found" element={<HOC child={NotFoundEmployees}/>}/>
 
         </Routes>
       </BrowserRouter>

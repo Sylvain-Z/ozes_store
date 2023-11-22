@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "CaviarOzesRegular";
   src: url("../assets/fonts/Caviarozesregular.ttf");
@@ -13,6 +14,10 @@
 @font-face {
   font-family: "Caviar Dreams Bold";
   src: url("../assets/fonts/CaviarDreams_Bold.ttf");
+}
+@font-face {
+  font-family: "Caviar Dreams Italic";
+  src: url("../assets/fonts/CaviarDreams_BoldItalic.ttf");
 }
 @font-face {
   font-family: "NeutraTextBold";
@@ -42,7 +47,7 @@ html {
 }
 
 body {
-  font-size: 18px;
+  font-size: 16px;
   font-family: "NeutraTextBook";
 }
 
@@ -128,14 +133,12 @@ button:hover {
   margin-bottom: 50px;
 }
 .navigation_header .french_label {
-  left: 5%;
-  bottom: 0;
   font-family: "NeutraTextLight";
   font-weight: 100;
   font-size: 14px;
   color: rgb(240, 240, 240);
   text-transform: uppercase;
-  margin-top: 50px;
+  margin-top: 5px;
 }
 .navigation_header .french_label .blue {
   background-color: rgb(26, 28, 93);
@@ -154,30 +157,27 @@ button:hover {
   flex-direction: column;
   align-items: center;
 }
-.navigation_header a {
-  color: rgb(15, 15, 15);
-}
-.navigation_header div {
+.navigation_header .divlogo, .navigation_header .ctn_nav, .navigation_header .ctn_pictoheader {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.navigation_header div img {
+.navigation_header .divlogo .logo_PeQ, .navigation_header .ctn_nav .logo_PeQ, .navigation_header .ctn_pictoheader .logo_PeQ {
   height: 75px;
 }
-.navigation_header div h1 {
-  font-size: 30px;
+.navigation_header .divlogo h1, .navigation_header .ctn_nav h1, .navigation_header .ctn_pictoheader h1 {
+  font-size: 25px;
   color: rgb(240, 240, 240);
+  text-align: center;
 }
 .navigation_header nav {
   width: 100vw;
   display: flex;
   flex-direction: column;
-  margin-top: 15px;
 }
 .navigation_header nav a {
   text-align: center;
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
   color: rgb(255, 196, 50);
   padding: 6px 30px;
@@ -188,6 +188,22 @@ button:hover {
   color: rgb(240, 240, 240);
 }
 .navigation_header nav .active {
+  background-color: rgba(15, 15, 15, 0.5);
+  color: rgb(240, 240, 240);
+}
+.navigation_header .navlink_employees {
+  text-align: center;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: rgb(255, 196, 50);
+  padding: 6px 30px;
+  margin: 5px 0;
+}
+.navigation_header .navlink_employees:hover {
+  background-color: rgba(15, 15, 15, 0.5);
+  color: rgb(240, 240, 240);
+}
+.navigation_header .navlink_employees.active {
   background-color: rgba(15, 15, 15, 0.5);
   color: rgb(240, 240, 240);
 }
@@ -256,17 +272,24 @@ button:hover {
   margin: auto;
 }
 
+.previous_page {
+  width: 200px;
+  margin: 50px 0 25px 10%;
+  color: rgb(15, 15, 15);
+}
+.previous_page a {
+  color: rgb(15, 15, 15);
+}
+
 h2 {
+  max-width: 70%;
+  margin: auto;
   font-family: "CaviarOzesBold";
-  font-size: 35px;
+  font-size: 30px;
   color: rgb(15, 15, 15);
   text-align: center;
   text-transform: uppercase;
-  margin-bottom: 50px;
-}
-
-.product_name {
-  margin: 0px;
+  margin-bottom: 25px;
 }
 
 h3 {
@@ -308,7 +331,7 @@ article {
 }
 
 /* CONTENU SITE  */
-/* LE STORE & BLOG */
+/* LE STORE GALERIE - LA MARQUE - GUIDE DES TAILLES */
 .store_page_main_images {
   width: 100%;
   margin-top: -50px;
@@ -339,108 +362,74 @@ article {
   margin: 25px 0;
 }
 
-/* .sorting_list {
-    width: 70%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 25px auto 50px auto;
+.community {
+  flex-direction: column;
 }
-.sorting_list button {
-    text-decoration: none;
-    color: $Black;
-    background-color: $Yellow;
-    font-weight: bold;
-    padding: 10px 25px;
-    margin: 15px 15px;
-    border: none;
-    transition: color 0.2s, background-color 0.5s;
-}
-.sorting_list button:hover {
-    background-color: $Black;
-    color: $Yellow;
-    cursor: pointer;
-}
-     .sort_active {
-    background-color: $Black;
-    color: $White;
-} */
-.shop, .shop_tshirts, .community,
-.social_medias_post,
-.size_guide_t-shirts, .size_guide_rings {
+
+.shop, .community, .size_guide_t-shirts, .size_guide_rings {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 25px;
 }
-.shop .product_grid,
-.shop .community_elements, .shop_tshirts .product_grid,
-.shop_tshirts .community_elements, .community .product_grid,
-.community .community_elements,
-.social_medias_post .product_grid,
-.social_medias_post .community_elements,
-.size_guide_t-shirts .product_grid,
-.size_guide_t-shirts .community_elements, .size_guide_rings .product_grid,
-.size_guide_rings .community_elements {
+.shop .product_grid, .community .product_grid, .size_guide_t-shirts .product_grid, .size_guide_rings .product_grid {
   display: flex;
   width: 90%;
   margin: 1% 1%;
 }
-.shop figure, .shop_tshirts figure, .community figure,
-.social_medias_post figure,
-.size_guide_t-shirts figure, .size_guide_rings figure {
+.shop .product_grid figure, .community .product_grid figure, .size_guide_t-shirts .product_grid figure, .size_guide_rings .product_grid figure {
   position: relative;
+  width: 100%;
+  margin: auto;
 }
-.shop figure .italic, .shop_tshirts figure .italic, .community figure .italic,
-.social_medias_post figure .italic,
-.size_guide_t-shirts figure .italic, .size_guide_rings figure .italic {
-  margin-top: 50px;
-  color: rgb(240, 240, 240);
-  font-style: italic;
-  background-color: rgba(255, 196, 50, 0.7);
-  padding: 5px 10px;
-}
-.shop figure:hover, .shop_tshirts figure:hover, .community figure:hover,
-.social_medias_post figure:hover,
-.size_guide_t-shirts figure:hover, .size_guide_rings figure:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
-.shop .product_grid img, .shop .community_elements img, .shop_tshirts .product_grid img, .shop_tshirts .community_elements img, .community .product_grid img, .community .community_elements img,
-.social_medias_post .product_grid img,
-.social_medias_post .community_elements img,
-.size_guide_t-shirts .product_grid img,
-.size_guide_t-shirts .community_elements img, .size_guide_rings .product_grid img, .size_guide_rings .community_elements img {
+.shop .product_grid img, .community .product_grid img, .size_guide_t-shirts .product_grid img, .size_guide_rings .product_grid img {
   width: 100%;
   display: block;
-  -o-object-fit: cover;
-     object-fit: cover;
-  margin: 1% auto;
+  margin: auto;
 }
-.shop .product_grid figcaption, .shop_tshirts .product_grid figcaption, .community .product_grid figcaption,
-.social_medias_post .product_grid figcaption,
-.size_guide_t-shirts .product_grid figcaption, .size_guide_rings .product_grid figcaption {
+.shop .product_grid figcaption, .community .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption, .size_guide_rings .product_grid figcaption {
   position: absolute;
-  top: 0;
+  height: 125px;
+  padding-bottom: 25px;
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0;
-  background-color: rgba(255, 196, 50, 0.8);
+  background: linear-gradient(rgba(15, 15, 15, 0), rgba(15, 15, 15, 0.8));
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
-  color: rgb(15, 15, 15);
-  font-size: 20px;
+  color: rgb(240, 240, 240);
+  font-size: 25px;
   font-weight: bold;
   transition: 0.7s all;
 }
-.shop .community_elements figcaption, .shop_tshirts .community_elements figcaption, .community .community_elements figcaption,
-.social_medias_post .community_elements figcaption,
-.size_guide_t-shirts .community_elements figcaption, .size_guide_rings .community_elements figcaption {
+.shop figure:hover, .community figure:hover, .size_guide_t-shirts figure:hover, .size_guide_rings figure:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+.shop .community_elements, .community .community_elements, .size_guide_t-shirts .community_elements, .size_guide_rings .community_elements {
+  display: flex;
+  justify-content: center;
+}
+.shop .community_elements img, .community .community_elements img, .size_guide_t-shirts .community_elements img, .size_guide_rings .community_elements img {
+  width: 100%;
+  border-radius: 50%;
+  box-shadow: 0px 2px 10px rgb(15, 15, 15);
+}
+.shop .ulule_bulle figure, .community .ulule_bulle figure, .size_guide_t-shirts .ulule_bulle figure, .size_guide_rings .ulule_bulle figure {
+  position: relative;
+  width: 40%;
+}
+.shop .social_medias_links, .community .social_medias_links, .size_guide_t-shirts .social_medias_links, .size_guide_rings .social_medias_links {
+  flex-direction: row;
+}
+.shop .social_medias_links figure, .community .social_medias_links figure, .size_guide_t-shirts .social_medias_links figure, .size_guide_rings .social_medias_links figure {
+  width: 25%;
+  margin: 0 5%;
+}
+.shop .community_elements figcaption, .community .community_elements figcaption, .size_guide_t-shirts .community_elements figcaption, .size_guide_rings .community_elements figcaption {
   position: absolute;
   left: 0;
   right: 0;
@@ -450,11 +439,6 @@ article {
   color: rgb(255, 196, 50);
   font-size: 18px;
   font-weight: bold;
-}
-.shop figure:hover figcaption, .shop_tshirts figure:hover figcaption, .community figure:hover figcaption,
-.social_medias_post figure:hover figcaption,
-.size_guide_t-shirts figure:hover figcaption, .size_guide_rings figure:hover figcaption {
-  opacity: 1;
 }
 
 .blog_page_article, .ulule_page, .size_guide {
@@ -480,6 +464,7 @@ article {
 }
 
 .size_guide .warning {
+  width: 100%;
   margin: 25px auto 100px auto;
   font-size: 18px;
   font-style: italic;
@@ -509,11 +494,6 @@ article {
 }
 
 /* PAGE PRODUIT */
-.previous_page {
-  margin: 50px 0 25px 10%;
-  color: rgb(15, 15, 15);
-}
-
 .product_page {
   display: flex;
   flex-direction: column;
@@ -521,40 +501,61 @@ article {
   width: 80%;
   margin: 0 auto 50px auto;
 }
+.product_page .product_image_ctn {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
 .product_page .product_image {
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+}
+.product_page .pics_sub_ctn {
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 25px;
+  /* .product_image_sub_wide {
+      position: absolute;
+      width: 80vw;
+      top: -300px;
+  } */
+}
+.product_page .pics_sub_ctn .product_image_sub {
+  width: 25%;
+  margin-right: 2.5%;
 }
 .product_page .product_name {
   font-family: "Caviar Dreams Bold";
   font-size: 25px;
+  margin-bottom: 10px;
 }
-.product_page .product_description {
+.product_page .product_form {
   width: 100%;
   margin: 0;
 }
-.product_page .product_description p {
+.product_page .product_form p {
   font-family: "NeutraTextLight";
   text-align: center;
   line-height: 24px;
   font-size: 18px;
   margin: 10px 0;
 }
-.product_page .product_description .price, .product_page .product_description .color {
+.product_page .product_form .price, .product_page .product_form .color {
   font-size: 25px;
 }
-.product_page .product_description form {
+.product_page .product_form form {
   margin-top: 15px;
 }
-.product_page .product_description form label {
+.product_page .product_form form label {
   color: rgb(26, 28, 93);
   margin: 5px 0 -5px 0;
 }
-.product_page .product_description .choose {
+.product_page .product_form .choose {
   display: flex;
   flex-direction: column;
 }
-.product_page .product_description .choose .options {
+.product_page .product_form .choose .options {
   width: 100%;
   height: 30px;
   text-align: center;
@@ -565,7 +566,10 @@ article {
   border: transparent;
   margin: 15px auto;
 }
-.product_page .product_description .choose .add_to_cart {
+.product_page .product_form .choose .options option {
+  font-family: "NeutraTextBook";
+}
+.product_page .product_form .choose .add_to_cart {
   width: 75%;
   height: 40px;
   background-color: rgb(255, 196, 50);
@@ -586,7 +590,7 @@ article {
   width: 50px;
 }
 
-.bio, .ricin, .bronze, .silver, .ring_description, .infosup, .infosupplus {
+.matérial, .description, .infosup, .infosupplus {
   width: 100%;
   margin: 10px auto;
   font-family: "NeutraTextLight";
@@ -599,48 +603,36 @@ article {
   font-weight: bold;
 }
 
-.bio, .ricin, .bronze, .silver {
+.matérial {
   text-align: center;
   color: rgb(240, 240, 240);
 }
 
-.bio, .ricin {
-  background-color: rgb(3, 149, 8);
-}
-
-.bronze {
+.matérial {
   background-color: #aa8818;
 }
 
-.silver {
-  background-color: #777777;
+.ring_symbol_blue {
+  color: rgb(26, 28, 93);
 }
 
-.other_products {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 50px auto;
-}
-.other_products img {
-  width: 18%;
-}
-.other_products img:hover {
-  transform: scale(1.1);
+.ring_symbol_red {
+  color: rgb(199, 18, 18);
 }
 
 /* LA MARQUE */
 .brand {
   display: flex;
+  flex-direction: column;
   width: 100%;
   justify-content: center;
   align-items: center;
-  margin: 50px auto;
+  margin: auto;
 }
 .brand .brand_logo {
-  display: none;
   width: 25%;
   height: 25%;
+  margin: 0 auto 25px auto;
 }
 .brand .history {
   width: 80%;
@@ -649,11 +641,6 @@ article {
 .brand p {
   margin: 10px 0;
   line-height: 25px;
-}
-
-.mail {
-  margin-top: 50px;
-  text-align: center;
 }
 
 /* ULULE */
@@ -691,22 +678,39 @@ article {
   margin: 15px 0 25px 25px;
 }
 
-/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES USER */
+/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES */
 .form_section {
   width: 80%;
   margin: 25px auto;
-  padding: 50px 0;
-  background-image: url("../assets/img/Fond_Noir.jpg");
+  padding: 50px;
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: url("../assets/img/Fond_Noir.jpg");
+}
+.form_section .msg_red {
+  text-align: center;
+  color: rgb(199, 18, 18);
+}
+.form_section .msg_green {
+  text-align: center;
+  color: rgb(3, 149, 8);
+  margin-bottom: 25px;
+}
+.form_section .msg_yellow {
+  color: rgb(255, 196, 50);
+  margin-bottom: 25px;
 }
 
 .form_title {
   font-size: 25px;
   margin: 0 0 25px 0;
   color: rgb(240, 240, 240);
+}
+
+.form_image {
+  width: 50%;
 }
 
 form {
@@ -716,6 +720,7 @@ form {
 }
 form label {
   color: rgb(255, 196, 50);
+  margin-top: 25px;
 }
 form input, form .form_input {
   width: 80%;
@@ -739,6 +744,7 @@ form button {
   font-family: "Caviar Dreams Bold";
   text-transform: uppercase;
   border: none;
+  border-radius: 5px;
   margin: 25px auto;
 }
 
@@ -755,25 +761,9 @@ form button {
 
 .form_advise {
   width: 75%;
-  margin: 50px auto 0 auto;
+  margin: 12px auto;
   font-family: "NeutraTextItalic";
   color: grey;
-}
-
-.msg_red {
-  text-align: center;
-  color: rgb(199, 18, 18);
-}
-
-.msg_green {
-  text-align: center;
-  color: rgb(3, 149, 8);
-  margin-bottom: 25px;
-}
-
-.msg_yellow {
-  color: rgb(255, 196, 50);
-  margin-bottom: 25px;
 }
 
 /* PAGES UTILISATEURS */
@@ -782,42 +772,105 @@ form button {
   margin: 50px auto;
 }
 
-.dashboard_titles {
+.dashboard_title {
+  font-family: "Caviar Dreams Bold";
+}
+
+.dashboard_tabs {
   text-transform: uppercase;
-  background-color: rgb(255, 196, 50);
-  color: rgb(15, 15, 15);
+  background-image: url("../assets/img/Fond_Noir.jpg");
+  color: rgb(240, 240, 240);
   width: 60%;
   height: 40px;
   line-height: 40px;
   margin: 10px auto 25px auto;
 }
 
-.contact_button {
+.display_messages {
+  width: 100%;
+  margin: 50px auto;
+  padding: 50px;
+  text-align: center;
   display: flex;
   flex-direction: column;
-  margin-top: 50px;
-  color: rgb(26, 28, 93);
+  align-items: end;
+  border-top: 1px solid rgb(255, 196, 50);
 }
-.contact_button p {
-  margin: 20px;
+.display_messages .display_messages_title {
+  color: rgb(3, 149, 8);
+  margin-bottom: 25px;
 }
-.contact_button button {
+.display_messages .employees_message,
+.display_messages .user_message {
+  background-image: url("../assets/img/FondBleuHalo.jpg");
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  margin-bottom: 25px;
+  padding: 25px;
+  box-shadow: 0px 2px 6px rgb(26, 28, 93);
+}
+.display_messages .employees_message h4,
+.display_messages .user_message h4 {
+  font-family: "Caviar Dreams Bold";
+  margin: 0 auto 25px auto;
+  padding-bottom: 25px;
+  border-bottom: 1px solid rgb(26, 28, 93);
+  color: rgb(240, 240, 240);
+}
+.display_messages .employees_message p,
+.display_messages .user_message p {
+  color: rgb(240, 240, 240);
+  margin: 25px auto;
+}
+.display_messages .employees_message .message_status_yellow,
+.display_messages .user_message .message_status_yellow {
+  margin: 0;
+  text-align: right;
+  color: rgb(255, 196, 50);
+}
+.display_messages .employees_message .message_status_green,
+.display_messages .user_message .message_status_green {
+  margin: 0;
+  text-align: right;
+  color: rgb(3, 149, 8);
+}
+.display_messages .employees_message .message_content,
+.display_messages .user_message .message_content {
+  font-size: 16px;
+  font-family: "Caviar Dreams Italic";
+}
+.display_messages .employees_message .message_date,
+.display_messages .user_message .message_date {
+  width: 150px;
+  padding-top: 15px;
+  font-size: 14px;
+  border-top: 1px solid rgb(26, 28, 93);
+}
+.display_messages .employees_message a > p,
+.display_messages .user_message a > p {
   width: 50%;
   height: 40px;
-  background-color: rgb(26, 28, 93);
-  color: rgb(240, 240, 240);
+  line-height: 30px;
+  padding: 5px;
+  margin: 0 auto;
+  background-color: rgb(255, 196, 50);
+  color: rgb(26, 28, 93);
   font-family: "Caviar Dreams Bold";
-  border: none;
-  border-radius: 20px;
-  margin: 10px auto;
+  border-radius: 5px;
 }
-
-.read, .update {
-  margin-top: 25px;
+.display_messages .employees_message {
+  width: 85%;
+  margin: 0;
+  background-image: url("../assets/img/FondBleu.jpg");
 }
 
 .update {
   color: rgb(199, 18, 18);
+}
+
+.fontawesome {
+  margin-bottom: 25px;
 }
 
 .fontawesomeGreen {
@@ -830,16 +883,25 @@ form button {
 
 .fontawesomeYellow {
   color: rgb(255, 196, 50);
+  margin-bottom: 25px;
+}
+
+.fontawesomeBlue {
+  color: rgb(26, 28, 93);
+}
+
+.fontawesomeGrey {
+  color: rgb(255, 255, 255);
 }
 
 /* PAGES EMPLOYES */
 .reserve {
   width: 90vw;
-  margin: auto;
+  margin: 20px auto;
   padding: 25px 0;
   display: flex;
   flex-direction: column;
-  background-color: rgb(255, 196, 50);
+  background-color: rgb(240, 240, 240);
   border-radius: 10px;
 }
 .reserve a {
@@ -852,7 +914,7 @@ form button {
   width: 100%;
   display: flex;
 }
-.reserve tr .img_cell {
+.reserve tr .first_col {
   width: 50%;
   display: flex;
   justify-content: center;
@@ -866,19 +928,235 @@ form button {
   align-items: center;
 }
 .reserve .products_list {
-  padding: 10px 0px;
+  padding: 25px 0px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  border-bottom: 1px solid rgb(240, 240, 240);
+  border-bottom: 1px solid rgb(255, 255, 255);
 }
 .reserve .products_list img {
-  width: 50px;
+  width: 30px;
   margin-right: 10px;
   border-radius: 10px;
 }
 .reserve .products_list p {
   text-align: center;
   width: 100px;
+}
+.reserve .products_list .btn {
+  padding: 10px 10px;
+  border-radius: 30px;
+  transition: all 0.3s ease 0s;
+}
+.reserve .products_list .btn:hover {
+  color: rgb(240, 240, 240);
+  transform: translateY(-7px);
+}
+.reserve .products_list .update_reserve {
+  box-shadow: 0px 15px 20px rgba(26, 28, 93, 0.2);
+}
+.reserve .products_list .update_reserve:hover {
+  background-color: rgb(26, 28, 93);
+}
+.reserve .products_list .delete_reserve {
+  box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
+}
+.reserve .products_list .delete_reserve:hover {
+  background-color: rgb(199, 18, 18);
+}
+
+.categories {
+  width: 90vw;
+  margin: auto;
+  margin-bottom: 50px;
+  padding: 25px 0;
+  border-radius: 10px;
+}
+.categories .cate_display {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid rgb(186, 186, 184);
+}
+.categories p {
+  color: rgb(240, 240, 240);
+  text-align: center;
+}
+.categories .cate {
+  position: relative;
+  width: 44%;
+  margin: 10px;
+}
+.categories .cate_title, .categories .title_p {
+  height: 35px;
+  background: linear-gradient(70deg, rgb(186, 186, 184), rgb(136, 166, 173), rgb(206, 204, 199));
+  line-height: 35px;
+  border-radius: 5px;
+}
+.categories .title_p {
+  width: 100%;
+}
+.categories .cate_title {
+  width: auto;
+  text-transform: capitalize;
+}
+.categories .form_advise {
+  color: rgb(15, 15, 15);
+  margin-top: 0;
+}
+.categories .msg {
+  margin-bottom: 25px;
+}
+.categories .faTrashCan {
+  position: absolute;
+  top: 7.5px;
+  right: 7.5px;
+  width: 20px;
+  height: 20px;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  border-radius: 5px;
+}
+
+.categories_actions, .reserve_actions {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.categories_actions .reserve_btn, .categories_actions .delete, .reserve_actions .reserve_btn, .reserve_actions .delete {
+  font-size: 18px;
+  width: auto;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  transition: all 0.3s ease 0s;
+}
+.categories_actions .reserve_btn, .reserve_actions .reserve_btn {
+  color: rgb(3, 149, 8);
+  box-shadow: 0px 8px 15px rgba(3, 149, 8, 0.2);
+}
+.categories_actions .reserve_btn:hover, .reserve_actions .reserve_btn:hover {
+  background-color: rgb(3, 149, 8);
+  box-shadow: 0px 15px 20px rgba(3, 149, 8, 0.4);
+  color: rgb(240, 240, 240);
+  transform: translateY(-7px);
+}
+.categories_actions .red, .reserve_actions .red {
+  margin-top: 25px;
+  font-size: 14px;
+  color: rgb(199, 18, 18);
+  box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
+}
+.categories_actions .red:hover, .reserve_actions .red:hover {
+  background-color: rgb(199, 18, 18);
+  box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.4);
+}
+.categories_actions .reserve_btn:hover, .reserve_actions .reserve_btn:hover {
+  cursor: pointer;
+}
+.categories_actions .form_reserve, .reserve_actions .form_reserve {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+}
+.categories_actions .form_reserve button, .reserve_actions .form_reserve button {
+  border: none;
+  background-color: transparent;
+  margin: 0 20px;
+}
+.categories_actions .form_reserve button p, .reserve_actions .form_reserve button p {
+  font-size: 16px;
+}
+.categories_actions .form_reserve input, .reserve_actions .form_reserve input {
+  width: 200px;
+  height: 35px;
+  margin: 0 0 20px 0;
+  background-color: white;
+  color: rgb(15, 15, 15);
+  text-align: center;
+  border-radius: 30px;
+  border: 1px solid rgb(3, 149, 8);
+}
+.categories_actions .form_reserve .faIcon, .reserve_actions .form_reserve .faIcon {
+  margin-right: 10px;
+}
+.categories_actions .form_reserve .msg_red, .reserve_actions .form_reserve .msg_red {
+  color: rgb(199, 18, 18);
+}
+.categories_actions .form_reserve .msg_green, .reserve_actions .form_reserve .msg_green {
+  color: rgb(3, 149, 8);
+}
+.categories_actions .form_reserve .infobulle_ctn, .reserve_actions .form_reserve .infobulle_ctn {
+  position: relative;
+}
+.categories_actions .form_reserve .infobulle, .reserve_actions .form_reserve .infobulle {
+  position: absolute;
+  top: -150px;
+  left: 20px;
+  width: 175px;
+  border-radius: 10px;
+  border-bottom-left-radius: 0;
+  padding: 25px;
+  background-color: rgb(3, 149, 8);
+}
+.categories_actions .form_reserve .infobulle p, .reserve_actions .form_reserve .infobulle p {
+  color: rgb(240, 240, 240);
+  margin-bottom: 5px;
+}
+.categories_actions .form_reserve .faInfoBulle, .reserve_actions .form_reserve .faInfoBulle {
+  margin-bottom: 15px;
+  color: rgb(15, 15, 15);
+}
+.categories_actions .form_reserve .faInfoBulle:hover, .reserve_actions .form_reserve .faInfoBulle:hover {
+  color: rgb(3, 149, 8);
+}
+
+.infobulle_ctn {
+  position: relative;
+}
+
+.infobulle {
+  position: absolute;
+  top: -35px;
+  left: 60%;
+  width: 175px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
+  padding: 25px;
+  background-color: rgb(3, 149, 8);
+}
+.infobulle p {
+  color: rgb(240, 240, 240);
+  margin-bottom: 5px;
+}
+
+.faInfoBulle {
+  color: rgb(240, 240, 240);
+  margin-bottom: 15px;
+}
+
+.faInfoBulle:hover {
+  color: rgb(3, 149, 8);
+}
+
+.delete_fig {
+  width: 200px;
+  margin: 25px auto 25px auto;
+  color: rgb(240, 240, 240);
+}
+.delete_fig img {
+  width: 50%;
+  border-radius: 10px;
+  box-shadow: 0px 1px 6px rgb(199, 18, 18);
+}
+.delete_fig figcaption {
+  margin: 15px auto 0 auto;
 }/*# sourceMappingURL=App.css.map */

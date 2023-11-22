@@ -1,144 +1,103 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Link , useNavigate, useParams , /* useLocation */ } from "react-router-dom";
+import { Link , useNavigate, useParams , useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCottonBureau } from '@fortawesome/free-brands-svg-icons';
 
-import { addToCart } from "../../../store/slices/cart";
-
 import Loading from "../Containers/Loading";
-// import ClothesForm from "./Forms/clothesform"
-// import RingsForm from "./Forms/ringsform"
+import ClothesForm from "./Forms/clothesform"
+import RingsForm from "./Forms/ringsform"
 
 function ProductPage (){
 
-    const { cartInfo } = useSelector((state) => state.cart);
-
     const params   = useParams();
+    const { pathname } = useLocation();
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    // const { pathname } = useLocation();
 
-    const [clothes, setClothes] = useState(null);
-    const [index, setIndex] = useState(0);
+    const [ products , setProducts ] = useState(null);
+    const [ picSub , setPicSub ] = useState(null);
 
     useEffect(() => {
         async function getData() {
             try {
-                const clothes = await fetch("/api/v1/products/vetements/" + params.title_url);
-                if(clothes.status === 404) {
+                const products = await fetch("/api/v1/products/"+ params.cate_title + "/" + params.title_url);
+                if(products.status === 404) {
                     navigate("/not-found");
                 }
-                if(clothes.status === 200){
-                    const json = await clothes.json();
-                    setClothes(json);
+                if(products.status === 200){
+                    const json = await products.json();
+                    setProducts(json);
+
+                    const picSub = await fetch("/api/v1/products/pics_sub/" + params.id );
+                        const jsonP = await picSub.json();
+                        setPicSub(jsonP);
                 }
-                               
+
+
                 } catch (error) {
                     throw Error(error);
                 }
                 }
                 getData();
                 }, []);
-
-    function handleAddToCart() {
-        const indexProduct = cartInfo.product.findIndex(
-            (product_cart) => product_cart.reference === clothes[index].reference
-        );
-        
-        if (indexProduct === -1) {
-            const newCart = {
-                product: [
-                    ...cartInfo.product,
-                    { ref: clothes[index].reference, quantity: 1, priceEach: parseFloat(clothes[index].price) },
-                ],
-                buyer: localStorage.getItem("myuserid"),
-            };
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            dispatch(addToCart(newCart));
-        } else {
-            const newCart = {
-                product: [
-                    ...cartInfo.product,
-                ],
-                buyer: localStorage.getItem("myuserID"),
-            };
-            newCart.product[indexProduct] = {
-                ...newCart.product[indexProduct],
-                quantity: cartInfo.product[indexProduct].quantity + 1,
-            };
-            localStorage.setItem("cart", JSON.stringify(newCart));
-            dispatch(addToCart(newCart));
-        }
-    }
-                
-                
+               
+                            
     return (
         <>
-            <Link to="/le_store"><p className="previous_page">Retour à la liste des produits</p></Link>
+            <p className="previous_page"><Link to="/le_store">Retour à la liste des produits</Link></p>
 
-                {!clothes ? (
+            {!products ? (
                     <Loading/>
-                    
-                ) : (
+
+                ) : ( products.map( p =>
                     <div className="product_page">
                         <div className="shop">
+                            
+                            <div className="product_image_ctn">
+                                <img className="product_image" src={require("../../../assets/img/store/" + p.file_name)} alt={p.caption}/>
 
-                            <img className="product_image" src={require("../../../assets/img/store/" + clothes[index].file_name1)} alt={clothes[index].caption1}/>
+                                <div className="pics_sub_ctn">
+                                    {!picSub ? (
+                                                <></>
+                                            ) : ( picSub.map( ps =>
+                                                <>
+                                                    <img className="product_image_sub" src={require("../../../assets/img/store/" + ps.file_name)} alt={ps.caption}/>
+                                                </>
+                                                    ))}
+                                </div>
+                            </div>
+                            
 
-                            <article className="product_description">
-                                <h2 className="product_name">{clothes[index].title}</h2>
-                                <p className="price"><strong>{clothes[index].price}€</strong></p>
-                                <p className="color"><strong>Couleur : {clothes[index].color}</strong></p>
+                            <article className="product_form">
+                                <h2 className="product_name">{p.title}</h2>
+                                <p className="price"><strong>{p.price}€</strong></p>
+                                <p className="color"><strong>Couleur : {p.color}</strong></p>
 
-                                <form action="submit" className="choose">
-                
-                                    <label for="size" >Taille</label>
-                                    <select name="size" className="options">
-                                        <option value="S" selected> S </option>
-                                        <option value="M"> M </option>
-                                        <option value="L" > L </option>
-                                        <option value="XL"> XL </option>
-                                    </select>
+                                    <RingsForm products={products} />
 
-                                    <label for="quantity">Quantité</label>
-                                    <select name="quantity" className="options">
-                                        <option value="1" selected> 1 </option>
-                                        <option value="2"> 2 </option>
-                                        <option value="3" > 3 </option>
-                                        <option value="4"> 4 </option>
-                                        <option value="5"> 5 </option>
-                                        <option value="6"> 6 </option>
-                                        <option value="7" > 7 </option>
-                                        <option value="8"> 8 </option>
-                                        <option value="9"> 9 </option>
-                                    </select>
-
-                                    <button type="submit" onClick={() => handleAddToCart()} class="add_to_cart">Ajouter au panier</button>
-
-                                </form>
-
-                                <Link to="/guide_des_tailles" className="page_product_links"><p>Le guide des tailles de veêtem</p></Link>
-                                    
+                                    <ClothesForm products={products}/>
 
                             </article>
                         </div>
 
-                        <p className="ring_description">{clothes[index].description}</p>
+                        <p className="description">{p.description}</p>
 
-                        <p className="infosup">{clothes[index].shape}</p>
+                        <p className={pathname === "/le_store/vetements/" + params.title_url + "/" + params.id  ? "infosup" : "hidden"}>{p.shape}</p>
 
-                        <p className="infosupplus">{clothes[index].model_info}</p>
+                        <p className={pathname === "/le_store/vetements/" + params.title_url + "/" + params.id  ? "infosupplus" : "hidden"}>{p.model_info}</p>
 
-                        <p className={clothes[index].material_style}><FontAwesomeIcon icon={faCottonBureau} style={{color: "#ffffff",}} /> {clothes[index].material}</p>
+                        <p className={pathname === "/le_store/bijoux/" + params.title_url + "/" + params.id ? "infosup" : "hidden"}>{p.infosup}</p>
 
-                        <p className="infosup">{clothes[index].madeplace}</p>
+                        <p className={pathname === "/le_store/bijoux/" + params.title_url + "/" + params.id  ? "infosupplus" : "hidden"}>{p.infosupplus}</p>
+
+                        <p className="matérial"><FontAwesomeIcon icon={faCottonBureau} style={{color: "#ffffff",}} /> {p.material}</p>
+
+                        <p className="infosup">{p.madeplace}</p>
 
                     </div>
-                    )}
-            
-            
+                    ))}
+
+
         </>
     )
 };

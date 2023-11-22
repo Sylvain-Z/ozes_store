@@ -31,11 +31,8 @@ function Cart() {
     }
   }
 
-
-
     return (
       <>
-        
         <h2>Votre panier</h2>
 
         {!cart ? (
@@ -45,12 +42,9 @@ function Cart() {
           </>
         ) : (
           <>
-        <h3>Votre panier est plein</h3>
-
-
+            <h3>Votre panier est plein</h3>
           </>
         )}
-        
       </>
     )
   }

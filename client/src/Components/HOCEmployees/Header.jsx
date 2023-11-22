@@ -1,5 +1,5 @@
 // import { useSelector } from "react-redux";
-import { useLocation , Link } from "react-router-dom";
+import { useLocation , Link, NavLink } from "react-router-dom";
 import { useState , useEffect } from 'react';
 
 import user_out from '../../assets/img/user_out.png';
@@ -45,28 +45,29 @@ function Header() {
                 <header className={pathname === "/" ? "home_header" : "navigation_header"}>
                     
                     <div className="header_width">
-                        <div>
+                        <div className="divlogo">
                             <img className="logo_PeQ" src={LogoPeQ} alt="Logo PeQ" />
-                            <h1>OZES STORE SAS</h1>
+                            <h1>OZES STORE</h1>
                         </div>
-
-                        {!localStorage.getItem("myemployeeid") ? (
-                                <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
-                                ) : ( 
-                                    <>
-                                    {!employees ? (
-                                        <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
-                                        ) : ( 
-                                            <>
-                                                <Link to={`/employes`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
-                                                <Link to={"/employes/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
-                                            </>
-                                        )
-                                    }
-                                        
-                                    </>
-                                )}
-
+                        <div className="ctn_pictoheader ctn_empl_laptop">
+                            {!localStorage.getItem("myemployeeid") ? (
+                                    <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
+                                    ) : ( 
+                                        <>
+                                        {!employees ? (
+                                            <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
+                                            ) : ( 
+                                                <>
+                                                    <img className="picto_header" src={user_in} alt="pictogramme de tête" />
+                                                    <NavLink to="/employes" className="navlink_employees">Tableau de bord</NavLink>
+                                                    <Link to={"/employes/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
+                                                </>
+                                            )
+                                        }
+                                            
+                                        </>
+                                    )}
+                        </div>
                     </div>
 
                     <p className="french_label"><span className="blue">Desig</span><span className="white">n Fra</span><span className="red">nçais</span></p>

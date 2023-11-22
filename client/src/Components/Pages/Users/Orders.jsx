@@ -3,6 +3,7 @@ import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router
 import { useState, useEffect } from "react";
 import { /*useSelector ,  useDispatch */ } from "react-redux";
 
+import Loading from "../Containers/Loading";
 import PreviousPage from "./Components/previousPage";
 
 function Orders() {
@@ -11,8 +12,6 @@ function Orders() {
   // const navigate = useNavigate();
 
   const [ users, setUsers ] = useState(null);
-
-    
   const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
@@ -42,12 +41,19 @@ function Orders() {
     }, []);
 
   return (
-    <>
-      {/* <PreviousPage/> */}
-      {/* <PreviousPage user={user}/> */}
+    <>      
+      {!users ? (
+                    <Loading/>
+                ) : ( users.map( user =>
 
-      <h3>L'historique de vos commandes</h3>
+                  <>
 
+                  <PreviousPage user={user}/>
+
+                  <h3>L'historique de vos commandes</h3>
+
+                  </>
+                ))}
     </>
   )
 }

@@ -66,7 +66,7 @@ const signin = async (req, res) => {
             const matchPassword = await bcrypt.compare(req.body.password, employees[0].password);
             
             if (matchPassword){
-            const TOKEN = sign({ lastname: employees[0].lastname }, SK);
+            const TOKEN = sign({ lastname: employees[0].email }, SK);
             res.status(200).json({ msg, TOKEN });
             } else {
                 msg = "Mot de passe incorrecte";

@@ -15,8 +15,8 @@ function Shop (){
 
                     <div className="shipping_costs">
                         <img className="Drapeau_FR" src={Drapeau_FR} alt="Drapeau français"/>
-                        <p>Les frais de ports vous sont offerts en <strong>France Métropolitaine à partir de 50 euros</strong> de commande.</p>
-                        <p>Les frais de ports vous sont offerts en <strong>Département d'Outre-Mer et le Reste du Monde à partir de 70 euros</strong> de commande.</p>
+                        <p>Les frais de ports vous sont offerts en <strong>France Métropolitaine à partir de 50 euros</strong> de commande.<br/>
+                        Les frais de ports vous sont offerts en <strong>Département d'Outre-Mer et le Reste du Monde à partir de 70 euros</strong> de commande.</p>
                         <img className="Drapeau_RUN" src={Drapeau_RUN} alt="Drapeau de l'île de la Réunion"/>
                     </div>
 

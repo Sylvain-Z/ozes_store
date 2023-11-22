@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 
-function PreviousPage ({employee}){
+function PreviousPage (){
 
     return (
-    <Link to={`/employes`}><p className="previous_page">Votre compte</p></Link>
+    <p className="previous_page"><Link to={`/employes`}>Retour au tableau de bord</Link></p>
     )
 };
 

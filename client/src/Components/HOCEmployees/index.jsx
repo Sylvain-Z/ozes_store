@@ -54,7 +54,9 @@ function HOCEmployees({ child, auth }) {
 
                 {(!auth || (auth && tokenIsValid)) && <Header/>}
                 
-                {(!auth || (auth && tokenIsValid)) && <Child />}
+                <main className="navigation_main">               
+                    {(!auth || (auth && tokenIsValid)) && <Child />}
+                </main>
 
                 <Footer />
 

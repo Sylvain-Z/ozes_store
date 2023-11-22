@@ -1,0 +1,107 @@
+import { useState, useEffect } from 'react';
+import { Link , useNavigate } from "react-router-dom";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { /* faPenToSquare , */ faTrashCan /* , faSquarePlus, faSquareMinus , faTag */ } from '@fortawesome/free-solid-svg-icons';
+
+import AddCategories from "./addcategories";
+import AddSubcategories from "./addsubcategories";
+
+function Categories () {
+
+    const [ inputHidden, setInptuHidden ] = useState(false);
+    const toggleInput = () => setInptuHidden(!inputHidden);
+
+    const navigate = useNavigate();
+    const [ categories, setCategories ] = useState(null);
+    const [ subcategories, setSubcategories ] = useState(null);
+
+    useEffect(() => {
+        async function getData() {
+            try {                
+                const categories = await fetch("/api/v1/categories/categories");
+                if(categories.status === 404) {
+                    navigate("/employes/not-found");
+                }
+                if(categories.status === 200){
+                    const json = await categories.json();
+                    setCategories(json.datas);
+                }
+                const subcategories = await fetch("/api/v1/categories/subcategories");
+                if(subcategories.status === 404) {
+                    navigate("/employes/not-found");
+                }
+                if(subcategories.status === 200){
+                    const json = await subcategories.json();
+                    setSubcategories(json.datas);
+                }
+                        
+            } catch (error) {
+                throw Error(error);
+            }
+        }
+        getData();
+    }, []);
+
+    return (
+
+        <>
+            <Link to="/employes/stock"><p className="previous_page">Retour</p></Link>
+
+            <section className="categories">
+
+                <h2>Catégories</h2>
+
+                <div className='categories_actions'>
+                    <AddCategories />
+                    <AddSubcategories categories={categories}/>
+                </div>
+
+                <div className='cate_display'>
+                    <p className='title_p'>Catégories</p>
+                    {!categories ? (
+                                        <>
+                                            <p>Pas de catégories existanttes</p>
+                                        </>
+                                    ) : ( categories.map(categorie =>
+                                        <>
+                                            <div className='cate'>
+                                                    <p className='cate_title'>{categorie.cate_title}</p>
+                                                    <button onClick={() => window.location.href =`/employes/stock/categories/categories/delete/${categorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed"/></button>
+                                            </div>
+                                                
+                                        </>
+                                    ))}
+                </div>
+
+                <div className='cate_display'>
+                    <p className='title_p'>Sous-catégories</p>
+                    {!subcategories ? (
+                                        <>
+                                            <p>Pas de sous-catégories existanttes</p>
+                                        </>
+                                    ) : ( subcategories.map(subcategorie =>
+                                        <>
+                                            <div className='cate'>
+                                                    <p className='cate_title'>{subcategorie.subcate_title}</p>
+                                                    <button onClick={() => window.location.href =`/employes/stock/categories/subcategories/delete/${subcategorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed"/></button>
+                                            </div>
+                                                
+                                        </>
+                                    ))}
+                </div>
+
+                <div className='categories_actions'>
+                    <div className='form_reserve'>
+                        <button type="button" className='delete' onClick={toggleInput}>
+                            <p className='reserve_btn red'><FontAwesomeIcon icon={faTrashCan} size="xs" className="faIcon" />Supprimer</p>
+                        </button>
+                    </div>
+                </div>  
+            </section>
+        
+        </>
+    )
+};
+
+export default Categories;

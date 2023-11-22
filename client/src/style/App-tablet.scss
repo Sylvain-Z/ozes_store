@@ -1,0 +1,119 @@
+/* RESPONSIVE */
+
+/* TABLETTE */
+
+@media screen and (min-width: 425px){
+
+    /* COMMUNES */
+
+    #home_body {
+        width: 100vw;
+        background-image: url("../assets/img/home/Background.jpg");
+    }
+    
+    .navigation_header {
+        .header_width {
+            width: 95%;
+        }        
+        h1 {
+            width: 200px;
+            margin: auto;
+        }
+        nav, .ctn_nav, .ctn_pictoheader {
+            flex-direction: row;
+        }
+        .ctn_nav {
+            width: 100%;
+            justify-content: space-between;
+        }
+        nav, .ctn_pictoheader {
+            width : 50%;
+            justify-content: space-around;
+            a {
+                margin: 25px 0;
+            }
+        }
+        .mediaQ_hidden {
+            display : none;
+        }
+        .mediaQ_show {
+            display: flex;
+        }
+    }
+
+
+    /* CONTENU SITE  */
+    /* LE STORE */
+    .shipping_costs {
+        p {
+            width: 50%;
+        }
+    }
+
+    .shop, .size_guide_t-shirts,
+    .size_guide_rings {    
+        .product_grid {
+            width: 45%;
+            margin: 1% 1%;
+        }
+        .product_grid figcaption{
+            font-size: 20px;
+            }
+    }
+
+    /* PAGE PRODUIT */
+
+    .product_page {
+        .shop {
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .product_image_ctn {
+            width: 50%;
+        }
+        .product_name{
+            margin-bottom: 0px;
+        }
+        .product_form {
+            width: 45%;
+        }
+    }
+
+
+    /* LA MARQUE */
+
+    .brand {
+            .brand_logo {
+                width: 10%;
+                height: 10%;
+                margin: 0;
+            }
+        }
+
+    /* PAGES EMPLOYES */
+
+    .reserve {
+         .products_list {
+            padding: 15px 0px;
+            img {
+                width: 50px;
+            }
+    }}
+
+    .categories_actions, .reserve_actions {
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 50px;
+        .form_reserve {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .form_cate {
+            width: 30%;
+            margin: 0 10px;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
+}

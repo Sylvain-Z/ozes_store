@@ -29,9 +29,9 @@ function ProductGalery(){
                     <Loading/>
                 ) : ( products.map( product =>
 
-                        <div className={`product_grid`}>
-                            <figure><Link to={`/le_store/${product.cate_url}/${product.title_url}`}>
-                                <img src={require("../../../assets/img/store/" + product.file_name1)} alt={product.caption1}/>
+                        <div className='product_grid'>
+                            <figure><Link to={`/le_store/${product.cate_title}/${product.title_url}/${product.id}`}>
+                                <img src={require("../../../assets/img/store/" + product.file_name)} alt={product.caption}/>
                                 <figcaption>
                                     <p>{product.title}</p>
                                     <p>{product.price}€</p>

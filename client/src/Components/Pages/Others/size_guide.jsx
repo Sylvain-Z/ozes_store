@@ -7,9 +7,7 @@ function SizeGuide() {
     return (
 
         <>
-            <main className="navigation_main">
-
-                <section>
+            <section>
                 <h2 className="size_guide_title">Guide des tailles</h2>
 
                     <div className="size_guide">
@@ -49,11 +47,9 @@ function SizeGuide() {
                         </article>
                 </div>
 
-            <BackToStore/>
+                <BackToStore/>
 
-        </section>
-
-    </main>
+            </section>
         
         </>
     )

@@ -1,30 +1,32 @@
 import { Link , useParams , useLocation } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
-function ClothesForm () {
+import { addToCart } from "../../../../store/slices/cart";
+
+function ClothesForm ({products}) {
 
     const params   = useParams();
     const { pathname } = useLocation();
-    /* const dispatch = useDispatch();
+    const dispatch = useDispatch();
     
     const { cartInfo } = useSelector((state) => state.cart);
 
-    const [tshirts, setTshirts] = useState(null);
     const [index, setIndex] = useState(0);
 
 
     function handleAddToCart() {
         const indexProduct = cartInfo.product.findIndex(
-            (product_cart) => product_cart.ref === tshirts[index].ref
+            (product_cart) => product_cart.ref === products[index].ref
         );
         
         if (indexProduct === -1) {
             const newCart = {
                 product: [
                     ...cartInfo.product,
-                    { ref: tshirts[index].ref, quantity: 1, priceEach: parseFloat(tshirts[index].price) },
+                    { ref: products[index].reference, quantity: 1, priceEach: parseFloat(products[index].price) },
                 ],
-                buyer: info.id,
+                buyer: localStorage.getItem("myuserid"),
             };
             localStorage.setItem("cart", JSON.stringify(newCart));
             dispatch(addToCart(newCart));
@@ -33,7 +35,7 @@ function ClothesForm () {
                 product: [
                     ...cartInfo.product,
                 ],
-                buyer: info.id,
+                buyer: localStorage.getItem("myuserid"),
             };
             newCart.product[indexProduct] = {
                 ...newCart.product[indexProduct],
@@ -42,12 +44,11 @@ function ClothesForm () {
             localStorage.setItem("cart", JSON.stringify(newCart));
             dispatch(addToCart(newCart));
         }
-    } */
+    }
 
     return (
         <>
-            
-            <form action="submit" className={pathname === "/le_store/vetements/" + params.title_url ? "choose" : "hidden"}>
+            <form action="submit" className={pathname === "/le_store/vetements/" + params.title_url + "/" + params.id ? "choose" : "hidden"}>
                 
                 <label for="size" >Taille</label>
                 <select name="size" className="options" /* onChange={(e) => setIndex(parseInt(e.target.value) - 1)} */>
@@ -70,11 +71,12 @@ function ClothesForm () {
                     <option value="9"> 9 </option>
                 </select>
 
-                <button type="submit" /* onClick={() => handleAddToCart()} */ class="add_to_cart">Ajouter au panier</button>
+                <button type="submit" onClick={() => handleAddToCart()} class="add_to_cart">Ajouter au panier</button>
 
+                <Link to="/guide_des_tailles" className="page_product_links"><p>Le guide des tailles</p></Link>
+            
             </form>
 
-            <Link to="/guide_des_tailles" className="page_product_links"><p>Le guide des tailles</p></Link>
         </>
     )
 };

@@ -1,4 +1,4 @@
-import {/*  Link , useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
+import { /* Link , useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
 import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 
@@ -11,9 +11,9 @@ import PreviousPage from './Components/previousPage';
 function Delivery() {
   
   // const { info } = useSelector((state) => state.user);
+  const myuserid = localStorage.getItem("myuserid");
 
   const [ users, setUsers ] = useState(null);
-  const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
     async function getData() {
@@ -41,90 +41,90 @@ function Delivery() {
 
   return (
     <>
-        {!users ? (
-                    <Loading/>
-                ) : ( users.map( user =>
+      {!users ? (
+                  <Loading/>
+            ) : ( users.map( user =>
 
-                  <>
-                  {/* <Link to={`/utilisateurs/${user.id}`}><p className="previous_page">Votre compte</p></Link> */}
+            <>
+            
+            <PreviousPage user={user}/>
 
-                  <PreviousPage user={user}/>
+            <section className="form_section">
 
-                  <section className="form_section">
-
-                    <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
-                    <h3 className="form_title read">Vos informations de livraison</h3>
+                  <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
+                  <h3 className="form_title read">Vos informations de livraison</h3>
+            
+                  <form>
+                  <input
+                        placeholder="Prénom"
+                        type="text"
+                        name="firstname"
+                        value={user.firstname}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Nom"
+                        type="text"
+                        name="lastname"
+                        value={user.lastname}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Numéro de la rue"
+                        type="text"
+                        name="number"
+                        value={user.number}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Nom de la rue"
+                        type="text"
+                        name="street"
+                        value={user.street}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Complément d'adresse"
+                        type="text"
+                        name="complement"
+                        value={user.complement}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Code postale"
+                        type="text"
+                        name="postalcode"
+                        value={user.postal_code}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Ville"
+                        type="text"
+                        name="city"
+                        value={user.city}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Votre numéro de téléphone"
+                        type="tel"
+                        name="phone"
+                        value={user.phone}
+                        disabled="disabled"
+                  />
+                  <input
+                        placeholder="Votre pseudo"
+                        type="hidden"
+                        name="pseudo"
+                        value={user.pseudo}
+                        disabled="disabled"
+                  />
                   
-                     <form>
-                     <input
-                            placeholder="Prénom"
-                            type="text"
-                            name="firstname"
-                            value={user.firstname}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Nom"
-                            type="text"
-                            name="lastname"
-                            value={user.lastname}
-                            disabled="disabled"
-                      />
-                     <input
-                            placeholder="Numéro de la rue"
-                            type="text"
-                            name="number"
-                            value={user.number}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Nom de la rue"
-                            type="text"
-                            name="street"
-                            value={user.street}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Complément d'adresse"
-                            type="text"
-                            name="complement"
-                            value={user.complement}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Code postale"
-                            type="text"
-                            name="postalcode"
-                            value={user.postal_code}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Ville"
-                            type="text"
-                            name="city"
-                            value={user.city}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Votre numéro de téléphone"
-                            type="tel"
-                            name="phone"
-                            value={user.phone}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Votre pseudo"
-                            type="hidden"
-                            name="pseudo"
-                            value={user.pseudo}
-                            disabled="disabled"
-                      />
-                      
-                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</button>
-                    </form>
-                  </section>
-                  </>
-                ))}
+                  {/* <Link to={`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</Link> */}
+                  <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</button>
+                  </form>
+            </section>
+            </>
+            ))}
     </>
   )
 }

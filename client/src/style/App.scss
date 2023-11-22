@@ -17,6 +17,10 @@
 	font-family: 'Caviar Dreams Bold';
 	src: url('../assets/fonts/CaviarDreams_Bold.ttf');
 }
+@font-face {
+	font-family: 'Caviar Dreams Italic';
+	src: url('../assets/fonts/CaviarDreams_BoldItalic.ttf');
+}
 @font-face
 {
 	font-family: 'NeutraTextBold';
@@ -48,6 +52,7 @@ $Darked : rgba(15, 15, 15, 0.5);
 $title-font : 'CaviarOzesRegular';
 $title-font-bold : 'CaviarOzesBold';
 $subtitle-font : 'Caviar Dreams';
+$subtitle-font-Italic : 'Caviar Dreams Italic';
 $subtitle-font-bold : 'Caviar Dreams Bold';
 $text-font : 'NeutraTextBook';
 $text-font-bold : 'NeutraTextBold';
@@ -65,7 +70,7 @@ html {
     font-size: 62.5%;
 }
 body {
-    font-size: 18px;
+    font-size: 16px;
     font-family: $text-font;
 }
 a {
@@ -148,14 +153,12 @@ button:hover {
     font-family: $title-font-bold;
     margin-bottom: 50px;
     .french_label{
-        left: 5%;
-        bottom: 0;
         font-family: $text-font-light;
         font-weight: 100;
         font-size: 14px;
         color: $White;
         text-transform: uppercase;
-        margin-top: 50px;
+        margin-top: 5px;
         .blue{
             background-color: $Blue;
         }
@@ -174,19 +177,17 @@ button:hover {
         flex-direction: column;
         align-items: center;
     }
-    a {
-    color: $Black;
-    }
-    div {
+    .divlogo, .ctn_nav, .ctn_pictoheader {
         display: flex;
         flex-direction: column;
         align-items: center;
-        img {
+        .logo_PeQ {
             height: 75px;
         }
         h1 {
-            font-size: 30px;
+            font-size: 25px;
             color: $White;
+            text-align: center;
         }
     }
     
@@ -194,10 +195,9 @@ button:hover {
         width: 100vw;
         display: flex;
         flex-direction: column;
-        margin-top: 15px;
         a {
             text-align: center;
-            font-size: 20px;
+            font-size: 18px;
             text-transform: uppercase;
             color: $Yellow;
             padding: 6px 30px;
@@ -211,6 +211,22 @@ button:hover {
             background-color: $Darked;
             color: $White;            
         }
+    }
+    .navlink_employees {
+        text-align: center;
+        font-size: 18px;
+        text-transform: uppercase;
+        color: $Yellow;
+        padding: 6px 30px;
+        margin: 5px 0;
+    }
+    .navlink_employees:hover{
+        background-color: $Darked;
+        color: $White;
+    }
+    .navlink_employees.active {
+        background-color: $Darked;
+        color: $White;            
     }
     .picto_header {
         height: 40px;
@@ -274,17 +290,21 @@ button:hover {
     width: 100vw;
     margin: auto;
 }
-
+.previous_page{
+    width: 200px;
+    margin: 50px 0 25px 10%;
+    color: $Black;
+    a {color: $Black;}
+}
 h2 {
+    max-width: 70%;
+    margin: auto;
     font-family: $title-font-bold;
-    font-size: 35px;
+    font-size: 30px;
     color: $Black;
     text-align: center;
     text-transform: uppercase;
-    margin-bottom: 50px;
-}
-.product_name {
-    margin: 0px;
+    margin-bottom: 25px;
 }
 h3
 {
@@ -325,7 +345,7 @@ article {
 }
 
 /* CONTENU SITE  */
-/* LE STORE & BLOG */
+/* LE STORE GALERIE - LA MARQUE - GUIDE DES TAILLES */
 
  .store_page_main_images
 {
@@ -335,7 +355,7 @@ article {
 .store_page_title { //h2
     position: absolute;
     top : 0px;
-    right: 10%; // collé au bord du main
+    right: 10%;
 }
 .shipping_costs {
     display: flex;
@@ -355,88 +375,72 @@ article {
         margin: 25px 0;
     }
 }
-
-/* .sorting_list {
-    width: 70%;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin: 25px auto 50px auto;
+.community {  // Brand Page
+    flex-direction: column;
 }
-.sorting_list button {
-    text-decoration: none;
-    color: $Black;
-    background-color: $Yellow;
-    font-weight: bold;
-    padding: 10px 25px;
-    margin: 15px 15px;
-    border: none;
-    transition: color 0.2s, background-color 0.5s;
-}
-.sorting_list button:hover {
-    background-color: $Black;
-    color: $Yellow;
-    cursor: pointer;
-}
-     .sort_active {
-    background-color: $Black;
-    color: $White;
-} */
-.shop, .shop_tshirts, .community,
-.social_medias_post,
-.size_guide_t-shirts, .size_guide_rings {
+.shop, .community, .size_guide_t-shirts, .size_guide_rings {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin-top: 25px;
-    
-    .product_grid,
-    .community_elements {
+    .product_grid {
         display: flex;
         width: 90%;
         margin: 1% 1%;
     }
-    figure {
+    .product_grid figure {
         position: relative;
-        .italic {
-            margin-top: 50px;
-            color: $White;
-            font-style: italic;
-            background-color: rgba(255, 196, 50, 0.7);
-            padding: 5px 10px;
-        }
+        width: 100%;
+        margin: auto;
     }
-    figure:hover {
+    .product_grid img { 
+        width: 100%;
+        display: block;
+        margin: auto;
+    }
+    .product_grid figcaption{
+        position: absolute;
+        height: 125px;
+        padding-bottom: 25px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(rgb(15, 15, 15, 0), rgb(15, 15, 15, 0.8));
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        color: $White;
+        font-size: 25px;
+        font-weight: bold;
+        transition: .7s all;
+    }
+    figure:hover {  // community & shop
         transform: scale(1.05);
         cursor: pointer;
     }
-    .product_grid img, .community_elements img {
+    .community_elements {
+        display: flex;
+        justify-content: center;
+    }
+    .community_elements img {
         width: 100%;
-        display: block;
-        object-fit: cover;
-        margin: 1% auto;
+        border-radius: 50%;
+        box-shadow: 0px 2px 10px $Black;
     }
-
-    .product_grid figcaption{
-    position: absolute;
-    top:0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    opacity: 0;
-    background-color: rgba(255, 196, 50,0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: $Black;
-    font-size: 20px;
-    font-weight: bold;
-    transition: .7s all;
+    .ulule_bulle figure {
+        position: relative;
+        width: 40%;
     }
-    .community_elements figcaption {
+    .social_medias_links {
+        flex-direction: row;
+    }
+    .social_medias_links figure {
+        width: 25%;
+        margin: 0 5%;
+    }
+    .community_elements figcaption { // logo ulule
         position: absolute;
         left: 0;
         right: 0;
@@ -446,9 +450,6 @@ article {
         color: $Yellow;
         font-size: 18px;
         font-weight: bold;
-        }
-        figure:hover figcaption {
-        opacity: 1;
     }
 }
 
@@ -477,6 +478,7 @@ article {
 
 .size_guide {
     .warning {
+        width: 100%;
         margin: 25px auto 100px auto;
         font-size: 18px;
         font-style: italic;
@@ -508,26 +510,42 @@ article {
 
 /* PAGE PRODUIT */
 
-.previous_page{
-    margin: 50px 0 25px 10%;
-    color: rgb(15, 15, 15);
-}
-
 .product_page {
     display: flex;
     flex-direction: column;
     align-items: start;
     width: 80%;
     margin: 0 auto 50px auto;
+    .product_image_ctn {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
     .product_image {
         width: 100%;
-        margin-bottom: 50px;
+        margin-bottom: 10px;
+    }
+    .pics_sub_ctn {
+        position: relative;
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 25px;
+        .product_image_sub {
+            width: 25%;
+            margin-right: 2.5%;
+        }
+        /* .product_image_sub_wide {
+            position: absolute;
+            width: 80vw;
+            top: -300px;
+        } */
     }
     .product_name{
         font-family: $subtitle-font-bold;
         font-size: 25px;
+        margin-bottom: 10px;
     }
-    .product_description {
+    .product_form {
         width: 100%;
         margin: 0; // hérite de la marge des autres articles
         p {
@@ -560,6 +578,9 @@ article {
                 font-size: 16px;
                 border: transparent;
                 margin: 15px auto;
+                option {
+                    font-family: $text-font;
+                }
             }
             .add_to_cart {
                 width: 75%;
@@ -582,7 +603,7 @@ article {
 .cotonpicto {
     width: 50px;
 }
-.bio, .ricin, .bronze, .silver, .ring_description, .infosup, .infosupplus  {
+.matérial, .description, .infosup, .infosupplus  {
     width: 100%;
     margin: 10px auto;
     font-family: $text-font-light;
@@ -593,45 +614,36 @@ article {
     text-decoration: underline;
     font-weight: bold;
 }
-.bio, .ricin, .bronze, .silver {
+.matérial {
     text-align: center;
     color: $White; 
 }
-.bio, .ricin {
-    background-color: $Green;
-}
-.bronze {
+.matérial {
     background-color: #aa8818;
 }
-.silver {
-    background-color: #777777;
+
+.ring_symbol_blue {
+    color : $Blue;
 }
-.other_products {
-    display: flex;
-    // overflow: scroll;
-    justify-content: space-between;
-    width: 100%;
-    margin: 50px auto;
-    img {
-        width: 18%;
-    }
-    img:hover {
-        transform: scale(1.1);
-    }
+.ring_symbol_red {
+    color : $Red;
 }
 
 
 /* LA MARQUE */
- .brand {
-    display: flex;
-    width: 100%;
-	justify-content: center;
-    align-items: center;
-    margin: 50px auto;
+
+
+.brand {
+display: flex;
+flex-direction: column;
+width: 100%;
+justify-content: center;
+align-items: center;
+margin: auto;
     .brand_logo {
-        display: none;
         width: 25%;
         height: 25%;
+        margin: 0 auto 25px auto;
     }
     .history {
         width: 80%;
@@ -642,10 +654,6 @@ article {
         line-height: 25px;
     }
 }
-.mail {
-        margin-top: 50px;
-        text-align: center;
-    }
 
 /* ULULE */
 
@@ -666,8 +674,6 @@ article {
         list-style: none;
     }
 }
-
-
 
 /* CGV */
 
@@ -690,22 +696,38 @@ article {
     }
 }
 
-/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES USER */
+/* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES */
 
 .form_section {
     width: 80%;
     margin: 25px auto;
-    padding: 50px 0;
-    background-image: url("../assets/img/Fond_Noir.jpg");
+    padding: 50px;
     text-align: center;
     display: flex; // pour le loading
     flex-direction: column; // pour le loading
     align-items: center; // pour le loading
+    background-image: url("../assets/img/Fond_Noir.jpg");   
+    .msg_red {
+        text-align: center;
+        color: $Red;
+    }
+    .msg_green {
+        text-align: center;
+        color: $Green;
+        margin-bottom: 25px;
+    }
+    .msg_yellow {
+        color : $Yellow;
+        margin-bottom: 25px;
+    }
 }
 .form_title {
     font-size: 25px;
     margin: 0 0 25px 0;
     color: $White;
+}
+.form_image {
+    width: 50%;
 }
 form {
     width: 100%;
@@ -713,6 +735,7 @@ form {
     flex-direction: column;
     label { 
         color: $Yellow;
+        margin-top : 25px;
     }
     input, .form_input {
         width: 80%;
@@ -736,6 +759,7 @@ form {
         font-family: $subtitle-font-bold;
         text-transform: uppercase;
         border: none;
+        border-radius: 5px;
         margin: 25px auto;
     }
 }
@@ -751,24 +775,11 @@ form {
 }
 .form_advise {
     width: 75%;
-    margin: 50px auto 0 auto;
+    margin: 12px auto;
     font-family: 'NeutraTextItalic' ;
     color: grey;
 }
-.msg_red {
-    text-align: center;
-    color: $Red;
-}
-.msg_green {
-    text-align: center;
-    color: $Green;
-    margin-bottom: 25px;
-}
-.msg_yellow {
-    color : $Yellow;
 
-    margin-bottom: 25px;
-}
 
 /* PAGES UTILISATEURS */
 
@@ -776,39 +787,94 @@ form {
     text-align: center;
     margin: 50px auto;
 }
-.dashboard_titles {
+.dashboard_title {
+    font-family: $subtitle-font-bold;
+}
+.dashboard_tabs {
     text-transform: uppercase;
-    background-color: $Yellow;
-    color: $Black;
+    background-image: url("../assets/img/Fond_Noir.jpg");  
+    color: $White;
     width: 60%;
     height: 40px;
     line-height: 40px;
     margin: 10px auto 25px auto;
 }
-.contact_button {
+.display_messages {
+    width: 100%;
+    margin: 50px auto;
+    padding: 50px;
+    text-align: center;
     display: flex;
     flex-direction: column;
-    margin-top: 50px;
-    color: $Blue;
-    p {
-        margin: 20px;
+    align-items: end;
+    border-top: 1px solid $Yellow;
+    .display_messages_title {
+        color: $Green;
+        margin-bottom: 25px;
     }
-    button {
-        width: 50%;
-        height: 40px;
-        background-color: $Blue;
-        color: $White;
-        font-family: $subtitle-font-bold;
-        border: none;
-        border-radius: 20px;
-        margin: 10px auto;
+    .employees_message,
+    .user_message {
+        background-image: url("../assets/img/FondBleuHalo.jpg");
+        background-size: cover;
+        position: relative;
+        width: 100%;
+        margin-bottom: 25px;
+        padding : 25px;
+        box-shadow: 0px 2px 6px $Blue;
+        h4 {
+            font-family: $subtitle-font-bold;
+            margin: 0 auto 25px auto;
+            padding-bottom: 25px;
+            border-bottom: 1px solid $Blue;
+            color : $White;
+        }
+        p {
+            color : $White;
+            margin: 25px auto;
+        }
+        .message_status_yellow {
+            margin: 0;
+            text-align: right;
+            color : $Yellow;
+        }
+        .message_status_green {
+            margin: 0;
+            text-align: right;
+            color : $Green;
+        }
+        .message_content {
+            font-size: 16px;
+            font-family: $subtitle-font-Italic;
+        }
+        .message_date {
+            width: 150px;
+            padding-top: 15px;
+            font-size: 14px;
+            border-top: 1px solid $Blue;
+        }
+        a > p {
+            width: 50%;
+            height: 40px;
+            line-height: 30px;
+            padding: 5px;
+            margin: 0 auto;
+            background-color: $Yellow;
+            color: $Blue;
+            font-family: $subtitle-font-bold;
+            border-radius: 5px;
+        }
     }
-}
-.read, .update{
-    margin-top: 25px;
+    .employees_message {
+        width: 85%;
+        margin : 0;
+        background-image: url("../assets/img/FondBleu.jpg");
+    }
 }
 .update {
     color : $Red;
+}
+.fontawesome {
+    margin-bottom: 25px;
 }
 .fontawesomeGreen {
     color: $Green;
@@ -818,18 +884,24 @@ form {
 }
 .fontawesomeYellow {
     color: $Yellow;
+    margin-bottom: 25px;
 }
-
+.fontawesomeBlue {
+    color: $Blue;
+}
+.fontawesomeGrey {
+    color: rgb(255, 255, 255);
+}
 
 /* PAGES EMPLOYES */
 
 .reserve {
     width : 90vw;
-    margin: auto;
+    margin: 20px auto;
     padding: 25px 0;
     display: flex;
     flex-direction: column;
-    background-color: $Yellow;
+    background-color: $White;
     border-radius: 10px;
     a {
         color: $Black;
@@ -840,7 +912,7 @@ form {
         tr {
             width: 100%;
             display: flex;
-            .img_cell {
+            .first_col {
                 width : 50%;
                 display: flex;
                 justify-content: center;
@@ -855,14 +927,14 @@ form {
             align-items: center;
         }
      .products_list {
-        padding: 10px 0px;
+        padding: 25px 0px;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-        border-bottom: 1px solid $White;
+        border-bottom: 1px solid rgb(255, 255, 255);
         img {
-            width: 50px;
+            width: 30px;
             margin-right: 10px;
             border-radius: 10px;
         }
@@ -870,4 +942,214 @@ form {
             text-align: center;
             width: 100px;
         }
+        .btn {
+            padding: 10px 10px;
+            border-radius: 30px;
+            transition: all 0.3s ease 0s;
+        }
+        .btn:hover {
+            color: $White;
+            transform: translateY(-7px);
+        }
+        .update_reserve{
+            box-shadow: 0px 15px 20px rgb(26, 28, 93, 0.2);
+        }
+        .update_reserve:hover {
+            background-color: $Blue;
+        }
+        .delete_reserve {
+            box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
+        }
+        .delete_reserve:hover {
+            background-color: $Red;
+        }
 }}
+
+.categories {
+    width : 90vw;
+    margin: auto;
+    margin-bottom: 50px;
+    padding: 25px 0;
+    border-radius: 10px;
+    .cate_display {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 25px;
+        padding-top: 25px;
+        border-top: 1px solid rgb(186, 186, 184);
+    }
+    p {
+        color : $White;
+        text-align: center;
+    }
+    .cate {
+        position: relative;
+        width: 44%;
+        margin: 10px;
+    }
+    .cate_title, .title_p {
+        height: 35px;
+        background: linear-gradient(70deg, rgb(186, 186, 184), rgb(136, 166, 173), rgb(206, 204, 199));
+        line-height: 35px; // centre le texte verticalement dans la div .cate
+        border-radius: 5px;
+    }
+    .title_p {
+        width: 100%;
+    }
+    .cate_title {
+        width: auto;
+        text-transform: capitalize;
+    }
+    .form_advise {
+        color : $Black;
+        margin-top: 0;
+    }
+    .msg {
+        margin-bottom: 25px;
+    }
+    .faTrashCan {
+        position: absolute;
+        top: 7.5px;
+        right: 7.5px;
+        width: 20px;
+        height: 20px;
+        background-color: $White;
+        border: none;
+        border-radius: 5px;
+    }
+}
+.categories_actions, .reserve_actions {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    .reserve_btn, .delete {
+        font-size: 18px;
+        width: auto;
+        padding: 10px 15px;
+        margin-bottom: 20px;
+        border-radius: 30px;
+        transition: all 0.3s ease 0s;
+    }
+    .reserve_btn {
+        color: $Green;
+        box-shadow: 0px 8px 15px rgba(3, 149, 8, 0.2);
+    }
+    .reserve_btn:hover {
+        background-color: $Green;
+        box-shadow: 0px 15px 20px rgba(3, 149, 8, 0.4);
+        color: $White;
+        transform: translateY(-7px);
+      }
+    .red {
+        margin-top: 25px;
+        font-size: 14px;
+        color: $Red;
+        box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
+    }
+    .red:hover {
+        background-color: $Red;
+        box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.4);
+    }
+    .reserve_btn:hover {
+        cursor: pointer;
+    }
+    .form_reserve {
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: flex-start;
+        flex-direction: column;
+        align-items: center;
+        button {
+            border: none;
+            background-color: transparent;
+            margin: 0 20px;
+            p { font-size: 16px;}
+        }
+        input {
+            width: 200px;
+            height: 35px;
+            margin: 0 0 20px 0;
+            background-color: white;
+            color: $Black;
+            text-align: center;
+            border-radius: 30px;
+            border: 1px solid $Green;
+        }
+        .faIcon {
+            margin-right: 10px;
+        }
+        .msg_red {
+            color: $Red;
+        }
+        .msg_green {
+            color: $Green;
+        }
+        .infobulle_ctn {
+            position: relative;
+        }
+        .infobulle {
+            position: absolute;
+            top: -150px;
+            left: 20px;
+            width: 175px;
+            border-radius: 10px;
+            border-bottom-left-radius: 0;
+            padding: 25px;
+            background-color: $Green;
+            p {
+            color: $White;
+            margin-bottom: 5px;
+            }
+        }
+        .faInfoBulle {
+            margin-bottom: 15px;
+            color: $Black;
+        }
+        .faInfoBulle:hover {
+            color: $Green;
+        }
+    }
+    
+}
+.infobulle_ctn {
+    position: relative;
+}
+.infobulle {
+    position: absolute;
+    top: -35px;
+    left: 60%;
+    width: 175px;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    padding: 25px;
+    background-color: $Green;
+    p {
+    color: $White;
+    margin-bottom: 5px;
+    }
+}
+.faInfoBulle {
+    color: $White;
+    margin-bottom: 15px;
+}
+.faInfoBulle:hover {
+    color: $Green;
+}
+
+.delete_fig {
+    width : 200px;
+    margin: 25px auto 25px auto ;
+    color: $White;
+    img {
+        width: 50%;
+        border-radius: 10px;
+        box-shadow: 0px 1px 6px $Red;
+    }
+    figcaption {
+        margin: 15px auto 0 auto;
+    }
+}

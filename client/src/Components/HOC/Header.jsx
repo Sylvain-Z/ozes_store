@@ -65,20 +65,20 @@ function Header() {
                 <header className={pathname === "/" ? "home_header" : "navigation_header"}>
                     
                     <div className="header_width">
-                        <div>
+                        <div className="divlogo">
                             <Link to="/la_marque"><img className="logo_PeQ" src={LogoPeQ} alt="Logo PeQ" /></Link>
                             <Link to="/"><h1>OZES STORE</h1></Link>
                         </div>
 
-                        <FontAwesomeIcon icon={faBars} size="2xl" className={menuHidden ? "faBars fontawesomeYellow burger_hidden" : "faBars fontawesomeYellow"} onClick={toggleMenu}/>
-                        <FontAwesomeIcon icon={faXmark} size="2xl" className={menuHidden ? "faXmark fontawesomeYellow" : "faXmark fontawesomeYellow burger_hidden"} onClick={toggleMenu}/>
+                        <FontAwesomeIcon icon={faBars} size="xl" className={menuHidden ? "faBars fontawesomeYellow burger_hidden mediaQ_hidden" : "faBars fontawesomeYellow mediaQ_hidden"} onClick={toggleMenu}/>
+                        <FontAwesomeIcon icon={faXmark} size="xl" className={menuHidden ? "faXmark fontawesomeYellow mediaQ_hidden" : "faXmark fontawesomeYellow burger_hidden mediaQ_hidden"} onClick={toggleMenu}/>
                         
-                        <div className={menuHidden ? "" : "burger_hidden"}>
+                        <div className={menuHidden ? "mediaQ_show ctn_nav" : "burger_hidden mediaQ_show ctn_nav"}>
                             <nav>
                                 <NavLink to="/le_store">Le store</NavLink>
                                 <NavLink to="/la_marque">La marque</NavLink>
                             </nav>
-
+                            <div className="ctn_pictoheader">
                             {!localStorage.getItem("myuserid") ? (
                                 <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                 ) : ( 
@@ -96,10 +96,11 @@ function Header() {
                                     </>
                                 )}                
 
-                            <Link to="/panier" className="cart">
-                                <p className="cart_content">{cartInfo.product.length ? computeCart() + "€" : ""}</p>
-                                <img className="picto_header" src={cart_empty} alt="pictogramme de chariot" />
-                            </Link>
+                                <Link to="/panier" className="cart">
+                                    <p className="cart_content">{cartInfo.product.length ? computeCart() + "€" : ""}</p>
+                                    <img className="picto_header" src={cart_empty} alt="pictogramme de chariot" />
+                                </Link>
+                            </div>
                         </div>
                         
                     </div>

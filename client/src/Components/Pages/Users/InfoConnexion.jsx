@@ -39,45 +39,43 @@ function InfoConnexion() {
     getData();
     }, []);
 
-  console.log("PAGE INFOSPERSOUSER Fetch --->", users);
-
   return (
     <>
-        {!users ? (
-                    <Loading/>
-                ) : ( users.map( user =>
+      {!users ? (
+                  <Loading/>
+              ) : ( users.map( user =>
 
-                  <>
-                  
-                  <PreviousPage user={user}/>
+                <>
+                
+                <PreviousPage user={user}/>
 
-                  <section className="form_section">
+                <section className="form_section">
 
-                    <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
-                    <h3 className="form_title read">Vos informations de connexion</h3>
-                     <form>
-                      
-                      <input
-                            placeholder="Mot de passe"
-                            type="password"
-                            name="password"
-                            value={user.password}
-                            disabled="disabled"
-                      />
-                      <input
-                            placeholder="Email"
-                            type="email"
-                            name="email"
-                            value={user.email}
-                            disabled="disabled"
-                      />
+                  <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
+                  <h3 className="form_title read">Vos informations de connexion</h3>
+                    <form>
+                    
+                    <input
+                          placeholder="Mot de passe"
+                          type="password"
+                          name="password"
+                          value={user.password}
+                          disabled="disabled"
+                    />
+                    <input
+                          placeholder="Email"
+                          type="email"
+                          name="email"
+                          value={user.email}
+                          disabled="disabled"
+                    />
 
-                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-connexion-update/${user.id}`}>Modifier mes informations</button>
+                    <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-connexion-update/${user.id}`}>Modifier mes informations</button>
 
-                    </form>
-                    </section>
-                  </>
-                ))}
+                  </form>
+                  </section>
+                </>
+              ))}
       
     </>
   )

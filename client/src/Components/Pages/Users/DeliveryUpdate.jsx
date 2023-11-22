@@ -1,6 +1,6 @@
 import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router-dom';
 import { useState, useEffect, /* useReducer */ } from "react";
-import { /*useSelector ,  useDispatch */ } from "react-redux";
+// import { useSelector ,  useDispatch } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -12,9 +12,14 @@ import Loading from "../Containers/Loading";
 function DeliveryUpdate() {
   
   // const { info } = useSelector((state) => state.user);
+  // const { deliveryInfo } = useSelector((state) => state.deliveryInfo);
+  // console.log("info", info.id);
+  // console.log("delivery", deliveryInfo.firstname);
+
   // const params   = useParams();
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
+
   const [users, setUsers]               = useState(null);
   const [firstname, setFirstname]       = useState("");
   const [lastname, setLastname]         = useState("");
@@ -24,9 +29,10 @@ function DeliveryUpdate() {
   const [postal_code, setPostal_code]   = useState("");
   const [city, setCity]                 = useState("");
   const [phone, setPhone]               = useState("");
-  const [pseudo, setPseudo]               = useState("");
+  const [pseudo, setPseudo]               = useState(""); // le champ du formulaire n'est pas nécessaire, cependant la state pour le "body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, pseudo })"" est obligatoire
   const [msg, setMsg]                   = useState(null);
-    
+
+   
   const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
@@ -82,102 +88,102 @@ function DeliveryUpdate() {
 
   return (
     <>
-          {!users ? (
-                      <Loading/>
-                  ) : ( users.map( user =>
+      {!users ? (
+                  <Loading/>
+              ) : ( users.map( user =>
 
-                    <>
-                      <Link to={`/utilisateurs/infos-livraison/${user.id}`}><p className="previous_page">Retour</p></Link>
+                <>
+                  <p className="previous_page"><Link to={`/utilisateurs/infos-livraison/${user.id}`}>Retour</Link></p>
 
-                      <section className="form_section">
-    
-                        <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
-                        <h3 className="form_title update">Modification de vos informations de livraison</h3>
+                  <section className="form_section">
 
-                        {msg && <p className="msg_green">{msg}</p>}
+                    <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
+                    <h3 className="form_title update">Modification de vos informations de livraison</h3>
 
-                        <form onSubmit={handleSubmit}>
+                    {msg && <p className="msg_green">{msg}</p>}
 
-                          {/* <label for="firstname">Votre prénom</label> */}
-                          <input
-                                placeholder="Votre prénom"
-                                type="text"
-                                name="firstname"
-                                value={firstname}
-                                onChange={(e) => setFirstname(e.target.value)}                          
-                          />
-                          {/* <label for="lastname">Votre nom</label> */}
-                          <input
-                                placeholder="Votre nom"
-                                type="text"
-                                name="lastname"
-                                value={lastname}
-                                onChange={(e) => setLastname(e.target.value)}
-                          />
-                          {/* <label for="number">Numéro de la rue</label> */}
-                          <input
-                                placeholder="Numéro de la rue"
-                                type="number"
-                                name="number"
-                                value={number}
-                                onChange={(e) => setNumber(e.target.value)}                          
-                          />
-                          {/* <label for="street">Nom de la rue</label> */}
-                          <input
-                                placeholder="Nom de la rue"
-                                type="text"
-                                name="street"
-                                value={street}
-                                onChange={(e) => setStreet(e.target.value)}
-                          />
-                          {/* <label for="complement">Complément d'adresse</label> */}
-                          <input
-                                placeholder="Complément d'adresse"
-                                type="text"
-                                name="complement"
-                                value={complement}
-                                onChange={(e) => setComplement(e.target.value)}
-                          />
-                          {/* <label for="postal_code">Code postal</label> */}
-                          <input
-                                placeholder="Code postal"
-                                type="text"
-                                name="postal_code"
-                                value={postal_code}
-                                onChange={(e) => setPostal_code(e.target.value)}
-                          />
-                          {/* <label for="city">Ville</label> */}
-                          <input
-                                placeholder="Ville"
-                                type="text"
-                                name="city"
-                                value={city}
-                                onChange={(e) => setCity(e.target.value)}
-                          />
-                          {/* <label for="city">Numéro de téléphone</label> */}
-                          <input
-                            placeholder="Votre numéro de téléphone (Non obligatoire)"
-                            type="tel"
-                            name="phone"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                          />
-                          {/* <label for="pseudo">Votre pseudo</label> */}
-                          <input
-                            placeholder="Votre pseudo"
-                            type="hidden"
-                            name="pseudo"
-                            value={pseudo}
-                            onChange={(e) => setPseudo(e.target.value)}
-                          />
-                         
-                          <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                          <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                    <form onSubmit={handleSubmit}>
 
-                        </form>
-                      </section>
-                    </>
-                  ))}
+                      {/* <label for="firstname">Votre prénom</label> */}
+                      <input
+                            placeholder="Votre prénom"
+                            type="text"
+                            name="firstname"
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}                          
+                      />
+                      {/* <label for="lastname">Votre nom</label> */}
+                      <input
+                            placeholder="Votre nom"
+                            type="text"
+                            name="lastname"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
+                      />
+                      {/* <label for="number">Numéro de la rue</label> */}
+                      <input
+                            placeholder="Numéro de la rue"
+                            type="number"
+                            name="number"
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}                          
+                      />
+                      {/* <label for="street">Nom de la rue</label> */}
+                      <input
+                            placeholder="Nom de la rue"
+                            type="text"
+                            name="street"
+                            value={street}
+                            onChange={(e) => setStreet(e.target.value)}
+                      />
+                      {/* <label for="complement">Complément d'adresse</label> */}
+                      <input
+                            placeholder="Complément d'adresse"
+                            type="text"
+                            name="complement"
+                            value={complement}
+                            onChange={(e) => setComplement(e.target.value)}
+                      />
+                      {/* <label for="postal_code">Code postal</label> */}
+                      <input
+                            placeholder="Code postal"
+                            type="text"
+                            name="postal_code"
+                            value={postal_code}
+                            onChange={(e) => setPostal_code(e.target.value)}
+                      />
+                      {/* <label for="city">Ville</label> */}
+                      <input
+                            placeholder="Ville"
+                            type="text"
+                            name="city"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                      />
+                      {/* <label for="city">Numéro de téléphone</label> */}
+                      <input
+                        placeholder="Votre numéro de téléphone (Non obligatoire)"
+                        type="tel"
+                        name="phone"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                      />
+                      {/* <label for="pseudo">Votre pseudo</label> */}
+                      <input
+                        placeholder="Votre pseudo"
+                        type="hidden"
+                        name="pseudo"
+                        value={pseudo}
+                        onChange={(e) => setPseudo(e.target.value)}
+                      />
+                      
+                      <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
+                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+
+                    </form>
+                  </section>
+                </>
+              ))}
     </>
   )
 }

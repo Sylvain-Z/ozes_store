@@ -1,0 +1,145 @@
+import { useState, useEffect  } from "react";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMessage , faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+
+import Loading from "../Containers/Loading";
+import BackToStore from '../Containers/BackToStore/index';
+import PreviousPage from './Components/previousPage';
+import ReadMessages from './readMessages';
+
+function SendMessages(){
+
+      const myuserid = localStorage.getItem("myuserid");
+
+      const [ users, setUsers ]           = useState(null);
+      
+      const [user_pseudo, setUser_pseudo]   = useState(""); // les state pour remplir le formulaire
+      const [user_email, setUser_email]   = useState("");
+      const [subject, setSubject]         = useState("");
+      const [content, setContent]         = useState("");
+      const [user_id, setUser_id]         = useState("");
+      const [msg, setMsg]                 = useState(null);
+      
+      const [ messages , setMessages ] = useState("");
+
+      // useEffect pour gérer les states du formulaire
+      useEffect(() => {
+            async function getData() {
+                  try {
+                        const users = await fetch("/api/v1/users/"+ myuserid);
+                        
+                        if (users.status === 200) {
+                        const json = await users.json();
+                        setUsers(json);
+                        setUser_pseudo(json[0].pseudo);
+                        setUser_email(json[0].email);
+                        setUser_id(json[0].id);
+
+                              const messages = await fetch("/api/v1/messages/user/"+ myuserid);
+
+                              if (messages.status === 200) {
+                                    const json = await messages.json();
+                                    setMessages(json);
+                              }
+                        
+                        }
+                  } catch (error) {
+                  throw Error(error);
+                  }
+            }
+            getData();
+            }, [myuserid, user_pseudo, user_email, user_id]);
+
+            async function handleSubmit(e) {
+                  e.preventDefault();
+                  const res = await fetch(`/api/v1/messages/write`, {
+                      method: "post",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ user_pseudo, user_email, subject, content, user_id }),
+                  });
+                  const json = await res.json();
+                  setMsg(json.msg);
+              }
+
+
+    return (
+            <>
+                  {!users ? (
+                              <Loading/>
+                        ) : ( users.map( user =>
+
+                              <>
+                              <PreviousPage user={user}/>
+
+                              <section className="form_section">
+
+                                    <FontAwesomeIcon icon={faMessage} className="fontawesome fontawesomeYellow"/>
+                  
+                                    <h3 className="form_title read">Écrivez-nous</h3>
+
+                                    <form onSubmit={handleSubmit}>
+
+                                          {msg && <p className="msg_green">{msg}</p>}
+
+                                          <input
+                                                required
+                                                disabled
+                                                placeholder="Pseudo"
+                                                type="hidden"
+                                                name="user_pseudo"
+                                                value={user_pseudo}
+                                                onChange={(e) => setUser_pseudo(e.target.value)}                          
+                                          />
+                                          <input
+                                                required
+                                                disabled
+                                                placeholder="Votre email"
+                                                type="hidden"
+                                                name="email"
+                                                value={user_email}
+                                                onChange={(e) => setUser_email(e.target.value)}                          
+                                          />
+                                          <label for="subject">Sujet</label>
+                                          <input
+                                                required
+                                                placeholder="Sujet"
+                                                type="text"
+                                                name="subject"
+                                                value={subject}
+                                                onChange={(e) => setSubject(e.target.value)}
+                                          />
+                                          <label for="content">Message</label>
+                                          <textarea className="form_input textarea"
+                                                required
+                                                placeholder="Votre message"
+                                                type="text"
+                                                name="content"
+                                                value={content}
+                                                onChange={(e) => setContent(e.target.value)}                     
+                                          />
+                                          <input
+                                                required
+                                                placeholder="votre identifiant"
+                                                type="hidden"
+                                                name="user_id"
+                                                value={user_id}
+                                                onChange={(e) => setUser_id(e.target.value)}
+                                          />
+                                          
+                                          <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
+
+                                    </form>
+                              </section>
+
+                              <ReadMessages messages={messages}/>
+
+                              <BackToStore/>
+                              </>
+                              ))}
+            
+      </>
+    )
+}
+
+export default SendMessages;

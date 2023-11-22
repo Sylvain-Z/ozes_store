@@ -95,8 +95,6 @@ const userInformations = async (req, res) => {
     const queryUser = "SELECT * FROM users WHERE users.pseudo = ?";
     const [user] = await Query.findByDatas(queryUser, req.params);
 
-    console.log("USERINFORMATIONS CONTROLLER user --->", user);
-
     if(!user.length){
         res.status(404).json({msg: "utilisateur non reconnu"})
     }
@@ -149,10 +147,6 @@ const updateLogin = async (req, res) => {
         const queryUser =
             "SELECT id, pseudo, email, password FROM users WHERE users.pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, req.params);
-
-        console.log("updatePersonalsInformations CONTROLLER REQ.PARAMS --->", req.params);
-        console.log("updatePersonalsInformations CONTROLLER user --->", user);
-        console.log("updatePersonalsInformations CONTROLLER DATAS --->", datas);
         
         if(user.length){
             const query =

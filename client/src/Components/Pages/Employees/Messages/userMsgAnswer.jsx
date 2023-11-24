@@ -68,7 +68,7 @@ function UserMsgAnswer () {
 
                                             {msg && <p className="msg_green">{msg}</p>}
 
-                                            <input
+                                            <textarea className="form_input textarea"
                                                 required
                                                 placeholder="Répondre"
                                                 type="text"

@@ -10,7 +10,6 @@ function ProductAdd (){
     const navigate = useNavigate();
 
     const [reference, setReference]             = useState(null);
-    const [stock_quantity, setStock_quantity]   = useState(null);
     const [title, setTitle]                     = useState(null);
     const [title_url, setTitle_url]             = useState(null);
     const [description, setDescription]         = useState(null);
@@ -32,7 +31,7 @@ function ProductAdd (){
         const res = await fetch("/api/v1/products/add-product", {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reference , stock_quantity , title , title_url , description , price , color , shape , gender , model_info , material , infosup , infosupplus , madeplace }),
+            body: JSON.stringify({ reference , title , title_url , description , price , color , shape , gender , model_info , material , infosup , infosupplus , madeplace }),
         });
         const json = await res.json();
         setMsg(json.msg);
@@ -65,14 +64,6 @@ function ProductAdd (){
                         name="reference"
                         value={reference}
                         onChange={(e) => setReference(e.target.value)}
-                    />
-                    <label for="stock_quantity">Quantité</label>
-                    <input
-                        placeholder="Quantité en stock"
-                        type="text"
-                        name="stock_quantity"
-                        value={stock_quantity}
-                        onChange={(e) => setStock_quantity(e.target.value)}
                     />
                     <label for="title">Nom du produit</label>
                     <input

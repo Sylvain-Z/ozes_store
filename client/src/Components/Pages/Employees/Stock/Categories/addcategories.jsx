@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState/* , useEffect */ } from 'react';
+// import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus , faCircleCheck} from '@fortawesome/free-solid-svg-icons';
 
 function AddCategories (){
-
-    const navigate = useNavigate();
+/* 
+    const navigate = useNavigate(); */
 
     const [ inputHidden, setInptuHidden ] = useState(false);
     const toggleInput = () => setInptuHidden(!inputHidden);
@@ -25,12 +25,6 @@ function AddCategories (){
         const json = await res.json();
         setMsg(json.msg);
         setMsg2(json.msg2);
-        
-        if (res.status === 201) {
-            setTimeout(()=>{
-                navigate("/employes/stock/categories");
-            }, 2000)
-        }
     };
 
     return (

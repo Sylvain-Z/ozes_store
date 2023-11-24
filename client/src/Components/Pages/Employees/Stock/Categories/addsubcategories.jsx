@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useState/* , useEffect  */} from 'react';
+// import { useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCirclePlus, faCircleInfo , faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 function AddSubcategories ({categories}){
     
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const [ inputHidden, setInptuHidden ] = useState(false); // formulaires
     const toggleInput = () => setInptuHidden(!inputHidden);
@@ -28,12 +28,6 @@ function AddSubcategories ({categories}){
         const json = await res.json();
         setMsg(json.msg);
         setMsg2(json.msg2);
-        
-        if (res.status === 201) {
-            setTimeout(()=>{
-                navigate("/employes/stock/categories");
-            }, 2000)
-        }
     };    
 
     return (

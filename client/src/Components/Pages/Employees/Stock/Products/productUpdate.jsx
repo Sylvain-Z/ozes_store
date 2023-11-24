@@ -1,8 +1,9 @@
 import { Link , useNavigate, useParams } from "react-router-dom";
 import { useEffect , useState } from "react";
 
-import Loading from "../../Containers/Loading";
+import Loading from "../../../Containers/Loading";
 import ProductUpdateInfos from "./productUpdateInfos";
+import ProductAddSizes from "./productAddSizes";
 import ProductUpdateCate from "./productUpdateCate";
 import ProductUpdatePic from "./productUpdatePic";
 
@@ -48,11 +49,13 @@ function ProductUpdate (){
                             <p className="form_advise">
                                         <em>Laisser vide les champs non pertinents</em></p>
 
-                                <img className="form_image" src={require("../../../../assets/img/store/" + product.file_name)} alt={product.caption}/>
+                                <img className="form_image" src={require("../../../../../assets/img/store/" + product.file_name)} alt={product.caption}/>
 
                         </section>
 
                         <ProductUpdateInfos products={products} />
+
+                        <ProductAddSizes />
 
                         <ProductUpdateCate />
 

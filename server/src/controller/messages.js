@@ -37,7 +37,7 @@ const WriteMessage = async (req, res) => {
             user_id: req.body.user_id,
         };
         const query =
-            "INSERT INTO messages (user_pseudo, user_email, subject, content, publication_date, status, user_id) VALUES(?, ?, ?, ?, NOW(), 'en attente', ?)";
+            "INSERT INTO messages (user_pseudo, user_email, subject, content, publication_date, status, user_id) VALUES(?, ?, ?, ?, CURRENT_TIMESTAMP, 'en attente', ?)";
         await Query.write(query, message);
 
             msg = "Votre message a bien été envoyé";
@@ -68,7 +68,7 @@ const AnswerMessages = async (req, res) => {
             id: req.body.id, 
                        };
             const query =
-                "UPDATE messages SET answer = ? , answer_date = NOW() , status = 'Répondu' WHERE id = ?";
+                "UPDATE messages SET answer = ? , answer_date = CURRENT_TIMESTAMP , status = 'Répondu' WHERE id = ?";
             await Query.write(query, datas);
         
             msg = "Réponse envoyée";
@@ -78,5 +78,6 @@ const AnswerMessages = async (req, res) => {
         throw Error(error);
     }
 };
+
 
 export { ReadAll, ReadUserMessages, WriteMessage , ReadOneStatus , AnswerMessages };

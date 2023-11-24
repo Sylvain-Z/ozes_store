@@ -1,5 +1,6 @@
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 
+
 /* Pages tout publique */
 import HOC from "./Components/HOC/index";
 import Home from "./Components/Pages/Home/index";
@@ -38,12 +39,14 @@ import Reserve from "./Components/Pages/Employees/Stock/index";
 import Categories from "./Components/Pages/Employees/Stock/Categories/index";
 import DeleteCategories from "./Components/Pages/Employees/Stock/Categories/deleteCategorie";
 import DeleteSubCategories from "./Components/Pages/Employees/Stock/Categories/deleteSubcategorie";
+import UpdateSizes from "./Components/Pages/Employees/Stock/Sizes/updateSizes"; 
+import DeleteSizes from "./Components/Pages/Employees/Stock/Sizes/deleteSizes"; 
 
-import ProductAdd from "./Components/Pages/Employees/Stock/productAdd";
-import ProductAddCate from "./Components/Pages/Employees/Stock/productAddCate";
-import ProductAddPic from "./Components/Pages/Employees/Stock/productAddPic";
-import ProductUpdate from "./Components/Pages/Employees/Stock/productUpdate";
-import ProductDelete from "./Components/Pages/Employees/Stock/productDelete";
+import ProductAdd from "./Components/Pages/Employees/Stock/Products/productAdd";
+import ProductAddCate from "./Components/Pages/Employees/Stock/Products/productAddCate";
+import ProductAddPic from "./Components/Pages/Employees/Stock/Products/productAddPic";
+import ProductUpdate from "./Components/Pages/Employees/Stock/Products/productUpdate";
+import ProductDelete from "./Components/Pages/Employees/Stock/Products/productDelete";
 import UserMsgRead from "./Components/Pages/Employees/Messages/userMsgRead";
 import UserMsgAnswer from "./Components/Pages/Employees/Messages/userMsgAnswer";
 import EmployeesInfo from "./Components/Pages/Employees/Infos/employeesInfo";
@@ -65,7 +68,7 @@ function App() {
 
           <Route path="le_store">
             <Route path="" element={<HOC child={Shop}/>} />
-            <Route path=":cate_title/:title_url/:id" element={<HOC child={ProductPage}/>} />
+            <Route path=":title_url/:id" element={<HOC child={ProductPage}/>} />
           </Route>
 
           <Route path="la_marque" element={<HOC child={Brand}/>} />
@@ -100,14 +103,13 @@ function App() {
                 <Route path="" element={<HOCEmployees child={Categories} auth={true}/>} />
                 <Route path="categories/delete/:id" element={<HOCEmployees child={DeleteCategories} auth={true}/>} />
                 <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} auth={true}/>} />
-                
-
-
               </Route>
               <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} auth={true}/>} />
               <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddCate} auth={true}/>} />
               <Route path="attribuer-infos-images" element={<HOCEmployees child={ProductAddPic} auth={true}/>} />
               <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} auth={true}/>} />
+              <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} auth={true}/>} />
+              <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} auth={true}/>} />
               <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} auth={true}/>} />
             </Route>
 

@@ -1,4 +1,6 @@
 
+import { format } from 'date-fns-tz';
+
 function ReadMessages({messages}){
 
     return (
@@ -14,14 +16,14 @@ function ReadMessages({messages}){
                                 <h4>Réponse du service client</h4>
                                 <h4>{message.subject}</h4>
                                 <p className="message_content">{message.answer}</p>
-                                <p className="message_date">{message.answer_date}</p>
+                                <p className="message_date">{format(new Date(message.answer_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
                         </div>
                         <div className="user_message">
                                 <p className={message.status === "en attente" ? "message_status_yellow" : "message_status_green"}>{message.status}</p>
                                 <h4>Votre message</h4>
                                 <h4>{message.subject}</h4>
                                 <p className="message_content">{message.content}</p>
-                                <p className="message_date">{message.publication_date}</p>
+                                <p className="message_date">{format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
                         </div>
 
                         </>

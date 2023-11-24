@@ -49,7 +49,7 @@ function SendMessages(){
                   }
             }
             getData();
-            }, [myuserid, user_pseudo, user_email, user_id]);
+            }, [myuserid, user_pseudo, user_email, user_id, messages]);
 
             async function handleSubmit(e) {
                   e.preventDefault();

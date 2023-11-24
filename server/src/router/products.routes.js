@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getPics_subById , getProductsDetails , getClothes , getClothesDetails , getJewelry , getJewelryDetails , getProductsCart , getLastId , getSubcategories , getProdSubcateById , getPicById , AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
+import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getPicturesById , getProductsDetails , getSizesByProductId, getClothes , getClothesDetails , getJewelry , getJewelryDetails , getProductsCart , getLastId , getSubcategories , getProdSubcateById , getPicById , AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
 
 const router = Router();
 
@@ -17,8 +17,9 @@ router.get("/glimpse/:id", getProductsGlimpse); // composant : Employees/Product
 router.get("/pictures/:id", getPicById); // sert à récupérer la table pictures pour changer les infos des images - composant : Employees/ProductUpdatePic
 router.get("/prod_subcate/:id", getProdSubcateById); // sert à récupérer la table products_subcategories pour changer le produit de sous catégorie - composant : Employees/ProductUpdate
 router.get("/galery", getProductsGalery); // informations nécessaires à la page ../Shop/product_galery
-router.get("/pics_sub/:id", getPics_subById); // photos nécessaires à la page ../Shop/product_page
-router.get("/:cate_title/:title_url/:id", getProductsDetails); // page détails produits laissé de côté pour le moment
+router.get("/pictures/:id", getPicturesById); // photos nécessaires à la page ../Shop/product_page
+router.get("/sizes/:id", getSizesByProductId); // sert à récupérer les tailles pour la page product
+router.get("/:title_url/:id", getProductsDetails); // page détails produits laissé de côté pour le moment
 router.get("/vetements", getClothes); // récupère tous les produits de la catégorie vetements
 router.get("/vetements/:title_url", getClothesDetails); // récupère un produit spécifique de la catégorie vetements
 router.get("/bijoux", getJewelry); // récupère tous les produits de la catégorie bijoux

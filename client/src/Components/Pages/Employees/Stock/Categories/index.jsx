@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link , useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { /* faPenToSquare , */ faTrashCan /* , faSquarePlus, faSquareMinus , faTag */ } from '@fortawesome/free-solid-svg-icons';
+import { /* faPenToSquare , */ faTrashCan /*, faSquareMinus , faTag */} from '@fortawesome/free-solid-svg-icons';
 
 import AddCategories from "./addcategories";
 import AddSubcategories from "./addsubcategories";
@@ -41,7 +41,7 @@ function Categories () {
             }
         }
         getData();
-    }, []);
+    }, [categories, subcategories]);
 
     return (
 
@@ -53,7 +53,7 @@ function Categories () {
                 <h2>Catégories</h2>
 
                 <div className='categories_actions'>
-                    <AddCategories />
+                    <AddCategories/>
                     <AddSubcategories categories={categories}/>
                 </div>
 

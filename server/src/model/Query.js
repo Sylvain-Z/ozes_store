@@ -22,6 +22,9 @@ class Query {
     static async deleteByValue(query, value){
         return await pool.query(query, [value]);
     }
+    static async deleteByDatas(query, datas){
+        return await pool.query(query, [...Object.values(datas)]);
+    }
 }
 
 export default Query;

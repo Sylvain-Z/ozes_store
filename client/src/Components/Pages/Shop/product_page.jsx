@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCottonBureau } from '@fortawesome/free-brands-svg-icons';
 
 import Loading from "../Containers/Loading";
-import ClothesForm from "./Forms/clothesform"
-import RingsForm from "./Forms/ringsform"
+import ProductForm from "./Forms/productform"
 
 function ProductPage (){
 
@@ -15,12 +14,12 @@ function ProductPage (){
     const navigate = useNavigate();
 
     const [ products , setProducts ] = useState(null);
-    const [ picSub , setPicSub ] = useState(null);
+    const [ pictures , setPictures ] = useState(null);
 
     useEffect(() => {
         async function getData() {
             try {
-                const products = await fetch("/api/v1/products/"+ params.cate_title + "/" + params.title_url);
+                const products = await fetch("/api/v1/products/" + params.title_url + "/" + params.id);
                 if(products.status === 404) {
                     navigate("/not-found");
                 }
@@ -28,9 +27,9 @@ function ProductPage (){
                     const json = await products.json();
                     setProducts(json);
 
-                    const picSub = await fetch("/api/v1/products/pics_sub/" + params.id );
-                        const jsonP = await picSub.json();
-                        setPicSub(jsonP);
+                    const pictures = await fetch("/api/v1/products/pictures/" + params.id );
+                        const jsonP = await pictures.json();
+                        setPictures(jsonP);
                 }
 
 
@@ -57,12 +56,10 @@ function ProductPage (){
                                 <img className="product_image" src={require("../../../assets/img/store/" + p.file_name)} alt={p.caption}/>
 
                                 <div className="pics_sub_ctn">
-                                    {!picSub ? (
+                                    {!pictures ? (
                                                 <></>
-                                            ) : ( picSub.map( ps =>
-                                                <>
-                                                    <img className="product_image_sub" src={require("../../../assets/img/store/" + ps.file_name)} alt={ps.caption}/>
-                                                </>
+                                            ) : ( pictures.map( pc =>
+                                                    <img className="product_image_sub" src={require("../../../assets/img/store/" + pc.file_name)} alt={pc.caption}/>
                                                     ))}
                                 </div>
                             </div>
@@ -73,24 +70,22 @@ function ProductPage (){
                                 <p className="price"><strong>{p.price}€</strong></p>
                                 <p className="color"><strong>Couleur : {p.color}</strong></p>
 
-                                    <RingsForm products={products} />
-
-                                    <ClothesForm products={products}/>
+                                    <ProductForm products={products}/>
 
                             </article>
                         </div>
 
                         <p className="description">{p.description}</p>
 
-                        <p className={pathname === "/le_store/vetements/" + params.title_url + "/" + params.id  ? "infosup" : "hidden"}>{p.shape}</p>
+                        <p className="infosup">{p.shape}</p>
 
-                        <p className={pathname === "/le_store/vetements/" + params.title_url + "/" + params.id  ? "infosupplus" : "hidden"}>{p.model_info}</p>
+                        <p className="infosupplus">{p.model_info}</p>
 
-                        <p className={pathname === "/le_store/bijoux/" + params.title_url + "/" + params.id ? "infosup" : "hidden"}>{p.infosup}</p>
+                        <p className="infosup">{p.infosup}</p>
 
-                        <p className={pathname === "/le_store/bijoux/" + params.title_url + "/" + params.id  ? "infosupplus" : "hidden"}>{p.infosupplus}</p>
+                        <p className="infosupplus">{p.infosupplus}</p>
 
-                        <p className="matérial"><FontAwesomeIcon icon={faCottonBureau} style={{color: "#ffffff",}} /> {p.material}</p>
+                        <p className="material"><FontAwesomeIcon icon={faCottonBureau} style={{color: "#ffffff",}} /> {p.material}</p>
 
                         <p className="infosup">{p.madeplace}</p>
 

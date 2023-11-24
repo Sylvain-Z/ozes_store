@@ -68,7 +68,7 @@ function Reserve() {
                               <p>{product.title}</p>
                             </td>
                             <td><p>{product.price}€</p></td>
-                            <td><p>{product.stock_quantity}</p></td>
+                            <td><p>Total</p></td>
                             <td>
                               <Link to={`/employes/stock/actualiser/${product.id}`}>
                                 <FontAwesomeIcon icon={faPenToSquare} className='fontawesomeBlue btn update_reserve'/>

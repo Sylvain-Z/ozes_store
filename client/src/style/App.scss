@@ -49,6 +49,7 @@ $Red : rgb(199, 18, 18);
 $Blue : rgb(26, 28, 93);
 $Green : rgb(3, 149, 8);
 $Darked : rgba(15, 15, 15, 0.5);
+$DarkedLight : rgba(15, 15, 15, 0.2);
 $title-font : 'CaviarOzesRegular';
 $title-font-bold : 'CaviarOzesBold';
 $subtitle-font : 'Caviar Dreams';
@@ -603,7 +604,7 @@ article {
 .cotonpicto {
     width: 50px;
 }
-.matérial, .description, .infosup, .infosupplus  {
+.material, .description, .infosup, .infosupplus  {
     width: 100%;
     margin: 10px auto;
     font-family: $text-font-light;
@@ -614,11 +615,11 @@ article {
     text-decoration: underline;
     font-weight: bold;
 }
-.matérial {
+.material {
     text-align: center;
     color: $White; 
 }
-.matérial {
+.material {
     background-color: #aa8818;
 }
 
@@ -830,7 +831,8 @@ form {
         }
         p {
             color : $White;
-            margin: 25px auto;
+            margin: 5px auto;
+            padding: 10px;
         }
         .message_status_yellow {
             margin: 0;
@@ -842,15 +844,23 @@ form {
             text-align: right;
             color : $Green;
         }
+        .message_pseudo, .message_mail {
+            text-align: left;
+        }
         .message_content {
             font-size: 16px;
+            padding: 25px;
             font-family: $subtitle-font-Italic;
+            background-color: $Darked;
+            border-radius: 15px;
+            border-top-right-radius: 0px;
         }
         .message_date {
             width: 150px;
+            margin-top: 15px;
             padding-top: 15px;
             font-size: 14px;
-            border-top: 1px solid $Blue;
+            border-top: 1px solid $White;
         }
         a > p {
             width: 50%;
@@ -864,10 +874,16 @@ form {
             border-radius: 5px;
         }
     }
+    .guest {
+        background-image: url("../assets/img/FondTurquoise.jpg")
+    }
     .employees_message {
         width: 85%;
         margin : 0;
         background-image: url("../assets/img/FondBleu.jpg");
+        .msg_green {
+            color: $Green;
+        }
     }
 }
 .update {
@@ -971,7 +987,8 @@ form {
     margin-bottom: 50px;
     padding: 25px 0;
     border-radius: 10px;
-    .cate_display {
+}
+    .cate_display, .sizes_display {
         width: 100%;
         display: flex;
         flex-wrap: wrap;
@@ -980,16 +997,19 @@ form {
         padding-top: 25px;
         border-top: 1px solid rgb(186, 186, 184);
     }
-    p {
+    .cate_display p, .sizes_display p  {
         color : $White;
         text-align: center;
     }
-    .cate {
+    .cate, .sizes {
         position: relative;
         width: 44%;
         margin: 10px;
     }
-    .cate_title, .title_p {
+    .sizes {
+        width: 100%;
+    }
+    .cate_title, .sizes_title, .title_p {
         height: 35px;
         background: linear-gradient(70deg, rgb(186, 186, 184), rgb(136, 166, 173), rgb(206, 204, 199));
         line-height: 35px; // centre le texte verticalement dans la div .cate
@@ -998,7 +1018,7 @@ form {
     .title_p {
         width: 100%;
     }
-    .cate_title {
+    .cate_title, .sizes_title {
         width: auto;
         text-transform: capitalize;
     }
@@ -1019,7 +1039,17 @@ form {
         border: none;
         border-radius: 5px;
     }
-}
+    .faPenToSquare {
+        position: absolute;
+        top: 7.5px;
+        left: 7.5px;
+        width: 20px;
+        height: 20px;
+        background-color: $White;
+        border: none;
+        border-radius: 5px;
+    }
+
 .categories_actions, .reserve_actions {
     width: 100%;
     margin: auto;

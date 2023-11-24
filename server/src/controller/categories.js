@@ -12,7 +12,7 @@ const getCategoryById = async (req, res) => {
     const query = "SELECT * FROM categories WHERE id = ?";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
+        res.status(404).json({msg: "catégorie non reconnue"})
     }
     if(datas.length) {        
         res.status(200).json(datas);
@@ -32,7 +32,7 @@ const getSubategoryById = async (req, res) => {
     const query = "SELECT * FROM subcategories WHERE id = ?";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
+        res.status(404).json({msg: "catégorie non reconnue"})
     }
     if(datas.length) {        
         res.status(200).json(datas);

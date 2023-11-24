@@ -1,5 +1,6 @@
 import { useState, useEffect  } from "react";
-import { Link } from "react-router-dom";
+import { Link, json } from "react-router-dom";
+import { format } from 'date-fns-tz';
 
 import PreviousPage from '../Components/previousPage';
 
@@ -26,7 +27,7 @@ function UserMsgRead () {
               }
         }
         getData();
-        }, []);
+        }, [messages]);
 
     return (
         <>
@@ -44,16 +45,16 @@ function UserMsgRead () {
                                 <h4>Réponse du service</h4>
                                 <h4>{message.subject}</h4>
                                 <p className="message_content">{message.answer}</p>
-                                <p className="message_date">{message.answer_date}</p>
+                                <p className="message_date">{format(new Date(message.answer_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
                         </div>
-                        <div className="user_message">
+                        <div className={message.user_pseudo === "Invité" ? "user_message guest" : "user_message"}>
                                 <h4>Message du client</h4>
                                 <h4>{message.subject}</h4>
                                 <p className={message.status === "en attente" ? "message_status_yellow" : "message_status_green"}>{message.status}</p>
-                                <p>{message.user_email}</p>
-                                <p>{message.pseudo}</p>
+                                <p className="message_mail">Mail : {message.user_email}</p>
+                                <p className="message_pseudo">Pseudo : {message.user_pseudo}</p>
                                 <p className="message_content">{message.content}</p>
-                                <p className="message_date">{message.publication_date}</p>
+                                <p className="message_date">{format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
 
                                 
                                 <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre</p></Link>

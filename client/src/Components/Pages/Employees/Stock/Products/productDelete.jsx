@@ -68,7 +68,7 @@ function ProductDelete (){
                                 ) : (
                                 <>
                                     <figure className="delete_fig">
-                                        <img src={require("../../../../assets/img/store/" + products[0].file_name1)} alt={products[0].caption1} />
+                                        <img src={require("../../../../../assets/img/store/" + products[0].file_name)} alt={products[0].caption} />
                                         <figcaption>
                                             <p>{products[0].title}</p>
                                             <p>Quantité en stock : {products[0].stock_quantity}</p>

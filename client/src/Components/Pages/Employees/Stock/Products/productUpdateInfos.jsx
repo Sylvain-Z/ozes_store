@@ -6,7 +6,7 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 
-import Loading from "../../Containers/Loading";
+import Loading from "../../../Containers/Loading";
 
 function ProductUpdate ({products}){
 
@@ -25,7 +25,6 @@ function ProductUpdate ({products}){
     const [gender, setGender]                   = useState(null);
     const [model_info, setModel_info]           = useState(null);
     const [material, setMaterial]               = useState(null);
-    const [material_style, setMaterial_style]   = useState(null);
     const [infosup, setInfosup]                 = useState(null);
     const [infosupplus, setInfosupplus]         = useState(null);
     const [madeplace, setMadeplace]             = useState(null);
@@ -53,7 +52,6 @@ function ProductUpdate ({products}){
                     setGender(json[0].gender);
                     setModel_info(json[0].model_info);
                     setMaterial(json[0].material);
-                    setMaterial_style(json[0].material_style);
                     setInfosup(json[0].infosup);
                     setInfosupplus(json[0].infosupplus);
                     setMadeplace(json[0].madeplace);
@@ -70,7 +68,7 @@ function ProductUpdate ({products}){
         const res = await fetch(`/api/v1/products/update/`+ params.id, {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id , reference , stock_quantity , title , title_url , description , price , color , shape , gender , model_info , material , material_style , infosup , infosupplus , madeplace }),
+            body: JSON.stringify({ id , reference , stock_quantity , title , title_url , description , price , color , shape , gender , model_info , material , infosup , infosupplus , madeplace }),
         });
         const json = await res.json();
         setMsg(json.msg);
@@ -180,14 +178,6 @@ function ProductUpdate ({products}){
                                             value={material}
                                             onChange={(e) => setMaterial(e.target.value)}
                                         />
-                                        <label for="material_style">Classe css</label>
-                                        <input
-                                            placeholder="Classe css ('bio', 'bronze' ou 'silver')"
-                                            type="text"
-                                            name="material_style"
-                                            value={material_style}
-                                            onChange={(e) => setMaterial_style(e.target.value)}
-                                        />
                                         <label for="infosup">Informations supplémentaire</label>
                                         <textarea className="form_input textarea"
                                             placeholder="Informations supplémentaire"
@@ -217,7 +207,7 @@ function ProductUpdate ({products}){
                                         {msg && <p className="msg_green">{msg}</p>}
 
                                         <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                                        <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                                        {/* <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button> */}
 
                                     </form>
 

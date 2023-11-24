@@ -10,7 +10,7 @@ function ProductAddCate (){
     
     const [isShown, setIsShown] = useState(false); // infobulle
 
-    const [product_id, setProduct_id]   = useState(null);
+    const [product_id, setProduct_id]   = useState(null);  // state pour afficher les information de la bdd 
     const [subcate, setSubcate]         = useState(null);
 
     useEffect(() => {

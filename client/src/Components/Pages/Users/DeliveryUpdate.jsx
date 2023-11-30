@@ -1,4 +1,4 @@
-import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router-dom';
+import { Link , useNavigate, /* useParams ,  useLocation */ } from 'react-router-dom';
 import { useState, useEffect, /* useReducer */ } from "react";
 // import { useSelector ,  useDispatch } from "react-redux";
 
@@ -7,7 +7,7 @@ import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading";
+import Loading from "../Containers/Loading/Index";
 
 function DeliveryUpdate() {
   
@@ -17,8 +17,8 @@ function DeliveryUpdate() {
   // console.log("delivery", deliveryInfo.firstname);
 
   // const params   = useParams();
-  // const navigate = useNavigate();
   // const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [users, setUsers]               = useState(null);
   const [firstname, setFirstname]       = useState("");
@@ -30,6 +30,8 @@ function DeliveryUpdate() {
   const [city, setCity]                 = useState("");
   const [phone, setPhone]               = useState("");
   const [pseudo, setPseudo]               = useState(""); // le champ du formulaire n'est pas nécessaire, cependant la state pour le "body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, pseudo })"" est obligatoire
+
+  const [id, setId]             = useState("");
   const [msg, setMsg]                   = useState(null);
 
    
@@ -62,6 +64,7 @@ function DeliveryUpdate() {
                 setCity(json[0].city);
                 setPhone(json[0].phone);
                 setPseudo(json[0].pseudo);
+                setId(json[0].id);
                 
             }
         } catch (error) {
@@ -82,7 +85,7 @@ function DeliveryUpdate() {
     const json = await res.json();
     setMsg(json.msg);
     if (res.status === 201) {
-      setTimeout(()=>{ window.history.back()}, 2000)
+      setTimeout(()=>{ navigate(`/utilisateurs/infos-livraison/${id}`)}, 2000)
     }
 }
 
@@ -104,7 +107,7 @@ function DeliveryUpdate() {
 
                     <form onSubmit={handleSubmit}>
 
-                      {/* <label for="firstname">Votre prénom</label> */}
+                      <label for="firstname">Prénom</label>
                       <input
                             placeholder="Votre prénom"
                             type="text"
@@ -112,7 +115,7 @@ function DeliveryUpdate() {
                             value={firstname}
                             onChange={(e) => setFirstname(e.target.value)}                          
                       />
-                      {/* <label for="lastname">Votre nom</label> */}
+                      <label for="lastname">Nom</label>
                       <input
                             placeholder="Votre nom"
                             type="text"
@@ -120,7 +123,10 @@ function DeliveryUpdate() {
                             value={lastname}
                             onChange={(e) => setLastname(e.target.value)}
                       />
-                      {/* <label for="number">Numéro de la rue</label> */}
+
+                      <p className="form_subtitle read">Votre Adresse</p>
+                      
+                      <label for="number">Numéro de la rue</label>
                       <input
                             placeholder="Numéro de la rue"
                             type="number"
@@ -128,7 +134,7 @@ function DeliveryUpdate() {
                             value={number}
                             onChange={(e) => setNumber(e.target.value)}                          
                       />
-                      {/* <label for="street">Nom de la rue</label> */}
+                      <label for="street">Nom de la rue</label>
                       <input
                             placeholder="Nom de la rue"
                             type="text"
@@ -136,7 +142,7 @@ function DeliveryUpdate() {
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
                       />
-                      {/* <label for="complement">Complément d'adresse</label> */}
+                      <label for="complement">Complément d'adresse</label>
                       <input
                             placeholder="Complément d'adresse"
                             type="text"
@@ -144,7 +150,7 @@ function DeliveryUpdate() {
                             value={complement}
                             onChange={(e) => setComplement(e.target.value)}
                       />
-                      {/* <label for="postal_code">Code postal</label> */}
+                      <label for="postal_code">Code postal</label>
                       <input
                             placeholder="Code postal"
                             type="text"
@@ -152,7 +158,7 @@ function DeliveryUpdate() {
                             value={postal_code}
                             onChange={(e) => setPostal_code(e.target.value)}
                       />
-                      {/* <label for="city">Ville</label> */}
+                      <label for="city">Ville</label>
                       <input
                             placeholder="Ville"
                             type="text"
@@ -160,14 +166,18 @@ function DeliveryUpdate() {
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                       />
-                      {/* <label for="city">Numéro de téléphone</label> */}
+                      <label for="city">Numéro de téléphone sans espaces</label>
                       <input
-                        placeholder="Votre numéro de téléphone (Non obligatoire)"
+                        placeholder="Votre numéro de téléphone (non obligatoire)"
                         type="tel"
                         name="phone"
                         value={phone}
+                        pattern="\+\d{11}"
                         onChange={(e) => setPhone(e.target.value)}
                       />
+
+                      {msg && <p className="msg_green">{msg}</p>}
+
                       {/* <label for="pseudo">Votre pseudo</label> */}
                       <input
                         placeholder="Votre pseudo"
@@ -178,8 +188,8 @@ function DeliveryUpdate() {
                       />
                       
                       <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                      <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison/${user.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
-
+                      <p className="button_retour_rouge"><Link to={`/utilisateurs/infos-livraison/${user.id}`} ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></Link></p>
+                      
                     </form>
                   </section>
                 </>

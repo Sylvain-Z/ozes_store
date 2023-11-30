@@ -15,7 +15,7 @@ const ReadAll = async (req, res) => {
 
 const ReadUserMessages = async (req, res) => {
     
-    const query = "SELECT * FROM messages WHERE user_pseudo = ? ORDER BY id DESC";
+    const query = "SELECT * FROM messages WHERE user_id = ? ORDER BY id DESC";
     const [messages] = await Query.findByDatas(query, req.params);
     if(!messages.length){
         res.status(404).json({msg: "pas de message de cet utilisateur"})

@@ -75,11 +75,11 @@ function ProductAdd (){
                     />
                     <label for="title_url">Nom pour url</label>
                     <input
-                        placeholder="Nom pour url ( - ou _ acceptés )"
+                        placeholder="Nom pour url"
                         type="text"
                         name="title_url"
                         value={title_url}
-                        onChange={(e) => setTitle_url(e.target.value)}
+                        onChange={(e) => setTitle_url(e.target.value.replace(/[^a-zA-Z_-]/g, ''))}
                         pattern="^\S*$"
                         title="L'espace n'est pas autorisé."
                     />

@@ -4,8 +4,8 @@ import { Link , useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { /* faPenToSquare , */ faTrashCan /*, faSquareMinus , faTag */} from '@fortawesome/free-solid-svg-icons';
 
-import AddCategories from "./addcategories";
-import AddSubcategories from "./addsubcategories";
+import AddCategories from "./Addcategories";
+import AddSubcategories from "./Addsubcategories";
 
 function Categories () {
 
@@ -67,7 +67,8 @@ function Categories () {
                                         <>
                                             <div className='cate'>
                                                     <p className='cate_title'>{categorie.cate_title}</p>
-                                                    <button onClick={() => window.location.href =`/employes/stock/categories/categories/delete/${categorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed"/></button>
+                                                    
+                                                    <Link to={`/employes/stock/categories/categories/delete/${categorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
                                             </div>
                                                 
                                         </>
@@ -84,7 +85,7 @@ function Categories () {
                                         <>
                                             <div className='cate'>
                                                     <p className='cate_title'>{subcategorie.subcate_title}</p>
-                                                    <button onClick={() => window.location.href =`/employes/stock/categories/subcategories/delete/${subcategorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed"/></button>
+                                                    <Link to={`/employes/stock/categories/subcategories/delete/${subcategorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
                                             </div>
                                                 
                                         </>

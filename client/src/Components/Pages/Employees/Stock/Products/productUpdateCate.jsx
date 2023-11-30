@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect , useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck , faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 function ProductUpdateCate (){
 
@@ -14,6 +14,8 @@ function ProductUpdateCate (){
     const [product_id, setProduct_id]           = useState(null); // b) sert au findByVelue du controller
 
     const [msg, setMsg] = useState(null);
+
+    const [isShown, setIsShown] = useState(false); // infobulle
 
     useEffect(() => {
         async function getData() {
@@ -56,16 +58,23 @@ function ProductUpdateCate (){
 
                 <form onSubmit={handleSubmit}>
 
-                        {!subcate ? ( 
-                            <></>
-                            ) : ( subcate.map( sbc =>
-                                    <>
-                                        <p className="form_advise">
-                                            <em>Tapez {sbc.id} pour {sbc.subcate_title}</em></p>
-                                    </>
-                                ))
-                        }
-
+                        <FontAwesomeIcon icon={faCircleInfo} size="s" className="faInfoBulle"
+                            onMouseEnter={() => setIsShown(true)}
+                            onMouseLeave={() => setIsShown(false)}
+                        />
+                        {isShown && (
+                        <div className='infobulle_ctn'>
+                            <div className='infobulle'>
+                                {!subcate ? (
+                                    <><p>Créer d'abord une catégorie</p></>
+                                ) : ( subcate.map( sbc =>
+                                    <p>
+                                        {sbc.id} : {sbc.subcate_title}
+                                    </p>
+                                ))}
+                            </div>
+                        </div>)}
+                        {/* <p className='sizes_title'>{subcate.title}</p> */}
                         <input
                             placeholder="Catégorie"
                             type="text"

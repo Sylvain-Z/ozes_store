@@ -46,77 +46,24 @@ const getProductsDetails = async (req, res) => {
         return;
     }  
 };
+const getQuantitybyId = async (req, res) => {
+    
+    const query = "SELECT product_id, SUM(quantity) AS total FROM sizes WHERE product_id = ?";
+    const [datas] = await Query.findByDatas(query, req.params);
+    if(!datas.length){
+        res.status(404).json({msg: "produit non reconnu"})
+    }
+    if(datas.length) {        
+        res.status(200).json(datas);
+        return;
+    }  
+};
 const getSizesByProductId = async (req, res) => {
     
     const query = "SELECT products.id AS product_id, reference, sizes.id AS sizes_id, label FROM products JOIN pictures ON pictures.product_id = products.id JOIN sizes ON sizes.product_id = products.id WHERE products.id = ? GROUP BY sizes.id ";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "tailles non reconnu"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
-const getPicturesById = async (req, res) => {
-    
-    const query = "SELECT * FROM pictures WHERE product_id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
-    if(!datas.length){
-        res.status(404).json({msg: "image non trouvée"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
-const getClothes = async (req, res) => {
-    
-    const query = "SELECT * FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id WHERE categories.cate_title = 'vetements'";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
-const getClothesDetails = async (req, res) => {
-    
-    const query = "SELECT * FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id WHERE categories.cate_title = 'vetements' AND products.title_url = ?";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
-const getJewelry = async (req, res) => {
-    
-    const query = "SELECT * FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id WHERE categories.cate_title = 'bijoux'";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
-const getJewelryDetails = async (req, res) => {
-    
-    const query = "SELECT * FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id WHERE categories.cate_title = 'bijoux' AND products.title_url = ?";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "produit non reconnu"})
     }
     if(datas.length) {        
         res.status(200).json(datas);
@@ -170,19 +117,6 @@ const getProdSubcateById = async (req, res) => {
         return;
     }  
 };
-const getPicById = async (req, res) => {
-    
-    const query = "SELECT * FROM pictures WHERE product_id = ? ORDER BY id DESC LIMIT 4";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "donnée non reconnu"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-};
-
 
 const AddProduct = async (req, res) => {
     try {
@@ -255,7 +189,7 @@ const AddCategories = async (req, res) => {
             "INSERT INTO products_subcategories ( product_id, subcategorie_id) VALUES (?, ?)";
         await Query.write(query, datas);
 
-            msg = "Le produit a bien été créé";
+            msg = "La catégorie a bien été associée";
             res.status(201).json({ msg });
         
     } catch (error) {
@@ -263,7 +197,7 @@ const AddCategories = async (req, res) => {
     }
 };
 
-const AddPictures = async (req, res) => {
+const AddPictures = async (req, res) => { // à supprimer lorsque formidable sera ok
     try {
         let msg ="";
         const datas = { 
@@ -276,7 +210,7 @@ const AddPictures = async (req, res) => {
             "INSERT INTO pictures (file_name, caption, product_id) VALUE (?, ?, ?)";
         await Query.write(query, datas);
 
-            msg = "Le produit a bien été créé";
+            msg = "L'image a bien été associée";
             res.status(201).json({ msg });
         
     } catch (error) {
@@ -370,4 +304,4 @@ const DeleteProduct = async (req, res) => {
 
 
 
-export { getOneProductsFull, getProductsGalery , getPicturesById , getSizesByProductId , getProductsGlimpse , getProductsDetails , getClothes , getClothesDetails , getJewelry , getJewelryDetails , getProductsCart , getLastId , getSubcategories, getProdSubcateById , getPicById, AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };
+export { getOneProductsFull, getProductsGalery , getSizesByProductId , getProductsGlimpse , getProductsDetails , getQuantitybyId , getProductsCart , getLastId , getSubcategories, getProdSubcateById , AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };

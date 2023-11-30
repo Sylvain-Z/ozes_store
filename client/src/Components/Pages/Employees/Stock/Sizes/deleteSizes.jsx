@@ -59,7 +59,7 @@ return (
 
         <Link to="/employes/stock/categories"><p className="previous_page">Retour à la liste des produits</p></Link>
 
-        <section className="form_section categories">
+        <section className="form_section reserve">
 
             <h3 className="form_title update">Suppression d'une taille</h3>
 

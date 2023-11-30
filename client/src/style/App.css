@@ -63,7 +63,6 @@ button:hover {
 }
 
 .notFound {
-  margin-top: 100px;
   font-family: "Caviar Dreams";
   color: rgb(26, 28, 93);
 }
@@ -88,7 +87,6 @@ button:hover {
   color: rgb(240, 240, 240);
 }
 #home_body .home_main {
-  width: 100vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -404,10 +402,6 @@ article {
   font-weight: bold;
   transition: 0.7s all;
 }
-.shop figure:hover, .community figure:hover, .size_guide_t-shirts figure:hover, .size_guide_rings figure:hover {
-  transform: scale(1.05);
-  cursor: pointer;
-}
 .shop .community_elements, .community .community_elements, .size_guide_t-shirts .community_elements, .size_guide_rings .community_elements {
   display: flex;
   justify-content: center;
@@ -440,23 +434,23 @@ article {
   font-weight: bold;
 }
 
-.blog_page_article, .ulule_page, .size_guide {
+.ulule_page, .size_guide {
   width: 80%;
   margin: auto;
   text-align: center;
 }
-.blog_page_article figure, .blog_page_article .community_figure_main, .ulule_page figure, .ulule_page .community_figure_main, .size_guide figure, .size_guide .community_figure_main {
+.ulule_page figure, .ulule_page .community_figure_main, .size_guide figure, .size_guide .community_figure_main {
   margin-bottom: 25px;
 }
-.blog_page_article figure img, .blog_page_article .community_figure_main img, .ulule_page figure img, .ulule_page .community_figure_main img, .size_guide figure img, .size_guide .community_figure_main img {
+.ulule_page figure img, .ulule_page .community_figure_main img, .size_guide figure img, .size_guide .community_figure_main img {
   width: 200px;
   border: 50%;
 }
-.blog_page_article h4, .ulule_page h4, .size_guide h4 {
+.ulule_page h4, .size_guide h4 {
   font-size: 25px;
   text-align: center;
 }
-.blog_page_article p, .ulule_page p, .size_guide p {
+.ulule_page p, .size_guide p {
   width: 80%;
   line-height: 25px;
   margin: 25px auto;
@@ -464,7 +458,7 @@ article {
 
 .size_guide .warning {
   width: 100%;
-  margin: 25px auto 100px auto;
+  margin: 25px auto 50px auto;
   font-size: 18px;
   font-style: italic;
 }
@@ -489,7 +483,7 @@ article {
 .size_guide .size_guide_rings img {
   box-shadow: 2px 2px 10px rgba(15, 15, 15, 0.5);
   width: 100%;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 /* PAGE PRODUIT */
@@ -514,11 +508,6 @@ article {
   display: flex;
   justify-content: flex-start;
   margin-bottom: 25px;
-  /* .product_image_sub_wide {
-      position: absolute;
-      width: 80vw;
-      top: -300px;
-  } */
 }
 .product_page .pics_sub_ctn .product_image_sub {
   width: 25%;
@@ -619,6 +608,25 @@ article {
   color: rgb(199, 18, 18);
 }
 
+/* PANIER */
+.empty_cart_btn {
+  width: 150px;
+  height: 40px;
+  background-color: rgb(240, 240, 240);
+  color: rgb(15, 15, 15);
+  font-family: "Caviar Dreams Bold";
+  text-transform: uppercase;
+  border: none;
+  border-radius: 5px;
+  margin: 25px auto;
+  padding: 10px 10px;
+}
+
+.empty_cart_btn:hover {
+  background-color: rgb(199, 18, 18);
+  color: rgb(240, 240, 240);
+}
+
 /* LA MARQUE */
 .brand {
   display: flex;
@@ -702,10 +710,14 @@ article {
   margin-bottom: 25px;
 }
 
-.form_title {
+.form_title, .form_subtitle {
   font-size: 25px;
   margin: 0 0 25px 0;
   color: rgb(240, 240, 240);
+}
+
+.form_subtitle {
+  margin: 25px 0 0 0;
 }
 
 .form_image {
@@ -735,7 +747,7 @@ form input, form .form_input {
 form .textarea {
   height: 150px;
 }
-form button {
+form button, form .button_retour_rouge {
   width: 50%;
   height: 40px;
   background-color: rgb(255, 196, 50);
@@ -745,6 +757,10 @@ form button {
   border: none;
   border-radius: 5px;
   margin: 25px auto;
+}
+form .button_retour_rouge {
+  line-height: 40px;
+  margin: 0 auto;
 }
 
 .signin_to_up {
@@ -770,6 +786,9 @@ form button {
   text-align: center;
   margin: 50px auto;
 }
+.dashboard_nav a {
+  color: rgb(240, 240, 240);
+}
 
 .dashboard_title {
   font-family: "Caviar Dreams Bold";
@@ -783,6 +802,13 @@ form button {
   height: 40px;
   line-height: 40px;
   margin: 10px auto 25px auto;
+}
+
+.dtAdmin {
+  color: rgb(15, 15, 15);
+  background-image: none;
+  background-color: rgb(255, 196, 50);
+  margin-top: -15px;
 }
 
 .display_messages {
@@ -808,6 +834,8 @@ form button {
   margin-bottom: 25px;
   padding: 25px;
   box-shadow: 0px 2px 6px rgb(26, 28, 93);
+  border-radius: 15px;
+  border-bottom-right-radius: 0px;
 }
 .display_messages .employees_message h4,
 .display_messages .user_message h4 {
@@ -847,7 +875,7 @@ form button {
   font-family: "Caviar Dreams Italic";
   background-color: rgba(15, 15, 15, 0.5);
   border-radius: 15px;
-  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 .display_messages .employees_message .message_date,
 .display_messages .user_message .message_date {
@@ -869,16 +897,20 @@ form button {
   font-family: "Caviar Dreams Bold";
   border-radius: 5px;
 }
-.display_messages .guest {
-  background-image: url("../assets/img/FondTurquoise.jpg");
-}
 .display_messages .employees_message {
   width: 85%;
-  margin: 0;
   background-image: url("../assets/img/FondBleu.jpg");
+  margin: 0;
 }
 .display_messages .employees_message .msg_green {
   color: rgb(3, 149, 8);
+}
+.display_messages .guest_message {
+  background-image: url("../assets/img/FondTurquoiseHalo.jpg");
+}
+
+.delete_profil a {
+  color: rgb(199, 18, 18);
 }
 
 .update {
@@ -996,8 +1028,6 @@ form button {
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 25px;
-  padding-top: 25px;
-  border-top: 1px solid rgb(186, 186, 184);
 }
 
 .cate_display p, .sizes_display p {
@@ -1005,13 +1035,13 @@ form button {
   text-align: center;
 }
 
-.cate, .sizes {
+.cate, .sizes, .pics {
   position: relative;
   width: 44%;
   margin: 10px;
 }
 
-.sizes {
+.sizes, .pics {
   width: 100%;
 }
 
@@ -1019,6 +1049,11 @@ form button {
   height: 35px;
   background: linear-gradient(70deg, rgb(186, 186, 184), rgb(136, 166, 173), rgb(206, 204, 199));
   line-height: 35px;
+  border-radius: 5px;
+}
+
+.little_image {
+  width: 50%;
   border-radius: 5px;
 }
 
@@ -1032,7 +1067,7 @@ form button {
 }
 
 .form_advise {
-  color: rgb(15, 15, 15);
+  color: rgb(240, 240, 240);
   margin-top: 0;
 }
 
@@ -1194,7 +1229,7 @@ form button {
 }
 .delete_fig img {
   width: 50%;
-  border-radius: 10px;
+  border-radius: 50%;
   box-shadow: 0px 1px 6px rgb(199, 18, 18);
 }
 .delete_fig figcaption {

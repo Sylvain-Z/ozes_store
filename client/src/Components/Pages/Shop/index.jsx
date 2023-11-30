@@ -1,17 +1,16 @@
-import Store from '../../../assets/img/store/Store.jpg';
-import Drapeau_FR from '../../../assets/img/store/Drapeau_FR.png';
-import Drapeau_RUN from '../../../assets/img/store/Drapeau_RUN.png';
-import ProductGalery from './product_galery';
+import Store from '../../../assets/img/Store.jpg';
+import Drapeau_FR from '../../../assets/img/Drapeau_FR.png';
+import Drapeau_RUN from '../../../assets/img/Drapeau_RUN.png';
+import ProductGalery from './ProductGalery';
 
 function Shop (){
 
     return (
         <>
-            <main className="navigation_main">
-                <img className="store_page_main_images" src={Store} alt="T-shirts accrochés à un portant à vêtements"/>
-
                 <section>
                     <h2 className="store_page_title">Le store</h2>
+
+                    <img className="store_page_main_images" src={Store} alt="T-shirts accrochés à un portant à vêtements"/>
 
                     <div className="shipping_costs">
                         <img className="Drapeau_FR" src={Drapeau_FR} alt="Drapeau français"/>
@@ -28,7 +27,6 @@ function Shop (){
                     </article>
 
                 </section>
-            </main>
         </>
     )
 }

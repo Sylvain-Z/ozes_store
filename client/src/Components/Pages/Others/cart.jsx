@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
-import BackToStore from '../Containers/BackToStore/index';
+import BackToStore from '../Containers/BackToStore/Index';
 
 function Cart() {
 
@@ -22,14 +22,19 @@ function Cart() {
 
   }, []);
 
-  function addQuantity() {
+/*   function addQuantity() {
     
     let foundProduct = cart.find(p => p.ref == cartInfo.product.reference)
 
     if (foundProduct != undefined){
       foundProduct.quantity++;
     }
-  }
+  } */
+
+  function emptyCart (){
+    localStorage.removeItem("cart");
+    window.location.reload();
+  };
 
     return (
       <>
@@ -42,7 +47,8 @@ function Cart() {
           </>
         ) : (
           <>
-            <h3>Votre panier est plein</h3>
+            <h3>Votre panier contient des produits</h3>
+            <button type="boutton" onClick={emptyCart} className="empty_cart_btn">Vider le panier</button>
           </>
         )}
       </>

@@ -6,9 +6,8 @@ const router = Router();
 router.post("/write", WriteMessage); //  composants : Containers/ContactForm /index & Users/sendMessage
 router.post("/answer/:id", AnswerMessages); //  composants : Employees/userMsgUpStat
 
-
 router.get("/all", ReadAll); // composant : Employees/Messages
-router.get("/user/:pseudo", ReadUserMessages); // composant : Employees/Messages
+router.get("/:user_id", ReadUserMessages); // composant : Employees/Messages
 router.get("/:id", ReadOneStatus); // composant : Employees/Messages
 
 

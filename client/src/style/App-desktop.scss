@@ -4,17 +4,12 @@ $White : rgb(240, 240, 240);
 
 /* LAPTOP */
 
-@media screen and (min-width: 1200px){
+@media screen and (min-width: 1201px){
 
     /* COMMUNES */
     
-    .navigation_header {
-        .french_label{
-            margin-left: 385px;
-        }
-        .header_width {
-            width: 70%;
-        }
+    .navigation_footer {
+        flex-direction: row;
     }
 
     /* CONTENU SITE  */
@@ -38,10 +33,10 @@ $White : rgb(240, 240, 240);
     }
 
     .shop, .size_guide_t-shirts,
-    .size_guide_rings {    
-        .product_grid {
-            width: 30%;
-            margin: 1% 1%;
+    .size_guide_rings {
+        figure:hover {  // community & shop
+            transform: scale(1.05);
+            cursor: pointer;
         }
         .product_grid figcaption{
             font-size: 20px;
@@ -120,7 +115,6 @@ $White : rgb(240, 240, 240);
     }
 
     /* PAGES UTILISATEUR */
-
     .dashboard_tabs {
         width: 30%;
     }

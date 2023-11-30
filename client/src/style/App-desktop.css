@@ -1,12 +1,9 @@
 /* RESPONSIVE */
 /* LAPTOP */
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1201px) {
   /* COMMUNES */
-  .navigation_header .french_label {
-    margin-left: 385px;
-  }
-  .navigation_header .header_width {
-    width: 70%;
+  .navigation_footer {
+    flex-direction: row;
   }
   /* CONTENU SITE  */
   /* LE STORE */
@@ -26,10 +23,10 @@
     text-align: center;
     margin: 0 25px;
   }
-  .shop .product_grid, .size_guide_t-shirts .product_grid,
-  .size_guide_rings .product_grid {
-    width: 30%;
-    margin: 1% 1%;
+  .shop figure:hover, .size_guide_t-shirts figure:hover,
+  .size_guide_rings figure:hover {
+    transform: scale(1.05);
+    cursor: pointer;
   }
   .shop .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption,
   .size_guide_rings .product_grid figcaption {

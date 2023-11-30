@@ -3,8 +3,8 @@ import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router
 import { useState, useEffect } from "react";
 import { /*useSelector ,  useDispatch */ } from "react-redux";
 
-import Loading from "../Containers/Loading";
-import PreviousPage from "./Components/previousPage";
+import Loading from "../Containers/Loading/Index";
+import PreviousPage from "./Components/PreviousPage";
 
 function Orders() {
 

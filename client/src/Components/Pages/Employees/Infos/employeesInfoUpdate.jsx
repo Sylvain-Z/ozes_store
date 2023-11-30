@@ -7,7 +7,7 @@ import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../../Containers/Loading";
+import Loading from "../../Containers/Loading/Index";
 
 function EmployeesInfoUpdate() {
   
@@ -93,11 +93,9 @@ function EmployeesInfoUpdate() {
                         <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
                         <h3 className="form_title update">Modification de vos informations personnelles</h3>
 
-                        {msg && <p className="msg_green">{msg}</p>}
-
                         <form onSubmit={handleSubmit}>
 
-                          {/* <label for="firstname">Votre prénom</label> */}
+                          <label for="firstname">Votre prénom</label>
                           <input
                             placeholder="Votre prénom"
                             type="text"
@@ -105,7 +103,7 @@ function EmployeesInfoUpdate() {
                             value={firstname}
                             onChange={(e) => setFirstname(e.target.value)}                          
                           />
-                          {/* <label for="lastname">Votre nom</label> */}
+                          <label for="lastname">Votre nom</label>
                           <input
                             placeholder="Votre nom"
                             type="text"
@@ -113,7 +111,7 @@ function EmployeesInfoUpdate() {
                             value={lastname}
                             onChange={(e) => setLastname(e.target.value)}
                           />
-                          {/* <label for="number">Numéro de la rue</label> */}
+                          <label for="number">Numéro de la rue</label>
                           <input
                             placeholder="Numéro de la rue"
                             type="number"
@@ -121,7 +119,7 @@ function EmployeesInfoUpdate() {
                             value={number}
                             onChange={(e) => setNumber(e.target.value)}                          
                           />
-                          {/* <label for="street">Nom de la rue</label> */}
+                          <label for="street">Nom de la rue</label>
                           <input
                             placeholder="Nom de la rue"
                             type="text"
@@ -129,7 +127,7 @@ function EmployeesInfoUpdate() {
                             value={street}
                             onChange={(e) => setStreet(e.target.value)}
                           />
-                          {/* <label for="complement">Complément d'adresse</label> */}
+                          <label for="complement">Complément d'adresse</label>
                           <input
                             placeholder="Complément d'adresse"
                             type="text"
@@ -137,7 +135,7 @@ function EmployeesInfoUpdate() {
                             value={complement}
                             onChange={(e) => setComplement(e.target.value)}
                           />
-                          {/* <label for="postal_code">Code postal</label> */}
+                          <label for="postal_code">Code postal</label>
                           <input
                             placeholder="Code postal"
                             type="text"
@@ -145,7 +143,7 @@ function EmployeesInfoUpdate() {
                             value={postal_code}
                             onChange={(e) => setPostal_code(e.target.value)}
                           />
-                          {/* <label for="city">Ville</label> */}
+                          <label for="city">Ville</label>
                           <input
                             placeholder="Ville"
                             type="text"
@@ -153,7 +151,7 @@ function EmployeesInfoUpdate() {
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
                           />
-                          {/* <label for="city">Numéro de téléphone</label> */}
+                          <label for="city">Numéro de téléphone</label>
                           <input
                             placeholder="Votre numéro de téléphone (Non obligatoire)"
                             type="tel"
@@ -169,6 +167,8 @@ function EmployeesInfoUpdate() {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                           />
+
+                          {msg && <p className="msg_green">{msg}</p>}
                          
                           <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
                           <button type="button" onClick={() => window.location.href =`/employes/${employee.id}`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>

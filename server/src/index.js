@@ -7,7 +7,8 @@ import router from "./router/index.routes.js";
 const app = express();
 const PORT = process.env.PORT || process.env.LOCAL_PORT;
 
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static("public/store"));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

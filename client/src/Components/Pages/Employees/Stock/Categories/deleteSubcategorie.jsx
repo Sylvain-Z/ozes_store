@@ -3,8 +3,7 @@ import { Link , useNavigate , useParams } from "react-router-dom";
 import { useState , useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck , faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 function DeleteSubCategories() {
 
@@ -80,7 +79,7 @@ return (
                 {msg && <p className="msg_green">{msg}</p>}
 
                 <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                <button type="button" onClick={() => window.location.href =`/employes/stock/categories`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                <Link to={`/employes/stock/categories`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
             </form>
 

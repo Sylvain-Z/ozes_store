@@ -1,18 +1,13 @@
-import { Link , useParams , useNavigate} from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 import { useState , useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare , faCirclePlus , faCircleCheck , faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare , faCircleCheck , faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 
 function ProductAddSizes (){
 
-    const params   = useParams();
-    const navigate = useNavigate();
-
-    const [ inputHidden, setInptuHidden ] = useState(false);
-    const toggleInput = () => setInptuHidden(!inputHidden);
-    
+    const params   = useParams();   
 
     const [sizes, setSizes] = useState("");
     const [label, setLabel] = useState("");
@@ -54,15 +49,11 @@ function ProductAddSizes (){
 
     return (
         <>
-        
-        <Link to="/employes/stock"><p className="previous_page">Retour à la liste des produits</p></Link>
-        
             <section className="form_section">
 
                 <h3 className="form_title read">Tailles</h3>
 
                     <div className='sizes_display'>
-                        <p className='title_p'>Tailles</p>
                         {!sizes ? (
                                             <>
                                                 <p className='sizes_title'>Pas de tailles de produit existanttes</p>
@@ -80,20 +71,19 @@ function ProductAddSizes (){
                     </div>
 
                 <form onSubmit={handleSubmit}>
-
-                    <p className="form_advise">
-                            <em>Ajouter une taille</em></p>
                     
-                    <label for="caption">Taille</label>
+                    <label for="label">Ajouter une taille *</label>
                     <input
-                        placeholder="Taille"
+                        required
+                        placeholder="Libellé"
                         type="text"
                         name="label"
                         value={label}
                         onChange={(e) => setLabel(e.target.value)}
                     />
-                    <label for="caption">Quantité</label>
+                    <label for="quantity">Ajouter une quantité *</label>
                     <input
+                        required
                         placeholder="Quantité"
                         type="text"
                         name="quantity"

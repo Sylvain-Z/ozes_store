@@ -1,10 +1,7 @@
 import { useLocation , Link } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSquareFacebook } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import picto_insta from '../../assets/img/picto_insta.png';
-import picto_fb from '../../assets/img/picto_fb.png';
+import { faSquareFacebook , faInstagram} from '@fortawesome/free-brands-svg-icons';
 
 function Footer() {
 

@@ -1,16 +1,18 @@
 import { useState, useEffect  } from "react";
+import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage , faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading";
-import BackToStore from '../Containers/BackToStore/index';
-import PreviousPage from './Components/previousPage';
-import ReadMessages from './readMessages';
+import Loading from "../Containers/Loading/Index";
+import BackToStore from '../Containers/BackToStore/Index';
+import PreviousPage from './Components/PreviousPage';
+import ReadMessages from './ReadMessages';
 
 function SendMessages(){
 
       const myuserid = localStorage.getItem("myuserid");
+      const params   = useParams();
 
       const [ users, setUsers ]           = useState(null);
       
@@ -23,7 +25,6 @@ function SendMessages(){
       
       const [ messages , setMessages ] = useState("");
 
-      // useEffect pour gérer les states du formulaire
       useEffect(() => {
             async function getData() {
                   try {
@@ -36,7 +37,7 @@ function SendMessages(){
                         setUser_email(json[0].email);
                         setUser_id(json[0].id);
 
-                              const messages = await fetch("/api/v1/messages/user/"+ myuserid);
+                              const messages = await fetch("/api/v1/messages/"+ params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
 
                               if (messages.status === 200) {
                                     const json = await messages.json();

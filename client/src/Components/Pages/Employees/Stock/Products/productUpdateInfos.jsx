@@ -6,7 +6,7 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 
-import Loading from "../../../Containers/Loading";
+import Loading from "../../../Containers/Loading/Index";
 
 function ProductUpdate ({products}){
 
@@ -56,6 +56,8 @@ function ProductUpdate ({products}){
                     setInfosupplus(json[0].infosupplus);
                     setMadeplace(json[0].madeplace);
                 }
+                
+
                 } catch (error) {
                     throw Error(error);
                 }
@@ -76,15 +78,17 @@ function ProductUpdate ({products}){
                 
     return (
         <>
-            <p className="previous_page"><Link to="/employes/stock">Retour à la liste des produits</Link></p>
-
             {!products ? (
                     <Loading/>
 
-                ) : ( products.map( product =>
+                ) : (
 
                     <>
                         <section className="form_section">
+
+                                
+                            <p className="form_advise">
+                                        <em>Laisser vide les champs non pertinents</em></p>
 
                                     <form onSubmit={handleSubmit}>
 
@@ -207,14 +211,14 @@ function ProductUpdate ({products}){
                                         {msg && <p className="msg_green">{msg}</p>}
 
                                         <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                                        {/* <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button> */}
-
+                                        
+                                    
                                     </form>
 
                         </section>
                         </>
                             
-                    ))}
+                    )}
 
 
         </>

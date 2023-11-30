@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import BackToStore from '../Containers/BackToStore/index';
+import BackToStore from '../Containers/BackToStore/Index';
 
 import OeufUlule from '../../../assets/img/brand/OeufUlule_bulle.png';
 

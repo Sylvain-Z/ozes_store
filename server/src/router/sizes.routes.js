@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getSizes /* , getSizesById */ , getSizesByProductId  , getProductSizeByIds , AddSizes , UpdateSizes , /*, AttribSizes , RemoveSizes */ DeleteSizes} from "../controller/sizes.js";
+import { getSizes /* , getSizesById */ , getSizesByProductId  , getProductSizeByIds , AddSizes , UpdateSizes , DeleteSizes} from "../controller/sizes.js";
 
 const router = Router();
 
@@ -12,10 +12,5 @@ router.get("/all", getSizes); // composant : Employees/Stock/sizes/ pas utilisé
 router.get("/:product_id", getSizesByProductId); // Employees/Stock/Products/productAddSizes
 router.get("/:product_id/:id", getProductSizeByIds); //  composant : Employees/Stock/Sizes/updateSizes
 
-
-
-// router.post("/attrib-sizes/:product_id", AttribSizes); //  composant : Employees/Stock/Sizes/
-// router.delete("/remove/:product_id/:size_id", RemoveSizes); // composant : Employees//Stock/Categories/Delete  n'existe plus
-// router.get("/:id", getSizesById); // composant : Employees/Stock/sizes/
 
 export default router;

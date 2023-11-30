@@ -1,10 +1,10 @@
 /* RESPONSIVE */
 /* TABLETTE */
-@media screen and (min-width: 425px) {
+@media screen and (min-width: 426px) {
   /* COMMUNES */
   #home_body {
-    width: 100vw;
     background-image: url("../assets/img/home/Background.jpg");
+    background-position: -100px 0;
   }
   .navigation_header .header_width {
     width: 95%;
@@ -41,7 +41,6 @@
   .shop .product_grid, .size_guide_t-shirts .product_grid,
   .size_guide_rings .product_grid {
     width: 45%;
-    margin: 1% 1%;
   }
   .shop .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption,
   .size_guide_rings .product_grid figcaption {
@@ -78,6 +77,9 @@
     flex-direction: row;
     justify-content: center;
     margin-top: 50px;
+  }
+  .categories_actions .reserve_btn, .categories_actions .delete, .reserve_actions .reserve_btn, .reserve_actions .delete {
+    margin-right: 20px;
   }
   .categories_actions .form_reserve, .reserve_actions .form_reserve {
     flex-direction: row;

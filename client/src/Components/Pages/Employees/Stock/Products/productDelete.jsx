@@ -68,7 +68,7 @@ function ProductDelete (){
                                 ) : (
                                 <>
                                     <figure className="delete_fig">
-                                        <img src={require("../../../../../assets/img/store/" + products[0].file_name)} alt={products[0].caption} />
+                                        <img src={`/${products[0].file_name}`} alt={products[0].caption} />
                                         <figcaption>
                                             <p>{products[0].title}</p>
                                             <p>Quantité en stock : {products[0].stock_quantity}</p>
@@ -83,7 +83,7 @@ function ProductDelete (){
                     {msg && <p className="msg_green">{msg}</p>}
 
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                    <button type="button" onClick={() => window.location.href =`/employes/stock/add-categorie`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                    <Link to={`/employes/stock`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
                 </form>
 

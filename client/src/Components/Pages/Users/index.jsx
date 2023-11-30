@@ -1,13 +1,14 @@
 // import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
-import { Link , /* useNavigate */ } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge, faTruckFast , faMessage } from '@fortawesome/free-solid-svg-icons';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading";
+import Loading from "../Containers/Loading/Index";
+import BackToStore from '../Containers/BackToStore/Index';
 
 function Dashboard() {
 
@@ -50,25 +51,20 @@ function Dashboard() {
 
                         <nav className="dashboard_nav">
                           <FontAwesomeIcon icon={faBoxOpen} /> 
-                          <Link to={`/utilisateurs/vos-commandes/${user.id}`}>
-                            <p className="dashboard_tabs dt1">Mes commandes</p>
-                          </Link>
-
-                          <FontAwesomeIcon icon={faTruckFast} size="lg"/> 
-                          <Link to={`/utilisateurs/infos-livraison/${user.id}`}>
-                            <p className="dashboard_tabs dt2">Infos de livraison </p>
-                          </Link>
-
-                          <FontAwesomeIcon icon={faIdBadge} />
-                          <Link to={`/utilisateurs/infos-connexion/${user.id}`}>
-                            <p className="dashboard_tabs dt3">Infos de connexion</p>
-                          </Link>
-
+                          <p className="dashboard_tabs"><Link to={`/utilisateurs/vos-commandes/${user.id}`}>Mes commandes</Link></p>
+                        
                           <FontAwesomeIcon icon={faMessage} />
-                          <Link to={`/utilisateurs/messages/${user.id}`}>
-                            <p className="dashboard_tabs dt4">Messages</p>
-                          </Link>
+                          <p className="dashboard_tabs"><Link to={`/utilisateurs/messages/${user.id}`}>Messages</Link></p>
+                          
+                          <FontAwesomeIcon icon={faTruckFast} size="lg"/> 
+                          <p className="dashboard_tabs"><Link to={`/utilisateurs/infos-livraison/${user.id}`}>Infos de livraison</Link></p>
+                          
+                          <FontAwesomeIcon icon={faIdBadge} />
+                          <p className="dashboard_tabs"><Link to={`/utilisateurs/infos-connexion/${user.id}`}>Infos de connexion </Link></p>
+                          
                         </nav>
+
+                        <BackToStore/>
 
                     </>
                     ))}

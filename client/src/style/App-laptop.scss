@@ -4,13 +4,18 @@ $White : rgb(240, 240, 240);
 
 /* LAPTOP */
 
-@media screen and (min-width: 780px){
+@media screen and (min-width: 781px){
 
     /* COMMUNES */
+    #home_body {
+        background-image: url("../assets/img/home/Background.jpg");
+        background-position: 0 0;
+
+    }
     
     .navigation_header {
         .french_label{
-            margin-left: 225px;
+            margin-left: 19%;
         }
         .header_width {
             width: 80%;
@@ -69,7 +74,10 @@ $White : rgb(240, 240, 240);
     .size_guide_rings {    
         .product_grid {
             width: 30%;
-            margin: 1% 1%;
+        }
+        figure:hover {  // community & shop
+            transform: scale(1.05);
+            cursor: pointer;
         }
         .product_grid figcaption{
             font-size: 20px;
@@ -137,7 +145,7 @@ $White : rgb(240, 240, 240);
         .textarea {
             height: 150px;
         }
-        button {
+        button, .button_retour_rouge {
             width: 30%;
             height: 40px;
             text-transform: uppercase;

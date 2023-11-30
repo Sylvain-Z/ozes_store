@@ -1,0 +1,91 @@
+import { useState } from "react";
+import { useNavigate , Link } from "react-router-dom";
+
+function AddProfil() {
+
+    const navigate = useNavigate();
+
+    const [firstname, setFirstname]       = useState("");
+    const [lastname, setLastname]       = useState("");
+    const [role, setRole]       = useState("");
+    const [email, setEmail]       = useState("");
+    const [password, setPassword] = useState("");
+
+    const [msg, setMsg] = useState(null);
+    const [msg2, setMsg2] = useState(null);
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        const res = await fetch("/api/v1/employees/signup", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ firstname, lastname, role, email, password }),
+        });
+        const json = await res.json();
+        setMsg(json.msg);
+        setMsg2(json.msg2);
+        
+        ;if (res.status === 201) {
+            setTimeout(()=>{ navigate("/employes/gestion-comptes")}, 2000)
+        }
+    }
+
+    return (
+        <>
+
+            <p className="previous_page"><Link to={`/employes/gestion-comptes`}>Retour</Link></p>
+
+            <section className="form_section">
+
+                    <h2 className="form_title">Créez le compte de votre collaborateur</h2>
+
+
+                {msg && <p className="msg_red">{msg}</p>}
+                {msg2 && <p className="msg_green">{msg2}</p>}
+                
+                <form onSubmit={handleSubmit}>
+
+                    <input
+                        placeholder="Prénom"
+                        type="text"
+                        name="firstname"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                    />
+                    <input
+                        placeholder="Nom de famille"
+                        type="text"
+                        name="lastname"
+                        value={lastname}
+                        onChange={(e) => setLastname(e.target.value)}
+                    />
+                    <input
+                        placeholder="Role (1 : Admin, 2 : Modérateur)"
+                        type="text"
+                        name="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                    />
+                    <input
+                        placeholder="Email"
+                        type="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <input
+                        placeholder="Mot de passe"
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button type="submit">Créer le compte</button>
+                </form>
+
+            </section>
+        </>
+    );
+}
+
+export default AddProfil;

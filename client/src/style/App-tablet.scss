@@ -2,13 +2,13 @@
 
 /* TABLETTE */
 
-@media screen and (min-width: 425px){
+@media screen and (min-width: 426px){
 
     /* COMMUNES */
 
     #home_body {
-        width: 100vw;
         background-image: url("../assets/img/home/Background.jpg");
+        background-position: -100px 0;
     }
     
     .navigation_header {
@@ -54,7 +54,6 @@
     .size_guide_rings {    
         .product_grid {
             width: 45%;
-            margin: 1% 1%;
         }
         .product_grid figcaption{
             font-size: 20px;
@@ -104,6 +103,9 @@
         flex-direction: row;
         justify-content: center;
         margin-top: 50px;
+        .reserve_btn, .delete {
+            margin-right: 20px;
+        }
         .form_reserve {
             flex-direction: row;
             align-items: flex-start;

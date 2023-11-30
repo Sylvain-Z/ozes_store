@@ -1,11 +1,12 @@
-import { Link , useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect , useState } from "react";
 
-import Loading from "../../../Containers/Loading";
-import ProductUpdateInfos from "./productUpdateInfos";
-import ProductAddSizes from "./productAddSizes";
-import ProductUpdateCate from "./productUpdateCate";
-import ProductUpdatePic from "./productUpdatePic";
+import Loading from "../../../Containers/Loading/Index";
+import PreviousPage from "./Components/PreviousPage";
+import ProductUpdateInfos from "./ProductUpdateInfos";
+import ProductAddSizes from "./ProductAddSizes";
+import ProductUpdateCate from "./ProductUpdateCate";
+import ProductAddPicForm from "./ProductAddPicForm";
 
 function ProductUpdate (){
 
@@ -13,7 +14,9 @@ function ProductUpdate (){
     const params   = useParams();
 
     const [products, setProducts] = useState(null);
-
+    
+    const [ quantity, setQuantity ] = useState("");
+    
     useEffect(() => {
         async function getData() {
             try {
@@ -25,6 +28,12 @@ function ProductUpdate (){
                     const json = await products.json();
                     setProducts(json);
                 }
+                const quantity = await fetch("/api/v1/products/quantity/"+ params.id);
+                if(quantity.status === 200){
+                    const json = await quantity.json();
+                    setQuantity(json);
+                }
+                
                 } catch (error) {
                     throw Error(error);
                 }
@@ -38,33 +47,38 @@ function ProductUpdate (){
             {!products ? (
                     <Loading/>
 
-                ) : ( products.map( product =>
-
+                ) : (
                     <>
                         <section className="form_section">
 
                             <h3 className="form_title read">Modifier</h3>
-                            <h3 className="form_title read">{product.title}</h3>
+                            <h3 className="form_title read">{products[0].title}</h3>
+                            
+                            {!quantity ? (<>Quantité en stock : inconnue</>) :(<><h3 className="form_title read">Quantité en stock : {quantity[0].total}</h3></>)}
 
-                            <p className="form_advise">
-                                        <em>Laisser vide les champs non pertinents</em></p>
+                                <img className="form_image" src={`/${products[0].file_name}`} alt={products[0].caption}/>
 
-                                <img className="form_image" src={require("../../../../../assets/img/store/" + product.file_name)} alt={product.caption}/>
+
 
                         </section>
 
+                        <PreviousPage />
+
                         <ProductUpdateInfos products={products} />
+
+                        <PreviousPage />
 
                         <ProductAddSizes />
 
                         <ProductUpdateCate />
 
-                        <ProductUpdatePic />
+                        <ProductAddPicForm />
 
+                        <PreviousPage />
 
                         </>
                             
-                    ))}
+                    )}
 
 
         </>

@@ -5,9 +5,9 @@ import { useState, useEffect } from 'react';
 import { Link , /* useNavigate */ } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIdBadge , faEuroSign , faMessage , faWarehouse } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge , faEuroSign , faMessage , faWarehouse , faCirclePlus , faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading";
+import Loading from "../Containers/Loading/Index";
 
 function Desk() {
 
@@ -69,6 +69,13 @@ function Desk() {
                             <p className="dashboard_tabs dt4">Infos personnelles</p>
                           </Link>
                           
+                          <div className={employee.role === 1 ? "" : "hidden"}>
+                            <FontAwesomeIcon icon={faCirclePlus} className='fontawesomeYellow'/>
+                            <Link to={`/employes/gestion-comptes`}>
+                              <p className="dashboard_tabs dtAdmin">Gérer les profils</p>
+                            </Link>
+                          </div>
+
                         </div>
                     </>
                     ))}

@@ -12,7 +12,7 @@ function ReadMessages({messages}){
                     ) : ( messages.map( message =>
                         <>
                         
-                        <div className={message.status === "en attente" ? "hidden" : "employees_message"}>
+                        <div className={message.status === "en attente" ? "hidden" : "employees_message user_answer"}>
                                 <h4>Réponse du service client</h4>
                                 <h4>{message.subject}</h4>
                                 <p className="message_content">{message.answer}</p>
@@ -23,7 +23,7 @@ function ReadMessages({messages}){
                                 <h4>Votre message</h4>
                                 <h4>{message.subject}</h4>
                                 <p className="message_content">{message.content}</p>
-                                <p className="message_date">{format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
+                                <p className="message_date">Le : {format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
                         </div>
 
                         </>

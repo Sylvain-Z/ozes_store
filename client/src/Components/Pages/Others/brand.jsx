@@ -5,8 +5,8 @@ import OeufUlule from '../../../assets/img/brand/OeufUlule_bulle.png';
 import Avis_Client_FB from '../../../assets/img/brand/Avis_Client_FB.png';
 import Avis_Client_Insta from '../../../assets/img/brand/Avis_Client_Insta.png';
 
-import BackToStore from '../Containers/BackToStore/index';
-import ContactForm from '../Containers/ContactForm/index'
+import BackToStore from '../Containers/BackToStore/Index';
+import ContactForm from '../Containers/ContactForm/Index'
 
 function Brand(){
 

@@ -161,6 +161,21 @@ const updateLogin = async (req, res) => {
     }
 };
 
+const DeleteUser = async (req, res) => {
+    try {
+        let msg =""
+        const query =
+            "DELETE FROM users WHERE id = ?";
+        await Query.deleteByValue(query, req.params.id);
+
+            msg = "Le profil a été supprimé";
+            res.status(201).json({ msg });
+        
+    } catch (error) {
+        throw Error(error);
+    }
+};
 
 
-export { check_token, createAccount, signin , getAllUsers, userInformations , updateDelivery, updateLogin };
+
+export { check_token, createAccount, signin , getAllUsers, userInformations , updateDelivery, updateLogin , DeleteUser };

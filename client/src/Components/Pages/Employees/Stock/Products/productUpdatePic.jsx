@@ -4,9 +4,15 @@ import { useState , useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
-function ProductUpdatePic (){
+function ProductUpdatePic ({products}){
 
     const params   = useParams();
+
+    const [file, setFile] = useState(null);
+
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+      };
 
     const [file_name, setFile_name] = useState("");
     const [caption, setCaption] = useState("");
@@ -48,7 +54,9 @@ function ProductUpdatePic (){
         <>
             <section className="form_section">
 
-                <h3 className="form_title read">Images</h3>
+                <h3 className="form_title read">Image Principale</h3>
+
+                <img className="form_image" src={`/assets/img/store/${products[0].file_name}`} alt={products[0].caption}/>
 
                 <form onSubmit={handleSubmit}>
 

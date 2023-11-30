@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link , useParams } from "react-router-dom";
 import { useState, useEffect  } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -78,7 +78,7 @@ function UserMsgAnswer () {
                                             />
 
                                             <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                                            <button type="button" onClick={() => window.location.href =`/employes/messages`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                                            <Link to={`/employes/messages`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
                                 </form>
                         </div>

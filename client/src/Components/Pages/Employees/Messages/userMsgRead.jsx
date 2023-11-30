@@ -47,7 +47,7 @@ function UserMsgRead () {
                                 <p className="message_content">{message.answer}</p>
                                 <p className="message_date">{format(new Date(message.answer_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
                         </div>
-                        <div className={message.user_pseudo === "Invité" ? "user_message guest" : "user_message"}>
+                        <div className={message.user_pseudo === "Invité" ? "user_message guest_message" : "user_message"}>
                                 <h4>Message du client</h4>
                                 <h4>{message.subject}</h4>
                                 <p className={message.status === "en attente" ? "message_status_yellow" : "message_status_green"}>{message.status}</p>
@@ -57,7 +57,12 @@ function UserMsgRead () {
                                 <p className="message_date">{format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
 
                                 
-                                <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre</p></Link>
+                                {message.user_pseudo === "Invité" ? (
+                                                                        <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre par mail</p></Link>
+                                                                    ) : (
+                                                                        <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre</p></Link>
+                                                                    )
+                                }
                         </div>
                         
                         </>

@@ -79,8 +79,9 @@ return (
                 {msg && <p className="msg_green">{msg}</p>}
 
                 <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                <button type="button" onClick={() => window.location.href =`/employes/stock/categories`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
-
+                <Link to={`/employes/stock/categories`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
+                
+                
             </form>
 
 

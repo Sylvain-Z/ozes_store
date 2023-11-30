@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState , useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck , faDeleteLeft} from '@fortawesome/free-solid-svg-icons';
 
 function ProductAddPic (){
 

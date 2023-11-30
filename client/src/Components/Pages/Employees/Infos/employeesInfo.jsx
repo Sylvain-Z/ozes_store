@@ -1,11 +1,11 @@
-import {/*  Link , useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
+import {  Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../../Containers/Loading";
+import Loading from "../../Containers/Loading/Index";
 import PreviousPage from '../Components/previousPage';
 
 function EmployeesInfo() {
@@ -119,8 +119,7 @@ function EmployeesInfo() {
                             disabled="disabled"
                       />
                       
-                      
-                      <button type="button" onClick={() => window.location.href =`/employes/actualiser-mes-infos/${employee.id}`}>Modifier mes informations</button>
+                      <Link to={`/employes/actualiser-mes-infos/${employee.id}`}>Modifier mes informations</Link>
                     </form>
                   </section>
                   </>

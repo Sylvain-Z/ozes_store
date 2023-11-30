@@ -5,8 +5,8 @@ import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading";
-import PreviousPage from './Components/previousPage';
+import Loading from "../Containers/Loading/Index";
+import PreviousPage from './Components/PreviousPage';
 
 function Delivery() {
   

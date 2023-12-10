@@ -70,7 +70,7 @@ function DeleteUser (){
                             ) : (
                                 <>
                                     <figure className="delete_fig">
-                                        <img src={require("../../../assets/img/user_out.png")} alt="pictograme buste" />
+                                        <img src={require("../../../../assets/img/user_out.png")} alt="pictograme buste" />
                                         <figcaption>
                                             <p>{user[0].firstname} {user[0].lastname}</p>
                                         </figcaption>

@@ -119,16 +119,17 @@ function UpdateProfil() {
                             type="text"
                             name="role"
                             value={role}
-                            onChange={(e) => setRole(e.target.value)}
+                            maxLength="1"
+                            onChange={(e) => setRole(e.target.value.replace(/[^0-9]/g, ''))}
                         />
                         <label for="number">Numéro de la rue *</label> 
                         <input
                             required
                             placeholder="Numéro de la rue"
-                            type="number"
+                            type="text"
                             name="number"
                             value={number}
-                            onChange={(e) => setNumber(e.target.value)}                          
+                            onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ''))}                            
                         />
                         <label for="street">Nom de la rue *</label> 
                         <input
@@ -154,7 +155,7 @@ function UpdateProfil() {
                             type="text"
                             name="postal_code"
                             value={postal_code}
-                            onChange={(e) => setPostal_code(e.target.value)}
+                            onChange={(e) => setPostal_code(e.target.value.replace(/[^0-9]/g, ''))}
                         />
                         <label for="city">Ville *</label> 
                         <input
@@ -172,7 +173,7 @@ function UpdateProfil() {
                             name="phone"
                             value={phone}
                             pattern="\+\d{11}"
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => setPhone(e.target.value.replace(/[^0-9+]/g, ''))}
                         />
                         
 

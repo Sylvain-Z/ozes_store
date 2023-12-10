@@ -1,6 +1,5 @@
 import {  Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -9,24 +8,14 @@ import Loading from "../../Containers/Loading/Index";
 import PreviousPage from '../Components/previousPage';
 
 function EmployeesInfo() {
-  
-  // const { info } = useSelector((state) => state.user);
 
-  const [ employees, setEmployees ] = useState(null);
+  const [ employees, setEmployees ] = useState(null);  // stocke les informations de l'utilisateur et les injecte dans le formulaire
   const myemployeeid = localStorage.getItem("myemployeeid");
 
   useEffect(() => {
     async function getData() {
         try {
-            let id="Invite"; 
-
-            if(!myemployeeid){ 
-                id="Invite"; 
-            }else{ 
-            id=myemployeeid; 
-            } 
-
-            const employees = await fetch("/api/v1/employees/"+ id);
+            const employees = await fetch("/api/v1/employees/"+ myemployeeid); 
         
             if (employees.status === 200) {
                 const json = await employees.json();
@@ -119,7 +108,7 @@ function EmployeesInfo() {
                             disabled="disabled"
                       />
                       
-                      <Link to={`/employes/actualiser-mes-infos/${employee.id}`}>Modifier mes informations</Link>
+                      <p className='input_link_btn'><Link to={`/employes/actualiser-mes-infos/${employee.id}`}>Modifier mes informations</Link></p>
                     </form>
                   </section>
                   </>

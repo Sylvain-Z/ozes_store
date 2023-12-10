@@ -1,12 +1,13 @@
-import { /* Link , useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
+import { Link , /* useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
 import { useState, useEffect } from "react";
 // import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading/Index";
-import PreviousPage from './Components/PreviousPage';
+import Loading from "../../Containers/Loading/Index";
+import PreviousPage from '../Components/PreviousPage';
+import BackToCart from '../../Cart/Components/BackToCart';
 
 function Delivery() {
   
@@ -39,6 +40,17 @@ function Delivery() {
     getData();
     }, []);
 
+    
+    const [cart, setCart] = useState([]);
+  
+    useEffect(() => {
+      let cartLS = localStorage.getItem('cart')
+      const cartArr = JSON.parse(cartLS);
+      if (cartArr) {
+        setCart(cartArr.product);
+      }
+    }, []);
+
   return (
     <>
       {!users ? (
@@ -48,8 +60,11 @@ function Delivery() {
             <>
             
             <PreviousPage user={user}/>
+            
 
             <section className="form_section">
+
+                  {!cart ? ( <></>) : ( <BackToCart/> )} {/* Affiche un lien vers une page avancée du panier celui-ci contient des articles  */}
 
                   <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
                   <h3 className="form_title read">Vos informations de livraison</h3>
@@ -119,8 +134,7 @@ function Delivery() {
                         disabled="disabled"
                   />
                   
-                  {/* <Link to={`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</Link> */}
-                  <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</button>
+                  <p className='input_link_btn'><Link to={`/utilisateurs/infos-livraison-update/${user.id}`}>Modifier mes informations</Link></p>
                   </form>
             </section>
             </>

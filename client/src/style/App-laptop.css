@@ -40,6 +40,13 @@
   .navigation_main {
     width: 90%;
   }
+  .back_to_cart {
+    top: 10px;
+    right: 20%;
+  }
+  .back_to_store {
+    margin-bottom: 90px;
+  }
   /* CONTENU SITE  */
   /* LE STORE */
   .store_page_title {
@@ -156,5 +163,27 @@
     margin: 0 10px;
     flex-direction: column;
     align-items: center;
+  }
+  /* PAGE PANIER */
+  .display_cart {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  .cart_ctn-cart, .address {
+    width: 65%;
+    margin: 0;
+  }
+  .cart_ctn-resume {
+    width: 30%;
+  }
+  .cart, .resume {
+    width: 100%;
+  }
+  .address {
+    margin-top: 0;
+  }
+  .empty_cart_btn, .modifyLink {
+    width: 25%;
   }
 }/*# sourceMappingURL=App-laptop.css.map */

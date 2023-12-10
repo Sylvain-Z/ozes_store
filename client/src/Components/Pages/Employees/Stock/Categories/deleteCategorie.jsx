@@ -16,7 +16,7 @@ function DeleteCategories() {
     useEffect(() => {
         async function getData() {
             try {
-                const categories = await fetch("/api/v1/categories/categories/" + params.id);
+                const categories = await fetch("/api/v1/categories/categories/" + params.id); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
                 if(categories.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -37,7 +37,7 @@ function DeleteCategories() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/categories/categories/delete/" + params.id, {
+        const res = await fetch("/api/v1/categories/categories/delete/" + params.id, { // supprime la catégorie en fonction de son id
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id }),

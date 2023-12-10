@@ -4,23 +4,25 @@ import { useState , useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck , faCircleInfo , faDeleteLeft} from '@fortawesome/free-solid-svg-icons';
 
-function ProductAddCate (){
+function ProductAddSubCate (){
 
     const navigate = useNavigate();
     
-    const [isShown, setIsShown] = useState(false); // infobulle
+    const [isShown, setIsShown] = useState(false); // gère la dissimulation et l'apparition de l'infobulle
 
-    const [product_id, setProduct_id]   = useState(null);  // state pour afficher les information de la bdd 
+    const [product_id, setProduct_id]   = useState(null);  // stocke l'id du dernier produit ajouté
+    const [id, setId]   = useState(null);  // state pour injecter dans la fonction du boutton d'annulation de la création du produit
     const [subcate, setSubcate]         = useState(null);
 
     useEffect(() => {
         async function getData() {
             try {
-                const product_id = await fetch("/api/v1/products/last-product_id");
+                const product_id = await fetch("/api/v1/products/last-product_id"); // récupère l'id du dernier produit ajouté 
 
                 if (product_id.status === 200) {
                     const json = await product_id.json();
-                    setProduct_id(json[0].id);
+                    setProduct_id(json[0].id); // récupère l'id du dernier produit ajouté pour l'injecter automatiquement au formulaire
+                    setId(json[0].id); // récupère l'id du dernier produit ajouté pour injecter dans la fonction du boutton d'annulation de la création du produit
                 }
                 const subcate = await fetch("/api/v1/products/subcate");
                 if (subcate.status === 200) {
@@ -38,6 +40,7 @@ function ProductAddCate (){
     const [subcategorie_id, setSubcategorie_id] = useState(null);
 
     const [msg, setMsg] = useState(null);
+    const [msg2, setMsg2] = useState(null);
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -47,11 +50,27 @@ function ProductAddCate (){
             body: JSON.stringify({ product_id , subcategorie_id }),
         });
         const json = await res.json();
-        setMsg(json.msg);
+        setMsg(json.msg); // controller AddSubCategories
         
         if (res.status === 201) {
             setTimeout(()=>{
-                navigate("/employes/stock/attribuer-infos-images")
+                navigate("/employes/stock/ajouter-image")
+            }, 2000)
+        }
+    }
+    async function handleDeleteLast(e) {
+        e.preventDefault();
+        const res = await fetch("/api/v1/products/delete/" + id, { // supprime le produit qui vient d'être ajouté
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id }),
+        });
+        const json = await res.json();
+        setMsg2(json.msg2); // controller DeleteProduct
+        
+        if (res.status === 201) {
+            setTimeout(()=>{
+                navigate("/employes/stock");
             }, 2000)
         }
     }
@@ -91,18 +110,24 @@ function ProductAddCate (){
                             </div>
                         </div>)}
 
+                        <p className="form_advise">
+                            <em>L'association à une sous-catégorie est obligatoire</em></p>
+
                     <input
+                        required
                         placeholder="Catégorie"
                         type="text"
                         name="subcategorie_id"
                         value={subcategorie_id}
-                        onChange={(e) => setSubcategorie_id(e.target.value)}
+                        onChange={(e) => setSubcategorie_id(e.target.value.replace(/[^0-9]/g, ''))}
+                        title="Si la sous catégorie n'existe pas, créez là avant"
                     />
                     
                     {msg && <p className="msg_green">{msg}</p>}
+                    {msg2 && <p className="msg_red">{msg2}</p>}
 
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                    <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                    <button type="button" onClick={handleDeleteLast}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
 
                 </form>
 
@@ -116,4 +141,4 @@ function ProductAddCate (){
 };
 
 
-export default ProductAddCate;
+export default ProductAddSubCate;

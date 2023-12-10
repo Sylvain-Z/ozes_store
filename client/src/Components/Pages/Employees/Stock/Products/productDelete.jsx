@@ -16,7 +16,7 @@ function ProductDelete (){
     useEffect(() => {
         async function getData() {
             try {
-                const products = await fetch("/api/v1/products/glimpse/" + params.id);
+                const products = await fetch("/api/v1/products/glimpse/" + params.id); // récupère quelques informations du produits en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
                 if(products.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -83,7 +83,7 @@ function ProductDelete (){
                     {msg && <p className="msg_green">{msg}</p>}
 
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                    <Link to={`/employes/stock`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
+                    <Link to={`/employes/stock`} className="button_retour_rouge"><p><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
                 </form>
 

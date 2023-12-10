@@ -16,7 +16,7 @@ function DeleteSubCategories() {
     useEffect(() => {
         async function getData() {
             try {
-                const subcategories = await fetch("/api/v1/categories/subcategories/" + params.id);
+                const subcategories = await fetch("/api/v1/categories/subcategories/" + params.id); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
                 if(subcategories.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -37,7 +37,7 @@ function DeleteSubCategories() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/categories/subcategories/delete/" + params.id, {
+        const res = await fetch("/api/v1/categories/subcategories/delete/" + params.id, { // supprime la sous catégorie en fonction de son id
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id }),
@@ -79,7 +79,7 @@ return (
                 {msg && <p className="msg_green">{msg}</p>}
 
                 <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                <Link to={`/employes/stock/categories`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
+                <Link to={`/employes/stock/categories`} className="button_retour_rouge"><p><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
             </form>
 

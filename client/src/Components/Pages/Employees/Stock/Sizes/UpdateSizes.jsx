@@ -4,15 +4,15 @@ import { useState , useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 function UpdateSizes() {
 
     const navigate = useNavigate();
     const params   = useParams();
 
-    const [sizes, setSizes] = useState(null);
-    const [id, setID] = useState(null);
+    const [sizes, setSizes] = useState(null); // stocke les informations de la taille
+
+    const [id, setID] = useState(null); // gères les inputs du formulaire
     const [label, setLabel] = useState("");
     const [quantity, setQuantity] = useState("");
     const [product_id, setProduct_id] = useState("");
@@ -20,7 +20,7 @@ function UpdateSizes() {
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch("/api/v1/sizes/" + params.product_id + "/" + params.size_id );
+                const sizes = await fetch("/api/v1/sizes/" + params.product_id + "/" + params.size_id ); // trouve les informations de la taille par rapport à l'id du produit et l'id de la taille
                 if(sizes.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -45,7 +45,7 @@ function UpdateSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/sizes/update-sizes/" + params.product_id + "/" + params.id, {
+        const res = await fetch("/api/v1/sizes/update-sizes/" + params.product_id + "/" + params.id, { // mets à jour la taille par rapport à l'id du produit et l'id de la taille
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ label , quantity , product_id , id}),

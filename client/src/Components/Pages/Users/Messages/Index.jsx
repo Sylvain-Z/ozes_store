@@ -2,12 +2,12 @@ import { useState, useEffect  } from "react";
 import { useParams } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage , faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import { faMessage } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading/Index";
-import BackToStore from '../Containers/BackToStore/Index';
-import PreviousPage from './Components/PreviousPage';
-import ReadMessages from './ReadMessages';
+import Loading from "../../Containers/Loading/Index";
+import BackToStore from '../../Containers/BackToStore/Index';
+import PreviousPage from '../Components/PreviousPage';
+import UserMsgRead from './UserMsgRead';
 
 function SendMessages(){
 
@@ -23,7 +23,7 @@ function SendMessages(){
       const [user_id, setUser_id]         = useState("");
       const [msg, setMsg]                 = useState(null);
       
-      const [ messages , setMessages ] = useState("");
+      const [ messages , setMessages ] = useState(""); // stocke des messages de l'usager
 
       useEffect(() => {
             async function getData() {
@@ -37,7 +37,7 @@ function SendMessages(){
                         setUser_email(json[0].email);
                         setUser_id(json[0].id);
 
-                              const messages = await fetch("/api/v1/messages/"+ params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
+                              const messages = await fetch("/api/v1/messages/user-read/"+ params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
 
                               if (messages.status === 200) {
                                     const json = await messages.json();
@@ -128,12 +128,12 @@ function SendMessages(){
                                                 onChange={(e) => setUser_id(e.target.value)}
                                           />
                                           
-                                          <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
+                                          <button type="submit">Envoyer</button>
 
                                     </form>
                               </section>
 
-                              <ReadMessages messages={messages}/>
+                              <UserMsgRead messages={messages}/>
 
                               <BackToStore/>
                               </>

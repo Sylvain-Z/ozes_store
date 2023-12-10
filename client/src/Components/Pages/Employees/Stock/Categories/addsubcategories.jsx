@@ -1,17 +1,14 @@
-import { useState/* , useEffect  */} from 'react';
-// import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  faCirclePlus, faCircleInfo , faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 function AddSubcategories ({categories}){
-    
-    // const navigate = useNavigate();
 
-    const [ inputHidden, setInptuHidden ] = useState(false); // formulaires
+    const [ inputHidden, setInptuHidden ] = useState(false);  // gère la dissimulation et l'apparition des inputs du formulaire
     const toggleInput = () => setInptuHidden(!inputHidden);
 
-    const [isShown, setIsShown] = useState(false); // infobulle
+    const [isShown, setIsShown] = useState(false); // gère la dissimulation et l'apparition de l'infobulle
     
     const [ subcate_title, setSubcate_title ] = useState("");
     const [ categorie_id, setCategorie_id ] = useState("");
@@ -51,7 +48,7 @@ function AddSubcategories ({categories}){
                             type={!inputHidden ? "hidden" : "number"}
                             name="categorie_id"
                             value={categorie_id}
-                            onChange={(e) => setCategorie_id(e.target.value)}
+                            onChange={(e) => setCategorie_id(e.target.value.replace(/[^0-9]/g, ''))}
                         />
 
                         <FontAwesomeIcon icon={faCircleInfo} size="s" className={!inputHidden ? "hidden" : "faInfoBulle"}

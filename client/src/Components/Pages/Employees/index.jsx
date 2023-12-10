@@ -1,32 +1,21 @@
 import React from 'react'
-// import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
-
-import { Link , /* useNavigate */ } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faIdBadge , faEuroSign , faMessage , faWarehouse , faCirclePlus , faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faIdBadge , faEuroSign , faMessage , faWarehouse , faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../Containers/Loading/Index";
 
 function Desk() {
 
-  // const { info } = useSelector((state) => state.user);
   const [ employees, setEmployees ] = useState(null);
   const myemployeeid = localStorage.getItem("myemployeeid");
 
   useEffect(() => {
     async function getData() {
         try {
-            let id="Invite"; 
-
-            if(!myemployeeid){ 
-                id="Invite"; 
-            }else{ 
-            id=myemployeeid; 
-            } 
-
-            const employees = await fetch("/api/v1/employees/"+ id);
+            const employees = await fetch("/api/v1/employees/"+ myemployeeid); 
         
             if (employees.status === 200) {
                 const json = await employees.json();
@@ -70,7 +59,7 @@ function Desk() {
                           </Link>
                           
                           <div className={employee.role === 1 ? "" : "hidden"}>
-                            <FontAwesomeIcon icon={faCirclePlus} className='fontawesomeYellow'/>
+                            <FontAwesomeIcon icon={faBarsProgress} className='fontawesomeYellow'/>
                             <Link to={`/employes/gestion-comptes`}>
                               <p className="dashboard_tabs dtAdmin">Gérer les profils</p>
                             </Link>

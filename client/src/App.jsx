@@ -1,6 +1,5 @@
 import { BrowserRouter , Routes, Route } from 'react-router-dom';
 
-
 /* Pages tout publique */
 import HOC from "./Components/HOC/Index";
 import Home from "./Components/Pages/Home/index";
@@ -10,7 +9,9 @@ import Brand from "./Components/Pages/Others/Brand";
 import SizeGuide from "./Components/Pages/Others/SizeGuide";
 import CguCgv from "./Components/Pages/Others/CguCgv";
 import Ulule from "./Components/Pages/Others/Ulule";
-import Cart from "./Components/Pages/Others/Cart";
+
+import Cart from "./Components/Pages/Cart/Index";
+import CartDeliveryInfos from "./Components/Pages/Cart/CartDeliveryInfos";
 
 import NotFound from "./Components/Pages/Others/NotFound";
 
@@ -19,13 +20,14 @@ import Signup from "./Components/Pages/Users/Connection/Signup";
 import Signin from "./Components/Pages/Users/Connection/Signin";
 import SignOut from "./Components/Pages/Users/Connection/Signout";
 import Dashboard from "./Components/Pages/Users/Index";
-import Delivery from "./Components/Pages/Users/Delivery";
-import DeliveryUpdate from "./Components/Pages/Users/DeliveryUpdate";
-import InfoConnexion from "./Components/Pages/Users/InfoConnection";
-import InfoConnexionUpdate from "./Components/Pages/Users/InfoConnectionUpdate";
-import DeleteUser from "./Components/Pages/Users/DeleteUser";
-import Orders from "./Components/Pages/Users/Orders";
-import SendMessages from "./Components/Pages/Users/SendMessages";
+import Delivery from "./Components/Pages/Users/Profil/Delivery";
+import DeliveryUpdate from "./Components/Pages/Users/Profil/DeliveryUpdate";
+import InfoConnexion from "./Components/Pages/Users/Profil/InfoConnection";
+import InfoConnexionUpdate from "./Components/Pages/Users/Profil/InfoConnectionUpdate";
+import DeleteUser from "./Components/Pages/Users/Profil/DeleteUser";
+import Orders from "./Components/Pages/Users/Orders/Orders";
+import OrderUserPage from "./Components/Pages/Users/Orders/OrderUserPage";
+import SendMessages from "./Components/Pages/Users/Messages/Index";
 
 import NotFoundUser from "./Components/Pages/Others/NotFoundUser";
 
@@ -34,21 +36,23 @@ import HOCEmployees from "./Components/HOCEmployees/Index";
 import Takein from "./Components/Pages/Employees/Connection/takein";
 import TakeOut from "./Components/Pages/Employees/Connection/takeout";
 import Desk from "./Components/Pages/Employees/Index";
-import Sales from "./Components/Pages/Employees/Sales";
+import Sales from "./Components/Pages/Employees/Sales/Index";
+import OrderPage from "./Components/Pages/Employees/Sales/OrderPage";
 import Reserve from "./Components/Pages/Employees/Stock/Index";
 import Categories from "./Components/Pages/Employees/Stock/Categories/Index";
 import DeleteCategories from "./Components/Pages/Employees/Stock/Categories/DeleteCategorie";
 import DeleteSubCategories from "./Components/Pages/Employees/Stock/Categories/DeleteSubcategorie";
-import UpdateSizes from "./Components/Pages/Employees/Stock/Sizes/DpdateSizes"; 
-import DeleteSizes from "./Components/Pages/Employees/Stock/Sizes/DeleteSizes"; 
+import UpdateSizes from "./Components/Pages/Employees/Stock/Sizes/UpdateSizes"; 
+import DeleteSizes from "./Components/Pages/Employees/Stock/Sizes/DeleteSizes";
+import DeletePicture from "./Components/Pages/Employees/Stock/Products/ProductDeletePicture";
 
 import ProductAdd from "./Components/Pages/Employees/Stock/Products/ProductAdd";
-import ProductAddCate from "./Components/Pages/Employees/Stock/Products/ProductAddCate";
+import ProductAddSubCate from "./Components/Pages/Employees/Stock/Products/ProductAddSubCate";
 import ProductAddPic from "./Components/Pages/Employees/Stock/Products/ProductAddPic";
 import ProductUpdate from "./Components/Pages/Employees/Stock/Products/ProductUpdate";
 import ProductDelete from "./Components/Pages/Employees/Stock/Products/ProductDelete";
-import UserMsgRead from "./Components/Pages/Employees/Messages/UserMsgRead";
-import UserMsgAnswer from "./Components/Pages/Employees/Messages/UserMsgAnswer";
+import MsgRead from "./Components/Pages/Employees/Messages/MsgRead";
+import MsgAnswer from "./Components/Pages/Employees/Messages/MsgAnswer";
 import EmployeesInfo from "./Components/Pages/Employees/Infos/employeesInfo";
 import EmployeesInfoUpdate from "./Components/Pages/Employees/Infos/employeesInfoUpdate";
 
@@ -71,6 +75,7 @@ function App() {
 
           <Route path="/" element={<HOC child={Home}/>} />
           <Route path="/panier" element={<HOC child={Cart}/>} />
+          <Route path="/panier/info-livraison" element={<HOC child={CartDeliveryInfos}/>} />
 
           <Route path="le_store">
             <Route path="" element={<HOC child={Shop}/>} />
@@ -88,6 +93,7 @@ function App() {
             <Route path="deconnexion" element={<HOC child={SignOut}/>} />
             <Route path=":id" element={<HOC child={Dashboard} auth={true}/>} />
             <Route path="vos-commandes/:id" element={<HOC child={Orders} auth={true}/>} />
+            <Route path="vos-commandes/:user_id/:id" element={<HOC child={OrderUserPage} auth={true}/>} />
             <Route path="messages/:id" element={<HOC child={SendMessages} auth={true}/>} />
             <Route path="infos-livraison/:id" element={<HOC child={Delivery} auth={true}/>} />
             <Route path="infos-livraison-update/:id" element={<HOC child={DeliveryUpdate} auth={true}/>} />
@@ -103,6 +109,7 @@ function App() {
             <Route path="deconnexion" element={<HOCEmployees child={TakeOut}/>} />
             <Route path="" element={<HOCEmployees child={Desk}/>} />
             <Route path="ventes" element={<HOCEmployees child={Sales} auth={true}/>} />
+            <Route path="commande/:id" element={<HOCEmployees child={OrderPage} auth={true}/>} />
 
             <Route path="stock">
               <Route path="" element={<HOCEmployees child={Reserve} auth={true}/>} />
@@ -112,17 +119,18 @@ function App() {
                 <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} auth={true}/>} />
               </Route>
               <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} auth={true}/>} />
-              <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddCate} auth={true}/>} />
-              <Route path="attribuer-infos-images" element={<HOCEmployees child={ProductAddPic} auth={true}/>} />
+              <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddSubCate} auth={true}/>} />
+              <Route path="ajouter-image" element={<HOCEmployees child={ProductAddPic} auth={true}/>} />
               <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} auth={true}/>} />
               <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} auth={true}/>} />
               <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} auth={true}/>} />
+              <Route path="delete-picture/:product_id/:picture_id" element={<HOCEmployees child={DeletePicture} auth={true}/>} />
               <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} auth={true}/>} />
             </Route>
 
             <Route path="messages" >
-              <Route path="" element={<HOCEmployees child={UserMsgRead} auth={true}/>} />
-              <Route path="repondre/:id" element={<HOCEmployees child={UserMsgAnswer} auth={true}/>} />
+              <Route path="" element={<HOCEmployees child={MsgRead} auth={true}/>} />
+              <Route path="repondre/:id" element={<HOCEmployees child={MsgAnswer} auth={true}/>} />
             </Route>
 
             <Route path="gestion-comptes">
@@ -136,8 +144,6 @@ function App() {
             <Route path=":id" element={<HOCEmployees child={EmployeesInfo} auth={true}/>} />
             <Route path="actualiser-mes-infos/:id" element={<HOCEmployees child={EmployeesInfoUpdate} auth={true}/>} />
           </Route>
-
-          
 
           <Route path="not-found" element={<HOC child={NotFound}/>}/>
           <Route path="employes/not-found" element={<HOCEmployees child={NotFoundEmployees} auth={true}/>}/>

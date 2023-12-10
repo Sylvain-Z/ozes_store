@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -6,8 +5,6 @@ import { useDispatch } from "react-redux";
 import { signin } from "../../../../store/slices/user";
 
 function Form({ type }) {
-
-    // const { info } = useSelector((state) => state.user);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -36,7 +33,6 @@ function Form({ type }) {
         if(type === "in" && res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
             localStorage.setItem("myuserid", pseudo);
-            // const cart = JSON.parse(localStorage.getItem("cart"));
             dispatch(signin({email}));
             navigate("/");
         }
@@ -52,7 +48,7 @@ function Form({ type }) {
 
                 {type === "in" ? (
                     <>
-                    <h2 className="form_title">Connectez vous<br/>à votre compte</h2>
+                    <h2 className="form_title">Connectez vous à votre compte</h2>
 
                     {msg && <p className="msg_red">{msg}</p>}
                     </>

@@ -6,26 +6,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-function DeleteSizes() {
+function DeletePicture() {
 
     const navigate = useNavigate();
     const params   = useParams();
 
-    const [sizes, setSizes] = useState(null); 
+    const [pictures, setPictures] = useState(null);
     const [id, setID] = useState(null);
-    const [size_id, setSize_id] = useState("");
     const [product_id, setProduct_id] = useState("");
 
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch("/api/v1/sizes/" + params.product_id + "/" + params.size_id ); // récupère la taille en fonction de l'id du produit et de l'id de la taille
-                if(sizes.status === 404) {
+                const pictures = await fetch("/api/v1/pictures/" + params.product_id + "/" + params.picture_id ); // récupère l'image en fonction de l'id du produit et de l'id de l'image
+                if(pictures.status === 404) {
                     navigate("/employes/not-found");
                 }
-                if(sizes.status === 200){
-                    const json = await sizes.json();
-                    setSizes(json);
+                if(pictures.status === 200){
+                    const json = await pictures.json();
+                    setPictures(json);
                 }   
                 } catch (error) {
                     throw Error(error);
@@ -39,7 +38,7 @@ function DeleteSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/sizes/delete/" + params.product_id + "/" + params.size_id, { // supprime la taille en fonction de l'id du produit et de l'id de la taille
+        const res = await fetch("/api/v1/pictures/delete/" + params.product_id + "/" + params.picture_id, { // supprime l'image en fonction de l'id du produit et de l'id de l'image
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ product_id , id }),
@@ -61,20 +60,22 @@ return (
 
         <section className="form_section reserve">
 
-            <h3 className="form_title update">Suppression d'une taille</h3>
+            <h3 className="form_title update">Suppression d'une image</h3>
 
             <p className="msg_red">Êtes-vous sûr ? Cette action est irréversible</p>
+
+            
             <p className="form_advise">
-                            <em>Un produit doit toujours avoir au moins une taille, vérifiez que cela soit le cas avant de confirmer</em></p>
+                            <em>Un produit doit toujours avoir au moins une image, vérifiez que cela soit le cas avant de confirmer</em></p>
 
             <form onSubmit={handleSubmit}>
 
-                {!sizes ? (
-                                <p>Taille non trouvé</p>
+                {!pictures ? (
+                                <p>Image non trouvée</p>
                             ) : (
                             <>
                                 <div className="delete_fig">
-                                    <p className='cate_title'>{sizes[0].label}</p>
+                                    <img className="update_images" src={`/${pictures[0].file_name}`} alt={pictures[0].caption}/>
                                 </div>
                             
                             </>
@@ -83,7 +84,7 @@ return (
                 {msg && <p className="msg_green">{msg}</p>}
 
                 <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                <button type="button" onClick={() => window.location.href ="/employes/stock/actualiser/" + params.product_id}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                <Link to={"/employes/stock/actualiser/" + params.product_id} className="button_retour_rouge"><p><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></p></Link>
 
             </form>
 
@@ -97,4 +98,4 @@ return (
 
 }
 
-export default DeleteSizes;
+export default DeletePicture;

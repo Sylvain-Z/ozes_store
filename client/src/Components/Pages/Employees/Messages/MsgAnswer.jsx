@@ -1,12 +1,13 @@
-import { Link , useParams } from "react-router-dom";
-import { useState, useEffect  } from "react";
+import { Link , useParams , useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck , faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-function UserMsgAnswer () {
+function MsgAnswer () {
 
     const params = useParams();
+    const navigate = useNavigate();
 
     const [messages , setMessages] = useState("");
     
@@ -17,7 +18,7 @@ function UserMsgAnswer () {
     useEffect(() => {
         async function getData() {
               try {
-                    const messages = await fetch(`/api/v1/messages/`+ params.id);
+                    const messages = await fetch(`/api/v1/messages/employees-read/`+ params.id); // récupère les messages par rapport au messages.id
 
                     if (messages.status === 200) {
                         const json = await messages.json();
@@ -35,7 +36,7 @@ function UserMsgAnswer () {
 
         async function handleSubmit(e) {
             e.preventDefault();
-            const res = await fetch(`/api/v1/messages/answer/`+ params.id, {
+            const res = await fetch(`/api/v1/messages/answer/`+ params.id, { // envoie la réponse au message par rapport au messages.id
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ answer , id }),
@@ -44,7 +45,9 @@ function UserMsgAnswer () {
             setMsg(json.msg);
 
             if (res.status === 201) {
-                setTimeout(()=>{ window.history.back()}, 2000)
+                setTimeout(()=>
+                    {navigate("/employes/messages")}
+                , 2000)
             }
         };
 
@@ -78,7 +81,7 @@ function UserMsgAnswer () {
                                             />
 
                                             <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                                            <Link to={`/employes/messages`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
+                                            <p className="button_retour_rouge"><Link to={`/employes/messages`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></Link></p>
 
                                 </form>
                         </div>
@@ -93,4 +96,4 @@ function UserMsgAnswer () {
     )
 };
 
-export default UserMsgAnswer;
+export default MsgAnswer;

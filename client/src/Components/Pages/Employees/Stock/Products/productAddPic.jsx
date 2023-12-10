@@ -2,18 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { useState , useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck , faDeleteLeft} from '@fortawesome/free-solid-svg-icons';
+import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 
 function ProductAddPic (){
 
     const navigate = useNavigate();
 
-    const [product_id, setProduct_id] = useState("");
+    const [product_id, setProduct_id] = useState(""); // stocke l'id du dernier produit ajouté
 
     useEffect(() => {
         async function getData() {
             try {
-                const product_id = await fetch("/api/v1/products/last-product_id");
+                const product_id = await fetch("/api/v1/products/last-product_id"); // récupère l'id du dernier produit ajouté 
             
                 if (product_id.status === 200) {
                     const json = await product_id.json();
@@ -27,60 +27,65 @@ function ProductAddPic (){
         }, []);
 
 
-    const [file_name, setFile_name] = useState("");
-    const [caption, setCaption] = useState("");
+    const [image, setImage] = useState(null); // gère le formulaires
+    const [caption, setCaption] = useState(""); // gère le formulaires
 
     const [msg, setMsg] = useState(null);
     
-    async function handleSubmit(e) {
+    async function handleUpload(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/products/add-pictures", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ file_name , caption , product_id }),
-        });
+
+        const formData = new FormData();
+        formData.append('image', image);
+        const productId = product_id;
+        formData.append('product_id', productId)
+        const alt = caption;
+        formData.append('caption', alt)
+        
+        try {
+            const res = await fetch('/api/V1/pictures/add-pictures/' + product_id, {
+              headers: {enctype : "multipart/form-data"},
+              method: 'POST',
+              body: formData,
+            });
         const json = await res.json();
         setMsg(json.msg);
-        
         if (res.status === 201) {
-        setTimeout(()=>{
-            navigate("/employes/stock")
-        }, 2000)
-        }
-    }
+            setTimeout(()=>{
+                navigate(`/employes/stock/actualiser/${product_id}`)
+            }, 2000)
+            }
 
+        } catch (error) {
+            console.error('Erreur lors de l\'upload :', error.message);
+        }
+        
+    }
+    
     return (
         <>
             <section className="form_section">
 
-                <h3 className="form_title read">Ajouter un article à la boutique</h3>
+                <h3 className="form_title read">Ajouter une image au produit</h3>
+
+                <form onSubmit={handleUpload}>
 
                 <p className="form_advise">
-                            <em>Laisser vide les champs non pertinents</em></p>
+                            <em>L'ajout d'une image est obligatoire</em></p>
+                    
+                    <label for="picture">Télécharger l'image *</label>
+                    <input required type="file" name="picture" accept="image/*" onChange={(e) => setImage(e.target.files[0])}/>
 
-                <form onSubmit={handleSubmit}>
-
-                    <p className="form_advise">
-                            <em>Insérer les informations des images</em></p>
-                    <label for="file_name">Nom de l'image principale</label>
+                    <label for="caption">Légende de l'image *</label>
                     <input
-                        placeholder="Nom de l'image (ex : image.jpg)"
-                        type="text"
-                        name="file_name"
-                        value={file_name}
-                        onChange={(e) => setFile_name(e.target.value)}
-                        pattern="^\S*$"
-                        title="L'espace n'est pas autorisé."
-                    />
-                    <label for="caption">Légende de l'image principale</label>
-                    <input
+                        required
                         placeholder="Légende"
                         type="text"
                         name="caption"
                         value={caption}
                         onChange={(e) => setCaption(e.target.value)}
                     />
-
+                    
                     <input
                         disabled
                         placeholder="ID du produit"
@@ -89,14 +94,12 @@ function ProductAddPic (){
                         value={product_id}
                         onChange={(e) => setProduct_id(e.target.value)}
                     />
-
+            
                     {msg && <p className="msg_green">{msg}</p>}
 
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                    <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
 
                 </form>
-
 
 
             </section>

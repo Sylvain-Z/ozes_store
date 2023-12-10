@@ -6,7 +6,7 @@ import PreviousPage from "./Components/PreviousPage";
 import ProductUpdateInfos from "./ProductUpdateInfos";
 import ProductAddSizes from "./ProductAddSizes";
 import ProductUpdateCate from "./ProductUpdateCate";
-import ProductAddPicForm from "./ProductAddPicForm";
+import ProductUpdatePic from "./ProductUpdatePic";
 
 function ProductUpdate (){
 
@@ -20,7 +20,7 @@ function ProductUpdate (){
     useEffect(() => {
         async function getData() {
             try {
-                const products = await fetch("/api/v1/products/one_full/" + params.id);
+                const products = await fetch("/api/v1/products/one_full/" + params.id);  // récupère toutes les informations de la table product en fonction de l'id du produit
                 if(products.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -28,7 +28,7 @@ function ProductUpdate (){
                     const json = await products.json();
                     setProducts(json);
                 }
-                const quantity = await fetch("/api/v1/products/quantity/"+ params.id);
+                const quantity = await fetch("/api/v1/products/quantity/"+ params.id); // récupère le total des quantité pour toutes les tailles existantes du produit
                 if(quantity.status === 200){
                     const json = await quantity.json();
                     setQuantity(json);
@@ -72,7 +72,7 @@ function ProductUpdate (){
 
                         <ProductUpdateCate />
 
-                        <ProductAddPicForm />
+                        <ProductUpdatePic />
 
                         <PreviousPage />
 

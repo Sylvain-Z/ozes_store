@@ -1,4 +1,4 @@
-import { Link , useNavigate, useParams , useLocation } from "react-router-dom";
+import { Link , useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,11 +10,10 @@ import AddToCartForm from "./Forms/AddToCartForm"
 function ProductPage (){
 
     const params   = useParams();
-    const { pathname } = useLocation();
     const navigate = useNavigate();
 
-    const [ products , setProducts ] = useState(null);
-    const [ pictures , setPictures ] = useState(null);
+    const [ products , setProducts ] = useState(null); // stocke les informations du produit
+    const [ pictures , setPictures ] = useState(null); // stocke les images secondaires du produit
 
     useEffect(() => {
         async function getData() {
@@ -31,8 +30,6 @@ function ProductPage (){
                         const jsonP = await pictures.json();
                         setPictures(jsonP);
                 }
-
-
                 } catch (error) {
                     throw Error(error);
                 }
@@ -70,7 +67,7 @@ function ProductPage (){
                                 <p className="price"><strong>{product.price}€</strong></p>
                                 <p className="color"><strong>Couleur : {product.color}</strong></p>
 
-                                    <AddToCartForm product={product}/>
+                                    <AddToCartForm product={product}/> {/* Formulaire Taille et ajouter au panier */}
 
                             </article>
                         </div>

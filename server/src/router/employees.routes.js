@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { check_token, getAllEmployees, getByEmail , getById , getEmployeeGlimpse , signin, createAccount, updateInfo , updateInfoEmployees , updateLogin , DeleteEmployee } from "../controller/employees.js";
+import { check_token, getAllEmployees, getByEmail , getById , getEmployeeGlimpse , signin, createAccount, updateInfo , updateInfoEmployees , updateLogin , deleteEmployee } from "../controller/employees.js";
 import { auth } from "../middlewares/auth.js";
 
 const router = Router();
@@ -16,7 +16,7 @@ router.post("/update-employee/:id", updateInfoEmployees); // composant : Employe
 router.post("/update/:email", updateInfo); // composant : Employees/Infos - permet au salarié de changer ses infos personnelles
 router.post("/infos-connexion-update/:email", updateLogin); // composant : Employees/Infos - permet au salarié de changer ses infos de connexion
 
-router.delete("/delete/:id", DeleteEmployee); // composant : Employees/Management/deleteprofil
+router.delete("/delete/:id", deleteEmployee); // composant : Employees/Management/deleteprofil
 
 
 

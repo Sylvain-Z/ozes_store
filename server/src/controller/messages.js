@@ -13,7 +13,19 @@ const ReadAll = async (req, res) => {
     }  
 };
 
-const ReadUserMessages = async (req, res) => {
+const EmployeeReadUserMessages = async (req, res) => {
+    
+    const query = "SELECT * FROM messages WHERE id = ? ORDER BY id DESC";
+    const [messages] = await Query.findByDatas(query, req.params);
+    if(!messages.length){
+        res.status(404).json({msg: "pas de message de cet utilisateur"})
+    }
+    if(messages.length) {        
+        res.status(200).json(messages);
+        return;
+    }  
+};
+const UserReadHisMessages = async (req, res) => {
     
     const query = "SELECT * FROM messages WHERE user_id = ? ORDER BY id DESC";
     const [messages] = await Query.findByDatas(query, req.params);
@@ -80,4 +92,4 @@ const AnswerMessages = async (req, res) => {
 };
 
 
-export { ReadAll, ReadUserMessages, WriteMessage , ReadOneStatus , AnswerMessages };
+export { ReadAll, EmployeeReadUserMessages, UserReadHisMessages , WriteMessage , ReadOneStatus , AnswerMessages };

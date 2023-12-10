@@ -27,16 +27,19 @@ const getProductsGlimpse = async (req, res) => {
 };
 
 const getProductsGalery = async (req, res) => {
-    
+    try {
     const query = "SELECT products.id, MIN(pictures.id) AS first_picture_id, products.reference, products.title, products.title_url, products.price, pictures.file_name, pictures.caption, categories.cate_title FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id GROUP BY products.id ORDER BY products.id ASC";
     const [datas] = await Query.find(query);
 
     res.status(200).json({ datas });
+    } catch (error) {
+        throw Error(error);
+    } 
 };
 
 const getProductsDetails = async (req, res) => {
-    
-    const query = "SELECT *, MIN(pictures.id) AS first_picture_id FROM products JOIN pictures ON pictures.product_id = products.id JOIN sizes ON sizes.product_id = products.id WHERE products.title_url = ? AND products.id = ? GROUP BY products.id ORDER BY products.id ASC;";
+    try {
+    const query = "SELECT *, products.id AS product_id, MIN(pictures.id) AS first_picture_id FROM products JOIN pictures ON pictures.product_id = products.id JOIN sizes ON sizes.product_id = products.id WHERE products.title_url = ? AND products.id = ? GROUP BY products.id ORDER BY products.id ASC;";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
@@ -44,10 +47,13 @@ const getProductsDetails = async (req, res) => {
     if(datas.length) {        
         res.status(200).json(datas);
         return;
-    }  
+    }
+    } catch (error) {
+        throw Error(error);
+    } 
 };
 const getQuantitybyId = async (req, res) => {
-    
+    try {
     const query = "SELECT product_id, SUM(quantity) AS total FROM sizes WHERE product_id = ?";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
@@ -57,10 +63,13 @@ const getQuantitybyId = async (req, res) => {
         res.status(200).json(datas);
         return;
     }  
+    } catch (error) {
+        throw Error(error);
+    } 
 };
 const getSizesByProductId = async (req, res) => {
-    
-    const query = "SELECT products.id AS product_id, reference, sizes.id AS sizes_id, label FROM products JOIN pictures ON pictures.product_id = products.id JOIN sizes ON sizes.product_id = products.id WHERE products.id = ? GROUP BY sizes.id ";
+    try {
+    const query = "SELECT products.id AS product_id, reference, sizes.id AS sizes_id, label FROM products JOIN pictures ON pictures.product_id = products.id JOIN sizes ON sizes.product_id = products.id WHERE products.id = ? GROUP BY sizes.id";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "tailles non reconnu"})
@@ -69,10 +78,13 @@ const getSizesByProductId = async (req, res) => {
         res.status(200).json(datas);
         return;
     }  
+    } catch (error) {
+        throw Error(error);
+    }   
 };
 
 const getProductsCart = async (req, res) => {
-    
+    try {
     const query = "SELECT products.id, products.title, products.title_url, products.price, pictures.file_name1, categories.cate_title FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id ORDER BY products.id ASC";
     const [datas] = await Query.findByDatas(query);
     if(!datas.length){
@@ -81,11 +93,14 @@ const getProductsCart = async (req, res) => {
     if(datas.length) {        
         res.status(200).json(datas);
         return;
-    } 
+    }  
+    } catch (error) {
+        throw Error(error);
+    }  
 };
 
 const getLastId = async (req, res) => {
-    
+    try {
     const query = "SELECT id FROM products ORDER BY id DESC LIMIT 1";
     const [datas] = await Query.find(query);
     if(!datas.length){
@@ -94,20 +109,26 @@ const getLastId = async (req, res) => {
     if(datas.length) {        
         res.status(200).json(datas);
         return;
-    } 
+    }
+    } catch (error) {
+        throw Error(error);
+    }
 };
 
 const getSubcategories = async (req, res) => {
-    
+    try {
     const query = "SELECT id, subcate_title FROM subcategories";
     const [datas] = await Query.find(query);
 
     res.status(200).json({ datas });
+    } catch (error) {
+        throw Error(error);
+    }
 };
 
 const getProdSubcateById = async (req, res) => {
-    
-    const query = "SELECT product_id, subcategorie_id FROM products_subcategories WHERE product_id = ?";
+    try {
+    const query = "SELECT subcate_title, product_id, subcategorie_id FROM subcategories JOIN products_subcategories ON products_subcategories.subcategorie_id = subcategories.id WHERE product_id = ?";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "donnée non reconnu"})
@@ -115,7 +136,10 @@ const getProdSubcateById = async (req, res) => {
     if(datas.length) {        
         res.status(200).json(datas);
         return;
-    }  
+    }
+    } catch (error) {
+        throw Error(error);
+    }
 };
 
 const AddProduct = async (req, res) => {
@@ -177,7 +201,7 @@ const AddProduct = async (req, res) => {
         throw Error(error);
     }
 };
-const AddCategories = async (req, res) => {
+const AddSubCategories = async (req, res) => {
     try {
         let msg ="";
         const datas = { 
@@ -290,12 +314,14 @@ const UpdateProductPicById = async (req, res) => {
 const DeleteProduct = async (req, res) => {
     try {
         let msg =""
+        let msg2 =""
         const query =
             "DELETE FROM products WHERE id = ?";
         await Query.deleteByValue(query, req.params.id);
 
-            msg = "Le produit a été supprimé";
-            res.status(201).json({ msg });
+            msg = "Le produit a été supprimé"; // composant ProductDelete
+            msg2 = "La création a été annulée"; // composant ProductAddSubCate
+            res.status(201).json({ msg , msg2 });
         
     } catch (error) {
         throw Error(error);
@@ -304,4 +330,4 @@ const DeleteProduct = async (req, res) => {
 
 
 
-export { getOneProductsFull, getProductsGalery , getSizesByProductId , getProductsGlimpse , getProductsDetails , getQuantitybyId , getProductsCart , getLastId , getSubcategories, getProdSubcateById , AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };
+export { getOneProductsFull, getProductsGalery , getSizesByProductId , getProductsGlimpse , getProductsDetails , getQuantitybyId , getProductsCart , getLastId , getSubcategories, getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };

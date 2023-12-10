@@ -1,11 +1,14 @@
 import Query from "../model/Query.js";
 
 const getSizes = async (req, res) => {
-    
+    try {
     const query = "SELECT * FROM sizes";
     const [datas] = await Query.find(query);
 
     res.status(200).json({ datas });
+    } catch (error) {
+        throw Error(error);
+    }
 };
 
 /* const getSizesById = async (req, res) => {
@@ -21,28 +24,34 @@ const getSizes = async (req, res) => {
     }  
 }; */
 const getSizesByProductId = async (req, res) => {
-    
-    const query = "SELECT * FROM  sizes WHERE product_id = ?";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "taille non reconnue"})
+    try {
+        const query = "SELECT * FROM  sizes WHERE product_id = ?";
+        const [datas] = await Query.findByDatas(query, req.params);
+        if(!datas.length){
+            res.status(404).json({msg: "taille non reconnue"})
+        }
+        if(datas.length) {        
+            res.status(200).json(datas);
+            return;
+        }
+    } catch (error) {
+    throw Error(error);
     }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
 };
 const getProductSizeByIds = async (req, res) => {
-    
-    const query = "SELECT * FROM sizes WHERE product_id = ? AND id = ?";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "taille non reconnue"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
+    try {
+        const query = "SELECT * FROM sizes WHERE product_id = ? AND id = ?";
+        const [datas] = await Query.findByDatas(query, req.params);
+        if(!datas.length){
+            res.status(404).json({msg: "taille non reconnue"})
+        }
+        if(datas.length) {        
+            res.status(200).json(datas);
+            return;
+        }
+    } catch (error) {
+        throw Error(error);
+        }  
 };
 
 const AddSizes = async (req, res) => {
@@ -80,6 +89,7 @@ const AddSizes = async (req, res) => {
         throw Error(error);
     }
 };
+
 const UpdateSizes = async (req, res) => {
     try {
         let msg =""
@@ -101,54 +111,6 @@ const UpdateSizes = async (req, res) => {
     }
 };
 
-/* const AttribSizes = async (req, res) => { 
-    try {
-        let msg = "";
-        let msg2 = "";
-        const datas = {
-            product_id: req.body.product_id,
-            size_id: req.body.size_id,
-        };
-        const querySizes =
-            "SELECT * FROM products_sizes WHERE product_id = ? AND size_id = ?";
-        const [size] = await Query.findByDatas(querySizes, datas);
-
-        if (size.length) {
-            msg = "Cette taille est déjà attribuée";
-            res.status(409).json({ msg });
-
-        } else if (!size.length) {
-            const datas = {
-                product_id: req.body.product_id,
-                size_id: req.body.size_id,
-            };
-
-            const query =
-                "INSERT INTO products_sizes (product_id, size_id) VALUES(?, ?)";
-            await Query.write(query, datas);
-
-            msg2 = "La taille a bien été attribuée";
-            res.status(201).json({ msg2 });
-        }
-    } catch (error) {
-        throw Error(error);
-    }
-}; */
-
-/* const RemoveSizes = async (req, res) => {
-    try {
-        let msg =""
-        const query =
-            "DELETE FROM products_sizes WHERE product_id = ? AND size_id = ?";
-        await Query.deleteByDatas(query, req.params);
-        
-        msg = "La taille a été retirée";
-        res.status(201).json({ msg });
-        
-    } catch (error) {
-        throw Error(error);
-    }
-}; */
 const DeleteSizes = async (req, res) => {
     try {
         let msg =""
@@ -164,4 +126,4 @@ const DeleteSizes = async (req, res) => {
     }
 };
 
-export { getSizes , getProductSizeByIds /*, getSizesById   , AttribSizes */, getSizesByProductId , AddSizes , UpdateSizes /* , RemoveSizes */ , DeleteSizes };
+export { getSizes , getProductSizeByIds /*, getSizesById */, getSizesByProductId , AddSizes , UpdateSizes , DeleteSizes };

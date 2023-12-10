@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { WriteMessage , ReadAll , ReadUserMessages, ReadOneStatus , AnswerMessages } from "../controller/messages.js";
+import { WriteMessage , ReadAll , EmployeeReadUserMessages, UserReadHisMessages , ReadOneStatus , AnswerMessages } from "../controller/messages.js";
 
 const router = Router();
 
@@ -7,7 +7,8 @@ router.post("/write", WriteMessage); //  composants : Containers/ContactForm /in
 router.post("/answer/:id", AnswerMessages); //  composants : Employees/userMsgUpStat
 
 router.get("/all", ReadAll); // composant : Employees/Messages
-router.get("/:user_id", ReadUserMessages); // composant : Employees/Messages
+router.get("/user-read/:user_id", UserReadHisMessages); // composant : Employees/Messages
+router.get("/employees-read/:id", EmployeeReadUserMessages); // composant : Employees/Messages
 router.get("/:id", ReadOneStatus); // composant : Employees/Messages
 
 

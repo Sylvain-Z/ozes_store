@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
+import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
 
 const router = Router();
 
 router.post("/add-product", AddProduct); //  composant : Employees/ProductAdd 
-router.post("/add-subcategorie", AddCategories); // composant : Employees/ProductAddCate
-router.post("/add-pictures", AddPictures); // composant : Employees/ProductAddPic   // à supprimer lorsque formidable sera ok
+router.post("/add-subcategorie", AddSubCategories); // composant : Employees/ProductAddCate
 router.post("/update/:id", UpdateProduct); // composant : Employees/ProductUpdate
 router.post("/update-subcate/:id", UpdateProductSubcate); // composant : Employees/ProductUpdate
 router.post("/update-pictures/:id", UpdateProductPicById); // composant : Employees/ProductUpdate

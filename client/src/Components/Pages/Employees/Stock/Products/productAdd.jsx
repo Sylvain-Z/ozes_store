@@ -9,7 +9,7 @@ function ProductAdd (){
 
     const navigate = useNavigate();
 
-    const [reference, setReference]             = useState(null);
+    const [reference, setReference]             = useState(null); // gère les inputs du formulaire
     const [title, setTitle]                     = useState(null);
     const [title_url, setTitle_url]             = useState(null);
     const [description, setDescription]         = useState(null);
@@ -28,7 +28,7 @@ function ProductAdd (){
     
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/products/add-product", {
+        const res = await fetch("/api/v1/products/add-product", { // insère le contenu du formulaire en base de donnée
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ reference , title , title_url , description , price , color , shape , gender , model_info , material , infosup , infosupplus , madeplace }),
@@ -57,47 +57,50 @@ function ProductAdd (){
 
                 <form onSubmit={handleSubmit}>
                     
-                    <label for="reference">Référence</label>
+                    <label for="reference">Référence *</label>
                     <input
+                        required
                         placeholder="Référence du produit"
                         type="text"
                         name="reference"
                         value={reference}
                         onChange={(e) => setReference(e.target.value)}
                     />
-                    <label for="title">Nom du produit</label>
+                    <label for="title">Nom du produit *</label>
                     <input
+                        required
                         placeholder="Nom du produit"
                         type="text"
                         name="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                    <label for="title_url">Nom pour url</label>
+                    <label for="title_url">Nom pour url *</label>
                     <input
+                        required
                         placeholder="Nom pour url"
                         type="text"
                         name="title_url"
                         value={title_url}
                         onChange={(e) => setTitle_url(e.target.value.replace(/[^a-zA-Z_-]/g, ''))}
-                        pattern="^\S*$"
-                        title="L'espace n'est pas autorisé."
                     />
-                    <label for="description">Description du produit</label>
+                    <label for="description">Description du produit *</label>
                     <textarea className="form_input textarea"
+                        required
                         placeholder="Description du produit"
                         type="text"
                         name="description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    <label for="price">Prix</label>
+                    <label for="price">Prix *</label>
                     <input
+                        required
                         placeholder="Prix"
                         type="text"
                         name="price"
                         value={price}
-                        onChange={(e) => setPrice(e.target.value)}
+                        onChange={(e) => setPrice(e.target.value.replace(/[^0-9.]/g, ''))}
                     />
                     <label for="color">Couleur</label>
                     <input
@@ -131,8 +134,9 @@ function ProductAdd (){
                         value={model_info}
                         onChange={(e) => setModel_info(e.target.value)}
                     />
-                    <label for="material">Matière</label>
+                    <label for="material">Matière *</label>
                     <input
+                        required
                         placeholder="Matière"
                         type="text"
                         name="material"
@@ -169,7 +173,7 @@ function ProductAdd (){
                     {msg2 && <p className="msg_green">{msg2}</p>}
 
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
-                    <button type="button" onClick={() => window.location.href =`/employes/stock`}><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed" /></button>
+                    <Link to={`/employes/stock/`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
                 </form>
 

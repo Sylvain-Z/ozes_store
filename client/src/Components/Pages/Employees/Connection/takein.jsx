@@ -4,14 +4,11 @@ import { useDispatch } from "react-redux";
 
 import { signin } from "../../../../store/slices/employees";
 
-function Takein() {
+function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame avec l'App.jsx
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [firstname, setFirstname]       = useState("");
-    const [lastname, setLastname]       = useState("");
-    const [role, setRole]       = useState("");
     const [email, setEmail]       = useState("");
     const [password, setPassword] = useState("");
 
@@ -24,7 +21,7 @@ function Takein() {
         const res = await fetch("/api/v1/employees/signin", {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ firstname, lastname, role, email, password }),
+            body: JSON.stringify({ email, password }),
         });
         const json = await res.json();
         setMsg(json.msg);

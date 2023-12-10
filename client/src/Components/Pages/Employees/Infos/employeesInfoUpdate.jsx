@@ -1,6 +1,5 @@
-import { Link , /* useNavigate, useParams ,  useLocation */ } from 'react-router-dom';
-import { useState, useEffect, /* useReducer */ } from "react";
-import { /*useSelector ,  useDispatch */ } from "react-redux";
+import { Link , useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -11,11 +10,9 @@ import Loading from "../../Containers/Loading/Index";
 
 function EmployeesInfoUpdate() {
   
-  // const { info } = useSelector((state) => state.user);
-  // const params   = useParams();
-  // const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  const [employees, setEmployees]       = useState(null);
+  const navigate = useNavigate();
+
+  const [employees, setEmployees]       = useState(null);  // stockent les informations de l'utilisateur et les injecte dans le formulaire
   const [firstname, setFirstname]       = useState("");
   const [lastname, setLastname]         = useState("");
   const [number, setNumber]             = useState("");
@@ -32,15 +29,7 @@ function EmployeesInfoUpdate() {
   useEffect(() => {
     async function getData() {
         try {
-            let id="Invite"; 
-
-            if(!myemployeeid){ 
-                id="Invite"; 
-            }else{ 
-            id=myemployeeid; 
-            } 
-
-            const employees = await fetch("/api/v1/employees/"+ id);
+            const employees = await fetch("/api/v1/employees/"+ myemployeeid);
 
             if (employees.status === 200) {
                 const json = await employees.json();
@@ -75,7 +64,7 @@ function EmployeesInfoUpdate() {
     const json = await res.json();
     setMsg(json.msg);
     if (res.status === 201) {
-      setTimeout(()=>{ window.history.back()}, 2000)
+      setTimeout(()=>{ navigate(`/employes/${employees[0].id}`)}, 2000)
     }
 }
 
@@ -114,10 +103,10 @@ function EmployeesInfoUpdate() {
                           <label for="number">Numéro de la rue</label>
                           <input
                             placeholder="Numéro de la rue"
-                            type="number"
+                            type="text"
                             name="number"
                             value={number}
-                            onChange={(e) => setNumber(e.target.value)}                          
+                            onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ''))}                          
                           />
                           <label for="street">Nom de la rue</label>
                           <input
@@ -141,7 +130,7 @@ function EmployeesInfoUpdate() {
                             type="text"
                             name="postal_code"
                             value={postal_code}
-                            onChange={(e) => setPostal_code(e.target.value)}
+                            onChange={(e) => setPostal_code(e.target.value.replace(/[^0-9]/g, ''))}
                           />
                           <label for="city">Ville</label>
                           <input
@@ -157,9 +146,9 @@ function EmployeesInfoUpdate() {
                             type="tel"
                             name="phone"
                             value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
+                            pattern="\+\d{11}"
+                            onChange={(e) => setPhone(e.target.value.replace(/[^0-9+]/g, ''))}
                           />
-                          {/* <label for="lastname">Votre email</label> */}
                           <input
                             placeholder="Email"
                             type="hidden"

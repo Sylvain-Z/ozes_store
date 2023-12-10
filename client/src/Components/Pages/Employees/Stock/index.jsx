@@ -10,13 +10,13 @@ import PreviousPage from '../Components/previousPage';
 
 function Reserve() {
 
-  const [ products, setProducts ] = useState(null);
+  const [ products, setProducts ] = useState(null);  // stocke les informations de tous les produits de la base de donnée
     
   useEffect(() => {
           async function getData() {
               try {
                   const products = await (
-                      await fetch("/api/v1/products/galery")
+                      await fetch("/api/v1/products/galery") 
                   ).json();
                   setProducts(products.datas);                  
                           
@@ -45,7 +45,7 @@ function Reserve() {
         <table className="reserve">
           <thead>
               <tr>
-                  <th className='first_col'>Nom</th>
+                  <th className='first_col'>Produit</th>
                   <th>Prix</th>
                   <th>
                     <FontAwesomeIcon icon={faMinus} className='fontawesomeGrey'/>
@@ -55,12 +55,12 @@ function Reserve() {
                   </th>
               </tr>
           </thead>
+                    
+          <tbody className='products_list'>
             {!products ? (
                 <Loading/>
             ) : ( products.map( product =>
 
-                    
-                      <tbody className={`products_list`}>
                           <tr>
                             <td className='first_col'>
                               <img src={`/${product.file_name}`} alt={product.caption}/>
@@ -78,9 +78,8 @@ function Reserve() {
                               </Link>
                             </td>
                           </tr>
-                      </tbody>
-                    
                 ))}
+          </tbody>
         </table>
       </>
   )

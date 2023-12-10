@@ -7,7 +7,7 @@ import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading/Index";
+import Loading from "../../Containers/Loading/Index";
 
 function DeliveryUpdate() {
   
@@ -129,10 +129,10 @@ function DeliveryUpdate() {
                       <label for="number">Numéro de la rue</label>
                       <input
                             placeholder="Numéro de la rue"
-                            type="number"
+                            type="text"
                             name="number"
                             value={number}
-                            onChange={(e) => setNumber(e.target.value)}                          
+                            onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ''))}                          
                       />
                       <label for="street">Nom de la rue</label>
                       <input
@@ -156,7 +156,7 @@ function DeliveryUpdate() {
                             type="text"
                             name="postal_code"
                             value={postal_code}
-                            onChange={(e) => setPostal_code(e.target.value)}
+                            onChange={(e) => setPostal_code(e.target.value.replace(/[^0-9]/g, ''))}
                       />
                       <label for="city">Ville</label>
                       <input
@@ -173,7 +173,7 @@ function DeliveryUpdate() {
                         name="phone"
                         value={phone}
                         pattern="\+\d{11}"
-                        onChange={(e) => setPhone(e.target.value)}
+                        onChange={(e) => setPhone(e.target.value.replace(/[^0-9+]/g, ''))}
                       />
 
                       {msg && <p className="msg_green">{msg}</p>}

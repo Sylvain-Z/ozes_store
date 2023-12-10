@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { signout } from '../../../../store/slices/employees'
 import { useState } from 'react';
 
-function TakeOut() {
+function TakeOut() { // Takeout = Signout, nom modifié pour éviter l'amalgame avec l'App.jsx
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

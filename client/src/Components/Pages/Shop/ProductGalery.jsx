@@ -11,7 +11,7 @@ function ProductGalery(){
             async function getData() {
                 try {
                     const products = await (
-                        await fetch("/api/v1/products/galery")
+                        await fetch("/api/v1/products/galery") // récupère tous les produits présents en base de donnée
                     ).json();
                     setProducts(products.datas);
                             

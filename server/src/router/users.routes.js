@@ -6,14 +6,14 @@ const router = Router();
 
 router.get("/check_token", auth, check_token);
 router.get("/all", getAllUsers);
-router.get("/:pseudo", userInformations); // composant : Users/delivery & composant : Users/infoConnection
+router.get("/:pseudo", userInformations); // composants : HOC/Header - Users/delivery - Users/infoConnection
 
 router.post("/signup", createAccount);
 router.post("/signin", signin);
-router.post("/infos-livraison-update/:pseudo", updateDelivery); // composant : Users/deliveryUpdate
-router.post("/infos-connexion-update/:pseudo", updateLogin); // composant : Users/infoConnectionUpdate
+router.post("/infos-livraison-update/:pseudo", updateDelivery); // composant : Users/DeliveryUpdate
+router.post("/infos-connexion-update/:pseudo", updateLogin); // composant : Users/InfoConnectionUpdate
 
-router.delete("/delete/:id", DeleteUser); // composant : Users/deleteUser
+router.delete("/delete/:id", DeleteUser); // composant : Users/DeleteUser
 
 
 export default router;

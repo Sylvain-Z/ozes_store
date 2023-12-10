@@ -7,7 +7,7 @@ import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading/Index";
+import Loading from "../../Containers/Loading/Index";
 
 function InfoConnexionUpdate() {
   

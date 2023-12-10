@@ -5,7 +5,7 @@ function AddProfil() {
 
     const navigate = useNavigate();
 
-    const [firstname, setFirstname]       = useState("");
+    const [firstname, setFirstname]       = useState(""); // les states permettent de gérer le formulaire et son remplissage même s'il est vide
     const [lastname, setLastname]       = useState("");
     const [role, setRole]       = useState("");
     const [email, setEmail]       = useState("");
@@ -25,7 +25,7 @@ function AddProfil() {
         setMsg(json.msg);
         setMsg2(json.msg2);
         
-        ;if (res.status === 201) {
+        if (res.status === 201) {
             setTimeout(()=>{ navigate("/employes/gestion-comptes")}, 2000)
         }
     }

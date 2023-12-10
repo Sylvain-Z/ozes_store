@@ -1,21 +1,17 @@
 import { useState, useEffect  } from "react";
-import { Link, json } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import PreviousPage from '../Components/previousPage';
 
-function UserMsgRead () {
+function MsgRead () {
 
     const [ messages , setMessages ] = useState("");
-    
-    // const [ id , setId ] = useState("");  
-    // const [ answer , setAnswer ] = useState("");
-    // const [ msg , setMsg ] = useState("");
 
     useEffect(() => {
         async function getData() {
               try {
-                    const messages = await fetch("/api/v1/messages/all");
+                    const messages = await fetch("/api/v1/messages/all");   // affiche tous les messages en BDD
 
                     if (messages.status === 200) {
                         const json = await messages.json();
@@ -58,9 +54,9 @@ function UserMsgRead () {
 
                                 
                                 {message.user_pseudo === "Invité" ? (
-                                                                        <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre par mail</p></Link>
+                                                                        <p className={message.status === "en attente" ? "input_link_btn" : "hidden"}>Répondre par mail</p>
                                                                     ) : (
-                                                                        <Link to={`/employes/messages/repondre/${message.id}`} className={message.status === "en attente" ? "" : "hidden"}><p>Répondre</p></Link>
+                                                                        <p className={message.status === "en attente" ? "input_link_btn" : "hidden"}><Link to={`/employes/messages/repondre/${message.id}`} >Répondre</Link></p>
                                                                     )
                                 }
                         </div>
@@ -75,4 +71,4 @@ function UserMsgRead () {
     )
 };
 
-export default UserMsgRead;
+export default MsgRead;

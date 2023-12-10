@@ -2,19 +2,19 @@ import { useState, useEffect } from 'react';
 import { Link , useNavigate } from "react-router-dom";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { /* faPenToSquare , */ faTrashCan /*, faSquareMinus , faTag */} from '@fortawesome/free-solid-svg-icons';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import AddCategories from "./Addcategories";
 import AddSubcategories from "./Addsubcategories";
 
 function Categories () {
 
-    const [ inputHidden, setInptuHidden ] = useState(false);
+    const [ inputHidden, setInptuHidden ] = useState(false); // gère la dissimulation et l'apparition des pictogrammes faTrashCan 
     const toggleInput = () => setInptuHidden(!inputHidden);
 
     const navigate = useNavigate();
-    const [ categories, setCategories ] = useState(null);
-    const [ subcategories, setSubcategories ] = useState(null);
+    const [ categories, setCategories ] = useState(null);  // récupère toutes les catégories en base de données
+    const [ subcategories, setSubcategories ] = useState(null); // récupère toutes les sous catégories en base de données
 
     useEffect(() => {
         async function getData() {
@@ -41,7 +41,7 @@ function Categories () {
             }
         }
         getData();
-    }, [categories, subcategories]);
+    }, [categories, subcategories]); // met à jour l'affichage du composant dès que la catégorie ou la sous catégorie est créée ou supprimée
 
     return (
 

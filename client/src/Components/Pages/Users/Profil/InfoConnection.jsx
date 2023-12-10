@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
 
-import Loading from "../Containers/Loading/Index";
-import PreviousPage from "./Components/PreviousPage";
+import Loading from "../../Containers/Loading/Index";
+import PreviousPage from "../Components/PreviousPage";
 
 function InfoConnexion() {
   
@@ -70,7 +70,7 @@ function InfoConnexion() {
                           disabled="disabled"
                     />
 
-                    <button type="button" onClick={() => window.location.href =`/utilisateurs/infos-connexion-update/${user.id}`}>Modifier mes informations</button>
+                    <p className='input_link_btn'><Link to={`/utilisateurs/infos-connexion-update/${user.id}`}>Modifier mes informations</Link></p>
 
                   </form>
                   

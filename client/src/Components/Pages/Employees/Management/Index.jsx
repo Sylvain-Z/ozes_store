@@ -8,9 +8,9 @@ import Loading from "../../Containers/Loading/Index";
 import PreviousPage from '../Components/previousPage';
 
 
-function AccountManagement() {
+function AccountManagement() { // page accessible uniquement par les compte utilisateurs ayant un rôle administrateur
 
-  const [ employees, setEmployees ] = useState(null);
+  const [ employees, setEmployees ] = useState(null); // affiche la liste de tous les profils existants
     
   useEffect(() => {
           async function getData() {

@@ -1,14 +1,11 @@
-import { useState/* , useEffect */ } from 'react';
-// import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus , faCircleCheck} from '@fortawesome/free-solid-svg-icons';
 
 function AddCategories (){
-/* 
-    const navigate = useNavigate(); */
 
-    const [ inputHidden, setInptuHidden ] = useState(false);
+    const [ inputHidden, setInptuHidden ] = useState(false); // gère la dissimulation et l'apparition des inputs du formulaire
     const toggleInput = () => setInptuHidden(!inputHidden);
     
     const [ cate_title, setCate_title ] = useState("");

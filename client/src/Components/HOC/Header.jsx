@@ -13,29 +13,20 @@ import user_logout from '../../assets/img/user_logout.png';
 import LogoPeQ from '../../assets/img/LogoPeQ.png';
 
 function Header() {
-
-    // const { info } = useSelector((state) => state.user);
     
-    const [ menuHidden, setMenuHidden ] = useState(false);
+    // menuburger version mobile
+    const [ menuHidden, setMenuHidden ] = useState(false); 
     const toggleMenu = () => setMenuHidden(!menuHidden);
 
-    const { pathname } = useLocation();
+    const { pathname } = useLocation(); // sert à changer la classname du header en fonction de l'url (page d'accueil ou reste du site)
 
     const [ users, setUsers ] = useState(null);
-    const myuserid = localStorage.getItem("myuserid");
+    const myuserid = localStorage.getItem("myuserid"); // récupère le pseudo de l'usager stocké lors du signin
 
     useEffect(() => {
       async function getData() {
-          try {
-              let id="Invite"; 
-  
-              if(!myuserid){ 
-                  id="Invite"; 
-              }else{ 
-              id=myuserid; 
-              } 
-  
-              const users = await fetch("/api/v1/users/"+ id);
+          try {              
+              const users = await fetch("/api/v1/users/"+ myuserid);
           
               if (users.status === 200) {
                   const json = await users.json();
@@ -48,15 +39,14 @@ function Header() {
       getData();
       }, []);
 
+        const { cartInfo } = useSelector((state) => state.cart); // reducer du panier
 
-        const { cartInfo } = useSelector((state) => state.cart);
-
-        function computeCart(){
+        function computeCart(){ {/* Affiche le nombre de produit dans le panier  au niveau du pictogramme*/}
             let sum = 0;
             for (const item of cartInfo.product) {
-                sum += item.quantity * item.priceEach;
+                sum += item.quantity;
             }
-            return sum.toFixed(2);
+            return sum;
         }
     
     
@@ -79,25 +69,25 @@ function Header() {
                                 <NavLink to="/la_marque">La marque</NavLink>
                             </nav>
                             <div className="ctn_pictoheader">
-                            {!localStorage.getItem("myuserid") ? (
+                            {!myuserid ? ( // dynamise correctement l'affichage des icones de connexion - deconnexion. Avec uniquement la ternaire users qui suit, à la déconnexion les picto user_in et user_logout sont toujours présents tant qu'on ne refresh pas la page
                                 <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                 ) : ( 
                                     <>
-                                    {!users ? (
+                                    {!users ? ( // récupère les infos en fonction de l'usager qui est connecté
                                         <Link to="/utilisateurs/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
-                                        ) : ( users.map ( user => 
+                                        ) : ( 
                                             <>
-                                                <Link to={`/utilisateurs/${user.id}`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
+                                                <Link to={`/utilisateurs/${users[0].id}`} title="Accédez à votre compte"><img className="picto_header" src={user_in} alt="pictogramme de tête" /></Link>
                                                 <Link to={"/utilisateurs/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
                                             </>
-                                        ))
+                                        )
                                     }
                                         
                                     </>
                                 )}                
 
-                                <Link to="/panier" className="cart">
-                                    <p className="cart_content">{cartInfo.product.length ? computeCart() + "€" : ""}</p>
+                                <Link to="/panier" className="picto_cart">
+                                    <p className="cart_content">{cartInfo.product.length ? computeCart(): ""}</p> {/* Affiche le nombre de produit dans le panier */}
                                     <img className="picto_header" src={cart_empty} alt="pictogramme de chariot" />
                                 </Link>
                             </div>

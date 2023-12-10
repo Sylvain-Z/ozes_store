@@ -10,8 +10,8 @@ function DeleteProfil (){
     const navigate = useNavigate();
     const params   = useParams();
 
+    const [employee, setEmployee] = useState(null); // récupère les informations sur le compte à supprimer pour demande de confirmation
     const [id, setId] = useState("");
-    const [employee, setEmployee] = useState(null);
 
     useEffect(() => {
         async function getData() {
@@ -57,9 +57,9 @@ function DeleteProfil (){
 
             <section className="form_section">
 
-                <h3 className="form_title update">Suppression d'un produit</h3>
+                <h3 className="form_title update">Suppression d'un profil</h3>
 
-                <p className="msg_red">Êtes-vous sûr de vouloir supprimer ce profil ? Cette action est irréversible</p>
+                <p className="msg_red">Êtes-vous sûr ? Cette action est irréversible</p>
 
                 <form onSubmit={handleSubmit}>
 

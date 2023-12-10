@@ -11,11 +11,12 @@ function ProductUpdateCate (){
     const [subcate, setSubcate]                 = useState(null); // A) sert à afficher la nomenclature des catégories dans le form_advise
     
     const [subcategorie_id, setSubcategorie_id] = useState(null); // B) sert à remplir le formulaire avec la subcategories correspondante
+    const [subcate_title, setSubcate_title] = useState(null); // B) sert à afficher la subcategories associée actuelle
     const [product_id, setProduct_id]           = useState(null); // b) sert au findByVelue du controller
 
     const [msg, setMsg] = useState(null);
 
-    const [isShown, setIsShown] = useState(false); // infobulle
+    const [isShown, setIsShown] = useState(false); // infobulle avec légenge masquée
 
     useEffect(() => {
         async function getData() {
@@ -30,14 +31,14 @@ function ProductUpdateCate (){
                     const json = await subcategorie_id.json();
                     setSubcategorie_id(json[0].subcategorie_id);
                     setProduct_id(json[0].product_id);
+                    setSubcate_title(json[0].subcate_title);
                 }
-
             } catch (error) {
             throw Error(error);
             }
         }
         getData();
-        }, []);
+        }, [subcate_title]);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -48,6 +49,9 @@ function ProductUpdateCate (){
         });
         const json = await res.json();
         setMsg(json.msg);
+        setTimeout(()=>{
+            setMsg("")
+        }, 5000)
     }
     
     return (
@@ -58,7 +62,7 @@ function ProductUpdateCate (){
 
                 <form onSubmit={handleSubmit}>
 
-                        <FontAwesomeIcon icon={faCircleInfo} size="s" className="faInfoBulle"
+                        <FontAwesomeIcon icon={faCircleInfo} size="s" className="faInfoBulle"  // infobulle avec légenge masquée
                             onMouseEnter={() => setIsShown(true)}
                             onMouseLeave={() => setIsShown(false)}
                         />
@@ -74,13 +78,13 @@ function ProductUpdateCate (){
                                 ))}
                             </div>
                         </div>)}
-                        {/* <p className='sizes_title'>{subcate.title}</p> */}
+                        <p className='cate_title'>{subcate_title}</p>
                         <input
                             placeholder="Catégorie"
                             type="text"
                             name="subcategorie_id"
                             value={subcategorie_id}
-                            onChange={(e) => setSubcategorie_id(e.target.value)}
+                            onChange={(e) => setSubcategorie_id(e.target.value.replace(/[^0-9]/g, ''))}
                         />
                         
                         {msg && <p className="msg_green">{msg}</p>}

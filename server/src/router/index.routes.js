@@ -1,5 +1,6 @@
 import { Router } from "express";
 import products_routes from "./products.routes.js";
+import cart_routes from "./cart.routes.js";
 import categories_routes from "./categories.routes.js";
 import sizes_routes from "./sizes.routes.js";
 import pictures_routes from "./pictures.routes.js";
@@ -11,6 +12,7 @@ const router = Router();
 
 
 router.use("/api/v1/products", products_routes);
+router.use("/api/v1/cart", cart_routes);
 router.use("/api/v1/categories", categories_routes);
 router.use("/api/v1/sizes", sizes_routes);
 router.use("/api/v1/pictures", pictures_routes);

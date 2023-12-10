@@ -7,19 +7,19 @@ import { signout } from "../../store/slices/user";
 import Header from './Header'
 import Footer from './Footer'
 
-function HOCEmployees({ child, auth }) {
+function HOCEmployees({ child, authe }) {
 
     const { pathname } = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [tokenIsValid, setTokenIsValid] = useState(false);
-    const TOKEN = localStorage.getItem("auth");
+    const TOKEN = localStorage.getItem("authe");
 
 
     useEffect(() => {
         async function checkAuth() {
-            if (auth) {
+            if (authe) {
                 if (!TOKEN) {
                     navigate("/");
                 }
@@ -28,7 +28,7 @@ function HOCEmployees({ child, auth }) {
                         headers: { Authentication: "Bearer " + TOKEN },
                     });
                     if (res.status === 401) {                        
-                        localStorage.removeItem("auth")
+                        localStorage.removeItem("authe")
                         dispatch(signout());
                         navigate("/le_store");
                     }
@@ -42,7 +42,7 @@ function HOCEmployees({ child, auth }) {
         }
 
         checkAuth();
-    }, [auth]);
+    }, [authe]);
 
 
 
@@ -52,10 +52,10 @@ function HOCEmployees({ child, auth }) {
         <>
             <div id={pathname === "/" ? "home_body" : ""}>
 
-                {(!auth || (auth && tokenIsValid)) && <Header/>}
+                {(!authe || (authe && tokenIsValid)) && <Header/>}
                 
                 <main className="navigation_main">               
-                    {(!auth || (auth && tokenIsValid)) && <Child />}
+                    {(!authe || (authe && tokenIsValid)) && <Child />}
                 </main>
 
                 <Footer />

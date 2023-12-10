@@ -13,7 +13,7 @@ function ProductUpdate ({products}){
     const params   = useParams();
     const navigate = useNavigate();
 
-    const [id, setId]                           = useState(null);
+    const [id, setId]                           = useState(null);  // stockent les infos du produit pour injecter dans les inputs
     const [reference, setReference]             = useState(null);
     const [stock_quantity, setStock_quantity]   = useState(null);
     const [title, setTitle]                     = useState(null);
@@ -92,50 +92,56 @@ function ProductUpdate ({products}){
 
                                     <form onSubmit={handleSubmit}>
 
-                                    <label for="reference">Référence</label>
+                                    <label for="reference">Référence *</label>
                                         <input
+                                            required
                                             placeholder="Référence du produit"
                                             type="text"
                                             name="reference"
                                             value={reference}
                                             onChange={(e) => setReference(e.target.value)}
                                         />
-                                        <label for="stock_quantity">Quantité</label>
+                                        <label for="stock_quantity">Quantité *</label>
                                         <input
+                                            required
                                             placeholder="Quantité en stock"
                                             type="text"
                                             name="stock_quantity"
                                             value={stock_quantity}
                                             onChange={(e) => setStock_quantity(e.target.value)}
                                         />
-                                        <label for="title">Nom du produit</label>
+                                        <label for="title">Nom du produit *</label>
                                         <input
+                                            required
                                             placeholder="Nom du produit"
                                             type="text"
                                             name="title"
                                             value={title}
                                             onChange={(e) => setTitle(e.target.value)}
                                         />
-                                        <label for="title_url">Nom pour url</label>
+                                        <label for="title_url">Nom pour url *</label>
                                         <input
+                                            required
                                             placeholder="Nom pour url ( - ou _ acceptés )"
                                             type="text"
                                             name="title_url"
                                             value={title_url}
-                                            onChange={(e) => setTitle_url(e.target.value)}
+                                            onChange={(e) => setTitle_url(e.target.value.replace(/[^a-zA-Z_-]/g, ''))}
                                             pattern="^\S*$"
                                             title="L'espace n'est pas autorisé."
                                         />
-                                        <label for="description">Description du produit</label>
+                                        <label for="description">Description du produit *</label>
                                         <textarea className="form_input textarea"
+                                            required
                                             placeholder="Description du produit"
                                             type="text"
                                             name="description"
                                             value={description}
                                             onChange={(e) => setDescription(e.target.value)}
                                         />
-                                        <label for="price">Prix</label>
+                                        <label for="price">Prix *</label>
                                         <input
+                                            required
                                             placeholder="Prix"
                                             type="text"
                                             name="price"
@@ -174,8 +180,9 @@ function ProductUpdate ({products}){
                                             value={model_info}
                                             onChange={(e) => setModel_info(e.target.value)}
                                         />
-                                        <label for="material">Matière</label>
+                                        <label for="material">Matière *</label>
                                         <input
+                                            required
                                             placeholder="Matière"
                                             type="text"
                                             name="material"

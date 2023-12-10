@@ -13,21 +13,13 @@ function Header() {
     const { pathname } = useLocation();
     
     const [ employees, setEmployees ] = useState(null);
-    const myemployeeid = localStorage.getItem("myemployeeid");
+    const myemployeeid = localStorage.getItem("myemployeeid");  // récupère le pseudo de l'usager stocké lors du signin
     
 
     useEffect(() => {
         async function getData() {
             try {
-                let id; 
-             
-                if(!myemployeeid){ 
-                    id="Invite"; 
-                }else{ 
-                   id=myemployeeid;
-                } 
-
-                const employees = await fetch("/api/v1/employees/"+ id);
+                const employees = await fetch("/api/v1/employees/"+ myemployeeid);
               
                 if (employees.status === 200) {
                     const json = await employees.json();
@@ -50,11 +42,11 @@ function Header() {
                             <h1>OZES STORE</h1>
                         </div>
                         <div className="ctn_pictoheader ctn_empl_laptop">
-                            {!localStorage.getItem("myemployeeid") ? (
+                            {!myemployeeid ? ( // dynamise correctement l'affichage des icones de connexion - deconnexion. Avec uniquement la ternaire users qui suit, à la déconnexion les picto user_in et user_logout sont toujours présents tant qu'on ne refresh pas la page
                                     <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                     ) : ( 
                                         <>
-                                        {!employees ? (
+                                        {!employees ? ( // récupère les infos en fonction de l'usager qui est connecté
                                             <Link to="/employes/connexion"><img className="picto_header" src={user_out} alt="pictogramme de tête" /></Link>
                                             ) : ( 
                                                 <>
@@ -64,7 +56,6 @@ function Header() {
                                                 </>
                                             )
                                         }
-                                            
                                         </>
                                     )}
                         </div>

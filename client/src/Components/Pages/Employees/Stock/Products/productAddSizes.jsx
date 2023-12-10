@@ -9,8 +9,9 @@ function ProductAddSizes (){
 
     const params   = useParams();   
 
-    const [sizes, setSizes] = useState("");
-    const [label, setLabel] = useState("");
+    const [sizes, setSizes] = useState(""); // affiche les tailles existante du produit
+
+    const [label, setLabel] = useState(""); // gèrent le formulaire
     const [quantity, setQuantity] = useState("");
     const [product_id, setProduct_id] = useState("");
 
@@ -62,8 +63,8 @@ function ProductAddSizes (){
                                             <>
                                                 <div className='sizes'>
                                                         <p className='sizes_title'>{size.label} - Quantité : {size.quantity}</p>
-                                                        <button onClick={() => window.location.href =`/employes/stock/update-size/${size.product_id}/${size.id}`} className="faPenToSquare"><FontAwesomeIcon icon={faPenToSquare} size="xs" className="fontawesomeBlue"/></button>
-                                                        <button onClick={() => window.location.href =`/employes/stock/delete-size/${size.product_id}/${size.id}`} className="faTrashCan"><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed"/></button>
+                                                        <Link to={`/employes/stock/update-size/${size.product_id}/${size.id}`}className="faPenToSquare"><p><FontAwesomeIcon icon={faPenToSquare} className="fontawesomeBlue" size="xs" /></p></Link>
+                                                        <Link to={`/employes/stock/delete-size/${size.product_id}/${size.id}`}className="faTrashCan"><p><FontAwesomeIcon icon={faTrashCan} className="fontawesomeRed" size="xs" /></p></Link>
                                                 </div>
                                                     
                                             </>
@@ -71,6 +72,9 @@ function ProductAddSizes (){
                     </div>
 
                 <form onSubmit={handleSubmit}>
+
+                <p className="form_advise">
+                            <em>Un produit doit toujours avoir au moins une taille, veillez à ajouter une taille avant de supprimer la seule taille du produit</em></p>
                     
                     <label for="label">Ajouter une taille *</label>
                     <input

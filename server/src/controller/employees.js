@@ -220,7 +220,7 @@ const updateLogin = async (req, res) => {
 };
 
 
-const DeleteEmployee = async (req, res) => {
+const deleteEmployee = async (req, res) => {
     try {
         let msg =""
         const query =
@@ -238,4 +238,4 @@ const DeleteEmployee = async (req, res) => {
 
 
 
-export { check_token, createAccount, signin , getAllEmployees, getByEmail , getEmployeeGlimpse , getById , updateInfo , updateInfoEmployees , updateLogin ,  DeleteEmployee};
+export { check_token, createAccount, signin , getAllEmployees, getByEmail , getEmployeeGlimpse , getById , updateInfo , updateInfoEmployees , updateLogin ,  deleteEmployee};

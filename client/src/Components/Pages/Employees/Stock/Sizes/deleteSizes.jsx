@@ -11,7 +11,7 @@ function DeleteSizes() {
     const navigate = useNavigate();
     const params   = useParams();
 
-    const [sizes, setSizes] = useState(null);
+    const [sizes, setSizes] = useState(null); 
     const [id, setID] = useState(null);
     const [size_id, setSize_id] = useState("");
     const [product_id, setProduct_id] = useState("");
@@ -19,7 +19,7 @@ function DeleteSizes() {
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch("/api/v1/sizes/" + params.product_id + "/" + params.size_id );
+                const sizes = await fetch("/api/v1/sizes/" + params.product_id + "/" + params.size_id ); // récupère la taille en fonction de l'id du produit et de l'id de la taille
                 if(sizes.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -39,7 +39,7 @@ function DeleteSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/sizes/delete/" + params.product_id + "/" + params.size_id, {
+        const res = await fetch("/api/v1/sizes/delete/" + params.product_id + "/" + params.size_id, { // supprime la taille en fonction de l'id du produit et de l'id de la taille
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ product_id , id }),
@@ -57,13 +57,15 @@ function DeleteSizes() {
 return (
     <>
 
-        <Link to="/employes/stock/categories"><p className="previous_page">Retour à la liste des produits</p></Link>
+        <Link to={`/employes/stock/actualiser/` + params.product_id}><p className="previous_page">Retour à la liste des produits</p></Link>
 
         <section className="form_section reserve">
 
             <h3 className="form_title update">Suppression d'une taille</h3>
 
-            <p className="msg_red">Êtes-vous sûr de vouloir supprimer cette taille ? Cette action est irréversible</p>
+            <p className="msg_red">Êtes-vous sûr ? Cette action est irréversible</p>
+            <p className="form_advise">
+                            <em>Un produit doit toujours avoir au moins une taille, vérifiez que cela soit le cas avant de confirmer</em></p>
 
             <form onSubmit={handleSubmit}>
 

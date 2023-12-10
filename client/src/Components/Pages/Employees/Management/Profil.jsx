@@ -1,6 +1,5 @@
-import {/* useNavigate ,  useLocation*/ Link , useParams } from 'react-router-dom';
+import { Link , useParams } from 'react-router-dom';
 import { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +9,7 @@ import Loading from "../../Containers/Loading/Index";
 function Profil() {
 
     const params   = useParams();
-    const [ employees, setEmployees ] = useState(null);
+    const [ employees, setEmployees ] = useState(null); // affiche les information d'un profil spécifique
 
     useEffect(() => {
         async function getData() {
@@ -38,8 +37,6 @@ function Profil() {
                 ) : ( employees.map( employee =>
 
                   <>
-                  
-
                   <section className="form_section">
 
                     <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
@@ -126,10 +123,9 @@ function Profil() {
                         value={employee.phone}
                         disabled="disabled"
                     />
-                    
+
+                    <p className='input_link_btn'><Link to={`/employes/gestion-comptes/actualiser/${employee.id}`}>Modifier les informations</Link></p>
                       
-                      
-                      <button type="button" onClick={() => window.location.href =`/employes/gestion-comptes/actualiser/${employee.id}`}>Modifier les informations</button>
                     </form>
                   </section>
                   </>

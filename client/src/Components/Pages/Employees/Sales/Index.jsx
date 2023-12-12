@@ -16,7 +16,7 @@ function Sales() {
     async function getData() { // récupère toutes les commandes de la bdd
         try {
               const orders = await (
-                        await fetch("/api/v1/cart/orders_all")
+                        await fetch("/api/v1/orders/all")
                     ).json();
                     setOrders(orders.datas);
             
@@ -38,9 +38,9 @@ function Sales() {
           <thead>
               <tr>
                   <th className='first_col'>N° de commandes</th>
-                  <th>Date</th>
+                  <th className='mobile_hidden'>Date</th>
                   <th>Prix</th>
-                  <th>N° de suivi</th>
+                  <th className='mobile_hidden'>N° de suivi</th>
                   <th>
                     <FontAwesomeIcon icon={faMinus} className='fontawesomeGrey'/>
                   </th>
@@ -54,9 +54,9 @@ function Sales() {
 
                           <tr>
                             <td className='first_col'>{order.id}</td>
-                            <td>{format(new Date(order.order_date), 'dd-MM-yyyy')}</td>
+                            <td className='mobile_hidden'>{format(new Date(order.order_date), 'dd-MM-yyyy')}</td>
                             <td>{order.order_price}€</td>
-                            <td>{order.tracking_number ? (<>{order.tracking_number}</>) : (<><FontAwesomeIcon icon={faMinus} className='fontawesomeGrey'/></>)}</td>
+                            <td className='mobile_hidden'>{order.tracking_number ? (<>{order.tracking_number}</>) : (<><FontAwesomeIcon icon={faMinus} className='fontawesomeGrey'/></>)}</td>
                             <td>{order.tracking_number ? (
                                                             <>
                                                               <Link to={`/employes/commande/${order.id}`}>

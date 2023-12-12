@@ -13,18 +13,22 @@
     width: 200px;
     margin: auto;
   }
-  .navigation_header nav, .navigation_header .ctn_nav, .navigation_header .ctn_pictoheader {
+  .navigation_header nav,
+  .navigation_header .ctn_nav,
+  .navigation_header .ctn_pictoheader {
     flex-direction: row;
   }
   .navigation_header .ctn_nav {
     width: 100%;
     justify-content: space-between;
   }
-  .navigation_header nav, .navigation_header .ctn_pictoheader {
+  .navigation_header nav,
+  .navigation_header .ctn_pictoheader {
     width: 50%;
     justify-content: space-around;
   }
-  .navigation_header nav a, .navigation_header .ctn_pictoheader a {
+  .navigation_header nav a,
+  .navigation_header .ctn_pictoheader a {
     margin: 25px 0;
   }
   .navigation_header .mediaQ_hidden {
@@ -38,11 +42,13 @@
   .shipping_costs p {
     width: 50%;
   }
-  .shop .product_grid, .size_guide_t-shirts .product_grid,
+  .shop .product_grid,
+  .size_guide_t-shirts .product_grid,
   .size_guide_rings .product_grid {
     width: 45%;
   }
-  .shop .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption,
+  .shop .product_grid figcaption,
+  .size_guide_t-shirts .product_grid figcaption,
   .size_guide_rings .product_grid figcaption {
     font-size: 20px;
   }
@@ -73,22 +79,34 @@
   .reserve .products_list img {
     width: 50px;
   }
-  .categories_actions, .reserve_actions {
+  .reserve .mobile_hidden {
+    display: block;
+  }
+  .categories_actions,
+  .reserve_actions {
     flex-direction: row;
     justify-content: center;
     margin-top: 50px;
   }
-  .categories_actions .reserve_btn, .categories_actions .delete, .reserve_actions .reserve_btn, .reserve_actions .delete {
+  .categories_actions .reserve_btn,
+  .categories_actions .delete,
+  .reserve_actions .reserve_btn,
+  .reserve_actions .delete {
     margin-right: 20px;
   }
-  .categories_actions .form_reserve, .reserve_actions .form_reserve {
+  .categories_actions .form_reserve,
+  .reserve_actions .form_reserve {
     flex-direction: row;
     align-items: flex-start;
   }
-  .categories_actions .form_cate, .reserve_actions .form_cate {
+  .categories_actions .form_cate,
+  .reserve_actions .form_cate {
     width: 30%;
     margin: 0 10px;
     flex-direction: column;
     align-items: center;
+  }
+  .suggestion_ctn .suggestion_link {
+    width: 24%;
   }
 }/*# sourceMappingURL=App-tablet.css.map */

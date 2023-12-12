@@ -39,7 +39,7 @@ function AddSubcategories ({categories}){
                         type={!inputHidden ? "hidden" : "text"}
                         name="subcate_title"
                         value={subcate_title}
-                        onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-zA-Z]/g, ''))}
+                        onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-z]/g, ''))}
                     />
                     
                         <input

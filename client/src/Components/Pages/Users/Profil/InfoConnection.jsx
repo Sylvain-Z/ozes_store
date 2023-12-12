@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-// import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -9,8 +8,6 @@ import Loading from "../../Containers/Loading/Index";
 import PreviousPage from "../Components/PreviousPage";
 
 function InfoConnexion() {
-  
-  // const { info } = useSelector((state) => state.user);
 
   const [ users, setUsers ] = useState(null);
   const myuserid = localStorage.getItem("myuserid");

@@ -1,6 +1,5 @@
-import { Link , useNavigate, /* useParams ,  useLocation */ } from 'react-router-dom';
-import { useState, useEffect, /* useReducer */ } from "react";
-// import { useSelector ,  useDispatch } from "react-redux";
+import { Link , useNavigate } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -10,14 +9,6 @@ import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 import Loading from "../../Containers/Loading/Index";
 
 function DeliveryUpdate() {
-  
-  // const { info } = useSelector((state) => state.user);
-  // const { deliveryInfo } = useSelector((state) => state.deliveryInfo);
-  // console.log("info", info.id);
-  // console.log("delivery", deliveryInfo.firstname);
-
-  // const params   = useParams();
-  // const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [users, setUsers]               = useState(null);

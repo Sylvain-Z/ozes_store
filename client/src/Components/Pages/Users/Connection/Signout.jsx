@@ -9,16 +9,15 @@ function SignOut() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [ pseudo, setPseudo ] = useState("");
+  const [pseudo, setPseudo] = useState("");
 
   dispatch(signout(pseudo))
 
-  function navigateToStore(){
+  function navigateToStore() {
     localStorage.removeItem("auth");
     localStorage.removeItem("myuserid");
-    setTimeout(()=>
-    {navigate("/le_store")}
-    , 2000)
+    setTimeout(() => { navigate("/le_store") }
+      , 2000)
   };
   navigateToStore();
 

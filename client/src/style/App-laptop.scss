@@ -54,7 +54,7 @@ $White : rgb(240, 240, 240);
         right: 20%;
     }
     .back_to_store {
-        margin-bottom: 90px;
+        margin-bottom: 100px;
     }
 
     /* CONTENU SITE  */
@@ -217,5 +217,9 @@ $White : rgb(240, 240, 240);
     }
     .empty_cart_btn, .modifyLink {
         width: 25%;
+    }
+
+    .suggestion_ctn {
+        width: 100%;
     }
 }

@@ -121,7 +121,8 @@ button:hover {
   color: rgb(255, 196, 50);
   font-size: 12px;
 }
-.home_footer .sociallinks, .home_footer .other_pages {
+.home_footer .sociallinks,
+.home_footer .other_pages {
   display: none;
 }
 
@@ -158,15 +159,21 @@ button:hover {
   flex-direction: column;
   align-items: center;
 }
-.navigation_header .divlogo, .navigation_header .ctn_nav, .navigation_header .ctn_pictoheader {
+.navigation_header .divlogo,
+.navigation_header .ctn_nav,
+.navigation_header .ctn_pictoheader {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.navigation_header .divlogo .logo_PeQ, .navigation_header .ctn_nav .logo_PeQ, .navigation_header .ctn_pictoheader .logo_PeQ {
+.navigation_header .divlogo .logo_PeQ,
+.navigation_header .ctn_nav .logo_PeQ,
+.navigation_header .ctn_pictoheader .logo_PeQ {
   height: 75px;
 }
-.navigation_header .divlogo h1, .navigation_header .ctn_nav h1, .navigation_header .ctn_pictoheader h1 {
+.navigation_header .divlogo h1,
+.navigation_header .ctn_nav h1,
+.navigation_header .ctn_pictoheader h1 {
   font-size: 25px;
   color: rgb(240, 240, 240);
   text-align: center;
@@ -217,7 +224,8 @@ button:hover {
 .navigation_header .picto_header:hover {
   background-color: rgba(15, 15, 15, 0.5);
 }
-.navigation_header .faBars, .navigation_header .faXmark {
+.navigation_header .faBars,
+.navigation_header .faXmark {
   margin-top: 25px;
 }
 .navigation_header .faBars:hover,
@@ -262,7 +270,8 @@ button:hover {
   align-items: center;
   font-family: "Caviar Dreams Bold";
 }
-.navigation_footer a, .navigation_footer p {
+.navigation_footer a,
+.navigation_footer p {
   color: rgb(255, 196, 50);
   margin: 25px;
 }
@@ -305,18 +314,21 @@ article {
   margin-bottom: 25px;
 }
 
-.back_to_store, .back_to_cart {
+.back_to_store,
+.back_to_cart {
   position: relative;
   width: 100px;
   margin: 50px auto;
 }
-.back_to_store img, .back_to_cart img {
+.back_to_store img,
+.back_to_cart img {
   width: 100%;
   margin-bottom: 25px;
   border-radius: 50%;
   box-shadow: 0px 5px 25px 0px rgb(15, 15, 15);
 }
-.back_to_store figcaption p, .back_to_cart figcaption p {
+.back_to_store figcaption p,
+.back_to_cart figcaption p {
   position: absolute;
   width: 150%;
   top: 45px;
@@ -345,6 +357,34 @@ article {
   top: 10px;
   left: -35px;
   font-size: 12px;
+}
+
+.suggestion_ctn {
+  width: 100vw;
+  margin: 100px auto;
+  padding: 25px;
+  background-color: rgb(240, 240, 240);
+}
+.suggestion_ctn .suggestion_title {
+  color: rgb(26, 28, 93);
+  font-family: "CaviarOzesRegular";
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.suggestion_ctn .suggestion {
+  width: 90%;
+  margin: 25px auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.suggestion_ctn .suggestion_link {
+  width: 48%;
+  margin: 1% 0;
+}
+.suggestion_ctn .suggestion_link img {
+  width: 100%;
 }
 
 /* CONTENU SITE  */
@@ -383,29 +423,44 @@ article {
   flex-direction: column;
 }
 
-.shop, .community, .size_guide_t-shirts, .size_guide_rings {
+.shop,
+.community,
+.size_guide_t-shirts,
+.size_guide_rings {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   margin-top: 25px;
 }
-.shop .product_grid, .community .product_grid, .size_guide_t-shirts .product_grid, .size_guide_rings .product_grid {
+.shop .product_grid,
+.community .product_grid,
+.size_guide_t-shirts .product_grid,
+.size_guide_rings .product_grid {
   display: flex;
   width: 90%;
   margin: 1% 1%;
 }
-.shop .product_grid figure, .community .product_grid figure, .size_guide_t-shirts .product_grid figure, .size_guide_rings .product_grid figure {
+.shop .product_grid figure,
+.community .product_grid figure,
+.size_guide_t-shirts .product_grid figure,
+.size_guide_rings .product_grid figure {
   position: relative;
   width: 100%;
   margin: auto;
 }
-.shop .product_grid img, .community .product_grid img, .size_guide_t-shirts .product_grid img, .size_guide_rings .product_grid img {
+.shop .product_grid img,
+.community .product_grid img,
+.size_guide_t-shirts .product_grid img,
+.size_guide_rings .product_grid img {
   width: 100%;
   display: block;
   margin: auto;
 }
-.shop .product_grid figcaption, .community .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption, .size_guide_rings .product_grid figcaption {
+.shop .product_grid figcaption,
+.community .product_grid figcaption,
+.size_guide_t-shirts .product_grid figcaption,
+.size_guide_rings .product_grid figcaption {
   position: absolute;
   height: 125px;
   padding-bottom: 25px;
@@ -422,27 +477,45 @@ article {
   font-weight: bold;
   transition: 0.7s all;
 }
-.shop .community_elements, .community .community_elements, .size_guide_t-shirts .community_elements, .size_guide_rings .community_elements {
+.shop .community_elements,
+.community .community_elements,
+.size_guide_t-shirts .community_elements,
+.size_guide_rings .community_elements {
   display: flex;
   justify-content: center;
 }
-.shop .community_elements img, .community .community_elements img, .size_guide_t-shirts .community_elements img, .size_guide_rings .community_elements img {
+.shop .community_elements img,
+.community .community_elements img,
+.size_guide_t-shirts .community_elements img,
+.size_guide_rings .community_elements img {
   width: 100%;
   border-radius: 50%;
   box-shadow: 0px 2px 10px rgb(15, 15, 15);
 }
-.shop .ulule_bulle figure, .community .ulule_bulle figure, .size_guide_t-shirts .ulule_bulle figure, .size_guide_rings .ulule_bulle figure {
+.shop .ulule_bulle figure,
+.community .ulule_bulle figure,
+.size_guide_t-shirts .ulule_bulle figure,
+.size_guide_rings .ulule_bulle figure {
   position: relative;
   width: 40%;
 }
-.shop .social_medias_links, .community .social_medias_links, .size_guide_t-shirts .social_medias_links, .size_guide_rings .social_medias_links {
+.shop .social_medias_links,
+.community .social_medias_links,
+.size_guide_t-shirts .social_medias_links,
+.size_guide_rings .social_medias_links {
   flex-direction: row;
 }
-.shop .social_medias_links figure, .community .social_medias_links figure, .size_guide_t-shirts .social_medias_links figure, .size_guide_rings .social_medias_links figure {
+.shop .social_medias_links figure,
+.community .social_medias_links figure,
+.size_guide_t-shirts .social_medias_links figure,
+.size_guide_rings .social_medias_links figure {
   width: 25%;
   margin: 0 5%;
 }
-.shop .community_elements figcaption, .community .community_elements figcaption, .size_guide_t-shirts .community_elements figcaption, .size_guide_rings .community_elements figcaption {
+.shop .community_elements figcaption,
+.community .community_elements figcaption,
+.size_guide_t-shirts .community_elements figcaption,
+.size_guide_rings .community_elements figcaption {
   position: absolute;
   left: 0;
   right: 0;
@@ -454,23 +527,32 @@ article {
   font-weight: bold;
 }
 
-.ulule_page, .size_guide {
+.ulule_page,
+.size_guide {
   width: 80%;
   margin: auto;
   text-align: center;
 }
-.ulule_page figure, .ulule_page .community_figure_main, .size_guide figure, .size_guide .community_figure_main {
+.ulule_page figure,
+.ulule_page .community_figure_main,
+.size_guide figure,
+.size_guide .community_figure_main {
   margin-bottom: 25px;
 }
-.ulule_page figure img, .ulule_page .community_figure_main img, .size_guide figure img, .size_guide .community_figure_main img {
+.ulule_page figure img,
+.ulule_page .community_figure_main img,
+.size_guide figure img,
+.size_guide .community_figure_main img {
   width: 200px;
   border: 50%;
 }
-.ulule_page h4, .size_guide h4 {
+.ulule_page h4,
+.size_guide h4 {
   font-size: 25px;
   text-align: center;
 }
-.ulule_page p, .size_guide p {
+.ulule_page p,
+.size_guide p {
   width: 80%;
   line-height: 25px;
   margin: 25px auto;
@@ -549,7 +631,8 @@ article {
   font-size: 18px;
   margin: 10px 0;
 }
-.product_page .product_form .price, .product_page .product_form .color {
+.product_page .product_form .price,
+.product_page .product_form .color {
   font-size: 25px;
 }
 .product_page .product_form form {
@@ -592,7 +675,8 @@ article {
   margin: 25px auto;
 }
 
-.page_product_links, .page_blog_links {
+.page_product_links,
+.page_blog_links {
   margin-top: 10px;
   font-style: italic;
   color: rgb(15, 15, 15);
@@ -602,7 +686,10 @@ article {
   width: 50px;
 }
 
-.material, .description, .infosup, .infosupplus {
+.material,
+.description,
+.infosup,
+.infosupplus {
   width: 100%;
   margin: 10px auto;
   font-family: "NeutraTextLight";
@@ -675,7 +762,8 @@ article {
   width: 80%;
   margin: 50px auto;
 }
-.cgv h2, .cgv h3 {
+.cgv h2,
+.cgv h3 {
   margin-bottom: 25px;
 }
 .cgv p {
@@ -715,7 +803,8 @@ article {
   margin-bottom: 25px;
 }
 
-.form_title, .form_subtitle {
+.form_title,
+.form_subtitle {
   font-size: 25px;
   margin: 0 0 25px 0;
   color: rgb(240, 240, 240);
@@ -738,7 +827,8 @@ form label {
   color: rgb(255, 196, 50);
   margin-top: 25px;
 }
-form input, form .form_input {
+form input,
+form .form_input {
   width: 80%;
   height: 30px;
   text-align: center;
@@ -752,7 +842,8 @@ form input, form .form_input {
 form .textarea {
   height: 150px;
 }
-form button, form .button_retour_rouge {
+form button,
+form .button_retour_rouge {
   width: 60%;
   height: auto;
   background-color: rgb(255, 196, 50);
@@ -796,7 +887,8 @@ form .button_retour_rouge {
   font-family: "NeutraTextBold";
 }
 
-.form_advise, .form_advise_black {
+.form_advise,
+.form_advise_black {
   width: 75%;
   margin: 12px auto;
   font-family: "NeutraTextItalic";
@@ -893,7 +985,8 @@ form .button_retour_rouge {
   text-align: right;
   color: rgb(3, 149, 8);
 }
-.display_messages .employees_message .message_pseudo, .display_messages .employees_message .message_mail,
+.display_messages .employees_message .message_pseudo,
+.display_messages .employees_message .message_mail,
 .display_messages .user_message .message_pseudo,
 .display_messages .user_message .message_mail {
   text-align: left;
@@ -973,7 +1066,10 @@ form .button_retour_rouge {
 }
 
 /* TABLEAUX D'AFFICHAGE PAGES EMPLOYES - PAGE PANIER - COMMANDE */
-.reserve, .cart, .resume, .address {
+.reserve,
+.cart,
+.resume,
+.address {
   width: 90vw;
   margin: 20px auto;
   padding: 25px 0;
@@ -982,24 +1078,49 @@ form .button_retour_rouge {
   background-color: rgb(240, 240, 240);
   border-radius: 10px;
 }
-.reserve a, .cart a, .resume a, .address a {
+.reserve a,
+.cart a,
+.resume a,
+.address a {
   color: rgb(15, 15, 15);
 }
-.reserve tfoot, .cart tfoot, .resume tfoot, .address tfoot {
+.reserve tfoot,
+.cart tfoot,
+.resume tfoot,
+.address tfoot {
   margin-top: 25px;
 }
-.reserve th, .reserve td, .cart th, .cart td, .resume th, .resume td, .address th, .address td {
+.reserve th,
+.reserve td,
+.cart th,
+.cart td,
+.resume th,
+.resume td,
+.address th,
+.address td {
   width: 16%;
   justify-content: center;
   text-align: left;
   display: flex;
   align-items: center;
 }
-.reserve tr, .cart tr, .resume tr, .address tr {
+.reserve .mobile_hidden,
+.cart .mobile_hidden,
+.resume .mobile_hidden,
+.address .mobile_hidden {
+  display: none;
+}
+.reserve tr,
+.cart tr,
+.resume tr,
+.address tr {
   width: 100%;
   display: flex;
 }
-.reserve .first_col, .cart .first_col, .resume .first_col, .address .first_col {
+.reserve .first_col,
+.cart .first_col,
+.resume .first_col,
+.address .first_col {
   width: 50%;
   display: flex;
   justify-content: left;
@@ -1007,48 +1128,126 @@ form .button_retour_rouge {
   margin: 15px 0;
   padding-left: 50px;
 }
-.reserve .products_list img, .reserve .cart_list img, .cart .products_list img, .cart .cart_list img, .resume .products_list img, .resume .cart_list img, .address .products_list img, .address .cart_list img {
+.reserve .products_list img,
+.reserve .cart_list img,
+.cart .products_list img,
+.cart .cart_list img,
+.resume .products_list img,
+.resume .cart_list img,
+.address .products_list img,
+.address .cart_list img {
   width: 30px;
   margin-right: 10px;
   border-radius: 10px;
 }
-.reserve .products_list p, .reserve .cart_list p, .cart .products_list p, .cart .cart_list p, .resume .products_list p, .resume .cart_list p, .address .products_list p, .address .cart_list p {
+.reserve .products_list p,
+.reserve .cart_list p,
+.cart .products_list p,
+.cart .cart_list p,
+.resume .products_list p,
+.resume .cart_list p,
+.address .products_list p,
+.address .cart_list p {
   text-align: center;
   width: 100px;
 }
-.reserve .products_list .first_col p, .reserve .cart_list .first_col p, .cart .products_list .first_col p, .cart .cart_list .first_col p, .resume .products_list .first_col p, .resume .cart_list .first_col p, .address .products_list .first_col p, .address .cart_list .first_col p {
+.reserve .products_list .first_col p,
+.reserve .cart_list .first_col p,
+.cart .products_list .first_col p,
+.cart .cart_list .first_col p,
+.resume .products_list .first_col p,
+.resume .cart_list .first_col p,
+.address .products_list .first_col p,
+.address .cart_list .first_col p {
   text-align: left;
   width: auto;
 }
-.reserve .products_list .cart_quantity, .reserve .cart_list .cart_quantity, .cart .products_list .cart_quantity, .cart .cart_list .cart_quantity, .resume .products_list .cart_quantity, .resume .cart_list .cart_quantity, .address .products_list .cart_quantity, .address .cart_list .cart_quantity {
+.reserve .products_list .cart_quantity,
+.reserve .cart_list .cart_quantity,
+.cart .products_list .cart_quantity,
+.cart .cart_list .cart_quantity,
+.resume .products_list .cart_quantity,
+.resume .cart_list .cart_quantity,
+.address .products_list .cart_quantity,
+.address .cart_list .cart_quantity {
   width: 50%;
 }
-.reserve .products_list .cart_btn, .reserve .cart_list .cart_btn, .cart .products_list .cart_btn, .cart .cart_list .cart_btn, .resume .products_list .cart_btn, .resume .cart_list .cart_btn, .address .products_list .cart_btn, .address .cart_list .cart_btn {
+.reserve .products_list .cart_btn,
+.reserve .cart_list .cart_btn,
+.cart .products_list .cart_btn,
+.cart .cart_list .cart_btn,
+.resume .products_list .cart_btn,
+.resume .cart_list .cart_btn,
+.address .products_list .cart_btn,
+.address .cart_list .cart_btn {
   border: none;
 }
-.reserve .products_list .btn, .reserve .cart_list .btn, .cart .products_list .btn, .cart .cart_list .btn, .resume .products_list .btn, .resume .cart_list .btn, .address .products_list .btn, .address .cart_list .btn {
+.reserve .products_list .btn,
+.reserve .cart_list .btn,
+.cart .products_list .btn,
+.cart .cart_list .btn,
+.resume .products_list .btn,
+.resume .cart_list .btn,
+.address .products_list .btn,
+.address .cart_list .btn {
   padding: 10px 10px;
   border-radius: 30px;
   transition: all 0.3s ease 0s;
 }
-.reserve .products_list .btn:hover, .reserve .cart_list .btn:hover, .cart .products_list .btn:hover, .cart .cart_list .btn:hover, .resume .products_list .btn:hover, .resume .cart_list .btn:hover, .address .products_list .btn:hover, .address .cart_list .btn:hover {
+.reserve .products_list .btn:hover,
+.reserve .cart_list .btn:hover,
+.cart .products_list .btn:hover,
+.cart .cart_list .btn:hover,
+.resume .products_list .btn:hover,
+.resume .cart_list .btn:hover,
+.address .products_list .btn:hover,
+.address .cart_list .btn:hover {
   color: rgb(240, 240, 240);
   transform: translateY(-3px);
 }
-.reserve .products_list .update_reserve, .reserve .cart_list .update_reserve, .cart .products_list .update_reserve, .cart .cart_list .update_reserve, .resume .products_list .update_reserve, .resume .cart_list .update_reserve, .address .products_list .update_reserve, .address .cart_list .update_reserve {
+.reserve .products_list .update_reserve,
+.reserve .cart_list .update_reserve,
+.cart .products_list .update_reserve,
+.cart .cart_list .update_reserve,
+.resume .products_list .update_reserve,
+.resume .cart_list .update_reserve,
+.address .products_list .update_reserve,
+.address .cart_list .update_reserve {
   box-shadow: 0px 15px 20px rgba(26, 28, 93, 0.2);
 }
-.reserve .products_list .update_reserve:hover, .reserve .cart_list .update_reserve:hover, .cart .products_list .update_reserve:hover, .cart .cart_list .update_reserve:hover, .resume .products_list .update_reserve:hover, .resume .cart_list .update_reserve:hover, .address .products_list .update_reserve:hover, .address .cart_list .update_reserve:hover {
+.reserve .products_list .update_reserve:hover,
+.reserve .cart_list .update_reserve:hover,
+.cart .products_list .update_reserve:hover,
+.cart .cart_list .update_reserve:hover,
+.resume .products_list .update_reserve:hover,
+.resume .cart_list .update_reserve:hover,
+.address .products_list .update_reserve:hover,
+.address .cart_list .update_reserve:hover {
   background-color: rgb(26, 28, 93);
 }
-.reserve .products_list .delete_reserve, .reserve .cart_list .delete_reserve, .cart .products_list .delete_reserve, .cart .cart_list .delete_reserve, .resume .products_list .delete_reserve, .resume .cart_list .delete_reserve, .address .products_list .delete_reserve, .address .cart_list .delete_reserve {
+.reserve .products_list .delete_reserve,
+.reserve .cart_list .delete_reserve,
+.cart .products_list .delete_reserve,
+.cart .cart_list .delete_reserve,
+.resume .products_list .delete_reserve,
+.resume .cart_list .delete_reserve,
+.address .products_list .delete_reserve,
+.address .cart_list .delete_reserve {
   box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
 }
-.reserve .products_list .delete_reserve:hover, .reserve .cart_list .delete_reserve:hover, .cart .products_list .delete_reserve:hover, .cart .cart_list .delete_reserve:hover, .resume .products_list .delete_reserve:hover, .resume .cart_list .delete_reserve:hover, .address .products_list .delete_reserve:hover, .address .cart_list .delete_reserve:hover {
+.reserve .products_list .delete_reserve:hover,
+.reserve .cart_list .delete_reserve:hover,
+.cart .products_list .delete_reserve:hover,
+.cart .cart_list .delete_reserve:hover,
+.resume .products_list .delete_reserve:hover,
+.resume .cart_list .delete_reserve:hover,
+.address .products_list .delete_reserve:hover,
+.address .cart_list .delete_reserve:hover {
   background-color: rgb(199, 18, 18);
 }
 
-.cart th, .cart td {
+.cart th,
+.cart td {
   width: 25%;
 }
 
@@ -1076,7 +1275,8 @@ form .button_retour_rouge {
   border-radius: 10px;
 }
 
-.cate_display, .sizes_display {
+.cate_display,
+.sizes_display {
   width: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -1084,22 +1284,29 @@ form .button_retour_rouge {
   margin-top: 25px;
 }
 
-.cate_display p, .sizes_display p {
+.cate_display p,
+.sizes_display p {
   color: rgb(240, 240, 240);
   text-align: center;
 }
 
-.cate, .sizes, .pics {
+.cate,
+.sizes,
+.pics {
   position: relative;
   width: 44%;
   margin: 10px;
 }
 
-.sizes, .pics {
+.sizes,
+.pics {
   width: 100%;
 }
 
-.cate_title, .sizes_title, .title_p, .update_images_title {
+.cate_title,
+.sizes_title,
+.title_p,
+.update_images_title {
   color: rgb(240, 240, 240);
   height: 35px;
   background: linear-gradient(70deg, rgb(186, 186, 184), rgb(136, 166, 173), rgb(206, 204, 199));
@@ -1116,7 +1323,8 @@ form .button_retour_rouge {
   width: 100%;
 }
 
-.cate_title, .sizes_title {
+.cate_title,
+.sizes_title {
   width: auto;
   text-transform: capitalize;
 }
@@ -1152,13 +1360,17 @@ form .button_retour_rouge {
   border-radius: 5px;
 }
 
-.categories_actions, .reserve_actions {
+.categories_actions,
+.reserve_actions {
   width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
 }
-.categories_actions .reserve_btn, .categories_actions .delete, .reserve_actions .reserve_btn, .reserve_actions .delete {
+.categories_actions .reserve_btn,
+.categories_actions .delete,
+.reserve_actions .reserve_btn,
+.reserve_actions .delete {
   font-size: 18px;
   width: auto;
   padding: 10px 15px;
@@ -1166,30 +1378,36 @@ form .button_retour_rouge {
   border-radius: 30px;
   transition: all 0.3s ease 0s;
 }
-.categories_actions .reserve_btn, .reserve_actions .reserve_btn {
+.categories_actions .reserve_btn,
+.reserve_actions .reserve_btn {
   color: rgb(3, 149, 8);
   box-shadow: 0px 8px 15px rgba(3, 149, 8, 0.2);
 }
-.categories_actions .reserve_btn:hover, .reserve_actions .reserve_btn:hover {
+.categories_actions .reserve_btn:hover,
+.reserve_actions .reserve_btn:hover {
   background-color: rgb(3, 149, 8);
   box-shadow: 0px 15px 20px rgba(3, 149, 8, 0.4);
   color: rgb(240, 240, 240);
   transform: translateY(-7px);
 }
-.categories_actions .red, .reserve_actions .red {
+.categories_actions .red,
+.reserve_actions .red {
   margin-top: 25px;
   font-size: 14px;
   color: rgb(199, 18, 18);
   box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.2);
 }
-.categories_actions .red:hover, .reserve_actions .red:hover {
+.categories_actions .red:hover,
+.reserve_actions .red:hover {
   background-color: rgb(199, 18, 18);
   box-shadow: 0px 15px 20px rgba(199, 18, 18, 0.4);
 }
-.categories_actions .reserve_btn:hover, .reserve_actions .reserve_btn:hover {
+.categories_actions .reserve_btn:hover,
+.reserve_actions .reserve_btn:hover {
   cursor: pointer;
 }
-.categories_actions .form_reserve, .reserve_actions .form_reserve {
+.categories_actions .form_reserve,
+.reserve_actions .form_reserve {
   width: 90%;
   margin: auto;
   display: flex;
@@ -1197,15 +1415,18 @@ form .button_retour_rouge {
   flex-direction: column;
   align-items: center;
 }
-.categories_actions .form_reserve button, .reserve_actions .form_reserve button {
+.categories_actions .form_reserve button,
+.reserve_actions .form_reserve button {
   border: none;
   background-color: transparent;
   margin: 0 20px;
 }
-.categories_actions .form_reserve button p, .reserve_actions .form_reserve button p {
+.categories_actions .form_reserve button p,
+.reserve_actions .form_reserve button p {
   font-size: 16px;
 }
-.categories_actions .form_reserve input, .reserve_actions .form_reserve input {
+.categories_actions .form_reserve input,
+.reserve_actions .form_reserve input {
   width: 200px;
   height: 35px;
   margin: 0 0 20px 0;
@@ -1215,19 +1436,24 @@ form .button_retour_rouge {
   border-radius: 30px;
   border: 1px solid rgb(3, 149, 8);
 }
-.categories_actions .form_reserve .faIcon, .reserve_actions .form_reserve .faIcon {
+.categories_actions .form_reserve .faIcon,
+.reserve_actions .form_reserve .faIcon {
   margin-right: 10px;
 }
-.categories_actions .form_reserve .msg_red, .reserve_actions .form_reserve .msg_red {
+.categories_actions .form_reserve .msg_red,
+.reserve_actions .form_reserve .msg_red {
   color: rgb(199, 18, 18);
 }
-.categories_actions .form_reserve .msg_green, .reserve_actions .form_reserve .msg_green {
+.categories_actions .form_reserve .msg_green,
+.reserve_actions .form_reserve .msg_green {
   color: rgb(3, 149, 8);
 }
-.categories_actions .form_reserve .infobulle_ctn, .reserve_actions .form_reserve .infobulle_ctn {
+.categories_actions .form_reserve .infobulle_ctn,
+.reserve_actions .form_reserve .infobulle_ctn {
   position: relative;
 }
-.categories_actions .form_reserve .infobulle, .reserve_actions .form_reserve .infobulle {
+.categories_actions .form_reserve .infobulle,
+.reserve_actions .form_reserve .infobulle {
   position: absolute;
   top: -150px;
   left: 20px;
@@ -1237,15 +1463,18 @@ form .button_retour_rouge {
   padding: 25px;
   background-color: rgb(3, 149, 8);
 }
-.categories_actions .form_reserve .infobulle p, .reserve_actions .form_reserve .infobulle p {
+.categories_actions .form_reserve .infobulle p,
+.reserve_actions .form_reserve .infobulle p {
   color: rgb(240, 240, 240);
   margin-bottom: 5px;
 }
-.categories_actions .form_reserve .faInfoBulle, .reserve_actions .form_reserve .faInfoBulle {
+.categories_actions .form_reserve .faInfoBulle,
+.reserve_actions .form_reserve .faInfoBulle {
   margin-bottom: 15px;
   color: rgb(15, 15, 15);
 }
-.categories_actions .form_reserve .faInfoBulle:hover, .reserve_actions .form_reserve .faInfoBulle:hover {
+.categories_actions .form_reserve .faInfoBulle:hover,
+.reserve_actions .form_reserve .faInfoBulle:hover {
   color: rgb(3, 149, 8);
 }
 
@@ -1298,7 +1527,11 @@ form .button_retour_rouge {
   margin-bottom: 50px;
 }
 
-.empty_cart_btn, .continue, .modifyLink, .buy, .address button {
+.empty_cart_btn,
+.continue,
+.modifyLink,
+.buy,
+.address button {
   width: 50%;
   padding: 10px 15px;
   margin: 20px auto;
@@ -1316,7 +1549,9 @@ form .button_retour_rouge {
   background-color: rgb(199, 18, 18);
 }
 
-.continue:hover, .modifyLink:hover, .address button:hover {
+.continue:hover,
+.modifyLink:hover,
+.address button:hover {
   color: rgb(240, 240, 240);
   background-color: rgb(26, 28, 93);
 }
@@ -1353,6 +1588,13 @@ form .button_retour_rouge {
 }
 .address .addressForm label {
   color: rgb(26, 28, 93);
+}
+
+.thanks {
+  text-align: center;
+}
+.thanks article {
+  margin-top: 50px;
 }
 
 .order_page {

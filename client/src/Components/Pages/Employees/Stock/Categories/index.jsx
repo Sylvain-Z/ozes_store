@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import AddCategories from "./Addcategories";
-import AddSubcategories from "./Addsubcategories";
+import AddSubcategories from "./AddSubcategories";
 
 function Categories () {
 

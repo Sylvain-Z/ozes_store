@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 import { signin } from "../../../../store/slices/user";
 
@@ -9,13 +10,14 @@ function Form({ type }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [pseudo, setPseudo]     = useState("");
-    const [email, setEmail]       = useState("");
-    const [password, setPassword] = useState("");
-    
-    const [msg, setMsg] = useState(null);
-    const [msg2, setMsg2] = useState(null);
-    const [msg3, setMsg3] = useState(null);
+    const [id, setId]               = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
+    const [pseudo, setPseudo]       = useState("");
+    const [email, setEmail]         = useState("");
+    const [password, setPassword]   = useState("");
+
+    const [msg, setMsg]     = useState(null);
+    const [msg2, setMsg2]   = useState(null);
+    const [msg3, setMsg3]   = useState(null);
 
 
     async function handleSubmit(e) {
@@ -23,20 +25,20 @@ function Form({ type }) {
         const res = await fetch("/api/v1/users/sign" + type, {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ pseudo, email , password }),
+            body: JSON.stringify({ id, pseudo, email, password }),
         });
         const json = await res.json();
         setMsg(json.msg);
         setMsg2(json.msg2);
         setMsg3(json.msg3);
 
-        if(type === "in" && res.status === 200){
+        if (type === "in" && res.status === 200) {
             localStorage.setItem("auth", json.TOKEN);
             localStorage.setItem("myuserid", pseudo);
-            dispatch(signin({email}));
+            dispatch(signin({ email }));
             navigate("/");
         }
-        
+
         if (type === "up" && res.status === 201) {
             navigate("/utilisateurs/creer-un-compte");
         }
@@ -48,23 +50,24 @@ function Form({ type }) {
 
                 {type === "in" ? (
                     <>
-                    <h2 className="form_title">Connectez vous à votre compte</h2>
+                        <h2 className="form_title">Connectez vous à votre compte</h2>
 
-                    {msg && <p className="msg_red">{msg}</p>}
+                        {msg && <p className="msg_red">{msg}</p>}
                     </>
-                ) : ( 
+                ) : (
                     <>
-                    <h2 className="form_title">Créez votre compte</h2>
+                        <h2 className="form_title">Créez votre compte</h2>
 
-                    {msg && <p className="msg_red">{msg}</p>}
-                    {msg2 && <p className="msg_green">{msg2}</p>}
-                    {msg3 && <p className="msg_yellow"><Link to="/utilisateurs/connexion" className="msg_yellow">{msg3}</Link></p>}
+                        {msg && <p className="msg_red">{msg}</p>}
+                        {msg2 && <p className="msg_green">{msg2}</p>}
+                        {msg3 && <p className="msg_yellow"><Link to="/utilisateurs/connexion" className="msg_yellow">{msg3}</Link></p>}
                     </>
                 )}
-                
+
                 <form onSubmit={handleSubmit}>
-                    
+
                     <input
+                        required
                         placeholder="Votre pseudo"
                         type="text"
                         name="pseudo"
@@ -72,15 +75,26 @@ function Form({ type }) {
                         onChange={(e) => setPseudo(e.target.value)}
                     />
                     {type === "up" && (
-                    <input
-                        placeholder="Votre email"
-                        type="email"
-                        name="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
+                        <>
+                            <input
+                                placeholder="ID du client"
+                                type="hidden"
+                                name="id"
+                                value={id}
+                                onChange={(e) => setId(e.target.value.replace)}
+                            />
+                            <input
+                                required
+                                placeholder="Votre email"
+                                type="email"
+                                name="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </>
                     )}
                     <input
+                        required
                         placeholder="Votre mot de passe"
                         type="password"
                         name="password"

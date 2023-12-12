@@ -3,7 +3,7 @@ import { Link , useParams} from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPenToSquare , faCheckCircle , faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faEye , faMinus } from '@fortawesome/free-solid-svg-icons';
 
 import Loading from "../../Containers/Loading/Index";
 import PreviousPage from '../Components/PreviousPage';
@@ -35,7 +35,7 @@ function Orders() {
   useEffect(() => {
     async function getData() { // récupère les commandes de l'usager
         try {    
-          const orders = await fetch("/api/v1/cart/order_user/"+ params.id);
+          const orders = await fetch("/api/v1/orders/order_user/"+ params.id);
           if (orders.status === 200) {
               const json = await orders.json();
               setOrders(json);
@@ -60,9 +60,9 @@ function Orders() {
           <thead>
               <tr>
                   <th className='first_col'>N° de commandes</th>
-                  <th>Date</th>
+                  <th className='mobile_hidden'>Date</th>
                   <th>Prix</th>
-                  <th>N° de suivi</th>
+                  <th className='mobile_hidden'>N° de suivi</th>
                   <th>
                     <FontAwesomeIcon icon={faMinus} className='fontawesomeGrey'/>
                   </th>
@@ -76,19 +76,19 @@ function Orders() {
 
                           <tr>
                             <td className='first_col'>{order.id}</td>
-                            <td>{format(new Date(order.order_date), 'dd-MM-yyyy')}</td>
+                            <td className='mobile_hidden'>{format(new Date(order.order_date), 'dd-MM-yyyy')}</td>
                             <td>{order.order_price}€</td>
-                            <td>{order.tracking_number}</td>
-                            <td>{order.tracking_number.length ? (
+                            <td className='mobile_hidden'>{order.tracking_number}</td>
+                            <td>{order.tracking_number ? (
                                                             <>
                                                               <Link to={`/utilisateurs/vos-commandes/${order.user_id}/${order.id}`}>
-                                                                <FontAwesomeIcon icon={faCheckCircle} className='fontawesomeGreen btn update_reserve'/>
+                                                                <FontAwesomeIcon icon={faEye} className='fontawesomeGreen btn update_reserve'/>
                                                               </Link>
                                                             </>
                                                           ) :(
                                                                   <>
                                                                   <Link to={`/utilisateurs/vos-commandes/${order.user_id}/${order.id}`}>
-                                                                    <FontAwesomeIcon icon={faPenToSquare} className='fontawesomeBlue btn update_reserve'/>
+                                                                    <FontAwesomeIcon icon={faEye} className='fontawesomeBlue btn update_reserve'/>
                                                                   </Link>
                                                                   </>
                                                                   )}

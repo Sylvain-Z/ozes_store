@@ -1,4 +1,4 @@
-import { BrowserRouter , Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /* Pages tout publique */
 import HOC from "./Components/HOC/Index";
@@ -12,6 +12,8 @@ import Ulule from "./Components/Pages/Others/Ulule";
 
 import Cart from "./Components/Pages/Cart/Index";
 import CartDeliveryInfos from "./Components/Pages/Cart/CartDeliveryInfos";
+import PaymentPage from "./Components/Pages/Cart/PaymentPage";
+import Thanks from "./Components/Pages/Cart/Thanks";
 
 import NotFound from "./Components/Pages/Others/NotFound";
 
@@ -25,7 +27,7 @@ import DeliveryUpdate from "./Components/Pages/Users/Profil/DeliveryUpdate";
 import InfoConnexion from "./Components/Pages/Users/Profil/InfoConnection";
 import InfoConnexionUpdate from "./Components/Pages/Users/Profil/InfoConnectionUpdate";
 import DeleteUser from "./Components/Pages/Users/Profil/DeleteUser";
-import Orders from "./Components/Pages/Users/Orders/Orders";
+import Orders from "./Components/Pages/Users/Orders/Index";
 import OrderUserPage from "./Components/Pages/Users/Orders/OrderUserPage";
 import SendMessages from "./Components/Pages/Users/Messages/Index";
 
@@ -42,7 +44,7 @@ import Reserve from "./Components/Pages/Employees/Stock/Index";
 import Categories from "./Components/Pages/Employees/Stock/Categories/Index";
 import DeleteCategories from "./Components/Pages/Employees/Stock/Categories/DeleteCategorie";
 import DeleteSubCategories from "./Components/Pages/Employees/Stock/Categories/DeleteSubcategorie";
-import UpdateSizes from "./Components/Pages/Employees/Stock/Sizes/UpdateSizes"; 
+import UpdateSizes from "./Components/Pages/Employees/Stock/Sizes/UpdateSizes";
 import DeleteSizes from "./Components/Pages/Employees/Stock/Sizes/DeleteSizes";
 import DeletePicture from "./Components/Pages/Employees/Stock/Products/ProductDeletePicture";
 
@@ -69,87 +71,89 @@ function App() {
 
 
   return (
-    
+
     <BrowserRouter>
-        <Routes>
+      <Routes>
 
-          <Route path="/" element={<HOC child={Home}/>} />
-          <Route path="/panier" element={<HOC child={Cart}/>} />
-          <Route path="/panier/info-livraison" element={<HOC child={CartDeliveryInfos}/>} />
+        <Route path="/" element={<HOC child={Home} />} />
+        <Route path="/panier" element={<HOC child={Cart} />} />
+        <Route path="/panier/info-livraison" element={<HOC child={CartDeliveryInfos} />} />
+        <Route path="/panier/paiement" element={<HOC child={PaymentPage} />} />
+        <Route path="/remerciements" element={<HOC child={Thanks} />} />
 
-          <Route path="le_store">
-            <Route path="" element={<HOC child={Shop}/>} />
-            <Route path=":title_url/:id" element={<HOC child={ProductPage}/>} />
+        <Route path="le_store">
+          <Route path="" element={<HOC child={Shop} />} />
+          <Route path=":title_url/:id" element={<HOC child={ProductPage} />} />
+        </Route>
+
+        <Route path="la_marque" element={<HOC child={Brand} />} />
+        <Route path="guide_des_tailles" element={<HOC child={SizeGuide} />} />
+        <Route path="cgu_cgv" element={<HOC child={CguCgv} />} />
+        <Route path="ulule" element={<HOC child={Ulule} />} />
+
+        <Route path="utilisateurs">
+          <Route path="creer-un-compte" element={<HOC child={Signup} />} />
+          <Route path="connexion" element={<HOC child={Signin} />} />
+          <Route path="deconnexion" element={<HOC child={SignOut} />} />
+          <Route path=":id" element={<HOC child={Dashboard} auth={true} />} />
+          <Route path="vos-commandes/:id" element={<HOC child={Orders} auth={true} />} />
+          <Route path="vos-commandes/:user_id/:id" element={<HOC child={OrderUserPage} auth={true} />} />
+          <Route path="messages/:id" element={<HOC child={SendMessages} auth={true} />} />
+          <Route path="infos-livraison/:id" element={<HOC child={Delivery} auth={true} />} />
+          <Route path="infos-livraison-update/:id" element={<HOC child={DeliveryUpdate} auth={true} />} />
+          <Route path="infos-connexion/:id" element={<HOC child={InfoConnexion} auth={true} />} />
+          <Route path="infos-connexion-update/:id" element={<HOC child={InfoConnexionUpdate} auth={true} />} />
+          <Route path="supprimer-compte/:id" element={<HOC child={DeleteUser} />} />
+          <Route path="not-found" element={<HOCEmployees child={NotFoundUser} auth={true} />} />
+        </Route>
+
+        <Route path="employes">
+
+          <Route path="connexion" element={<HOCEmployees child={Takein} />} />
+          <Route path="deconnexion" element={<HOCEmployees child={TakeOut} />} />
+          <Route path="" element={<HOCEmployees child={Desk} />} />
+          <Route path="ventes" element={<HOCEmployees child={Sales} auth={true} />} />
+          <Route path="commande/:order_id" element={<HOCEmployees child={OrderPage} auth={true} />} />
+
+          <Route path="stock">
+            <Route path="" element={<HOCEmployees child={Reserve} auth={true} />} />
+            <Route path="categories">
+              <Route path="" element={<HOCEmployees child={Categories} auth={true} />} />
+              <Route path="categories/delete/:id" element={<HOCEmployees child={DeleteCategories} auth={true} />} />
+              <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} auth={true} />} />
+            </Route>
+            <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} auth={true} />} />
+            <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddSubCate} auth={true} />} />
+            <Route path="ajouter-image" element={<HOCEmployees child={ProductAddPic} auth={true} />} />
+            <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} auth={true} />} />
+            <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} auth={true} />} />
+            <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} auth={true} />} />
+            <Route path="delete-picture/:product_id/:picture_id" element={<HOCEmployees child={DeletePicture} auth={true} />} />
+            <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} auth={true} />} />
           </Route>
 
-          <Route path="la_marque" element={<HOC child={Brand}/>} />
-          <Route path="guide_des_tailles" element={<HOC child={SizeGuide}/>} />
-          <Route path="cgu_cgv" element={<HOC child={CguCgv}/>} />
-          <Route path="ulule" element={<HOC child={Ulule}/>} />
-
-          <Route path="utilisateurs">
-            <Route path="creer-un-compte" element={<HOC child={Signup}/>} />
-            <Route path="connexion" element={<HOC child={Signin}/>} />
-            <Route path="deconnexion" element={<HOC child={SignOut}/>} />
-            <Route path=":id" element={<HOC child={Dashboard} auth={true}/>} />
-            <Route path="vos-commandes/:id" element={<HOC child={Orders} auth={true}/>} />
-            <Route path="vos-commandes/:user_id/:id" element={<HOC child={OrderUserPage} auth={true}/>} />
-            <Route path="messages/:id" element={<HOC child={SendMessages} auth={true}/>} />
-            <Route path="infos-livraison/:id" element={<HOC child={Delivery} auth={true}/>} />
-            <Route path="infos-livraison-update/:id" element={<HOC child={DeliveryUpdate} auth={true}/>} />
-            <Route path="infos-connexion/:id" element={<HOC child={InfoConnexion} auth={true}/>} />
-            <Route path="infos-connexion-update/:id" element={<HOC child={InfoConnexionUpdate} auth={true}/>} />
-            <Route path="supprimer-compte/:id" element={<HOC child={DeleteUser}/>} />
-            <Route path="not-found" element={<HOCEmployees child={NotFoundUser} auth={true}/>} />
-          </Route>
-          
-          <Route path="employes">
-
-            <Route path="connexion" element={<HOCEmployees child={Takein}/>} />
-            <Route path="deconnexion" element={<HOCEmployees child={TakeOut}/>} />
-            <Route path="" element={<HOCEmployees child={Desk}/>} />
-            <Route path="ventes" element={<HOCEmployees child={Sales} auth={true}/>} />
-            <Route path="commande/:id" element={<HOCEmployees child={OrderPage} auth={true}/>} />
-
-            <Route path="stock">
-              <Route path="" element={<HOCEmployees child={Reserve} auth={true}/>} />
-              <Route path="categories">
-                <Route path="" element={<HOCEmployees child={Categories} auth={true}/>} />
-                <Route path="categories/delete/:id" element={<HOCEmployees child={DeleteCategories} auth={true}/>} />
-                <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} auth={true}/>} />
-              </Route>
-              <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} auth={true}/>} />
-              <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddSubCate} auth={true}/>} />
-              <Route path="ajouter-image" element={<HOCEmployees child={ProductAddPic} auth={true}/>} />
-              <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} auth={true}/>} />
-              <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} auth={true}/>} />
-              <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} auth={true}/>} />
-              <Route path="delete-picture/:product_id/:picture_id" element={<HOCEmployees child={DeletePicture} auth={true}/>} />
-              <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} auth={true}/>} />
-            </Route>
-
-            <Route path="messages" >
-              <Route path="" element={<HOCEmployees child={MsgRead} auth={true}/>} />
-              <Route path="repondre/:id" element={<HOCEmployees child={MsgAnswer} auth={true}/>} />
-            </Route>
-
-            <Route path="gestion-comptes">
-                <Route path="" element={<HOCEmployees child={AccountManagement} auth={true}/>} />
-                <Route path="creer-compte" element={<HOCEmployees child={AddProfil} auth={true}/>} />
-                <Route path=":id" element={<HOCEmployees child={Profil} auth={true}/>} />
-                <Route path="actualiser/:id" element={<HOCEmployees child={UpdateProfil} auth={true}/>} />
-                <Route path="suppression/:id" element={<HOCEmployees child={DeleteProfil} auth={true}/>} />
-            </Route>
-
-            <Route path=":id" element={<HOCEmployees child={EmployeesInfo} auth={true}/>} />
-            <Route path="actualiser-mes-infos/:id" element={<HOCEmployees child={EmployeesInfoUpdate} auth={true}/>} />
+          <Route path="messages" >
+            <Route path="" element={<HOCEmployees child={MsgRead} auth={true} />} />
+            <Route path="repondre/:id" element={<HOCEmployees child={MsgAnswer} auth={true} />} />
           </Route>
 
-          <Route path="not-found" element={<HOC child={NotFound}/>}/>
-          <Route path="employes/not-found" element={<HOCEmployees child={NotFoundEmployees} auth={true}/>}/>
+          <Route path="gestion-comptes">
+            <Route path="" element={<HOCEmployees child={AccountManagement} auth={true} />} />
+            <Route path="creer-compte" element={<HOCEmployees child={AddProfil} auth={true} />} />
+            <Route path=":id" element={<HOCEmployees child={Profil} auth={true} />} />
+            <Route path="actualiser/:id" element={<HOCEmployees child={UpdateProfil} auth={true} />} />
+            <Route path="suppression/:id" element={<HOCEmployees child={DeleteProfil} auth={true} />} />
+          </Route>
 
-        </Routes>
-      </BrowserRouter>
+          <Route path=":id" element={<HOCEmployees child={EmployeesInfo} auth={true} />} />
+          <Route path="actualiser-mes-infos/:id" element={<HOCEmployees child={EmployeesInfoUpdate} auth={true} />} />
+        </Route>
+
+        <Route path="not-found" element={<HOC child={NotFound} />} />
+        <Route path="employes/not-found" element={<HOCEmployees child={NotFoundEmployees} auth={true} />} />
+
+      </Routes>
+    </BrowserRouter>
 
   )
 };

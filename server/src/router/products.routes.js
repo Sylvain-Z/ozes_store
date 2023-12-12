@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
+import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getRandom , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
 
 const router = Router();
 
@@ -20,6 +20,7 @@ router.get("/quantity/:id", getQuantitybyId); // sert à afficher la quantité t
 router.get("/:title_url/:id", getProductsDetails); // page détails produits laissé de côté pour le moment
 router.get("/last-product_id", getLastId); // sert à récupérer l'ID du dernier produit ajouté afin de renseigner le bon ID lors de la créatioin d'un produit sur les pages Employees/ProductPicAdd, Employees/ProductUpdate et Employees/ProductDelete
 router.get("/subcate", getSubcategories); // sert à récupérer la categorie et son ID pour y faire référence
+router.get("/random", getRandom); // sert à récupérer la categorie et son ID pour y faire référence
 
 router.get("/:title_url", getProductsCart);
 

@@ -42,6 +42,7 @@ const WriteMessage = async (req, res) => {
     try {
         let msg ="";
         const message = { 
+            id: req.body.id,
             user_pseudo: req.body.user_pseudo,
             user_email: req.body.user_email,
             subject: req.body.subject,
@@ -49,7 +50,7 @@ const WriteMessage = async (req, res) => {
             user_id: req.body.user_id,
         };
         const query =
-            "INSERT INTO messages (user_pseudo, user_email, subject, content, publication_date, status, user_id) VALUES(?, ?, ?, ?, CURRENT_TIMESTAMP, 'en attente', ?)";
+            "INSERT INTO messages (id, user_pseudo, user_email, subject, content, publication_date, status, user_id) VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP, 'en attente', ?)";
         await Query.write(query, message);
 
             msg = "Votre message a bien été envoyé";

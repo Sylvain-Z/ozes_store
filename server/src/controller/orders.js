@@ -17,44 +17,6 @@ const getProductCartByRef = async (req, res) => {
     }   
 };
 
-const s = async (req, res) => {
-    try {
-        let msg = "";
-        // let msg2 = "";
-        const datas = {
-                order_price: req.body.order_price,
-                user_id: req.body.user_id,
-        };
-
-        const query =
-            "INSERT INTO orders (order_date, order_price, user_id) VALUES(CURRENT_TIMESTAMP, ?, ?)";
-        const result = await Query.write(query, datas);
-
-        const lastOrderId = result.insertId;
-
-        // const { cart } = req.body;
-        // const datas2 = {
-        //     product_id: req.body.product_id,
-        //     size: req.body.size,
-        //     quantity: req.body.quantity,
-        //     priceEach: req.body.priceEach,
-        // };
-        // for ( const item of cart) {
-        // const query2 =
-        //     "INSERT INTO orders_products (product_id, size, quantity, priceEach) VALUES(?, ?, ?, ?)";
-        // const result2 = await Query.write(query2, [lastOrderId, [...datas2]]);
-
-        msg = "La commande a été validée";
-        // msg2 = "Vous allez être redirigé";
-        res.status(201).json({ msg /* , msg2 */});
-        // };
-
-            
-    } catch (error) {
-        throw Error(error);
-    }
-};
-
 const CreateOrder = async (req, res) => {
     try {
         let msg = "";
@@ -99,6 +61,7 @@ const CreateOrderLocalStorage = async (req, res) => {
     try {
         let msg = "";
         const userDatas = {
+            id: req.body.userLs_Id,
             firstname: req.body.firstname,
             lastname: req.body.lastname,
             email: req.body.email,
@@ -116,14 +79,12 @@ const CreateOrderLocalStorage = async (req, res) => {
 
             try {
                 const userQuery =
-                    "INSERT INTO users (pseudo, firstname, lastname, email, number, street, complement, postal_code, city, phone) VALUES('commandeInvite', ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                const resultUser = await Query.write(userQuery, userDatas);
-
-                const userId = resultUser[0].insertId;  // récupère l'id du use créé
+                    "INSERT INTO users (id, pseudo, firstname, lastname, email, number, street, complement, postal_code, city, phone) VALUES(?, 'commandeInvite', ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                await Query.write(userQuery, userDatas);
 
                 const orderQuery =
                     "INSERT INTO orders (order_date, order_price, user_id) VALUES(CURRENT_TIMESTAMP, ?, ?)";
-                const resultOrder = await Query.write(orderQuery, [orderDatas.order_price, userId]);
+                const resultOrder = await Query.write(orderQuery, [orderDatas.order_price, userDatas.id]);
                 
                 const orderId = resultOrder[0].insertId;  // récupère l'id de la commande passée
                 
@@ -152,57 +113,6 @@ const CreateOrderLocalStorage = async (req, res) => {
 
 };
 
-// const CreateOrderLocalStorage = async (req, res) => {  même code qu'au dessus sans la boucle pour plusieurs produits
-//     try {
-//         let msg = "";
-//         const userDatas = {
-//                 firstname: req.body.firstname,
-//                 lastname: req.body.lastname,
-//                 email: req.body.email,
-//                 number: req.body.number,
-//                 street: req.body.street,
-//                 complement: req.body.complement,
-//                 postal_code: req.body.postal_code,
-//                 city: req.body.city,
-//                 phone: req.body.phone,
-//         };
-//         const orderDatas = {
-//                 order_price: req.body.order_price,
-//                 user_id: req.body.user_id,
-//         };
-//         const productDatas = {
-//                 product_id: req.body.product_id,
-//                 size: req.body.size,
-//                 quantity: req.body.quantity,
-//                 priceEach: req.body.priceEach,
-//         };
-        
-//         const userQuery =
-//             "INSERT INTO users (pseudo, firstname, lastname, email, number, street, complement, postal_code, city, phone) VALUES('commandeInvite', ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-//         const resultUser = await Query.write(userQuery, userDatas);
-
-//         const userId = resultUser[0].insertId;  // récupère l'id du user créé
-
-//         const orderQuery =
-//             "INSERT INTO orders (order_date, order_price, user_id) VALUES(CURRENT_TIMESTAMP, ?, ?)";
-//         const resultOrder = await Query.write(orderQuery, [orderDatas.order_price, userId]);
-
-//         const orderId = resultOrder[0].insertId;  // récupère l'id de la commande passée
-
-//         const productQuery =
-//             "INSERT INTO orders_products (order_id, product_id, size, quantity, priceEach) VALUES(?, ?, ?, ?, ?)";
-//         await Query.write(productQuery, [orderId, productDatas.product_id, productDatas.size, productDatas.quantity, productDatas.priceEach]);
-
-//         msg = "La commande a été validée";
-//         res.status(201).json({ msg });
-
-            
-//     } catch (error) {
-//         throw Error(error);
-//     }
-// };
-
-
 const getOrders = async (req, res) => {
     try {
     const query = "SELECT * FROM orders ORDER BY order_date DESC";
@@ -216,7 +126,7 @@ const getOrders = async (req, res) => {
 
 const getOrdersByID = async (req, res) => {  // pas paramétré
     try {
-    const query = "SELECT orders.id AS order_id, order_date, order_price, tracking_number, orders_products.priceEach, orders_products.quantity, products.id, products.reference, products.title, MIN(pictures.id) AS first_picture_id, pictures.file_name, pictures.caption FROM orders JOIN orders_products ON orders_products.order_id = orders.id JOIN products ON products.id = orders_products.product_id JOIN pictures ON products.id = pictures.product_id WHERE orders.id = ? GROUP BY products.id ORDER BY products.id ASC";
+    const query = "SELECT orders.id AS order_id, order_date, order_price, tracking_number, orders_products.priceEach, orders_products.quantity, products.id AS product_id, products.reference, products.title, MIN(pictures.id) AS first_picture_id, pictures.file_name, pictures.caption, pseudo, firstname, lastname, email, number, street, complement, postal_code, city, phone FROM orders JOIN orders_products ON orders_products.order_id = orders.id JOIN products ON products.id = orders_products.product_id JOIN pictures ON products.id = pictures.product_id JOIN users ON orders.user_id = users.id WHERE orders.id = ? GROUP BY products.id ORDER BY products.id ASC";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produits non reconnu"})
@@ -247,7 +157,7 @@ const getUserOrders = async (req, res) => {
 
 const getOrdersByUserID = async (req, res) => { 
     try {
-    const query = "SELECT orders.id AS order_id, order_date, order_price, tracking_number, orders_products.priceEach, orders_products.quantity, products.id, products.reference, products.title, MIN(pictures.id) AS first_picture_id, pictures.file_name, pictures.caption, users.id AS user_id FROM orders JOIN orders_products ON orders_products.order_id = orders.id JOIN products ON products.id = orders_products.product_id JOIN pictures ON products.id = pictures.product_id JOIN users ON users.id = orders.user_id WHERE user_id = ? AND order_id = ? GROUP BY products.id ORDER BY products.id ASC";
+    const query = "SELECT orders.id AS order_id, order_date, order_price, tracking_number, orders_products.priceEach, orders_products.quantity, products.id, products.reference, products.title, MIN(pictures.id) AS first_picture_id, pictures.file_name, pictures.caption, users.id AS user_id, firstname, lastname, email, number, street, complement, postal_code, city, phone FROM orders JOIN orders_products ON orders_products.order_id = orders.id JOIN products ON products.id = orders_products.product_id JOIN pictures ON products.id = pictures.product_id JOIN users ON users.id = orders.user_id WHERE user_id = ? AND order_id = ? GROUP BY products.id ORDER BY products.id ASC";
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produits non reconnu"})

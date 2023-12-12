@@ -1,6 +1,5 @@
 import Query from "../model/Query.js";
 
-
 const getOneProductsFull = async (req, res) => {
     
     const query = "SELECT * FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id WHERE products.id = ? ORDER BY pictures.id ASC LIMIT 1";
@@ -29,6 +28,16 @@ const getProductsGlimpse = async (req, res) => {
 const getProductsGalery = async (req, res) => {
     try {
     const query = "SELECT products.id, MIN(pictures.id) AS first_picture_id, products.reference, products.title, products.title_url, products.price, pictures.file_name, pictures.caption, categories.cate_title FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id GROUP BY products.id ORDER BY products.id ASC";
+    const [datas] = await Query.find(query);
+
+    res.status(200).json({ datas });
+    } catch (error) {
+        throw Error(error);
+    } 
+};
+const getRandom = async (req, res) => {
+    try {
+    const query = "SELECT products.id, MIN(pictures.id) AS first_picture_id, products.reference, products.title, products.title_url, products.price, pictures.file_name, pictures.caption, categories.cate_title FROM products JOIN pictures ON pictures.product_id = products.id JOIN products_subcategories ON products_subcategories.product_id = products.id JOIN subcategories ON subcategories.id = products_subcategories.subcategorie_id JOIN categories ON categories.id = subcategories.categorie_id GROUP BY products.id ORDER BY RAND() LIMIT 4;";
     const [datas] = await Query.find(query);
 
     res.status(200).json({ datas });
@@ -189,10 +198,13 @@ const AddProduct = async (req, res) => {
 
         const query =
             "INSERT INTO products (reference, title, title_url, description, price, color, shape, gender, model_info, material, infosup, infosupplus, madeplace) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        await Query.write(query, datas);
+        const result = await Query.write(query, datas);
+
+        const productId = result[0].insertId;  // récupère l'id du produit créé
+
         const querySize =
-         "INSERT INTO sizes (label, product_id) VALUES ('new', LAST_INSERT_ID())";
-        await Query.write(querySize, datas);
+         "INSERT INTO sizes (label, product_id) VALUES (?, ?)";
+        await Query.write(querySize, ["nouvelle taille", productId]);
 
             msg2 = "Le produit a bien été créé";
             res.status(201).json({ msg2 });
@@ -330,4 +342,4 @@ const DeleteProduct = async (req, res) => {
 
 
 
-export { getOneProductsFull, getProductsGalery , getSizesByProductId , getProductsGlimpse , getProductsDetails , getQuantitybyId , getProductsCart , getLastId , getSubcategories, getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };
+export { getOneProductsFull, getProductsGalery , getRandom , getSizesByProductId , getProductsGlimpse , getProductsDetails , getQuantitybyId , getProductsCart , getLastId , getSubcategories, getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById , DeleteProduct };

@@ -3,9 +3,6 @@ import { useEffect, useState } from "react";
 
 import Loading from "../../Containers/Loading/Index";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
-
 function OrderUserPage (){
 
     const params   = useParams();
@@ -15,12 +12,11 @@ function OrderUserPage (){
     
     const [tracking_number , setTracking_number] = useState("");
     const [id , setId] = useState(""); // le champ du formulaire n'est pas nécessaire, cependant la state pour le "body: JSON.stringify({ answer , id })"" est obligatoire
-    const [msg , setMsg] = useState("");
 
     useEffect(() => {
         async function getData() {
             try {
-                const orders = await fetch("/api/v1/cart/order/" + params.user_id + "/" + params.id);
+                const orders = await fetch("/api/v1/orders/" + params.user_id + "/" + params.id);
                 if(orders.status === 404) {
                     navigate("/not-found");
                 }
@@ -44,25 +40,21 @@ function OrderUserPage (){
             {!orders ? (
                             <>
                             </>
-                        ) :(
+                        ) : (
                                 <>
-                                    <p className="previous_page"><Link to={`/utilisateurs/vos-commandes/${id}`}>Retour à la liste des commandes</Link></p>
+                                    <p className="previous_page"><Link to={`/utilisateurs/vos-commandes/${orders[0].user_id}`}>Retour à la liste des commandes</Link></p>
 
-                                    {!orders ? (<></>) :(
-                                                            <>
-                                                                <h3>Commande n° : {orders[0].order_id}</h3>
-                                                                <p className="tracking_number">Numéro de suivi : {orders[0].tracking_number}</p>
-                                                                <div className="order_page">
-                                                                    <p>{orders[0].firstname} {orders[0].lastname}</p>
-                                                                    <p>{orders[0].email}</p>
-                                                                    <p>{orders[0].number} {orders[0].street}</p>
-                                                                    <p>{orders[0].complement}</p>
-                                                                    <p>{orders[0].postal_code}</p>
-                                                                    <p>{orders[0].city}</p>
-                                                                    <p>{orders[0].phone}</p>
-                                                                </div>
-                                                            </>
-                                                            )}
+                                    <h3>Commande n° : {orders[0].order_id}</h3>
+                                    <p className="tracking_number">Numéro de suivi : {orders[0].tracking_number}</p>
+                                    <div className="order_page">
+                                        <p>{orders[0].firstname} {orders[0].lastname}</p>
+                                        <p>{orders[0].number} {orders[0].street}</p>
+                                        <p>{orders[0].complement}</p>
+                                        <p>{orders[0].postal_code}</p>
+                                        <p>{orders[0].city}</p>
+                                        <p>{orders[0].phone}</p>
+                                        <p>{orders[0].email}</p>
+                                    </div>
                                 </>
                             )}
 
@@ -82,12 +74,8 @@ function OrderUserPage (){
                                     </figcaption></Link>
                                 </figure>
                             </div>
-
                         </>
-                        
                     ))}
-                
-                    
             </div>
         </>
     )

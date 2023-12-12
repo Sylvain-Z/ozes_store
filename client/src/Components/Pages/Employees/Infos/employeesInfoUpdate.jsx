@@ -84,16 +84,18 @@ function EmployeesInfoUpdate() {
 
                         <form onSubmit={handleSubmit}>
 
-                          <label for="firstname">Votre prénom</label>
+                          <label for="firstname">Votre prénom</label> {/* désactivé pour que le collaborateur ne s'amuse pas à changer son nom et prénom */}
                           <input
+                            disabled
                             placeholder="Votre prénom"
                             type="text"
                             name="firstname"
                             value={firstname}
                             onChange={(e) => setFirstname(e.target.value)}                          
                           />
-                          <label for="lastname">Votre nom</label>
+                          <label for="lastname">Votre nom</label> {/* désactivé pour que le collaborateur ne s'amuse pas à changer son nom et prénom */}
                           <input
+                            disabled
                             placeholder="Votre nom"
                             type="text"
                             name="lastname"

@@ -1,6 +1,5 @@
-import { Link , /* useNavigate , useParams ,  useLocation*/ } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -10,8 +9,7 @@ import PreviousPage from '../Components/PreviousPage';
 import BackToCart from '../../Cart/Components/BackToCart';
 
 function Delivery() {
-  
-  // const { info } = useSelector((state) => state.user);
+
   const myuserid = localStorage.getItem("myuserid");
 
   const [ users, setUsers ] = useState(null);
@@ -19,15 +17,7 @@ function Delivery() {
   useEffect(() => {
     async function getData() {
         try {
-            let id="Invite"; 
-
-            if(!myuserid){ 
-                id="Invite"; 
-            }else{ 
-            id=myuserid; 
-            } 
-
-            const users = await fetch("/api/v1/users/"+ id);
+            const users = await fetch("/api/v1/users/"+ myuserid);
         
             if (users.status === 200) {
                 const json = await users.json();

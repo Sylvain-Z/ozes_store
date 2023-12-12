@@ -21,9 +21,11 @@ const createAccount = async (req, res) => {
     try {
         let msg = "";
         let msg2 = "";
-        const datas = { firstname: req.body.firstname, lastname: req.body.lastname, role: req.body.role, email: req.body.email };
+        const datas = {
+            email: req.body.email,
+        };
         const queryEmployyees =
-            "SELECT firstname, lastname, email FROM employees WHERE email = ?";
+            "SELECT email FROM employees WHERE email = ?";
         const [employees] = await Query.findByDatas(queryEmployyees, datas);
 
         if (employees.length) {
@@ -32,6 +34,7 @@ const createAccount = async (req, res) => {
 
         } else if (!employees.length) {
             const datas = {
+                id: req.body.id,
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 role: req.body.role,
@@ -40,11 +43,11 @@ const createAccount = async (req, res) => {
             };
 
             const query =
-                "INSERT INTO employees (firstname, lastname, role, email, password, registration_date) VALUES(?, ?, ?, ?, ?, NOW())";
+                "INSERT INTO employees (id , firstname, lastname, role, email, password, registration_date) VALUES(?, ?, ?, ?, ?, ?, NOW())";
             await Query.write(query, datas);
 
             msg2 = "Le compte a bien été créé";
-            res.status(201).json({ msg2 , msg3 });
+            res.status(201).json({ msg2 });
         }
     } catch (error) {
         throw Error(error);
@@ -227,7 +230,7 @@ const deleteEmployee = async (req, res) => {
             "DELETE FROM employees WHERE id = ?";
         await Query.deleteByValue(query, req.params.id);
 
-            msg = "Le produit a été supprimé";
+            msg = "Le compte a été supprimé";
             res.status(201).json({ msg });
         
     } catch (error) {

@@ -9,7 +9,7 @@ function ProductUpdatePic (){
 
     const params = useParams();
 
-    const [prodImages, setProdImages] = useState(null); // récupère les images par rapport au product id
+    const [prodImages, setProdImages] = useState(""); // récupère les images par rapport au product id
 
     useEffect(() => {
         async function getData() {
@@ -31,7 +31,7 @@ function ProductUpdatePic (){
     const [caption, setCaption] = useState(""); // gère le formulaire
     const [product_id, setProduct_id] = useState(params.id);  // récupère l'id du produit dans l'url pour envoyer l'information dans la query
     
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     async function handleUpload(e) {
         e.preventDefault();

@@ -62,7 +62,7 @@ function ProductUpdateCate (){
 
                 <form onSubmit={handleSubmit}>
 
-                        <FontAwesomeIcon icon={faCircleInfo} size="s" className="faInfoBulle"  // infobulle avec légenge masquée
+                        <FontAwesomeIcon icon={faCircleInfo} size="sm" className="faInfoBulle"  // infobulle avec légenge masquée
                             onMouseEnter={() => setIsShown(true)}
                             onMouseLeave={() => setIsShown(false)}
                         />

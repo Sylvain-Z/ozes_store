@@ -1,9 +1,13 @@
+import React from "react";
 import { useState } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 
 function ContactForm(){
+        
+      const [ id, setId ]             = useState(uuidv4().slice(0, 32)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
 
       const [user_pseudo, setUser_pseudo]       = useState("Invité");
       const [user_email, setUser_email]       = useState("");
@@ -18,7 +22,7 @@ function ContactForm(){
         const res = await fetch(`/api/v1/messages/write`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_pseudo, user_email, subject, content, user_id }),
+            body: JSON.stringify({ id, user_pseudo, user_email, subject, content, user_id }),
         });
         const json = await res.json();
         setMsg(json.msg);
@@ -36,6 +40,13 @@ function ContactForm(){
 
                         {msg && <p className="msg_green">{msg}</p>}
 
+                        <input
+                              placeholder="ID du client"
+                              type="hidden"
+                              name="id"
+                              value={id}
+                              onChange={(e) => setId(e.target.value.replace)}
+                        />
                         <input
                               required
                               disabled

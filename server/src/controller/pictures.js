@@ -42,9 +42,7 @@ const AddPictures = async (req, res) => {
             allowEmptyFiles: false,            
         });
         form.parse( req, async (error, fields, files) => {
-            console.log("fields", fields);
-            console.log("files", files);
-            
+                        
             const img = {
                 file_name: Object.keys(files).length ? files.image[0].newFilename : "noImg.png",
                 caption: fields.caption,

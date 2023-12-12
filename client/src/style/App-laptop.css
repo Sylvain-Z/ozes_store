@@ -45,7 +45,7 @@
     right: 20%;
   }
   .back_to_store {
-    margin-bottom: 90px;
+    margin-bottom: 100px;
   }
   /* CONTENU SITE  */
   /* LE STORE */
@@ -185,5 +185,8 @@
   }
   .empty_cart_btn, .modifyLink {
     width: 25%;
+  }
+  .suggestion_ctn {
+    width: 100%;
   }
 }/*# sourceMappingURL=App-laptop.css.map */

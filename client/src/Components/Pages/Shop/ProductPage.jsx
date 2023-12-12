@@ -6,6 +6,7 @@ import { faCottonBureau } from '@fortawesome/free-brands-svg-icons';
 
 import Loading from "../Containers/Loading/Index";
 import AddToCartForm from "./Forms/AddToCartForm"
+import Suggestion from '../Containers/Suggestion/Index';
 
 function ProductPage (){
 
@@ -89,7 +90,7 @@ function ProductPage (){
                     </div>
                     ))}
 
-
+        <Suggestion/>
         </>
     )
 };

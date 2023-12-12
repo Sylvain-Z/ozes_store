@@ -11,7 +11,7 @@ function OrderPage (){
     const params   = useParams();
     const navigate = useNavigate();
 
-    const [ orders , setOrders ] = useState(null);
+    const [ orders , setOrders ] = useState("");
     
     const [tracking_number , setTracking_number] = useState("");
     const [id , setId] = useState("");
@@ -20,7 +20,7 @@ function OrderPage (){
     useEffect(() => {
         async function getData() {
             try {
-                const orders = await fetch("/api/v1/cart/order/" + params.id); // récupère les informations d'une commande par rapport à son id
+                const orders = await fetch("/api/v1/orders/" + params.order_id); // récupère les informations d'une commande par rapport à son id
                 if(orders.status === 404) {
                     navigate("/not-found");
                 }
@@ -39,7 +39,7 @@ function OrderPage (){
                
                 async function handleSubmit(e) {
                     e.preventDefault();
-                    const res = await fetch(`/api/v1/cart/tracking_number/`+ params.id, { // met à jour le numéro de suivi d'une commande par rapport à son id
+                    const res = await fetch(`/api/v1/orders/tracking_number/`+ params.id, { // met à jour le numéro de suivi d'une commande par rapport à son id
                         method: "post",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ tracking_number , id }),
@@ -62,12 +62,12 @@ function OrderPage (){
                                         <div className="order_page">
                                             <p>{orders[0].pseudo}</p>
                                             <p>{orders[0].firstname} {orders[0].lastname}</p>
-                                            <p>{orders[0].email}</p>
                                             <p>{orders[0].number} {orders[0].street}</p>
                                             <p>{orders[0].complement}</p>
                                             <p>{orders[0].postal_code}</p>
                                             <p>{orders[0].city}</p>
                                             <p>{orders[0].phone}</p>
+                                            <p>{orders[0].email}</p>
                                         </div>
                                     </>
                                 )}

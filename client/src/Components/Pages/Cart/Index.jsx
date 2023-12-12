@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 import BackToStore from '../Containers/BackToStore/Index';
+import Suggestion from '../Containers/Suggestion/Index';
 import Resume from './Resume';
 
 import { addToCart } from "../../../store/slices/cart";
@@ -33,7 +34,7 @@ function Cart() {
     async function getData() {
       try {
         for (const item of cart) { // fecth dynamique via la référence du produit qui doit être unique
-          const product = await fetch("/api/v1/cart/product/"+ item.ref); 
+          const product = await fetch("/api/v1/orders/product/"+ item.ref); 
         if(product.status === 404) {
             // navigate("/not-found");
         }
@@ -103,19 +104,17 @@ function Cart() {
 
     return (
       <>
-        <h2>Panier</h2>
-
-
           {!product.length ? ( 
             <>
-              <h3>Votre panier est vide</h3>
+              <h2>Votre panier est vide</h2>
               <BackToStore/>
+              <Suggestion/>
             </>
           ) : (  
                 <>
                   <div className="display_cart">
                     <article className="cart_ctn-cart">
-                      <h3>Vos produits</h3>
+                      <h2>Vos produits</h2>
                         <table className="cart">
                           <thead>
                               <tr>

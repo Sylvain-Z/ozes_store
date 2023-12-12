@@ -22,9 +22,12 @@ const createAccount = async (req, res) => {
         let msg = "";
         let msg2 = "";
         let msg3 = "";
-        const datas = { pseudo: req.body.pseudo, email: req.body.email };
+        const datas = { 
+            pseudo: req.body.pseudo,
+        };
+
         const queryUser =
-            "SELECT pseudo, email FROM users WHERE pseudo = ?";
+            "SELECT pseudo FROM users WHERE pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, datas);
 
         if (user.length) {
@@ -33,13 +36,14 @@ const createAccount = async (req, res) => {
 
         } else if (!user.length) {
             const datas = {
+                id: req.body.id,
                 pseudo: req.body.pseudo,
                 email: req.body.email,
                 password: await hash(req.body.password, SALT),
             };
 
             const query =
-                "INSERT INTO users (pseudo, email, password, registration_date) VALUES(?, ?, ?, NOW())";
+                "INSERT INTO users (id, pseudo, email, password, registration_date) VALUES(?, ?, ?, ?, NOW())";
             await Query.write(query, datas);
 
             msg2 = "Votre compte a bien été créé";
@@ -84,8 +88,6 @@ const getAllUsers = async (req, res) => {
     
     const queryUser = "SELECT * FROM users";
     const [user] = await Query.find(queryUser);
-
-    console.log(user)
 
     res.status(200).json({ user });
 };

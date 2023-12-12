@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { useNavigate , Link } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid'; 
 
 function AddProfil() {
 
     const navigate = useNavigate();
+
+    const [ id, setId ]             = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
 
     const [firstname, setFirstname]       = useState(""); // les states permettent de gérer le formulaire et son remplissage même s'il est vide
     const [lastname, setLastname]       = useState("");
@@ -19,7 +22,7 @@ function AddProfil() {
         const res = await fetch("/api/v1/employees/signup", {
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ firstname, lastname, role, email, password }),
+            body: JSON.stringify({ id, firstname, lastname, role, email, password }),
         });
         const json = await res.json();
         setMsg(json.msg);
@@ -45,6 +48,13 @@ function AddProfil() {
                 
                 <form onSubmit={handleSubmit}>
 
+                    <input
+                        placeholder="ID"
+                        type="hidden"
+                        name="id"
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                    />
                     <input
                         placeholder="Prénom"
                         type="text"

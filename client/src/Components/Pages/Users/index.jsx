@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import { useState, useEffect } from 'react';
 
 import { Link } from 'react-router-dom';
@@ -12,22 +11,13 @@ import BackToStore from '../Containers/BackToStore/Index';
 
 function Dashboard() {
 
-  // const { info } = useSelector((state) => state.user);
   const [ users, setUsers ] = useState(null);
   const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
     async function getData() {
         try {
-            let id="Invite"; 
-
-            if(!myuserid){ 
-                id="Invite"; 
-            }else{ 
-            id=myuserid; 
-            } 
-
-            const users = await fetch("/api/v1/users/"+ id);
+            const users = await fetch("/api/v1/users/"+ myuserid);
         
             if (users.status === 200) {
                 const json = await users.json();

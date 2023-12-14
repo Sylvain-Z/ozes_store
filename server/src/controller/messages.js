@@ -50,7 +50,7 @@ const WriteMessage = async (req, res) => {
             user_id: req.body.user_id,
         };
         const query =
-            "INSERT INTO messages (id, user_pseudo, user_email, subject, content, publication_date, status, user_id) VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP, 'en attente', ?)";
+            "INSERT INTO messages (id, user_pseudo, user_email, subject, content, publication_date, answer, answer_date, status, user_id) VALUES(?, ?, ?, ?, ?, CURRENT_TIMESTAMP, NULL, NULL, 'en attente', ?)";
         await Query.write(query, message);
 
             msg = "Votre message a bien été envoyé";
@@ -62,7 +62,7 @@ const WriteMessage = async (req, res) => {
 };
 const ReadOneStatus = async (req, res) => {
     
-    const query = "SELECT id , user_pseudo , user_email, content , status FROM messages WHERE id = ? ORDER BY id DESC";
+    const query = "SELECT id , user_pseudo , user_email, content , status FROM messages WHERE id = ? ORDER BY publication_date";
     const [messages] = await Query.findByDatas(query, req.params);
     if(!messages.length){
         res.status(404).json({msg: "pas de message correspondant dans la base de données"})

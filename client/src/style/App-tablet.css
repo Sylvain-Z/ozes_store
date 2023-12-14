@@ -81,6 +81,11 @@
   }
   .reserve .mobile_hidden {
     display: block;
+    width: 16%;
+    justify-content: center;
+    text-align: left;
+    display: flex;
+    align-items: center;
   }
   .categories_actions,
   .reserve_actions {

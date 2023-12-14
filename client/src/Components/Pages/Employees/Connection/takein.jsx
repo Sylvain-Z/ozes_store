@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
+import { FETCH_URL } from '../../../../assets/const';
+
 import { signin } from "../../../../store/slices/employees";
 
 function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame avec l'App.jsx
@@ -9,7 +11,7 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [email, setEmail]       = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [msg, setMsg] = useState(null);
@@ -18,7 +20,7 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/employees/signin", {
+        const res = await fetch(FETCH_URL + "employees/signin", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -27,11 +29,11 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
         setMsg(json.msg);
         setMsg2(json.msg2);
 
-        if(res.status === 200){
+        if (res.status === 200) {
             localStorage.setItem("authe", json.TOKEN);
             localStorage.setItem("myemployeeid", email);
-            dispatch(signin({email}));
-            setTimeout(()=>{ navigate("/employes")}, 2000)
+            dispatch(signin({ email }));
+            navigate("/employes");
         }
     }
 
@@ -44,7 +46,7 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
 
                 {msg && <p className="msg_green">{msg}</p>}
                 {msg2 && <p className="msg_red">{msg2}</p>}
-                
+
                 <form onSubmit={handleSubmit}>
                     <input
                         placeholder="Email"

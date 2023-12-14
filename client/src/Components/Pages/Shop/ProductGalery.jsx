@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
+import { FETCH_URL } from '../../../assets/const';
+
 import Loading from "../Containers/Loading/Index";
 
 function ProductGalery(){
@@ -11,7 +13,7 @@ function ProductGalery(){
             async function getData() {
                 try {
                     const products = await (
-                        await fetch("/api/v1/products/galery") // récupère tous les produits présents en base de donnée
+                        await fetch(FETCH_URL + "products/galery") // récupère tous les produits présents en base de donnée
                     ).json();
                     setProducts(products.datas);
                             
@@ -29,7 +31,7 @@ function ProductGalery(){
                     <Loading/>
                 ) : ( products.map( product =>
 
-                        <div className='product_grid'>
+                        <div className='product_grid' key={product.id}>
                             <figure><Link to={`/le_store/${product.title_url}/${product.id}`}>
                                 <img src={`${product.file_name}`} alt={product.caption}/>
                                 <figcaption>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { FETCH_URL } from '../../assets/const';
+
 import { signout } from "../../store/slices/user";
 
 import Header from './Header'
@@ -25,10 +27,10 @@ function HOC({ child, auth }) {
                     navigate("/");
                 }
                 if (TOKEN) {
-                    const res = await fetch("/api/v1/users/check_token", {
+                    const res = await fetch(FETCH_URL + "users/check_token", {
                         headers: { Authentication: "Bearer " + TOKEN },
                     });
-                    if (res.status === 401) {                        
+                    if (res.status === 401) {
                         localStorage.removeItem("auth")
                         localStorage.removeItem("myuserid")
                         dispatch(signout());
@@ -45,20 +47,20 @@ function HOC({ child, auth }) {
 
         checkAuth();
     }, [auth]);
-    
+
     return (
         <>
             <div id={pathname === "/" ? "home_body" : ""}>
 
-                {(!auth || (auth && tokenIsValid)) && <Header/>}
-                
+                {(!auth || (auth && tokenIsValid)) && <Header />}
+
                 <main className="navigation_main">
                     {(!auth || (auth && tokenIsValid)) && <Child />}
                 </main>
-                
+
                 <Footer />
 
-                
+
             </div>
 
         </>

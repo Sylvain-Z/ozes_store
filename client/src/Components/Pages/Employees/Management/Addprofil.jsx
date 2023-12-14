@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useNavigate , Link } from "react-router-dom";
-import { v4 as uuidv4 } from 'uuid'; 
+import { useNavigate, Link } from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
+import { FETCH_URL } from '../../../../assets/const';
 
 function AddProfil() {
 
     const navigate = useNavigate();
 
-    const [ id, setId ]             = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
+    const [id, setId] = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
 
-    const [firstname, setFirstname]       = useState(""); // les states permettent de gérer le formulaire et son remplissage même s'il est vide
-    const [lastname, setLastname]       = useState("");
-    const [role, setRole]       = useState("");
-    const [email, setEmail]       = useState("");
+    const [firstname, setFirstname] = useState(""); // les states permettent de gérer le formulaire et son remplissage même s'il est vide
+    const [lastname, setLastname] = useState("");
+    const [role, setRole] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const [msg, setMsg] = useState(null);
@@ -19,7 +21,7 @@ function AddProfil() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/employees/signup", {
+        const res = await fetch(FETCH_URL + "employees/signup", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, firstname, lastname, role, email, password }),
@@ -27,9 +29,9 @@ function AddProfil() {
         const json = await res.json();
         setMsg(json.msg);
         setMsg2(json.msg2);
-        
+
         if (res.status === 201) {
-            setTimeout(()=>{ navigate("/employes/gestion-comptes")}, 2000)
+            navigate("/employes/gestion-comptes")
         }
     }
 
@@ -40,12 +42,12 @@ function AddProfil() {
 
             <section className="form_section">
 
-                    <h2 className="form_title">Créez le compte de votre collaborateur</h2>
+                <h2 className="form_title">Créez le compte de votre collaborateur</h2>
 
 
                 {msg && <p className="msg_red">{msg}</p>}
                 {msg2 && <p className="msg_green">{msg2}</p>}
-                
+
                 <form onSubmit={handleSubmit}>
 
                     <input
@@ -56,6 +58,7 @@ function AddProfil() {
                         onChange={(e) => setId(e.target.value)}
                     />
                     <input
+                        required
                         placeholder="Prénom"
                         type="text"
                         name="firstname"
@@ -63,6 +66,7 @@ function AddProfil() {
                         onChange={(e) => setFirstname(e.target.value)}
                     />
                     <input
+                        required
                         placeholder="Nom de famille"
                         type="text"
                         name="lastname"
@@ -70,13 +74,15 @@ function AddProfil() {
                         onChange={(e) => setLastname(e.target.value)}
                     />
                     <input
+                        required
                         placeholder="Role (1 : Admin, 2 : Modérateur)"
                         type="text"
                         name="role"
                         value={role}
-                        onChange={(e) => setRole(e.target.value)}
+                        onChange={(e) => setRole(e.target.value.replace(/[^0-9.]/g, ''))}
                     />
                     <input
+                        required
                         placeholder="Email"
                         type="email"
                         name="email"
@@ -84,6 +90,7 @@ function AddProfil() {
                         onChange={(e) => setEmail(e.target.value)}
                     />
                     <input
+                        required
                         placeholder="Mot de passe"
                         type="password"
                         name="password"

@@ -1,39 +1,42 @@
-import { Link  , useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { FETCH_URL } from '../../../../assets/const';
+
 import { addToCart } from "../../../../store/slices/cart";
 
-function AddToCartForm ({product}) {
+function AddToCartForm({ product }) {
 
-    const params   = useParams();
+    const params = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+
     const { cartInfo } = useSelector((state) => state.cart);  // reducer du panier
 
     const [sizes, setSizes] = useState(""); // affiche dynamiquement via la BDD les tailles disponible pour l'article
     const [sizesChoice, setSizesChoice] = useState(""); // sert à gérer le choix de taille dans le formulaire
 
-   const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState(null);
+    const [msg2, setMsg2] = useState(null);
 
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch("/api/v1/products/sizes/" + params.id);
-                if(sizes.status === 404) {
+                const sizes = await fetch(FETCH_URL + "products/sizes/" + params.id);
+                if (sizes.status === 404) {
                     navigate("/not-found");
                 }
-                if(sizes.status === 200){
+                if (sizes.status === 200) {
                     const json = await sizes.json();
                     setSizes(json);
                 }
-                } catch (error) {
-                    throw Error(error);
-                }
-                }
-                getData();
-                }, []);
+            } catch (error) {
+                throw Error(error);
+            }
+        }
+        getData();
+    }, []);
 
     function handleAddToCart(e) {
         e.preventDefault();
@@ -43,11 +46,11 @@ function AddToCartForm ({product}) {
         );
 
         let validSizeSelected = true; // empêche l'utilisateur de valider le formulaire sans avoir sélectionner une taille
-        
+
         if (!sizesChoice) {
             setMsg("Sélectionnez une taille !")
             validSizeSelected = false;
-            setTimeout(()=>{
+            setTimeout(() => {
                 setMsg("")
             }, 5000)
         }
@@ -56,11 +59,11 @@ function AddToCartForm ({product}) {
                 const newCart = {
                     product: [
                         ...cartInfo.product,
-                        {   
+                        {
                             ref: product.reference,
-                            product_id : product.product_id,
+                            product_id: product.product_id,
                             quantity: 1,
-                            size : sizesChoice,
+                            size: sizesChoice,
                             priceEach: parseFloat(product.price)
                         },
                     ],
@@ -82,43 +85,49 @@ function AddToCartForm ({product}) {
                 localStorage.setItem("cart", JSON.stringify(newCart));
                 dispatch(addToCart(newCart));
             }
+
+            setMsg2("Votre article a été ajouté au panier");
+            setTimeout(() => {
+                setMsg2("")
+            }, 5000)
         }
     };
 
     return (
         <>
             <form onSubmit={handleAddToCart} className="choose">
-                
-                
-                    <label for="size" >Taille</label>
-                    <select  
-                            selected
-                            name="size"
-                            className="options"
-                            onChange={(e) => setSizesChoice(e.target.value)}
-                    >
-                        <option value="rien" selected disabled > Selectionner la taille </option>
-                        {!sizes ? (
-                                    <>
-                                    <option value="Unique"> Taille Unique </option>
-                                    </>
-                                ) : ( sizes.map( (size) => (
-                                        <option
-                                            key={size.id}
-                                            value={size.label}
-                                        >
-                                            {size.label}
-                                        </option>
-                        )))}
-                    </select>
 
-                    
-                    {msg && <p className="msg_size">{msg}</p>}
+
+                <label htmlFor="size" >Taille</label>
+                <select
+                    selected
+                    name="size"
+                    className="options"
+                    onChange={(e) => setSizesChoice(e.target.value)}
+                >
+                    <option value="rien" selected disabled > Selectionner la taille </option>
+                    {!sizes ? (
+                        <>
+                            <option value="Unique"> Taille Unique </option>
+                        </>
+                    ) : (sizes.map((size) => (
+                        <option
+                            key={size.id}
+                            value={size.label}
+                        >
+                            {size.label}
+                        </option>
+                    )))}
+                </select>
+
+
+                {msg && <p className="msg_size">{msg}</p>}
+                {msg2 && <p className="msg_green">{msg2}</p>}
 
                 <button type="submit" class="add_to_cart">Ajouter au panier</button>
 
                 <p><Link to="/guide_des_tailles" className="page_product_links">Le guide des tailles</Link></p>
-            
+
             </form>
 
         </>

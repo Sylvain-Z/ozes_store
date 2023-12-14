@@ -1,5 +1,7 @@
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
+import { FETCH_URL } from '../../../assets/const';
+
 function PaymentForm() {
   
   const stripe = useStripe();
@@ -17,7 +19,7 @@ function PaymentForm() {
       // envoie du token au backend
       try {
         const { id } = paymentMethod;
-        const response = await fetch("/api/v1/stripe/charge", {
+        const response = await fetch(FETCH_URL + "stripe/charge", {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ amount: amount, id: id, returnUrl : "http://localhost:3000/le_store"}),  // mettre à jour l'url 

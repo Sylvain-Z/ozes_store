@@ -3,6 +3,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
+import { FETCH_URL } from '../../../../assets/const';
+
 import { signin } from "../../../../store/slices/user";
 
 function Form({ type }) {
@@ -22,7 +24,7 @@ function Form({ type }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/users/sign" + type, {
+        const res = await fetch(FETCH_URL + "users/sign" + type, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, pseudo, email, password }),

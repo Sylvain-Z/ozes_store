@@ -86,7 +86,7 @@ const signin = async (req, res) => {
 
 const getAllEmployees = async (req, res) => {
     
-    const queryEmployees = "SELECT * FROM employees";
+    const queryEmployees = "SELECT * FROM employees ORDER BY lastname";
     const [datas] = await Query.find(queryEmployees);
 
     res.status(200).json({ datas });
@@ -144,7 +144,7 @@ const updateInfo = async (req, res) => {
             postal_code: req.body.postal_code,
             city: req.body.city,
             phone: req.body.phone,
-            email: req.body.email,                   
+            email: req.body.email,           
                        };
         const query =
             "SELECT id, firstname, lastname, number, street, complement, postal_code, city, email phone FROM employees WHERE email = ?";

@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,8 +15,9 @@ function SignOut() {
   function navigateToStore() {
     localStorage.removeItem("auth");
     localStorage.removeItem("myuserid");
-    setTimeout(() => { navigate("/le_store") }
-      , 2000)
+    setTimeout(()=>
+    {navigate("/le_store")}
+    , 500);
   };
   navigateToStore();
 

@@ -1,9 +1,8 @@
-import React from 'react'
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { signout } from '../../../../store/slices/employees'
-import { useState } from 'react';
 
 function TakeOut() { // Takeout = Signout, nom modifié pour éviter l'amalgame avec l'App.jsx
 
@@ -18,7 +17,7 @@ function TakeOut() { // Takeout = Signout, nom modifié pour éviter l'amalgame 
     localStorage.removeItem("myemployeeid");
     setTimeout(()=>
     {navigate("/employes/connexion")}
-    , 2000)
+    , 500);
   };
   backToTakein();
 

@@ -4,19 +4,19 @@ import BackToStore from '../Containers/BackToStore/Index';
 
 import OeufUlule from '../../../assets/img/brand/OeufUlule_bulle.png';
 
-function Ulule(){
+function Ulule() {
 
     return (
         <>
             <article class="ulule_page">
                 <h2 class="ulule_page_title">WALL OF FAME</h2>
-                
+
                 <figure>
                     <Link to="https://fr.ulule.com/ozes-store/">
-                    <img src={OeufUlule} alt="Oeuf du site ulule sur fond bleu"/>
-                    <figcaption>
-                        <p>Voir la campagne de financement participatif</p>
-                    </figcaption></Link>
+                        <img src={OeufUlule} alt="Oeuf du site ulule sur fond bleu" />
+                        <figcaption>
+                            <p>Voir la campagne de financement participatif</p>
+                        </figcaption></Link>
                 </figure>
 
                 <p>Si votre nom apparaît ici c'est que vous nous avez aidé pour le lancement de notre marque en contribuant pour notre campagne Ulule. Nous vous en remercions infiniment !</p>
@@ -59,12 +59,12 @@ function Ulule(){
                     <li>Perrine</li>
                     <li>Franck</li>
                 </ul>
-                    
+
                 <h3>MERCI !</h3>
 
             </article>
 
-            <BackToStore/>
+            <BackToStore />
         </>
 
     )

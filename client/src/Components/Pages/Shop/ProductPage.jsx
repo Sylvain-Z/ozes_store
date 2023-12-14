@@ -1,6 +1,8 @@
 import { Link , useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import { FETCH_URL } from '../../../assets/const';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCottonBureau } from '@fortawesome/free-brands-svg-icons';
 
@@ -19,7 +21,7 @@ function ProductPage (){
     useEffect(() => {
         async function getData() {
             try {
-                const products = await fetch("/api/v1/products/" + params.title_url + "/" + params.id);
+                const products = await fetch(FETCH_URL + "products/" + params.title_url + "/" + params.id);
                 if(products.status === 404) {
                     navigate("/not-found");
                 }
@@ -27,7 +29,7 @@ function ProductPage (){
                     const json = await products.json();
                     setProducts(json);
 
-                    const pictures = await fetch("/api/v1/pictures/products/" + params.id );
+                    const pictures = await fetch(FETCH_URL + "pictures/products/" + params.id );
                         const jsonP = await pictures.json();
                         setPictures(jsonP);
                 }
@@ -47,7 +49,7 @@ function ProductPage (){
                     <Loading/>
 
                 ) : ( products.map( product =>
-                    <div className="product_page">
+                    <div className="product_page" key={product.id}>
                         <div className="shop">
                             
                             <div className="product_image_ctn">
@@ -57,7 +59,7 @@ function ProductPage (){
                                     {!pictures ? (
                                                 <></>
                                             ) : ( pictures.map( picture =>
-                                                    <img className="product_image_sub" src={`/${picture.file_name}`} alt={picture.caption}/>
+                                                    <img className="product_image_sub" src={`/${picture.file_name}`} alt={picture.caption} key={picture.id}/>
                                                     ))}
                                 </div>
                             </div>

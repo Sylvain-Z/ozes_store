@@ -2,12 +2,14 @@ import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
+import { FETCH_URL } from '../../../../assets/const';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage } from '@fortawesome/free-solid-svg-icons';
 
 function ContactForm(){
         
-      const [ id, setId ]             = useState(uuidv4().slice(0, 32)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
+      const [ id, setId ]             = useState(uuidv4().slice(0, 20)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
 
       const [user_pseudo, setUser_pseudo]       = useState("Invité");
       const [user_email, setUser_email]       = useState("");
@@ -19,7 +21,7 @@ function ContactForm(){
 
       async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch(`/api/v1/messages/write`, {
+        const res = await fetch(FETCH_URL + "messages/write", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id, user_pseudo, user_email, subject, content, user_id }),
@@ -56,7 +58,7 @@ function ContactForm(){
                               value={user_pseudo}
                               onChange={(e) => setUser_pseudo(e.target.value)}                          
                         />
-                        <label for="subject">Votre mail</label>
+                        <label htmlFor="subject">Votre mail</label>
                         <input
                               required
                               placeholder="Votre email"
@@ -65,7 +67,7 @@ function ContactForm(){
                               value={user_email}
                               onChange={(e) => setUser_email(e.target.value)}                          
                         />
-                        <label for="subject">Sujet</label>
+                        <label htmlFor="subject">Sujet</label>
                         <input
                               required
                               placeholder="Sujet"
@@ -74,7 +76,7 @@ function ContactForm(){
                               value={subject}
                               onChange={(e) => setSubject(e.target.value)}
                         />
-                        <label for="content">Message</label>
+                        <label htmlFor="content">Message</label>
                         <textarea className="form_input textarea"
                               required
                               placeholder="Votre message"

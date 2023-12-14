@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './style/App.css';
-import './style/App-tablet.css';
-import './style/App-laptop.css';
-import './style/App-desktop.css';
+import './style/App.scss';
+import './style/App-tablet.scss';
+import './style/App-laptop.scss';
+import './style/App-desktop.scss';
 import App from './App';
 import { Provider } from "react-redux";
 import { store } from "./store";

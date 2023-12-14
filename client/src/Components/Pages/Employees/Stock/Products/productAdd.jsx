@@ -1,49 +1,49 @@
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+import { FETCH_URL } from '../../../../../assets/const';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
-function ProductAdd (){
+function ProductAdd() {
 
     const navigate = useNavigate();
 
-    const [reference, setReference]             = useState(null); // gère les inputs du formulaire
-    const [title, setTitle]                     = useState(null);
-    const [title_url, setTitle_url]             = useState(null);
-    const [description, setDescription]         = useState(null);
-    const [price, setPrice]                     = useState(null);
-    const [color, setColor]                     = useState(null);
-    const [shape, setShape]                     = useState(null);
-    const [gender, setGender]                   = useState(null);
-    const [model_info, setModel_info]           = useState(null);
-    const [material, setMaterial]               = useState(null);
-    const [infosup, setInfosup]                 = useState(null);
-    const [infosupplus, setInfosupplus]         = useState(null);
-    const [madeplace, setMadeplace]             = useState(null);
+    const [reference, setReference] = useState(null); // gère les inputs du formulaire
+    const [title, setTitle] = useState(null);
+    const [title_url, setTitle_url] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [price, setPrice] = useState(null);
+    const [color, setColor] = useState(null);
+    const [shape, setShape] = useState(null);
+    const [gender, setGender] = useState(null);
+    const [model_info, setModel_info] = useState(null);
+    const [material, setMaterial] = useState(null);
+    const [infosup, setInfosup] = useState(null);
+    const [infosupplus, setInfosupplus] = useState(null);
+    const [madeplace, setMadeplace] = useState(null);
 
     const [msg, setMsg] = useState(null);
     const [msg2, setMsg2] = useState(null);
-    
+
     async function handleSubmit(e) {
         e.preventDefault();
-        const res = await fetch("/api/v1/products/add-product", { // insère le contenu du formulaire en base de donnée
+        const res = await fetch(FETCH_URL + "products/add-product", { // insère le contenu du formulaire en base de donnée
             method: "post",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ reference , title , title_url , description , price , color , shape , gender , model_info , material , infosup , infosupplus , madeplace }),
+            body: JSON.stringify({ reference, title, title_url, description, price, color, shape, gender, model_info, material, infosup, infosupplus, madeplace }),
         });
         const json = await res.json();
         setMsg(json.msg);
         setMsg2(json.msg2);
-        
+
         if (res.status === 201) {
-            setTimeout(()=>{
-                navigate("/employes/stock/attribuer-sous-catégorie");
-            }, 2000)
+             navigate("/employes/stock/attribuer-sous-catégorie");
         }
     }
-                
+
     return (
         <>
             <Link to="/employes/stock"><p className="previous_page">Retour à la liste des produits</p></Link>
@@ -53,11 +53,11 @@ function ProductAdd (){
                 <h3 className="form_title read">Ajouter un article à la boutique</h3>
 
                 <p className="form_advise">
-                            <em>Laisser vide les champs non pertinents</em></p>
+                    <em>Laisser vide les champs non pertinents</em></p>
 
                 <form onSubmit={handleSubmit}>
-                    
-                    <label for="reference">Référence *</label>
+
+                    <label htmlFor="reference">Référence *</label>
                     <input
                         required
                         placeholder="Référence du produit"
@@ -66,7 +66,7 @@ function ProductAdd (){
                         value={reference}
                         onChange={(e) => setReference(e.target.value)}
                     />
-                    <label for="title">Nom du produit *</label>
+                    <label htmlFor="title">Nom du produit *</label>
                     <input
                         required
                         placeholder="Nom du produit"
@@ -75,7 +75,7 @@ function ProductAdd (){
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
-                    <label for="title_url">Nom pour url *</label>
+                    <label htmlFor="title_url">Nom pour url *</label>
                     <input
                         required
                         placeholder="Nom pour url"
@@ -84,7 +84,7 @@ function ProductAdd (){
                         value={title_url}
                         onChange={(e) => setTitle_url(e.target.value.replace(/[^a-zA-Z_-]/g, ''))}
                     />
-                    <label for="description">Description du produit *</label>
+                    <label htmlFor="description">Description du produit *</label>
                     <textarea className="form_input textarea"
                         required
                         placeholder="Description du produit"
@@ -93,7 +93,7 @@ function ProductAdd (){
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                    <label for="price">Prix *</label>
+                    <label htmlFor="price">Prix *</label>
                     <input
                         required
                         placeholder="Prix"
@@ -102,7 +102,7 @@ function ProductAdd (){
                         value={price}
                         onChange={(e) => setPrice(e.target.value.replace(/[^0-9.]/g, ''))}
                     />
-                    <label for="color">Couleur</label>
+                    <label htmlFor="color">Couleur</label>
                     <input
                         placeholder="Couleur"
                         type="text"
@@ -110,7 +110,7 @@ function ProductAdd (){
                         value={color}
                         onChange={(e) => setColor(e.target.value)}
                     />
-                    <label for="shape">Coupe du produit</label>
+                    <label htmlFor="shape">Coupe du produit</label>
                     <input
                         placeholder="Coupe du produit"
                         type="text"
@@ -118,7 +118,7 @@ function ProductAdd (){
                         value={shape}
                         onChange={(e) => setShape(e.target.value)}
                     />
-                    <label for="gender">Genre</label>
+                    <label htmlFor="gender">Genre</label>
                     <input
                         placeholder="Genre"
                         type="text"
@@ -126,7 +126,7 @@ function ProductAdd (){
                         value={gender}
                         onChange={(e) => setGender(e.target.value)}
                     />
-                    <label for="model_info">Information sur le modèles</label>
+                    <label htmlFor="model_info">Information sur le modèles</label>
                     <input
                         placeholder="Information sur le modèles"
                         type="text"
@@ -134,7 +134,7 @@ function ProductAdd (){
                         value={model_info}
                         onChange={(e) => setModel_info(e.target.value)}
                     />
-                    <label for="material">Matière *</label>
+                    <label htmlFor="material">Matière *</label>
                     <input
                         required
                         placeholder="Matière"
@@ -143,7 +143,7 @@ function ProductAdd (){
                         value={material}
                         onChange={(e) => setMaterial(e.target.value)}
                     />
-                    <label for="infosup">Informations supplémentaire</label>
+                    <label htmlFor="infosup">Informations supplémentaire</label>
                     <textarea className="form_input textarea"
                         placeholder="Informations supplémentaire"
                         type="text"
@@ -151,7 +151,7 @@ function ProductAdd (){
                         value={infosup}
                         onChange={(e) => setInfosup(e.target.value)}
                     />
-                    <label for="infosupplus">Informations supplémentaire</label>
+                    <label htmlFor="infosupplus">Informations supplémentaire</label>
                     <textarea className="form_input textarea"
                         placeholder="Informations supplémentaire"
                         type="text"
@@ -159,8 +159,8 @@ function ProductAdd (){
                         value={infosupplus}
                         onChange={(e) => setInfosupplus(e.target.value)}
                     />
-                    
-                    <label for="madeplace">Lieu de fabrication</label>
+
+                    <label htmlFor="madeplace">Lieu de fabrication</label>
                     <input
                         placeholder="Lieu de fabrication"
                         type="text"
@@ -172,7 +172,7 @@ function ProductAdd (){
                     {msg && <p className="msg_red">{msg}</p>}
                     {msg2 && <p className="msg_green">{msg2}</p>}
 
-                    <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen"/></button>
+                    <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen" /></button>
                     <Link to={`/employes/stock/`} className="button_retour_rouge"><p ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></p></Link>
 
                 </form>

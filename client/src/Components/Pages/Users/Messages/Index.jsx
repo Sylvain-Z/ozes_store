@@ -1,5 +1,8 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+
+import { FETCH_URL } from '../../../../assets/const';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -22,15 +25,21 @@ function SendMessages() {
       const [user_email, setUser_email] = useState("");
       const [subject, setSubject] = useState("");
       const [content, setContent] = useState("");
-      const [user_id, setUser_id] = useState("");
-      const [msg, setMsg] = useState(null);
+      const [user_id, setUser_id] = useState(null);
+      const [msg, setMsg] = useState("");
 
       const [messages, setMessages] = useState(""); // stocke des messages de l'usager
 
       useEffect(() => {
             async function getData() {
                   try {
-                        const users = await fetch("/api/v1/users/" + myuserid);
+                        let id = "";
+                        if (!myuserid) {
+                              return
+                        } else {
+                              id = myuserid;
+                        }
+                        const users = await fetch(FETCH_URL + "users/" + id);
 
                         if (users.status === 200) {
                               const json = await users.json();
@@ -39,7 +48,7 @@ function SendMessages() {
                               setUser_email(json[0].email);
                               setUser_id(json[0].id);
 
-                              const messages = await fetch("/api/v1/messages/user-read/" + params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
+                              const messages = await fetch(FETCH_URL + "messages/user-read/" + params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
 
                               if (messages.status === 200) {
                                     const json = await messages.json();
@@ -59,7 +68,7 @@ function SendMessages() {
 
       async function handleSubmit(e) {
             e.preventDefault();
-            const res = await fetch(`/api/v1/messages/write`, {
+            const res = await fetch(FETCH_URL +"messages/write", {
                   method: "post",
                   headers: { "Content-Type": "application/json" },
                   body: JSON.stringify({ id, user_pseudo, user_email, subject, content, user_id }),
@@ -75,10 +84,12 @@ function SendMessages() {
                         <Loading />
                   ) : (users.map(user =>
 
-                        <>
-                              <PreviousPage user={user} />
 
-                              <section className="form_section">
+                        <React.Fragment key={user.id}>
+
+                              <PreviousPage user={user} key={user.id} />
+
+                              <section className="form_section" key={user.id}>
 
                                     <FontAwesomeIcon icon={faMessage} className="fontawesome fontawesomeYellow" />
 
@@ -89,7 +100,7 @@ function SendMessages() {
                                           {msg && <p className="msg_green">{msg}</p>}
 
                                           <input
-                                                placeholder="ID du client"
+                                                placeholder="ID du message"
                                                 type="hidden"
                                                 name="id"
                                                 value={id}
@@ -148,7 +159,7 @@ function SendMessages() {
                               <UserMsgRead messages={messages} />
 
                               <BackToStore />
-                        </>
+                        </React.Fragment>
                   ))}
 
             </>

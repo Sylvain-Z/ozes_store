@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
+import { FETCH_URL } from '../../../../assets/const';
+
 import Loading from "../Loading/Index";
 
 function Suggestion() {
@@ -11,7 +13,7 @@ function Suggestion() {
         async function getData() {
             try {
                 const products = await (
-                    await fetch("/api/v1/products/random") // récupère aléatoirement 4 produits de la base de données
+                    await fetch(FETCH_URL + "products/random") // récupère aléatoirement 4 produits de la base de données
                 ).json();
                 setProducts(products.datas);
 
@@ -31,7 +33,7 @@ function Suggestion() {
                         <Loading />
                     ) : (products.map(product =>
 
-                        <Link to={`/le_store/${product.title_url}/${product.id}`} className='suggestion_link'>
+                        <Link to={`/le_store/${product.title_url}/${product.id}`} className='suggestion_link' key={product.id}>
                             <img src={`/${product.file_name}`} alt={product.caption} />
                         </Link>
                     ))}

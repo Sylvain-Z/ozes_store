@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+import { FETCH_URL } from '../../../../../assets/const';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -7,35 +9,35 @@ import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import AddCategories from "./Addcategories";
 import AddSubcategories from "./AddSubcategories";
 
-function Categories () {
+function Categories() {
 
-    const [ inputHidden, setInptuHidden ] = useState(false); // gère la dissimulation et l'apparition des pictogrammes faTrashCan 
+    const [inputHidden, setInptuHidden] = useState(false); // gère la dissimulation et l'apparition des pictogrammes faTrashCan 
     const toggleInput = () => setInptuHidden(!inputHidden);
 
     const navigate = useNavigate();
-    const [ categories, setCategories ] = useState(null);  // récupère toutes les catégories en base de données
-    const [ subcategories, setSubcategories ] = useState(null); // récupère toutes les sous catégories en base de données
+    const [categories, setCategories] = useState(null);  // récupère toutes les catégories en base de données
+    const [subcategories, setSubcategories] = useState(null); // récupère toutes les sous catégories en base de données
 
     useEffect(() => {
         async function getData() {
-            try {                
-                const categories = await fetch("/api/v1/categories/categories");
-                if(categories.status === 404) {
+            try {
+                const categories = await fetch(FETCH_URL + "categories/categories");
+                if (categories.status === 404) {
                     navigate("/employes/not-found");
                 }
-                if(categories.status === 200){
+                if (categories.status === 200) {
                     const json = await categories.json();
                     setCategories(json.datas);
                 }
-                const subcategories = await fetch("/api/v1/categories/subcategories");
-                if(subcategories.status === 404) {
+                const subcategories = await fetch(FETCH_URL + "categories/subcategories");
+                if (subcategories.status === 404) {
                     navigate("/employes/not-found");
                 }
-                if(subcategories.status === 200){
+                if (subcategories.status === 200) {
                     const json = await subcategories.json();
                     setSubcategories(json.datas);
                 }
-                        
+
             } catch (error) {
                 throw Error(error);
             }
@@ -53,43 +55,43 @@ function Categories () {
                 <h2>Catégories</h2>
 
                 <div className='categories_actions'>
-                    <AddCategories/>
-                    <AddSubcategories categories={categories}/>
+                    <AddCategories />
+                    <AddSubcategories categories={categories} />
                 </div>
 
                 <div className='cate_display'>
                     <p className='title_p'>Catégories</p>
                     {!categories ? (
-                                        <>
-                                            <p>Pas de catégories existanttes</p>
-                                        </>
-                                    ) : ( categories.map(categorie =>
-                                        <>
-                                            <div className='cate'>
-                                                    <p className='cate_title'>{categorie.cate_title}</p>
-                                                    
-                                                    <Link to={`/employes/stock/categories/categories/delete/${categorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
-                                            </div>
-                                                
-                                        </>
-                                    ))}
+                        <>
+                            <p>Pas de catégories existanttes</p>
+                        </>
+                    ) : (categories.map(categorie =>
+                        <>
+                            <div className='cate' key={categorie.id}>
+                                <p className='cate_title'>{categorie.cate_title}</p>
+
+                                <Link to={`/employes/stock/categories/categories/delete/${categorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
+                            </div>
+
+                        </>
+                    ))}
                 </div>
 
                 <div className='cate_display'>
                     <p className='title_p'>Sous-catégories</p>
                     {!subcategories ? (
-                                        <>
-                                            <p>Pas de sous-catégories existanttes</p>
-                                        </>
-                                    ) : ( subcategories.map(subcategorie =>
-                                        <>
-                                            <div className='cate'>
-                                                    <p className='cate_title'>{subcategorie.subcate_title}</p>
-                                                    <Link to={`/employes/stock/categories/subcategories/delete/${subcategorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
-                                            </div>
-                                                
-                                        </>
-                                    ))}
+                        <>
+                            <p>Pas de sous-catégories existanttes</p>
+                        </>
+                    ) : (subcategories.map(subcategorie =>
+                        <>
+                            <div className='cate' key={subcategorie.id}>
+                                <p className='cate_title'>{subcategorie.subcate_title}</p>
+                                <Link to={`/employes/stock/categories/subcategories/delete/${subcategorie.id}`} className={!inputHidden ? "hidden" : "faTrashCan"}><p ><FontAwesomeIcon icon={faTrashCan} size="xs" className="fontawesomeRed " /></p></Link>
+                            </div>
+
+                        </>
+                    ))}
                 </div>
 
                 <div className='categories_actions'>
@@ -98,9 +100,9 @@ function Categories () {
                             <p className='reserve_btn red'><FontAwesomeIcon icon={faTrashCan} size="xs" className="faIcon" />Supprimer</p>
                         </button>
                     </div>
-                </div>  
+                </div>
             </section>
-        
+
         </>
     )
 };

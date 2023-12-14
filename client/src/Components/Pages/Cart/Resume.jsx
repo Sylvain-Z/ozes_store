@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation , useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
+
+import { FETCH_URL } from '../../../assets/const';
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -66,7 +68,13 @@ function Resume() {
   useEffect(() => {
     async function getData() { // récupère les informations de livraison de l'usager qui est connecté à son compte
       try {
-        const users = await fetch("/api/v1/users/" + myuserid);
+        let id = "";
+        if (!myuserid) {
+          return
+        } else {
+          id = myuserid;
+        }
+        const users = await fetch(FETCH_URL + "users/" + id);
         if (users.status === 200) {
           const json = await users.json();
           setUsers(json);
@@ -163,7 +171,7 @@ function Resume() {
       // envoie du token au backend
       try {
         const { id } = paymentMethod;
-        const response = await fetch("/api/v1/stripe/charge", {
+        const response = await fetch(FETCH_URL + "stripe/charge", {
           method: "post",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ amount: amount, id: id, returnUrl: "http://localhost:3000/le_store" }),  // mettre à jour l'url 
@@ -171,7 +179,7 @@ function Resume() {
 
         // envoie de la commande en base de données Version Local Storage
         if (!users && userLS.lastname) { // si l'usager n'est pas connecté et a renseigné ses informations de livraison dans le local storage c'est ce code qui sera exécuté
-          const res = await fetch("/api/v1/orders/new_orderLS", {
+          const res = await fetch(FETCH_URL + "orders/new_orderLS", {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userLs_Id, firstname, lastname, email, number, street, complement, postal_code, city, phone, order_price, cart: cart }),
@@ -181,14 +189,12 @@ function Resume() {
 
           if (res.status === 201) {
             localStorage.removeItem("cart"); // vide le panier
-            setTimeout(() => {
-              navigate("/remerciements");
-            }, 2000)
+            navigate("/remerciements");
           }
         }
         // envoie de la commande en base de données Version Compte Client
         if (users) {
-          const res = await fetch("/api/v1/orders/new_order", { // si l'usager est connecté c'est ce code qui sera exécuté
+          const res = await fetch(FETCH_URL + "orders/new_order", { // si l'usager est connecté c'est ce code qui sera exécuté
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ order_price, user_id, cart: cart }),

@@ -8,9 +8,9 @@ const app = express();
 const PORT = process.env.PORT || process.env.LOCAL_PORT;
 
 app.use(express.static("public/store"));
-app.use(cors({
+app.use(cors(/* {
     origin: "http://localhost:3000"
-}));
+} */));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 

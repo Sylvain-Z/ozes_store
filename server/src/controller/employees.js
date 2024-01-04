@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import jsonwebtoken from "jsonwebtoken";
 
 const { sign } = jsonwebtoken;
-const { SK }   = process.env;
+const { SK_EMPL }  = process.env;
 const SALT = 10;
 
 const check_token = async (req, res) => {
@@ -23,7 +23,21 @@ const createAccount = async (req, res) => {
         let msg2 = "";
         const datas = {
             email: req.body.email,
+            password: req.body.password,
         };
+
+        // Expression régulière pour la validation du format des champs
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,12}$/; 
+
+        if (!emailRegex.test(datas.email)) {
+            return res.status(400).json({ msg: "L'email n'est pas dans un format valide"})
+        }
+        if (!passwordRegex.test(datas.password)) {
+            return res.status(400).json({ msg: "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un caractère spécial et a une longueur comprise entre 8 et 12 caractères."})
+        }
+
+        // Vérification de l'unicité de l'email
         const queryEmployyees =
             "SELECT email FROM employees WHERE email = ?";
         const [employees] = await Query.findByDatas(queryEmployyees, datas);
@@ -32,7 +46,7 @@ const createAccount = async (req, res) => {
             msg = "Un collaborateur avec cet email existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!employees.length) {
+        } else {
             const datas = {
                 id: req.body.id,
                 firstname: req.body.firstname,
@@ -68,14 +82,14 @@ const signin = async (req, res) => {
             const matchPassword = await bcrypt.compare(req.body.password, employees[0].password);
             
             if (matchPassword){
-            const TOKEN = sign({ lastname: employees[0].email }, SK);
-            res.status(200).json({ msg, TOKEN });
+            const TOKEN_EMPL = sign({ email: employees[0].email }, SK_EMPL);
+            res.status(200).json({ msg, TOKEN_EMPL });
             } else {
-                msg2 = "Mot de passe incorrecte";
+                msg2 = "L'email ou le mot de passe est incorrecte";
                 res.status(401).json({msg2})
             }
 
-        } else if (!employees.length) {
+        } else {
             msg2 = "L'email ou le mot de passe est incorrecte";
             res.status(409).json({ msg2 });
         }
@@ -99,8 +113,7 @@ const getByEmail = async (req, res) => {
 
     if(!employees.length){
         res.status(404).json({msg: "utilisateur non reconnu"})
-    }
-    if(employees.length) {        
+    } else {        
         res.status(200).json(employees);
         return;
     } 
@@ -112,8 +125,7 @@ const getEmployeeGlimpse = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -125,8 +137,7 @@ const getById = async (req, res) => {
     const [employees] = await Query.findByDatas(query, req.params);
     if(!employees.length){
         res.status(404).json({msg: "donnée non reconnu"})
-    }
-    if(employees.length) {        
+    } else {        
         res.status(200).json(employees);
         return;
     }  

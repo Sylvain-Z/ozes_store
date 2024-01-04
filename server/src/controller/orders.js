@@ -7,8 +7,7 @@ const getProductCartByRef = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     } 
@@ -130,8 +129,7 @@ const getOrdersByID = async (req, res) => {  // pas paramétré
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produits non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -145,8 +143,7 @@ const getUserOrders = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produits non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -161,8 +158,7 @@ const getOrdersByUserID = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produits non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  

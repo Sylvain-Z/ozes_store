@@ -52,8 +52,7 @@ const getProductsDetails = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }
@@ -67,8 +66,7 @@ const getQuantitybyId = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -82,8 +80,7 @@ const getSizesByProductId = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "tailles non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -98,8 +95,7 @@ const getProductsCart = async (req, res) => {
     const [datas] = await Query.findByDatas(query);
     if(!datas.length){
         res.status(404).json({msg: "produit non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -114,8 +110,7 @@ const getLastId = async (req, res) => {
     const [datas] = await Query.find(query);
     if(!datas.length){
         res.status(404).json({msg: "données non reconnue"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }
@@ -141,8 +136,7 @@ const getProdSubcateById = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "donnée non reconnu"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }
@@ -179,7 +173,7 @@ const AddProduct = async (req, res) => {
             msg = "Un produit avec cette référence existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!product.length) {
+        }  else {
             const datas = {
                 reference: req.body.reference,
                 title: req.body.title,

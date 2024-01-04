@@ -17,7 +17,14 @@ function Profil() {
   useEffect(() => {
     async function getData() {
       try {
-        const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id);
+        const TOKEN_EMPL = localStorage.getItem('authe');
+        const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
+      });
         if (employees.status === 200) {
           const json = await employees.json();
           setEmployees(json);

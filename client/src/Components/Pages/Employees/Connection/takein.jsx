@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { FETCH_URL } from '../../../../assets/const';
 
-import { signin } from "../../../../store/slices/employees";
+import { signin } from "../../../../store/slices/employee";
 
 function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame avec l'App.jsx
 
@@ -30,7 +30,7 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
         setMsg2(json.msg2);
 
         if (res.status === 200) {
-            localStorage.setItem("authe", json.TOKEN);
+            localStorage.setItem("authe", json.TOKEN_EMPL);
             localStorage.setItem("myemployeeid", email);
             dispatch(signin({ email }));
             navigate("/employes");

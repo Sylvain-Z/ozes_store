@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect , React } from "react";
+import { useState, useEffect } from "react";
+import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
 
@@ -27,7 +28,7 @@ function DeliveryUpdate() {
   const [id, setId] = useState("");
   const [msg, setMsg] = useState(null);
 
-
+  const TOKEN = localStorage.getItem('auth');
   const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
@@ -39,7 +40,13 @@ function DeliveryUpdate() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`,
+          }
+        });
 
         if (users.status === 200) {
           const json = await users.json();
@@ -69,8 +76,11 @@ function DeliveryUpdate() {
   async function handleSubmit(e) {
     e.preventDefault();
     const res = await fetch(FETCH_URL + "users/infos-livraison-update/" + myuserid, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authentication': `Bearer ${TOKEN}`,
+      },
       body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, pseudo }),
     });
     const json = await res.json();
@@ -95,20 +105,20 @@ function DeliveryUpdate() {
             <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
             <h3 className="form_title update">Modification de vos informations de livraison</h3>
 
-            {msg && <p className="msg_green">{msg}</p>}
-
             <form onSubmit={handleSubmit}>
 
-              <label for="firstname">Prénom</label>
+              <label htmlFor="firstname">Prénom *</label>
               <input
+                required
                 placeholder="Votre prénom"
                 type="text"
                 name="firstname"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
               />
-              <label for="lastname">Nom</label>
+              <label htmlFor="lastname">Nom *</label>
               <input
+                required
                 placeholder="Votre nom"
                 type="text"
                 name="lastname"
@@ -118,23 +128,25 @@ function DeliveryUpdate() {
 
               <p className="form_subtitle read">Votre Adresse</p>
 
-              <label for="number">Numéro de la rue</label>
+              <label htmlFor="number">Numéro de la rue *</label>
               <input
+                required
                 placeholder="Numéro de la rue"
                 type="text"
                 name="number"
                 value={number}
                 onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ''))}
               />
-              <label for="street">Nom de la rue</label>
+              <label htmlFor="street">Nom de la rue *</label>
               <input
+                required
                 placeholder="Nom de la rue"
                 type="text"
                 name="street"
                 value={street}
                 onChange={(e) => setStreet(e.target.value)}
               />
-              <label for="complement">Complément d'adresse</label>
+              <label htmlFor="complement">Complément d'adresse</label>
               <input
                 placeholder="Complément d'adresse"
                 type="text"
@@ -142,23 +154,25 @@ function DeliveryUpdate() {
                 value={complement}
                 onChange={(e) => setComplement(e.target.value)}
               />
-              <label for="postal_code">Code postal</label>
+              <label htmlFor="postal_code">Code postal *</label>
               <input
+                required
                 placeholder="Code postal"
                 type="text"
                 name="postal_code"
                 value={postal_code}
                 onChange={(e) => setPostal_code(e.target.value.replace(/[^0-9]/g, ''))}
               />
-              <label for="city">Ville</label>
+              <label htmlFor="city">Ville *</label>
               <input
+                required
                 placeholder="Ville"
                 type="text"
                 name="city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               />
-              <label for="city">Numéro de téléphone sans espaces</label>
+              <label htmlFor="city">Numéro de téléphone sans espaces</label>
               <input
                 placeholder="Votre numéro de téléphone (non obligatoire)"
                 type="tel"
@@ -167,10 +181,7 @@ function DeliveryUpdate() {
                 pattern="\+\d{11}"
                 onChange={(e) => setPhone(e.target.value.replace(/[^0-9+]/g, ''))}
               />
-
-              {msg && <p className="msg_green">{msg}</p>}
-
-              {/* <label for="pseudo">Votre pseudo</label> */}
+              {/* <label htmlFor="pseudo">Votre pseudo</label> */}
               <input
                 placeholder="Votre pseudo"
                 type="hidden"
@@ -178,6 +189,8 @@ function DeliveryUpdate() {
                 value={pseudo}
                 onChange={(e) => setPseudo(e.target.value)}
               />
+
+              {msg && <p className="msg_green">{msg}</p>}
 
               <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen" /></button>
               <p className="button_retour_rouge"><Link to={`/utilisateurs/infos-livraison/${user.id}`} ><FontAwesomeIcon icon={faDeleteLeft} className="fontawesomeRed " /></Link></p>

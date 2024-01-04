@@ -17,9 +17,9 @@ function Form({ type }) {
     const [email, setEmail]         = useState("");
     const [password, setPassword]   = useState("");
 
-    const [msg, setMsg]     = useState(null);
-    const [msg2, setMsg2]   = useState(null);
-    const [msg3, setMsg3]   = useState(null);
+    const [msg, setMsg]     = useState("");
+    const [msg2, setMsg2]   = useState("");
+    const [msg3, setMsg3]   = useState("");
 
 
     async function handleSubmit(e) {
@@ -40,9 +40,8 @@ function Form({ type }) {
             dispatch(signin({ email }));
             navigate("/");
         }
-
         if (type === "up" && res.status === 201) {
-            navigate("/utilisateurs/creer-un-compte");
+            navigate("/utilisateurs/connexion");
         }
     }
 
@@ -83,12 +82,12 @@ function Form({ type }) {
                                 type="hidden"
                                 name="id"
                                 value={id}
-                                onChange={(e) => setId(e.target.value.replace)}
+                                onChange={(e) => setId(e.target.value)}
                             />
                             <input
                                 required
                                 placeholder="Votre email"
-                                type="email"
+                                type="text" // vérification du format de l'entrée de l'utilisateur côté server
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}

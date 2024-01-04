@@ -11,7 +11,7 @@ function ProductAddSizes() {
 
     const params = useParams();
 
-    const [sizes, setSizes] = useState(""); // affiche les tailles existante du produit
+    const [sizes, setSizes] = useState(""); // affiche les tailles existantes du produit
 
     const [label, setLabel] = useState(""); // gèrent le formulaire
     const [quantity, setQuantity] = useState("");
@@ -23,7 +23,14 @@ function ProductAddSizes() {
     useEffect(() => {
         async function getData() {
             try {
-                const size = await fetch(FETCH_URL + "sizes/" + params.id);
+                const TOKEN_EMPL = localStorage.getItem('authe');
+                const size = await fetch(FETCH_URL + "sizes/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
                 const json = await size.json();
                 setSizes(json);
                 setProduct_id(json[0].product_id);
@@ -38,9 +45,13 @@ function ProductAddSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "sizes/add-sizes/" + params.id, {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ label, quantity, product_id }),
         });
         const json = await res.json();

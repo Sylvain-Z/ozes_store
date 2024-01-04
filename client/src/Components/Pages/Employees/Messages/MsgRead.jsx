@@ -14,7 +14,14 @@ function MsgRead() {
     useEffect(() => {
         async function getData() {
             try {
-                const messages = await fetch(FETCH_URL + "messages/all");   // affiche tous les messages en BDD
+                const TOKEN_EMPL = localStorage.getItem('authe');
+                const messages = await fetch(FETCH_URL + "messages/all", {   // affiche tous les messages en BDD
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
 
                 if (messages.status === 200) {
                     const json = await messages.json();

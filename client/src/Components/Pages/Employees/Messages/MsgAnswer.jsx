@@ -20,8 +20,14 @@ function MsgAnswer() {
 
     useEffect(() => {
         async function getData() {
-            try {
-                const messages = await fetch(FETCH_URL + "messages/employees-read/" + params.id); // récupère les messages par rapport au messages.id
+            try {const TOKEN_EMPL = localStorage.getItem('authe');
+                const messages = await fetch(FETCH_URL + "messages/employees-read/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // récupère les messages par rapport au messages.id
 
                 if (messages.status === 200) {
                     const json = await messages.json();
@@ -38,10 +44,13 @@ function MsgAnswer() {
     }, []);
 
     async function handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault();const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "messages/answer/" + params.id, { // envoie la réponse au message par rapport au messages.id
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ answer, id }),
         });
         const json = await res.json();

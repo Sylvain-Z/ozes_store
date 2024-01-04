@@ -20,7 +20,14 @@ function DeleteSizes() {
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id); // récupère la taille en fonction de l'id du produit et de l'id de la taille
+                const TOKEN_EMPL = localStorage.getItem('authe');
+                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // récupère la taille en fonction de l'id du produit et de l'id de la taille
                 if (sizes.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -40,9 +47,13 @@ function DeleteSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "sizes/delete/" + params.product_id + "/" + params.size_id, { // supprime la taille en fonction de l'id du produit et de l'id de la taille
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, id }),
         });
         const json = await res.json();

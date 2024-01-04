@@ -46,8 +46,12 @@ function ProductUpdatePic() {
         formData.append('caption', alt)
 
         try {
+            const TOKEN_EMPL = localStorage.getItem('authe');
             const res = await fetch(FETCH_URL + "pictures/add-pictures/" + params.id, {  // ajoute l'image par rapport au product id
-                headers: { enctype: "multipart/form-data" },
+                headers: {
+                    enctype: "multipart/form-data",
+                    'Authentication': `Bearer ${TOKEN_EMPL}`,
+                },
                 method: 'POST',
                 body: formData,
             });

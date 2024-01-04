@@ -9,12 +9,11 @@ import user_logout from '../../assets/img/user_logout.png';
 import LogoPeQ from '../../assets/img/LogoPeQ.png';
 
 function Header() {
-    
+
     const { pathname } = useLocation();
 
     const [employees, setEmployees] = useState(null);
-    const myemployeeid = localStorage.getItem("myemployeeid");  // récupère le pseudo de l'usager stocké lors du signin
-
+    const myemployeeid = localStorage.getItem("myemployeeid");  // récupère l'email de l'usager stocké lors du signin
 
     useEffect(() => {
         async function getData() {
@@ -25,7 +24,15 @@ function Header() {
                 } else {
                     id = myemployeeid;
                 }
-                const employees = await fetch(FETCH_URL + "employees/" + id);
+
+                const TOKEN_EMPL = localStorage.getItem('authe');
+                const employees = await fetch(FETCH_URL + "employees/" + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`
+                    }
+                });
 
                 if (employees.status === 200) {
                     const json = await employees.json();
@@ -58,7 +65,7 @@ function Header() {
                                     <>
                                         <img className="picto_header" src={user_in} alt="pictogramme de tête" />
                                         <NavLink to="/employes" className="navlink_employees">Tableau de bord</NavLink>
-                                        <Link to={"/employes/deconnexion"} title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
+                                        <Link to="/employes/deconnexion" title="Se déconnecter"><img className="picto_header" src={user_logout} alt="pictogramme de tête" /></Link>
                                     </>
                                 )
                                 }

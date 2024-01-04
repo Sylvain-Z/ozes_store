@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect, React } from "react";
+import { useState, useEffect } from "react";
+import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
 
@@ -25,7 +26,14 @@ function Delivery() {
                         } else {
                               id = myuserid;
                         }
-                        const users = await fetch(FETCH_URL + "users/" + id);
+                        const TOKEN = localStorage.getItem('auth');
+                        const users = await fetch(FETCH_URL + "users/" + id, {
+                              method: 'GET',
+                              headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authentication': `Bearer ${TOKEN}`
+                              }
+                        });
 
                         if (users.status === 200) {
                               const json = await users.json();
@@ -63,7 +71,7 @@ function Delivery() {
 
                               <section className="form_section">
 
-                                    {!cart ? (<></>) : (<BackToCart />)} {/* Affiche un lien vers une page avancée du panier celui-ci contient des articles  */}
+                                    {!cart.lenght ? (<></>) : (<BackToCart />)} {/* Affiche un lien vers une page avancée du panier celui-ci contient des articles  */}
 
                                     <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
                                     <h3 className="form_title read">Vos informations de livraison</h3>

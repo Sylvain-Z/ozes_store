@@ -163,9 +163,9 @@ $White : rgb(240, 240, 240);
     }
 
     /* PAGES UTILISATEUR */
-
-    .dashboard_tabs {
-        width: 30%;
+    
+    .dashboard_nav {
+        width: 40%;
     }
 
     /* PAGES EMPLOYES */
@@ -200,7 +200,7 @@ $White : rgb(240, 240, 240);
     .display_cart {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
     }
     .cart_ctn-cart, .address {
         width: 65%;
@@ -209,7 +209,7 @@ $White : rgb(240, 240, 240);
     .cart_ctn-resume {
         width: 30%;
     }
-    .cart, .resume {
+    .cart, .resume, .payment {
         width: 100%;
     }
     .address {

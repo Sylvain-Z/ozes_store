@@ -16,14 +16,18 @@ function AddProfil() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [msg, setMsg] = useState(null);
-    const [msg2, setMsg2] = useState(null);
+    const [msg, setMsg] = useState("");
+    const [msg2, setMsg2] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "employees/signup", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id, firstname, lastname, role, email, password }),
         });
         const json = await res.json();
@@ -84,7 +88,7 @@ function AddProfil() {
                     <input
                         required
                         placeholder="Email"
-                        type="email"
+                        type="text"  // vérification du format de l'entrée de l'utilisateur côté server
                         name="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

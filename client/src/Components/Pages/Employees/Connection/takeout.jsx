@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { signout } from '../../../../store/slices/employees'
+import { signout } from '../../../../store/slices/employee'
 
 function TakeOut() { // Takeout = Signout, nom modifié pour éviter l'amalgame avec l'App.jsx
 

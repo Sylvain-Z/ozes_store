@@ -30,9 +30,13 @@ function ProductAdd() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "products/add-product", { // insère le contenu du formulaire en base de donnée
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ reference, title, title_url, description, price, color, shape, gender, model_info, material, infosup, infosupplus, madeplace }),
         });
         const json = await res.json();
@@ -40,7 +44,7 @@ function ProductAdd() {
         setMsg2(json.msg2);
 
         if (res.status === 201) {
-             navigate("/employes/stock/attribuer-sous-catégorie");
+            navigate("/employes/stock/attribuer-sous-catégorie");
         }
     }
 

@@ -16,6 +16,7 @@ import UserMsgRead from './UserMsgRead';
 
 function SendMessages() {
 
+      const TOKEN = localStorage.getItem('auth');
       const myuserid = localStorage.getItem("myuserid");
       const params = useParams();
 
@@ -39,7 +40,13 @@ function SendMessages() {
                         } else {
                               id = myuserid;
                         }
-                        const users = await fetch(FETCH_URL + "users/" + id);
+                        const users = await fetch(FETCH_URL + "users/" + id, {
+                              method: 'GET',
+                              headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authentication': `Bearer ${TOKEN}`,
+                              }
+                        });
 
                         if (users.status === 200) {
                               const json = await users.json();
@@ -48,7 +55,13 @@ function SendMessages() {
                               setUser_email(json[0].email);
                               setUser_id(json[0].id);
 
-                              const messages = await fetch(FETCH_URL + "messages/user-read/" + params.id);  // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
+                              const messages = await fetch(FETCH_URL + "messages/user-read/" + params.id, { // c'est l'id qui récupère les messages car si un nouvel utilisateur se crée un compte avec me même pseudo, il aura accès aux messages du compte qui a été préalablement supprimé
+                                    method: 'GET',
+                                    headers: {
+                                          'Content-Type': 'application/json',
+                                          'Authentication': `Bearer ${TOKEN}`,
+                                    }
+                              });
 
                               if (messages.status === 200) {
                                     const json = await messages.json();
@@ -68,9 +81,12 @@ function SendMessages() {
 
       async function handleSubmit(e) {
             e.preventDefault();
-            const res = await fetch(FETCH_URL +"messages/write", {
-                  method: "post",
-                  headers: { "Content-Type": "application/json" },
+            const res = await fetch(FETCH_URL + "messages/write", {
+                  method: "POST",
+                  headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN}`,
+                  },
                   body: JSON.stringify({ id, user_pseudo, user_email, subject, content, user_id }),
             });
             const json = await res.json();
@@ -97,8 +113,6 @@ function SendMessages() {
 
                                     <form onSubmit={handleSubmit}>
 
-                                          {msg && <p className="msg_green">{msg}</p>}
-
                                           <input
                                                 placeholder="ID du message"
                                                 type="hidden"
@@ -124,7 +138,7 @@ function SendMessages() {
                                                 value={user_email}
                                                 onChange={(e) => setUser_email(e.target.value)}
                                           />
-                                          <label for="subject">Sujet</label>
+                                          <label htmlFor="subject">Sujet</label>
                                           <input
                                                 required
                                                 placeholder="Sujet"
@@ -133,7 +147,7 @@ function SendMessages() {
                                                 value={subject}
                                                 onChange={(e) => setSubject(e.target.value)}
                                           />
-                                          <label for="content">Message</label>
+                                          <label htmlFor="content">Message</label>
                                           <textarea className="form_input textarea"
                                                 required
                                                 placeholder="Votre message"
@@ -150,6 +164,8 @@ function SendMessages() {
                                                 value={user_id}
                                                 onChange={(e) => setUser_id(e.target.value)}
                                           />
+
+                                          {msg && <p className="msg_green">{msg}</p>}
 
                                           <button type="submit">Envoyer</button>
 

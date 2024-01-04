@@ -13,22 +13,22 @@ function ProductUpdate({ products }) {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [id, setId] = useState(null);  // stockent les infos du produit pour injecter dans les inputs
-    const [reference, setReference] = useState(null);
-    const [title, setTitle] = useState(null);
-    const [title_url, setTitle_url] = useState(null);
-    const [description, setDescription] = useState(null);
-    const [price, setPrice] = useState(null);
-    const [color, setColor] = useState(null);
-    const [shape, setShape] = useState(null);
-    const [gender, setGender] = useState(null);
-    const [model_info, setModel_info] = useState(null);
-    const [material, setMaterial] = useState(null);
-    const [infosup, setInfosup] = useState(null);
-    const [infosupplus, setInfosupplus] = useState(null);
-    const [madeplace, setMadeplace] = useState(null);
+    const [id, setId] = useState("");  // stockent les infos du produit pour injecter dans les inputs
+    const [reference, setReference] = useState("");
+    const [title, setTitle] = useState("");
+    const [title_url, setTitle_url] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [color, setColor] = useState("");
+    const [shape, setShape] = useState("");
+    const [gender, setGender] = useState("");
+    const [model_info, setModel_info] = useState("");
+    const [material, setMaterial] = useState("");
+    const [infosup, setInfosup] = useState("");
+    const [infosupplus, setInfosupplus] = useState("");
+    const [madeplace, setMadeplace] = useState("");
 
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     useEffect(() => {
         async function getData() {
@@ -54,8 +54,6 @@ function ProductUpdate({ products }) {
                     setInfosupplus(json[0].infosupplus);
                     setMadeplace(json[0].madeplace);
                 }
-
-
             } catch (error) {
                 throw Error(error);
             }
@@ -65,9 +63,13 @@ function ProductUpdate({ products }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "products/update/" + params.id, {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ id, reference, title, title_url, description, price, color, shape, gender, model_info, material, infosup, infosupplus, madeplace }),
         });
         const json = await res.json();
@@ -78,12 +80,9 @@ function ProductUpdate({ products }) {
         <>
             {!products ? (
                 <Loading />
-
             ) : (
-
                 <>
                     <section className="form_section">
-
 
                         <p className="form_advise">
                             <em>Laisser vide les champs non pertinents</em></p>
@@ -116,7 +115,6 @@ function ProductUpdate({ products }) {
                                 name="title_url"
                                 value={title_url}
                                 onChange={(e) => setTitle_url(e.target.value.replace(/[^a-zA-Z_-]/g, ''))}
-                                pattern="^\S*$"
                                 title="L'espace n'est pas autorisé."
                             />
                             <label htmlFor="description">Description du produit *</label>
@@ -161,7 +159,7 @@ function ProductUpdate({ products }) {
                                 value={gender}
                                 onChange={(e) => setGender(e.target.value)}
                             />
-                            <label htmlFor="model_info">Information sur le modèles</label>
+                            <label htmlFor="model_info">Information sur le modèle</label>
                             <input
                                 placeholder="Information sur le modèles"
                                 type="text"
@@ -178,23 +176,22 @@ function ProductUpdate({ products }) {
                                 value={material}
                                 onChange={(e) => setMaterial(e.target.value)}
                             />
-                            <label htmlFor="infosup">Informations supplémentaire</label>
+                            <label htmlFor="infosup">Informations supplémentaires</label>
                             <textarea className="form_input textarea"
-                                placeholder="Informations supplémentaire"
+                                placeholder="Informations supplémentaires"
                                 type="text"
                                 name="infosup"
                                 value={infosup}
                                 onChange={(e) => setInfosup(e.target.value)}
                             />
-                            <label htmlFor="infosupplus">Informations supplémentaire</label>
+                            <label htmlFor="infosupplus">Informations supplémentaires</label>
                             <textarea className="form_input textarea"
-                                placeholder="Informations supplémentaire"
+                                placeholder="Informations supplémentaires"
                                 type="text"
                                 name="infosupplus"
                                 value={infosupplus}
                                 onChange={(e) => setInfosupplus(e.target.value)}
                             />
-
                             <label htmlFor="madeplace">Lieu de fabrication</label>
                             <input
                                 placeholder="Lieu de fabrication"
@@ -208,15 +205,11 @@ function ProductUpdate({ products }) {
 
                             <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen" /></button>
 
-
                         </form>
 
                     </section>
                 </>
-
             )}
-
-
         </>
     )
 };

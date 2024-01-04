@@ -45,8 +45,12 @@ function ProductAddPic() {
         formData.append('caption', alt)
 
         try {
+            const TOKEN_EMPL = localStorage.getItem('authe');
             const res = await fetch(FETCH_URL + "pictures/add-pictures/" + product_id, {
-                headers: { enctype: "multipart/form-data" },
+                headers: {
+                    enctype: "multipart/form-data",
+                    'Authentication': `Bearer ${TOKEN_EMPL}`,
+                },
                 method: 'POST',
                 body: formData,
             });
@@ -100,11 +104,7 @@ function ProductAddPic() {
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen" /></button>
 
                 </form>
-
-
             </section>
-
-
         </>
     )
 };

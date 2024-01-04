@@ -11,6 +11,7 @@ function DeleteUser() {
     const navigate = useNavigate();
     const params = useParams();
 
+    const TOKEN = localStorage.getItem('auth');
     const myuserid = localStorage.getItem("myuserid");
     const [user, setUser] = useState(null);
     const [id, setId] = useState(null);  // pour submit delete
@@ -24,7 +25,14 @@ function DeleteUser() {
                 } else {
                     id = myuserid;
                 }
-                const user = await fetch(FETCH_URL + "users/" + id);
+                const user = await fetch(FETCH_URL + "users/" + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN}`,
+                    }
+                });
+
                 if (user.status === 200) {
                     const json = await user.json();
                     setUser(json);
@@ -45,16 +53,19 @@ function DeleteUser() {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "users/delete/" + params.id, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN}`,
+            },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();
         setMsg(json.msg);
 
         if (res.status === 201) {
-                localStorage.removeItem("auth");
-                localStorage.removeItem("myuserid");
-                navigate(`/le_store`);
+            localStorage.removeItem("auth");
+            localStorage.removeItem("myuserid");
+            navigate(`/le_store`);
         }
     }
 

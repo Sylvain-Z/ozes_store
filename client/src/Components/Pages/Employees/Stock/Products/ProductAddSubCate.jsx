@@ -46,9 +46,13 @@ function ProductAddSubCate() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "products/add-subcategorie", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, subcategorie_id }),
         });
         const json = await res.json();
@@ -60,9 +64,13 @@ function ProductAddSubCate() {
     }
     async function handleDeleteLast(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "products/delete/" + id, { // supprime le produit qui vient d'être ajouté
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

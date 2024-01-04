@@ -40,9 +40,13 @@ function DeletePicture() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "pictures/delete/" + params.product_id + "/" + params.picture_id, { // supprime l'image en fonction de l'id du produit et de l'id de l'image
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, id }),
         });
         const json = await res.json();

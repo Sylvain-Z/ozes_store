@@ -15,10 +15,18 @@ function DeleteProfil() {
     const [employee, setEmployee] = useState(null); // récupère les informations sur le compte à supprimer pour demande de confirmation
     const [id, setId] = useState("");
 
+    const TOKEN_EMPL = localStorage.getItem('authe');
+    
     useEffect(() => {
         async function getData() {
             try {
-                const employee = await fetch(FETCH_URL + "employees/glimpse/" + params.id);
+                const employee = await fetch(FETCH_URL + "employees/glimpse/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                    },
+                });
                 if (employee.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -40,7 +48,10 @@ function DeleteProfil() {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "employees/delete/" + params.id, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

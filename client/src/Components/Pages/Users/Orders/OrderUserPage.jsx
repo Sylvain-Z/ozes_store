@@ -18,7 +18,15 @@ function OrderUserPage() {
     useEffect(() => {
         async function getData() {
             try {
-                const orders = await fetch(FETCH_URL + "orders/" + params.user_id + "/" + params.id);
+                const TOKEN = localStorage.getItem('auth');
+                const orders = await fetch(FETCH_URL + "orders/" + params.user_id + "/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN}`
+                    }
+                });
+
                 if (orders.status === 404) {
                     navigate("/not-found");
                 }

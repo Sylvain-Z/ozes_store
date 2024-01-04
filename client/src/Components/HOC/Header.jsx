@@ -34,7 +34,15 @@ function Header() {
                 } else {
                     id = myuserid;
                 }
-                const users = await fetch(FETCH_URL + "users/" + id);
+
+                const TOKEN = localStorage.getItem('auth');
+                const users = await fetch(FETCH_URL + "users/" + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN}`
+                    }
+                });
 
                 if (users.status === 200) {
                     const json = await users.json();

@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, React } from "react";
+import { useState, useEffect } from "react";
+import React from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
 
@@ -15,12 +16,14 @@ function InfoConnexionUpdate() {
   const navigate = useNavigate();
   const [users, setUsers] = useState(null);
 
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState(""); // ne pas remplir le formulaire avec le password car le password hashé ne convient pas à la vérification fait par la regex côté server
   const [email, setEmail] = useState("");
   const [pseudo, setPseudo] = useState(""); // le champ du formulaire n'est pas nécessaire, cependant la state pour le "body: JSON.stringify({ password, email , pseudo })"" est obligatoire
   const [id, setId] = useState("");
-  const [msg, setMsg] = useState(null);
+  const [msg, setMsg] = useState("");
+  const [msg2, setMsg2] = useState("");
 
+  const TOKEN = localStorage.getItem('auth');
   const myuserid = localStorage.getItem("myuserid");
 
   useEffect(() => {
@@ -32,14 +35,18 @@ function InfoConnexionUpdate() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`,
+          },
+        });
 
         if (users.status === 200) {
           const json = await users.json();
 
           setUsers(json);
-
-          setPassword(json[0].password);
           setEmail(json[0].email);
           setPseudo(json[0].pseudo);
           setId(json[0].id);
@@ -56,12 +63,16 @@ function InfoConnexionUpdate() {
   async function handleSubmit(e) {
     e.preventDefault();
     const res = await fetch(FETCH_URL + "users/infos-connexion-update/" + myuserid, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authentication': `Bearer ${TOKEN}`,
+      },
       body: JSON.stringify({ password, email, pseudo }),
     });
     const json = await res.json();
     setMsg(json.msg);
+    setMsg2(json.msg2);
 
     if (res.status === 201) {
       navigate(`/utilisateurs/infos-connexion/${id}`);
@@ -82,22 +93,23 @@ function InfoConnexionUpdate() {
             <FontAwesomeIcon icon={faIdBadge} size="lg" className="fontawesomeYellow" />
             <h3 className="form_title update">Modification de vos informations de connexion</h3>
 
-            {msg && <p className="msg_green">{msg}</p>}
+            {msg && <p className="msg_red">{msg}</p>}
+            {msg2 && <p className="msg_green">{msg2}</p>}
 
             <form onSubmit={handleSubmit}>
 
-              {<label for="password">Mot de passe</label>}
+              <label htmlFor="password">Mot de passe</label>
               <input
                 placeholder="Tapez un nouveau mot de passe pour le changer"
                 type="password"
                 name="password"
-                value={password}
+                value={password} // ne pas remplir le formulaire avec le password car le password hashé ne convient pas à la vérification fait par la regex côté server
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {<label for="complement">Votre adresse mail</label>}
+              <label htmlFor="complement">Votre adresse mail</label>
               <input
                 placeholder="Votre adresse email"
-                type="email"
+                type="text" // vérification du format de l'entrée de l'utilisateur côté server
                 name="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}

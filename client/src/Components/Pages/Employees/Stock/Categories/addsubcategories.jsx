@@ -19,9 +19,13 @@ function AddSubcategories({ categories }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "categories/add-subcategory", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ subcate_title, categorie_id }),
         });
         const json = await res.json();
@@ -41,7 +45,7 @@ function AddSubcategories({ categories }) {
                     type={!inputHidden ? "hidden" : "text"}
                     name="subcate_title"
                     value={subcate_title}
-                    onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-z]/g, ''))}
+                    onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-zA-Z]/g, ''))}
                 />
 
                 <input

@@ -440,14 +440,16 @@ article {
         justify-content: space-between;
         flex-wrap: wrap;
     }
-        .suggestion_link {
-            width: 48%;
-            margin: 1% 0;
-            img {
-                width: 100%; // obligatoire pour redimensionner l'image
-            }
+
+    .suggestion_link {
+        width: 48%;
+        margin: 1% 0;
+
+        img {
+            width: 100%; // obligatoire pour redimensionner l'image
         }
-    
+    }
+
 }
 
 /* CONTENU SITE  */
@@ -1003,11 +1005,13 @@ form {
 /* PAGES UTILISATEURS */
 
 .dashboard_nav {
+    width: 60%;
     text-align: center;
     margin: 50px auto;
 
     a {
-        color: $White
+        width: 100%;
+        color: $White;
     }
 }
 
@@ -1019,7 +1023,7 @@ form {
     text-transform: uppercase;
     background-image: url("../assets/img/Fond_Noir.jpg");
     color: $White;
-    width: 60%;
+    width: 100%;
     height: 40px;
     line-height: 40px;
     margin: 10px auto 25px auto;
@@ -1569,6 +1573,7 @@ form {
     margin-bottom: 50px;
 }
 
+
 .empty_cart_btn,
 .continue,
 .modifyLink,
@@ -1586,11 +1591,14 @@ form {
     transition: all 0.3s ease 0s;
 }
 
+.continuelink {
+    color: $Black;
+}
+
 .empty_cart_btn:hover {
     color: $White;
     background-color: $Red;
 }
-
 .continue:hover,
 .modifyLink:hover,
 .address button:hover {
@@ -1598,8 +1606,13 @@ form {
     background-color: $Blue;
 }
 
+.continue:hover .continuelink {
+    color: $White;
+}
+
 .buy {
     background-color: $Yellow;
+    margin-top: 50px;
 }
 
 .buy:hover {
@@ -1612,6 +1625,18 @@ form {
 .msg_buy {
     color: $Green;
     text-align: center;
+}
+
+.payment {
+    width: 90%;
+    margin: 50px auto;
+    padding: 50px 50px 25px 50px;
+    background-color: $White;
+    border-radius: 10px;
+
+    input {
+        background-color: $Darked;
+    }
 }
 
 .address {

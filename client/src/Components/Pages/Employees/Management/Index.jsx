@@ -17,8 +17,15 @@ function AccountManagement() { // page accessible uniquement par les compte util
   useEffect(() => {
     async function getData() {
       try {
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const employees = await (
-          await fetch(FETCH_URL + "employees/all")
+          await fetch(FETCH_URL + "employees/all", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
+        })
         ).json();
         setEmployees(employees.datas);
 

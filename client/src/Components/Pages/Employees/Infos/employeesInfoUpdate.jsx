@@ -28,6 +28,7 @@ function EmployeesInfoUpdate() {
   const [msg, setMsg] = useState("");
 
   const myemployeeid = localStorage.getItem("myemployeeid");
+  const TOKEN_EMPL = localStorage.getItem('authe');
 
   useEffect(() => {
     async function getData() {
@@ -38,7 +39,13 @@ function EmployeesInfoUpdate() {
         } else {
           id = myemployeeid;
         }
-        const employees = await fetch(FETCH_URL + "employees/" + id);
+        const employees = await fetch(FETCH_URL + "employees/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN_EMPL}`,
+          },
+        });
 
         if (employees.status === 200) {
           const json = await employees.json();
@@ -65,9 +72,12 @@ function EmployeesInfoUpdate() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    const res = await fetch(FETCH_URL +"employees/update/"+ myemployeeid, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch(FETCH_URL + "employees/update/" + myemployeeid, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authentication': `Bearer ${TOKEN_EMPL}`,
+      },
       body: JSON.stringify({ firstname, lastname, number, street, complement, postal_code, city, phone, email }),
     });
     const json = await res.json();

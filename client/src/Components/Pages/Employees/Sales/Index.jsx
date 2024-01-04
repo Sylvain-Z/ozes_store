@@ -17,8 +17,15 @@ function Sales() {
   useEffect(() => {
     async function getData() { // récupère toutes les commandes de la bdd
       try {
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const orders = await (
-          await fetch(FETCH_URL + "orders/all")
+          await fetch(FETCH_URL + "orders/all", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
+          })
         ).json();
         setOrders(orders.datas);
 

@@ -19,11 +19,19 @@ function Desk() {
       try {
         let id = "";
         if (!myemployeeid) {
-              return
+          return
         } else {
-              id = myemployeeid;
+          id = myemployeeid;
         }
-        const employees = await fetch(FETCH_URL + "employees/" + id);
+
+        const TOKEN_EMPL = localStorage.getItem('authe');
+        const employees = await fetch(FETCH_URL + "employees/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN_EMPL}`,
+          },
+        });
 
         if (employees.status === 200) {
           const json = await employees.json();
@@ -48,22 +56,22 @@ function Desk() {
           <div className="dashboard_nav">
             <FontAwesomeIcon icon={faEuroSign} size="lg" />
             <Link to={`/employes/ventes`}>
-              <p className="dashboard_tabs dt1">Ventes</p>
+              <p className="dashboard_tabs">Ventes</p>
             </Link>
 
             <FontAwesomeIcon icon={faWarehouse} />
             <Link to={`/employes/stock`}>
-              <p className="dashboard_tabs dt2">Stocks</p>
+              <p className="dashboard_tabs">Stocks</p>
             </Link>
 
             <FontAwesomeIcon icon={faMessage} />
             <Link to={`/employes/messages`}>
-              <p className="dashboard_tabs dt3">Messages</p>
+              <p className="dashboard_tabs">Messages</p>
             </Link>
 
             <FontAwesomeIcon icon={faIdBadge} />
             <Link to={`/employes/${employee.id}`}>
-              <p className="dashboard_tabs dt4">Infos personnelles</p>
+              <p className="dashboard_tabs">Infos personnelles</p>
             </Link>
 
             <div className={employee.role === 1 ? "" : "hidden"}>

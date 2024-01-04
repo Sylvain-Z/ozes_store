@@ -16,23 +16,28 @@ function HOCEmployees({ child, authe }) {
     const navigate = useNavigate();
 
     const [tokenIsValid, setTokenIsValid] = useState(false);
-    const TOKEN = localStorage.getItem("authe");
+    const TOKEN_EMPL = localStorage.getItem("authe");
 
 
     useEffect(() => {
-        async function checkAuth() {
+        async function checkAuthe() {
             if (authe) {
-                if (!TOKEN) {
-                    navigate("/");
+                if (!TOKEN_EMPL) {
+                    navigate("/employes/connexion");
                 }
-                if (TOKEN) {
-                    const res = await fetch(FETCH_URL + "users/check_token", {
-                        headers: { Authentication: "Bearer " + TOKEN },
+                if (TOKEN_EMPL) {
+                    const res = await fetch(FETCH_URL + "employees/check_token", {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authentication': `Bearer ${TOKEN_EMPL}`,
+                          },
                     });
                     if (res.status === 401) {
                         localStorage.removeItem("authe")
+                        localStorage.removeItem("myemployeeid")
                         dispatch(signout());
-                        navigate("/le_store");
+                        navigate("/employes");
                     }
                     if (res.status === 200) {
                         const json = await res.json();
@@ -43,7 +48,7 @@ function HOCEmployees({ child, authe }) {
             }
         }
 
-        checkAuth();
+        checkAuthe();
     }, [authe]);
 
 

@@ -25,12 +25,20 @@ function UpdateProfil() {
     const [city, setCity] = useState("");
     const [phone, setPhone] = useState("");
     const [id, setID] = useState("");
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
+
+    const TOKEN_EMPL = localStorage.getItem('authe');
 
     useEffect(() => {
         async function getData() {
             try {
-                const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id);
+                const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
                 if (employees.status === 200) {
                     const json = await employees.json();
                     setEmployees(json);
@@ -58,8 +66,11 @@ function UpdateProfil() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "employees/update-employee/" + params.id, {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ firstname, lastname, email, role, number, street, complement, postal_code, city, phone, id }),
         });
         const json = await res.json();

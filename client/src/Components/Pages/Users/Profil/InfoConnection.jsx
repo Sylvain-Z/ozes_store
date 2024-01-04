@@ -1,5 +1,6 @@
-import { useState, useEffect , React } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import React from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
 
@@ -23,7 +24,14 @@ function InfoConnexion() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+        const TOKEN = localStorage.getItem('auth');
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`,
+          }
+        });
 
         if (users.status === 200) {
           const json = await users.json();

@@ -18,7 +18,14 @@ function DeleteSubCategories() {
     useEffect(() => {
         async function getData() {
             try {
-                const subcategories = await fetch(FETCH_URL + "categories/subcategories/" + params.id); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
+                const TOKEN_EMPL = localStorage.getItem('authe');
+                const subcategories = await fetch(FETCH_URL + "categories/subcategories/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
                 if (subcategories.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -39,9 +46,13 @@ function DeleteSubCategories() {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "categories/subcategories/delete/" + params.id, { // supprime la sous catégorie en fonction de son id
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

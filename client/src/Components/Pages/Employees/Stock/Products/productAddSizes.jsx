@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +12,7 @@ function ProductAddSizes() {
 
     const params = useParams();
 
-    const [sizes, setSizes] = useState(""); // affiche les tailles existantes du produit
+    const [sizes, setSizes] = useState(null); // affiche les tailles existantes du produit
 
     const [label, setLabel] = useState(""); // gèrent le formulaire
     const [quantity, setQuantity] = useState("");
@@ -20,10 +21,11 @@ function ProductAddSizes() {
     const [msg, setMsg] = useState("");
     const [msg2, setMsg2] = useState("");
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN_EMPL = localStorage.getItem('authe');
                 const size = await fetch(FETCH_URL + "sizes/" + params.id, {
                     method: 'GET',
                     headers: {
@@ -45,7 +47,6 @@ function ProductAddSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "sizes/add-sizes/" + params.id, {
             method: "POST",
             headers: {

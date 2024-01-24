@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -16,8 +17,8 @@ import UserMsgRead from './UserMsgRead';
 
 function SendMessages() {
 
-      const TOKEN = localStorage.getItem('auth');
-      const myuserid = localStorage.getItem("myuserid");
+      const TOKEN = getItemWithExpiration('auth');
+      const myuserid = getItemWithExpiration("myuserid");
       const params = useParams();
 
       const [users, setUsers] = useState(null);

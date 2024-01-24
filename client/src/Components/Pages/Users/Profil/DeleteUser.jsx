@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,10 +12,10 @@ function DeleteUser() {
     const navigate = useNavigate();
     const params = useParams();
 
-    const TOKEN = localStorage.getItem('auth');
-    const myuserid = localStorage.getItem("myuserid");
+    const TOKEN = getItemWithExpiration('auth');
+    const myuserid = getItemWithExpiration("myuserid");
     const [user, setUser] = useState(null);
-    const [id, setId] = useState(null);  // pour submit delete
+    const [id, setId] = useState("");  // pour submit delete
 
     useEffect(() => {
         async function getData() {
@@ -32,7 +33,6 @@ function DeleteUser() {
                         'Authentication': `Bearer ${TOKEN}`,
                     }
                 });
-
                 if (user.status === 200) {
                     const json = await user.json();
                     setUser(json);
@@ -45,9 +45,7 @@ function DeleteUser() {
         getData();
     }, []);
 
-
-    const [pseudo, setPseudo] = useState("");
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();

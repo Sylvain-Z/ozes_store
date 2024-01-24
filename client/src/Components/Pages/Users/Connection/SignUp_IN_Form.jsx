@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { setItemWithExpiration } from '../../../../assets/functions';
 
 import { signin } from "../../../../store/slices/user";
 
@@ -12,14 +13,14 @@ function Form({ type }) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [id, setId]               = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
-    const [pseudo, setPseudo]       = useState("");
-    const [email, setEmail]         = useState("");
-    const [password, setPassword]   = useState("");
+    const [id, setId] = useState(uuidv4().slice(0, 16)); // à chaque chargement du composant une chaine de 16 caractères aléatoire sera stocké
+    const [pseudo, setPseudo] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-    const [msg, setMsg]     = useState("");
-    const [msg2, setMsg2]   = useState("");
-    const [msg3, setMsg3]   = useState("");
+    const [msg, setMsg] = useState("");
+    const [msg2, setMsg2] = useState("");
+    const [msg3, setMsg3] = useState("");
 
 
     async function handleSubmit(e) {
@@ -35,8 +36,8 @@ function Form({ type }) {
         setMsg3(json.msg3);
 
         if (type === "in" && res.status === 200) {
-            localStorage.setItem("auth", json.TOKEN);
-            localStorage.setItem("myuserid", pseudo);
+            setItemWithExpiration("auth", json.TOKEN, 10080); // 10080 équivaut à 7*24*60 minutes c'est à dire le nombre de minutes dans 7 jours pour l'expiration de l'élément en localstorage
+            setItemWithExpiration("myuserid", pseudo, 10080);
             dispatch(signin({ email }));
             navigate("/");
         }

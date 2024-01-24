@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,7 @@ function Categories() {
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN_EMPL = localStorage.getItem('authe');
+                const TOKEN_EMPL = getItemWithExpiration('authe');
                 const categories = await fetch(FETCH_URL + "categories/categories",{
                     method: 'GET',
                     headers: {

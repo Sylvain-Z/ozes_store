@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,7 @@ function Profil() {
   useEffect(() => {
     async function getData() {
       try {
-        const TOKEN_EMPL = localStorage.getItem('authe');
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id, {
           method: 'GET',
           headers: {

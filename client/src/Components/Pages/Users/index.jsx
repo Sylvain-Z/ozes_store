@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 import { FETCH_URL } from '../../../assets/const';
+import { getItemWithExpiration } from '../../../assets/functions';
 
 import { Link } from 'react-router-dom';
 
@@ -15,7 +16,8 @@ import BackToStore from '../Containers/BackToStore/Index';
 function Dashboard() {
 
   const [users, setUsers] = useState(null);
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {
@@ -26,7 +28,6 @@ function Dashboard() {
         } else {
           id = myuserid;
         }
-        const TOKEN = localStorage.getItem('auth');
         const users = await fetch(FETCH_URL + "users/" + id, {
           method: 'GET',
           headers: {

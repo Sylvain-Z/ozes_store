@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -23,8 +24,8 @@ function InfoConnexionUpdate() {
   const [msg, setMsg] = useState("");
   const [msg2, setMsg2] = useState("");
 
-  const TOKEN = localStorage.getItem('auth');
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {

@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -15,8 +16,8 @@ function Orders() {
   const params = useParams();
 
   const [users, setUsers] = useState(null);
-  const TOKEN = localStorage.getItem('auth');
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {

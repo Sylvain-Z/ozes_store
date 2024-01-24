@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { FETCH_URL } from '../../../assets/const';
+import { getItemWithExpiration } from '../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge, faEuroSign, faMessage, faWarehouse, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +13,8 @@ import Loading from "../Containers/Loading/Index";
 function Desk() {
 
   const [employees, setEmployees] = useState(null);
-  const myemployeeid = localStorage.getItem("myemployeeid");
+  const TOKEN_EMPL = getItemWithExpiration('authe');
+  const myemployeeid = getItemWithExpiration("myemployeeid");
 
   useEffect(() => {
     async function getData() {
@@ -23,8 +25,6 @@ function Desk() {
         } else {
           id = myemployeeid;
         }
-
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const employees = await fetch(FETCH_URL + "employees/" + id, {
           method: 'GET',
           headers: {

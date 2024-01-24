@@ -55,8 +55,8 @@ import ProductUpdate from "./Components/Pages/Employees/Stock/Products/ProductUp
 import ProductDelete from "./Components/Pages/Employees/Stock/Products/ProductDelete";
 import MsgRead from "./Components/Pages/Employees/Messages/MsgRead";
 import MsgAnswer from "./Components/Pages/Employees/Messages/MsgAnswer";
-import EmployeesInfo from "./Components/Pages/Employees/Infos/employeesInfo";
-import EmployeesInfoUpdate from "./Components/Pages/Employees/Infos/employeesInfoUpdate";
+import EmployeesInfo from "./Components/Pages/Employees/Infos/EmployeesInfo";
+import EmployeesInfoUpdate from "./Components/Pages/Employees/Infos/EmployeesInfoUpdate";
 
 import AccountManagement from "./Components/Pages/Employees/Management/Index";
 import AddProfil from "./Components/Pages/Employees/Management/Addprofil";

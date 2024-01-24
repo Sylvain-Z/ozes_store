@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,8 @@ import PreviousPage from "../Components/PreviousPage";
 function InfoConnexion() {
 
   const [users, setUsers] = useState(null);
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {
@@ -24,7 +26,6 @@ function InfoConnexion() {
         } else {
           id = myuserid;
         }
-        const TOKEN = localStorage.getItem('auth');
         const users = await fetch(FETCH_URL + "users/" + id, {
           method: 'GET',
           headers: {

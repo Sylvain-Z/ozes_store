@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { setItemWithExpiration } from '../../../../assets/functions';
 
 import { signin } from "../../../../store/slices/employee";
 
@@ -30,8 +31,8 @@ function Takein() { // Takein = Signin, nom modifié pour éviter l'amalgame ave
         setMsg2(json.msg2);
 
         if (res.status === 200) {
-            localStorage.setItem("authe", json.TOKEN_EMPL);
-            localStorage.setItem("myemployeeid", email);
+            setItemWithExpiration("authe", json.TOKEN_EMPL, 43200); // 43200 équivaut à 30*24*60 minutes c'est à dire le nombre de minutes dans 30 jours pour l'expiration de l'élément en localstorage
+            setItemWithExpiration("myemployeeid", email, 43200);
             dispatch(signin({ email }));
             navigate("/employes");
         }

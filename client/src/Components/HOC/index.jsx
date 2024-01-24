@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FETCH_URL } from '../../assets/const';
+import { getItemWithExpiration } from '../../assets/functions';
 
 import { signout } from "../../store/slices/user";
 
@@ -18,7 +19,7 @@ function HOC({ child, auth }) {
     const navigate = useNavigate();
 
     const [tokenIsValid, setTokenIsValid] = useState(false);
-    const TOKEN = localStorage.getItem("auth");
+    const TOKEN = getItemWithExpiration('auth');
 
     useEffect(() => {
         async function checkAuth() {
@@ -49,21 +50,18 @@ function HOC({ child, auth }) {
     }, [auth]);
 
     return (
-        <>
-            <div id={pathname === "/" ? "home_body" : ""}>
+        <div id={pathname === "/" ? "home_body" : ""}>
 
-                {(!auth || (auth && tokenIsValid)) && <Header />}
+            {(!auth || (auth && tokenIsValid)) && <Header />}
 
-                <main className="navigation_main">
-                    {(!auth || (auth && tokenIsValid)) && <Child />}
-                </main>
+            <main className="navigation_main">
+                {(!auth || (auth && tokenIsValid)) && <Child />}
+            </main>
 
-                <Footer />
+            <Footer />
 
 
-            </div>
-
-        </>
+        </div>
     );
 }
 

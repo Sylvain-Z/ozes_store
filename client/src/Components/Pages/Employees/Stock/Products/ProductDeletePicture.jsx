@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -14,8 +15,10 @@ function DeletePicture() {
     const params = useParams();
 
     const [pictures, setPictures] = useState(null);
-    const [id, setID] = useState(null);
+    const [id, setID] = useState("");
     const [product_id, setProduct_id] = useState("");
+    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -40,7 +43,6 @@ function DeletePicture() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "pictures/delete/" + params.product_id + "/" + params.picture_id, { // supprime l'image en fonction de l'id du produit et de l'id de l'image
             method: "DELETE",
             headers: {

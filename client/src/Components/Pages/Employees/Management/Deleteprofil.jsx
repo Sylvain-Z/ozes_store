@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -15,8 +16,8 @@ function DeleteProfil() {
     const [employee, setEmployee] = useState(null); // récupère les informations sur le compte à supprimer pour demande de confirmation
     const [id, setId] = useState("");
 
-    const TOKEN_EMPL = localStorage.getItem('authe');
-    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {

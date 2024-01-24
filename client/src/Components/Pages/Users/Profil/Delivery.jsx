@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,8 @@ import BackToCart from '../../Cart/Components/BackToCart';
 
 function Delivery() {
 
-      const myuserid = localStorage.getItem("myuserid");
+      const TOKEN = getItemWithExpiration('auth');
+      const myuserid = getItemWithExpiration("myuserid");
 
       const [users, setUsers] = useState(null);
 
@@ -26,7 +28,6 @@ function Delivery() {
                         } else {
                               id = myuserid;
                         }
-                        const TOKEN = localStorage.getItem('auth');
                         const users = await fetch(FETCH_URL + "users/" + id, {
                               method: 'GET',
                               headers: {

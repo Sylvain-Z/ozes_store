@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 import { FETCH_URL } from '../../assets/const';
+import { getItemWithExpiration } from '../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
@@ -23,7 +24,7 @@ function Header() {
     const { pathname } = useLocation(); // sert à changer la classname du header en fonction de l'url (page d'accueil ou reste du site)
 
     const [users, setUsers] = useState(null);
-    const myuserid = localStorage.getItem("myuserid"); // récupère le pseudo de l'usager stocké lors du signin
+    const myuserid = getItemWithExpiration("myuserid"); // récupère le pseudo de l'usager stocké lors du signin
 
     useEffect(() => {
         async function getData() {
@@ -35,7 +36,7 @@ function Header() {
                     id = myuserid;
                 }
 
-                const TOKEN = localStorage.getItem('auth');
+                const TOKEN = getItemWithExpiration('auth');
                 const users = await fetch(FETCH_URL + "users/" + id, {
                     method: 'GET',
                     headers: {

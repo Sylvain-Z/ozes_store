@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -13,14 +14,15 @@ function DeleteSizes() {
     const params = useParams();
 
     const [sizes, setSizes] = useState(null);
-    const [id, setID] = useState(null);
+    const [id, setID] = useState("");
     const [size_id, setSize_id] = useState("");
     const [product_id, setProduct_id] = useState("");
+    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN_EMPL = localStorage.getItem('authe');
                 const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id, {
                     method: 'GET',
                     headers: {
@@ -43,11 +45,10 @@ function DeleteSizes() {
     }, []);
 
 
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "sizes/delete/" + params.product_id + "/" + params.size_id, { // supprime la taille en fonction de l'id du produit et de l'id de la taille
             method: "DELETE",
             headers: {

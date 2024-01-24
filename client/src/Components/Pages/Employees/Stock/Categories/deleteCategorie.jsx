@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -14,10 +15,11 @@ function DeleteCategories() {
     const [id, setId] = useState("");
     const [categories, setCategories] = useState(null);
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+    
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN_EMPL = localStorage.getItem('authe');
                 const categories = await fetch(FETCH_URL + "categories/categories/" + params.id, {
                     method: 'GET',
                     headers: {
@@ -45,7 +47,6 @@ function DeleteCategories() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "categories/categories/delete/" + params.id, { // supprime la catégorie en fonction de son id
             method: "DELETE",
             headers: {

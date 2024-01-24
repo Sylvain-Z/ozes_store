@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 function AddProfil() {
 
@@ -21,13 +22,13 @@ function AddProfil() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const res = await fetch(FETCH_URL + "employees/signup", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Authentication': `Bearer ${TOKEN_EMPL}`,
-              },
+            },
             body: JSON.stringify({ id, firstname, lastname, role, email, password }),
         });
         const json = await res.json();

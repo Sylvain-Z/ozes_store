@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +12,9 @@ function ProductUpdatePic() {
 
     const params = useParams();
 
-    const [prodImages, setProdImages] = useState(""); // récupère les images par rapport au product id
+    const [prodImages, setProdImages] = useState(null); // récupère les images par rapport au product id
+    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -46,7 +49,6 @@ function ProductUpdatePic() {
         formData.append('caption', alt)
 
         try {
-            const TOKEN_EMPL = localStorage.getItem('authe');
             const res = await fetch(FETCH_URL + "pictures/add-pictures/" + params.id, {  // ajoute l'image par rapport au product id
                 headers: {
                     enctype: "multipart/form-data",

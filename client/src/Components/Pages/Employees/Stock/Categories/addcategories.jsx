@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +17,7 @@ function AddCategories() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const res = await fetch(FETCH_URL + "categories/add-category", {
             method: "POST",
             headers: {

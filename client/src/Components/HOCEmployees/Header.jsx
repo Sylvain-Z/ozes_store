@@ -2,6 +2,7 @@ import { useLocation, Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 import { FETCH_URL } from '../../assets/const';
+import { getItemWithExpiration } from '../../assets/functions';
 
 import user_out from '../../assets/img/user_out.png';
 import user_in from '../../assets/img/user_in.png';
@@ -13,7 +14,8 @@ function Header() {
     const { pathname } = useLocation();
 
     const [employees, setEmployees] = useState(null);
-    const myemployeeid = localStorage.getItem("myemployeeid");  // récupère l'email de l'usager stocké lors du signin
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+    const myemployeeid = getItemWithExpiration("myemployeeid");  // récupère l'email de l'usager stocké lors du signin
 
     useEffect(() => {
         async function getData() {
@@ -24,8 +26,6 @@ function Header() {
                 } else {
                     id = myemployeeid;
                 }
-
-                const TOKEN_EMPL = localStorage.getItem('authe');
                 const employees = await fetch(FETCH_URL + "employees/" + id, {
                     method: 'GET',
                     headers: {

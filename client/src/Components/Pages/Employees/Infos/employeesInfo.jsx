@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -13,7 +14,8 @@ import PreviousPage from '../Components/previousPage';
 function EmployeesInfo() {
 
       const [employees, setEmployees] = useState(null);  // stocke les informations de l'utilisateur et les injecte dans le formulaire
-      const myemployeeid = localStorage.getItem("myemployeeid");
+      const TOKEN_EMPL = getItemWithExpiration('authe');
+      const myemployeeid = getItemWithExpiration("myemployeeid");
 
       useEffect(() => {
             async function getData() {
@@ -24,14 +26,13 @@ function EmployeesInfo() {
                         } else {
                               id = myemployeeid;
                         }
-                        const TOKEN_EMPL = localStorage.getItem('authe');
                         const employees = await fetch(FETCH_URL + "employees/" + id, {
                               method: 'GET',
                               headers: {
-                                  'Content-Type': 'application/json',
-                                  'Authentication': `Bearer ${TOKEN_EMPL}`,
-                                },
-                          });
+                                    'Content-Type': 'application/json',
+                                    'Authentication': `Bearer ${TOKEN_EMPL}`,
+                              },
+                        });
 
                         if (employees.status === 200) {
                               const json = await employees.json();

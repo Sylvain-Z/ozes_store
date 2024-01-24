@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import Loading from "../../Containers/Loading/Index";
 
@@ -18,7 +19,7 @@ function OrderUserPage() {
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN = localStorage.getItem('auth');
+                const TOKEN = getItemWithExpiration('auth');
                 const orders = await fetch(FETCH_URL + "orders/" + params.user_id + "/" + params.id, {
                     method: 'GET',
                     headers: {

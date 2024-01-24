@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -14,15 +15,16 @@ function UpdateSizes() {
 
     const [sizes, setSizes] = useState(null); // stocke les informations de la taille
 
-    const [id, setID] = useState(null); // gères les inputs du formulaire
+    const [id, setID] = useState(""); // gères les inputs du formulaire
     const [label, setLabel] = useState("");
     const [quantity, setQuantity] = useState("");
     const [product_id, setProduct_id] = useState("");
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {
-                const TOKEN_EMPL = localStorage.getItem('authe');
                 const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id, {
                     method: 'GET',
                     headers: {
@@ -54,7 +56,6 @@ function UpdateSizes() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "sizes/update-sizes/" + params.product_id + "/" + params.id, { // mets à jour la taille par rapport à l'id du produit et l'id de la taille
             method: "POST",
             headers: {

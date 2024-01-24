@@ -8,6 +8,7 @@ import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import Loading from "../../Containers/Loading/Index";
 
@@ -27,8 +28,8 @@ function EmployeesInfoUpdate() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
 
-  const myemployeeid = localStorage.getItem("myemployeeid");
-  const TOKEN_EMPL = localStorage.getItem('authe');
+  const TOKEN_EMPL = getItemWithExpiration('authe');
+  const myemployeeid = getItemWithExpiration("myemployeeid");
 
   useEffect(() => {
     async function getData() {

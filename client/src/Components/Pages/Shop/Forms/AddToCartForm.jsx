@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { addToCart } from "../../../../store/slices/cart";
 
 function AddToCartForm({ product }) {
+
+    const myuserid = getItemWithExpiration("myuserid");
 
     const params = useParams();
     const dispatch = useDispatch();
@@ -67,7 +70,7 @@ function AddToCartForm({ product }) {
                             priceEach: parseFloat(product.price)
                         },
                     ],
-                    buyer: localStorage.getItem("myuserid"),
+                    buyer: myuserid,
                 };
                 localStorage.setItem("cart", JSON.stringify(newCart));
                 dispatch(addToCart(newCart));
@@ -76,7 +79,7 @@ function AddToCartForm({ product }) {
                     product: [
                         ...cartInfo.product,
                     ],
-                    buyer: localStorage.getItem("myuserid"),
+                    buyer: myuserid,
                 };
                 newCart.product[indexProduct] = {
                     ...newCart.product[indexProduct],

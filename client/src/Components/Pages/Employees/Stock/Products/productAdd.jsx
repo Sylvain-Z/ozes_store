@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -12,25 +13,25 @@ function ProductAdd() {
     const navigate = useNavigate();
 
     const [reference, setReference] = useState(null); // gère les inputs du formulaire
-    const [title, setTitle] = useState(null);
-    const [title_url, setTitle_url] = useState(null);
-    const [description, setDescription] = useState(null);
-    const [price, setPrice] = useState(null);
-    const [color, setColor] = useState(null);
-    const [shape, setShape] = useState(null);
-    const [gender, setGender] = useState(null);
-    const [model_info, setModel_info] = useState(null);
-    const [material, setMaterial] = useState(null);
-    const [infosup, setInfosup] = useState(null);
-    const [infosupplus, setInfosupplus] = useState(null);
-    const [madeplace, setMadeplace] = useState(null);
+    const [title, setTitle] = useState("");
+    const [title_url, setTitle_url] = useState("");
+    const [description, setDescription] = useState("");
+    const [price, setPrice] = useState("");
+    const [color, setColor] = useState("");
+    const [shape, setShape] = useState("");
+    const [gender, setGender] = useState("");
+    const [model_info, setModel_info] = useState("");
+    const [material, setMaterial] = useState("");
+    const [infosup, setInfosup] = useState("");
+    const [infosupplus, setInfosupplus] = useState("");
+    const [madeplace, setMadeplace] = useState("");
 
-    const [msg, setMsg] = useState(null);
-    const [msg2, setMsg2] = useState(null);
+    const [msg, setMsg] = useState("");
+    const [msg2, setMsg2] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const res = await fetch(FETCH_URL + "products/add-product", { // insère le contenu du formulaire en base de donnée
             method: "POST",
             headers: {

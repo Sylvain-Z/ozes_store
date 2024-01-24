@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { FETCH_URL } from '../../assets/const';
+import { getItemWithExpiration } from '../../assets/functions';
 
 import { signout } from "../../store/slices/user";
 
@@ -16,8 +17,7 @@ function HOCEmployees({ child, authe }) {
     const navigate = useNavigate();
 
     const [tokenIsValid, setTokenIsValid] = useState(false);
-    const TOKEN_EMPL = localStorage.getItem("authe");
-
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function checkAuthe() {
@@ -31,13 +31,13 @@ function HOCEmployees({ child, authe }) {
                         headers: {
                             'Content-Type': 'application/json',
                             'Authentication': `Bearer ${TOKEN_EMPL}`,
-                          },
+                        },
                     });
                     if (res.status === 401) {
                         localStorage.removeItem("authe")
                         localStorage.removeItem("myemployeeid")
                         dispatch(signout());
-                        navigate("/employes");
+                        navigate("/employes/connexion");
                     }
                     if (res.status === 200) {
                         const json = await res.json();

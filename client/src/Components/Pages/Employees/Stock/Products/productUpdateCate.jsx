@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +20,8 @@ function ProductUpdateCate() {
     const [msg, setMsg] = useState("");
 
     const [isShown, setIsShown] = useState(false); // infobulle avec légenge masquée
+
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -44,7 +47,6 @@ function ProductUpdateCate() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        const TOKEN_EMPL = localStorage.getItem('authe');
         const res = await fetch(FETCH_URL + "products/update-subcate/" + params.id, {
             method: "POST",
             headers: {

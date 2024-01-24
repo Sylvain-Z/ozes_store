@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge, faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +28,7 @@ function UpdateProfil() {
     const [id, setID] = useState("");
     const [msg, setMsg] = useState("");
 
-    const TOKEN_EMPL = localStorage.getItem('authe');
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {

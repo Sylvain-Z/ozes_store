@@ -2,7 +2,7 @@ import Query from "../model/Query.js";
 
 const ReadAll = async (req, res) => {
     
-    const query = "SELECT * FROM messages ORDER BY id DESC ";
+    const query = "SELECT * FROM messages ORDER BY publication_date DESC ";
     const [messages] = await Query.find(query);
     if(!messages.length){
         res.status(404).json({msg: "pas de message dans la base de données"})

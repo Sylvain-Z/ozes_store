@@ -6,6 +6,7 @@ const router = Router();
 
 router.post("/add-category", authe, AddCategories); //  composant : Employees/Stock/Categories/
 router.post("/add-subcategory", authe, AddSubcategories); // composant : Employees/Stock/Subcategories/
+//ajouter un route pour update le cate_title
 
 router.delete("/categories/delete/:id", authe, DeleteCategorie); // composant : Employees//Stock/Categories/Delete
 router.delete("/subcategories/delete/:id", authe, DeleteSubcategorie); // composant : Employees/Stock/Subcategories/Delete

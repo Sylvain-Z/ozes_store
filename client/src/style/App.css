@@ -901,10 +901,12 @@ form .button_retour_rouge {
 
 /* PAGES UTILISATEURS */
 .dashboard_nav {
+  width: 60%;
   text-align: center;
   margin: 50px auto;
 }
 .dashboard_nav a {
+  width: 100%;
   color: rgb(240, 240, 240);
 }
 
@@ -916,7 +918,7 @@ form .button_retour_rouge {
   text-transform: uppercase;
   background-image: url("../assets/img/Fond_Noir.jpg");
   color: rgb(240, 240, 240);
-  width: 60%;
+  width: 100%;
   height: 40px;
   line-height: 40px;
   margin: 10px auto 25px auto;
@@ -1544,6 +1546,10 @@ form .button_retour_rouge {
   transition: all 0.3s ease 0s;
 }
 
+.continuelink {
+  color: rgb(15, 15, 15);
+}
+
 .empty_cart_btn:hover {
   color: rgb(240, 240, 240);
   background-color: rgb(199, 18, 18);
@@ -1556,8 +1562,13 @@ form .button_retour_rouge {
   background-color: rgb(26, 28, 93);
 }
 
+.continue:hover .continuelink {
+  color: rgb(240, 240, 240);
+}
+
 .buy {
   background-color: rgb(255, 196, 50);
+  margin-top: 50px;
 }
 
 .buy:hover {
@@ -1570,6 +1581,17 @@ form .button_retour_rouge {
 .msg_buy {
   color: rgb(3, 149, 8);
   text-align: center;
+}
+
+.payment {
+  width: 90%;
+  margin: 50px auto;
+  padding: 50px 50px 25px 50px;
+  background-color: rgb(240, 240, 240);
+  border-radius: 10px;
+}
+.payment input {
+  background-color: rgba(15, 15, 15, 0.5);
 }
 
 .address {

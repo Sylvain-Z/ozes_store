@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,7 @@ function ProductAddPic() {
     const navigate = useNavigate();
 
     const [product_id, setProduct_id] = useState(""); // stocke l'id du dernier produit ajouté
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -46,7 +48,10 @@ function ProductAddPic() {
 
         try {
             const res = await fetch(FETCH_URL + "pictures/add-pictures/" + product_id, {
-                headers: { enctype: "multipart/form-data" },
+                headers: {
+                    enctype: "multipart/form-data",
+                    'Authentication': `Bearer ${TOKEN_EMPL}`,
+                },
                 method: 'POST',
                 body: formData,
             });
@@ -100,11 +105,7 @@ function ProductAddPic() {
                     <button type="submit"><FontAwesomeIcon icon={faCircleCheck} className="fontawesomeGreen" /></button>
 
                 </form>
-
-
             </section>
-
-
         </>
     )
 };

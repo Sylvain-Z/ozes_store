@@ -7,8 +7,7 @@ const getPicturesByProductId = async (req, res) => {
         const [datas] = await Query.findByValue(query, req.params.id);
         if(!datas.length){
             res.status(404).json({msg: "images non trouvées"})
-        }
-        if(datas.length) {        
+        } else {        
             res.status(200).json(datas);
             return;
         }
@@ -23,8 +22,7 @@ const getPicturesByIds = async (req, res) => {
         const [datas] = await Query.findByDatas(query, req.params);
         if(!datas.length){
             res.status(404).json({msg: "images non trouvée"})
-        }
-        if(datas.length) {        
+        } else {        
             res.status(200).json(datas);
             return;
         }

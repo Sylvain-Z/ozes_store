@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +22,14 @@ function Categories() {
     useEffect(() => {
         async function getData() {
             try {
-                const categories = await fetch(FETCH_URL + "categories/categories");
+                const TOKEN_EMPL = getItemWithExpiration('authe');
+                const categories = await fetch(FETCH_URL + "categories/categories",{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
                 if (categories.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -29,7 +37,13 @@ function Categories() {
                     const json = await categories.json();
                     setCategories(json.datas);
                 }
-                const subcategories = await fetch(FETCH_URL + "categories/subcategories");
+                const subcategories = await fetch(FETCH_URL + "categories/subcategories",{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
                 if (subcategories.status === 404) {
                     navigate("/employes/not-found");
                 }

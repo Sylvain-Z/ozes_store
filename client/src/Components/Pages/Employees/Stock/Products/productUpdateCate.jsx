@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleInfo } from '@fortawesome/free-solid-svg-icons';
@@ -12,13 +13,15 @@ function ProductUpdateCate() {
 
     const [subcate, setSubcate] = useState(null); // A) sert à afficher la nomenclature des catégories dans le form_advise
 
-    const [subcategorie_id, setSubcategorie_id] = useState(null); // B) sert à remplir le formulaire avec la subcategories correspondante
-    const [subcate_title, setSubcate_title] = useState(null); // B) sert à afficher la subcategories associée actuelle
-    const [product_id, setProduct_id] = useState(null); // b) sert au findByVelue du controller
+    const [subcategorie_id, setSubcategorie_id] = useState(""); // B) sert à remplir le formulaire avec la subcategories correspondante
+    const [subcate_title, setSubcate_title] = useState(""); // B) sert à afficher la subcategories associée actuelle
+    const [product_id, setProduct_id] = useState(""); // b) sert au findByVelue du controller
 
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     const [isShown, setIsShown] = useState(false); // infobulle avec légenge masquée
+
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -45,8 +48,11 @@ function ProductUpdateCate() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "products/update-subcate/" + params.id, {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, subcategorie_id }),
         });
         const json = await res.json();

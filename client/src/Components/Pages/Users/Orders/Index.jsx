@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +16,8 @@ function Orders() {
   const params = useParams();
 
   const [users, setUsers] = useState(null);
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {
@@ -26,7 +28,13 @@ function Orders() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`
+          },
+        });
         if (users.status === 200) {
           const json = await users.json();
           setUsers(json);
@@ -43,7 +51,13 @@ function Orders() {
   useEffect(() => {
     async function getData() { // récupère les commandes de l'usager
       try {
-        const orders = await fetch(FETCH_URL + "orders/order_user/" + params.id);
+        const orders = await fetch(FETCH_URL + "orders/order_user/" + params.id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`,
+          },
+        });
         if (orders.status === 200) {
           const json = await orders.json();
           setOrders(json);
@@ -62,7 +76,7 @@ function Orders() {
         <PreviousPage user={users[0]} />
       )}
 
-      <h3>Ventes</h3>
+      <h3>Mes commandes</h3>
 
       <table className="reserve">
         <thead>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -12,16 +13,24 @@ function MsgAnswer() {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [messages, setMessages] = useState("");
+    const [messages, setMessages] = useState(null);
 
     const [answer, setAnswer] = useState("");
     const [id, setId] = useState(""); // le champ du formulaire n'est pas nécessaire, cependant la state pour le "body: JSON.stringify({ answer , id })"" est obligatoire
     const [msg, setMsg] = useState("");
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {
-                const messages = await fetch(FETCH_URL + "messages/employees-read/" + params.id); // récupère les messages par rapport au messages.id
+                const messages = await fetch(FETCH_URL + "messages/employees-read/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                    },
+                }); // récupère les messages par rapport au messages.id
 
                 if (messages.status === 200) {
                     const json = await messages.json();
@@ -40,8 +49,11 @@ function MsgAnswer() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "messages/answer/" + params.id, { // envoie la réponse au message par rapport au messages.id
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ answer, id }),
         });
         const json = await res.json();

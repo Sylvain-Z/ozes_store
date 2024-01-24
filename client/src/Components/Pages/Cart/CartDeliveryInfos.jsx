@@ -32,7 +32,15 @@ function CartDeliveryInfos() {
                 } else {
                     id = myuserid;
                 }
-                const users = await fetch(FETCH_URL + "users/" + id);
+
+                const TOKEN = localStorage.getItem('auth');
+                const users = await fetch(FETCH_URL + "users/" + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN}`
+                    }
+                });
 
                 if (users.status === 200) {
                     const json = await users.json();
@@ -99,7 +107,7 @@ function CartDeliveryInfos() {
 
                                     <form onSubmit={handleSubmitInfos} className='addressForm'>
 
-                                        <label for="firstname">Prénom *</label>
+                                        <label htmlFor="firstname">Prénom *</label>
                                         <input
                                             required
                                             placeholder="Votre prénom"
@@ -108,7 +116,7 @@ function CartDeliveryInfos() {
                                             value={firstname}
                                             onChange={(e) => setFirstname(e.target.value)}
                                         />
-                                        <label for="lastname">Nom *</label>
+                                        <label htmlFor="lastname">Nom *</label>
                                         <input
                                             required
                                             placeholder="Votre nom"
@@ -117,7 +125,7 @@ function CartDeliveryInfos() {
                                             value={lastname}
                                             onChange={(e) => setLastname(e.target.value)}
                                         />
-                                        <label for="email">Email *</label>
+                                        <label htmlFor="email">Email *</label>
                                         <input
                                             required
                                             placeholder="Votre email"
@@ -127,7 +135,7 @@ function CartDeliveryInfos() {
                                             onChange={(e) => setEmail(e.target.value)}
                                         />
                                         <p className='form_advise_black'>Votre email servira à vous informer de l'avancée de votre commande</p>
-                                        <label for="number">Numéro de la rue *</label>
+                                        <label htmlFor="number">Numéro de la rue *</label>
                                         <input
                                             required
                                             placeholder="Numéro de la rue"
@@ -136,7 +144,7 @@ function CartDeliveryInfos() {
                                             value={number}
                                             onChange={(e) => setNumber(e.target.value.replace(/[^0-9]/g, ''))}
                                         />
-                                        <label for="street">Nom de la rue *</label>
+                                        <label htmlFor="street">Nom de la rue *</label>
                                         <input
                                             required
                                             placeholder="Nom de la rue"
@@ -145,16 +153,15 @@ function CartDeliveryInfos() {
                                             value={street}
                                             onChange={(e) => setStreet(e.target.value)}
                                         />
-                                        <label for="complement">Complément d'adresse *</label>
+                                        <label htmlFor="complement">Complément d'adresse</label>
                                         <input
-                                            required
                                             placeholder="Complément d'adresse"
                                             type="text"
                                             name="complement"
                                             value={complement}
                                             onChange={(e) => setComplement(e.target.value)}
                                         />
-                                        <label for="postal_code">Code postal *</label>
+                                        <label htmlFor="postal_code">Code postal *</label>
                                         <input
                                             required
                                             placeholder="Code postal"
@@ -163,7 +170,7 @@ function CartDeliveryInfos() {
                                             value={postal_code}
                                             onChange={(e) => setPostal_code(e.target.value.replace(/[^0-9]/g, ''))}
                                         />
-                                        <label for="city">Ville *</label>
+                                        <label htmlFor="city">Ville *</label>
                                         <input
                                             required
                                             placeholder="Ville"

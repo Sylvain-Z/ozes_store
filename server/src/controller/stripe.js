@@ -1,6 +1,6 @@
 import stripePackage  from "stripe";
 
-const stripe = stripePackage(process.env.STRIPE_SK);
+const stripe = stripePackage(process.env.SK_STRIPE);
 
 const Charge = async (req, res) => {
     let msg ="";

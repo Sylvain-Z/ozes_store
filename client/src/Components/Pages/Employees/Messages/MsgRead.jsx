@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import PreviousPage from '../Components/previousPage';
 
@@ -14,13 +15,18 @@ function MsgRead() {
     useEffect(() => {
         async function getData() {
             try {
-                const messages = await fetch(FETCH_URL + "messages/all");   // affiche tous les messages en BDD
-
+                const TOKEN_EMPL = getItemWithExpiration('authe');
+                const messages = await fetch(FETCH_URL + "messages/all", {   // affiche tous les messages en BDD
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                });
                 if (messages.status === 200) {
                     const json = await messages.json();
                     setMessages(json);
                 }
-
             } catch (error) {
                 throw Error(error);
             }
@@ -54,7 +60,6 @@ function MsgRead() {
                             <p className="message_pseudo">Pseudo : {message.user_pseudo}</p>
                             <p className="message_content">{message.content}</p>
                             <p className="message_date">{format(new Date(message.publication_date), 'dd-MM-yyyy HH:mm', { timeZone: 'auto' })}</p>
-
 
                             {message.user_pseudo === "Invité" ? (
                                 <p className={message.status === "en attente" ? "input_link_btn" : "hidden"}>Répondre par mail</p>

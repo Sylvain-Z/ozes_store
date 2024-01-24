@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -14,10 +15,18 @@ function DeleteCategories() {
     const [id, setId] = useState("");
     const [categories, setCategories] = useState(null);
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+    
     useEffect(() => {
         async function getData() {
             try {
-                const categories = await fetch(FETCH_URL + "categories/categories/" + params.id); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
+                const categories = await fetch(FETCH_URL + "categories/categories/" + params.id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // récupère les information de la catégorie en fonction de son id pour afficher à l'utilisateur la confirmation de suppression concernant ce qu'il souhaite supprimer
                 if (categories.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -40,7 +49,10 @@ function DeleteCategories() {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "categories/categories/delete/" + params.id, { // supprime la catégorie en fonction de son id
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

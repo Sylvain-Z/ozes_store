@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTrashCan, faCirclePlus, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +18,15 @@ function AccountManagement() { // page accessible uniquement par les compte util
   useEffect(() => {
     async function getData() {
       try {
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const employees = await (
-          await fetch(FETCH_URL + "employees/all")
+          await fetch(FETCH_URL + "employees/all", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
+          })
         ).json();
         setEmployees(employees.datas);
 
@@ -58,7 +66,7 @@ function AccountManagement() { // page accessible uniquement par les compte util
         ) : (employees.map(employee =>
 
 
-          <tbody className={`products_list`}  key={employee.id}>
+          <tbody className={`products_list`} key={employee.id}>
             <tr>
               <td className='first_col'>
                 {employee.role === 1 ? (<img src={require("../../../../assets/img/Administrateur.png")} alt="pictograme buste" />) : (<img src={require("../../../../assets/img/Moderateur.png")} alt="pictograme buste" />)}

@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -13,14 +14,22 @@ function DeleteSizes() {
     const params = useParams();
 
     const [sizes, setSizes] = useState(null);
-    const [id, setID] = useState(null);
+    const [id, setID] = useState("");
     const [size_id, setSize_id] = useState("");
     const [product_id, setProduct_id] = useState("");
+    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id); // récupère la taille en fonction de l'id du produit et de l'id de la taille
+                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // récupère la taille en fonction de l'id du produit et de l'id de la taille
                 if (sizes.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -36,13 +45,16 @@ function DeleteSizes() {
     }, []);
 
 
-    const [msg, setMsg] = useState(null);
+    const [msg, setMsg] = useState("");
 
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "sizes/delete/" + params.product_id + "/" + params.size_id, { // supprime la taille en fonction de l'id du produit et de l'id de la taille
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, id }),
         });
         const json = await res.json();

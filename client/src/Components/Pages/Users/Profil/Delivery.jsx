@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect, React } from "react";
+import { useState, useEffect } from "react";
+import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +14,8 @@ import BackToCart from '../../Cart/Components/BackToCart';
 
 function Delivery() {
 
-      const myuserid = localStorage.getItem("myuserid");
+      const TOKEN = getItemWithExpiration('auth');
+      const myuserid = getItemWithExpiration("myuserid");
 
       const [users, setUsers] = useState(null);
 
@@ -25,7 +28,13 @@ function Delivery() {
                         } else {
                               id = myuserid;
                         }
-                        const users = await fetch(FETCH_URL + "users/" + id);
+                        const users = await fetch(FETCH_URL + "users/" + id, {
+                              method: 'GET',
+                              headers: {
+                                    'Content-Type': 'application/json',
+                                    'Authentication': `Bearer ${TOKEN}`
+                              }
+                        });
 
                         if (users.status === 200) {
                               const json = await users.json();
@@ -63,7 +72,7 @@ function Delivery() {
 
                               <section className="form_section">
 
-                                    {!cart ? (<></>) : (<BackToCart />)} {/* Affiche un lien vers une page avancée du panier celui-ci contient des articles  */}
+                                    {!cart.lenght ? (<></>) : (<BackToCart />)} {/* Affiche un lien vers une page avancée du panier celui-ci contient des articles  */}
 
                                     <FontAwesomeIcon icon={faTruckFast} size="lg" className="fontawesomeYellow" />
                                     <h3 className="form_title read">Vos informations de livraison</h3>

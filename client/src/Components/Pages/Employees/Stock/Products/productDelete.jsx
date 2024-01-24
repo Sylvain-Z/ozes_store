@@ -2,6 +2,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +15,8 @@ function ProductDelete() {
 
     const [id, setId] = useState("");
     const [products, setProducts] = useState(null);
+    
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -40,7 +43,10 @@ function ProductDelete() {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "products/delete/" + params.id, {
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

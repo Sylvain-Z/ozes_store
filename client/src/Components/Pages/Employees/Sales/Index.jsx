@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { format } from 'date-fns-tz';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare, faCheckCircle, faMinus } from '@fortawesome/free-solid-svg-icons';
@@ -17,8 +18,15 @@ function Sales() {
   useEffect(() => {
     async function getData() { // récupère toutes les commandes de la bdd
       try {
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const orders = await (
-          await fetch(FETCH_URL + "orders/all")
+          await fetch(FETCH_URL + "orders/all", {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
+          })
         ).json();
         setOrders(orders.datas);
 

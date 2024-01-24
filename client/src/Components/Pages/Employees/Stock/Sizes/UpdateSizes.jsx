@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -14,15 +15,23 @@ function UpdateSizes() {
 
     const [sizes, setSizes] = useState(null); // stocke les informations de la taille
 
-    const [id, setID] = useState(null); // gères les inputs du formulaire
+    const [id, setID] = useState(""); // gères les inputs du formulaire
     const [label, setLabel] = useState("");
     const [quantity, setQuantity] = useState("");
     const [product_id, setProduct_id] = useState("");
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {
-                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id); // trouve les informations de la taille par rapport à l'id du produit et l'id de la taille
+                const sizes = await fetch(FETCH_URL + "sizes/" + params.product_id + "/" + params.size_id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                      },
+                }); // trouve les informations de la taille par rapport à l'id du produit et l'id de la taille
                 if (sizes.status === 404) {
                     navigate("/employes/not-found");
                 }
@@ -48,8 +57,11 @@ function UpdateSizes() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "sizes/update-sizes/" + params.product_id + "/" + params.id, { // mets à jour la taille par rapport à l'id du produit et l'id de la taille
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ label, quantity, product_id, id }),
         });
         const json = await res.json();
@@ -85,6 +97,7 @@ function UpdateSizes() {
 
                     <label htmlFor="caption">Taille</label>
                     <input
+                        required
                         placeholder="Taille"
                         type="text"
                         name="label"
@@ -93,6 +106,7 @@ function UpdateSizes() {
                     />
                     <label htmlFor="caption">Quantité</label>
                     <input
+                        required
                         placeholder="Quantité"
                         type="text"
                         name="quantity"

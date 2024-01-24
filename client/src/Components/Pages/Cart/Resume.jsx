@@ -74,7 +74,15 @@ function Resume() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+
+        const TOKEN = localStorage.getItem('auth');
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`
+          }
+        });
         if (users.status === 200) {
           const json = await users.json();
           setUsers(json);
@@ -254,8 +262,17 @@ function Resume() {
           </>
         ) : ( // ces bouttons sont, respectivement, visible sur les deux premières page du panier
           <>
-            <Link to="/panier/info-livraison" className={pathname === "/panier" ? "" : "hidden"}><p className="continue">ContinuerVersInfos</p></Link>
-            <Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "" : "hidden"}><p className="continue">ContinuerVersPaiement</p></Link>
+            <Link to="/panier/info-livraison" className={pathname === "/panier" ? "" : "hidden"}><p className="continue">Continuer</p></Link>
+
+            {!userInfos ? (
+              <>
+                {!users ? (<></>) : (<><p className="continue"><Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}>Continuer</Link></p></>)}
+              </>
+            ) : (
+              <>
+                <p className="continue"><Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}>Continuer</Link></p>
+              </>
+            )}
           </>
         )}
 

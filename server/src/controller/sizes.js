@@ -1,36 +1,12 @@
 import Query from "../model/Query.js";
 
-const getSizes = async (req, res) => {
-    try {
-    const query = "SELECT * FROM sizes";
-    const [datas] = await Query.find(query);
-
-    res.status(200).json({ datas });
-    } catch (error) {
-        throw Error(error);
-    }
-};
-
-/* const getSizesById = async (req, res) => {
-    
-    const query = "SELECT * FROM sizes WHERE id = ?";
-    const [datas] = await Query.findByDatas(query, req.params);
-    if(!datas.length){
-        res.status(404).json({msg: "taille non reconnue"})
-    }
-    if(datas.length) {        
-        res.status(200).json(datas);
-        return;
-    }  
-}; */
 const getSizesByProductId = async (req, res) => {
     try {
         const query = "SELECT * FROM  sizes WHERE product_id = ?";
         const [datas] = await Query.findByDatas(query, req.params);
         if(!datas.length){
             res.status(404).json({msg: "taille non reconnue"})
-        }
-        if(datas.length) {        
+        } else {        
             res.status(200).json(datas);
             return;
         }
@@ -44,8 +20,7 @@ const getProductSizeByIds = async (req, res) => {
         const [datas] = await Query.findByDatas(query, req.params);
         if(!datas.length){
             res.status(404).json({msg: "taille non reconnue"})
-        }
-        if(datas.length) {        
+        } else {        
             res.status(200).json(datas);
             return;
         }
@@ -71,7 +46,7 @@ const AddSizes = async (req, res) => {
             msg = "Une taille avec cette appellation existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!size.length) {
+        } else {
             const datas = { 
                 label: req.body.label,
                 quantity: req.body.quantity,
@@ -126,4 +101,4 @@ const DeleteSizes = async (req, res) => {
     }
 };
 
-export { getSizes , getProductSizeByIds /*, getSizesById */, getSizesByProductId , AddSizes , UpdateSizes , DeleteSizes };
+export { getProductSizeByIds , getSizesByProductId , AddSizes , UpdateSizes , DeleteSizes };

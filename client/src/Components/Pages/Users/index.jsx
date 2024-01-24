@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import React from 'react';
 
 import { FETCH_URL } from '../../../assets/const';
+import { getItemWithExpiration } from '../../../assets/functions';
 
 import { Link } from 'react-router-dom';
 
@@ -15,7 +16,8 @@ import BackToStore from '../Containers/BackToStore/Index';
 function Dashboard() {
 
   const [users, setUsers] = useState(null);
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
 
   useEffect(() => {
     async function getData() {
@@ -26,7 +28,13 @@ function Dashboard() {
         } else {
           id = myuserid;
         }
-        const users = await fetch(FETCH_URL + "users/" + id);
+        const users = await fetch(FETCH_URL + "users/" + id, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authentication': `Bearer ${TOKEN}`
+          }
+        });
 
         if (users.status === 200) {
           const json = await users.json();
@@ -51,17 +59,24 @@ function Dashboard() {
 
           <nav className="dashboard_nav">
             <FontAwesomeIcon icon={faBoxOpen} />
-            <p className="dashboard_tabs"><Link to={`/utilisateurs/vos-commandes/${user.id}`}>Mes commandes</Link></p>
+            <Link to={`/utilisateurs/vos-commandes/${user.id}`}>
+              <p className="dashboard_tabs">Mes commandes</p>
+            </Link>
 
             <FontAwesomeIcon icon={faMessage} />
-            <p className="dashboard_tabs"><Link to={`/utilisateurs/messages/${user.id}`}>Messages</Link></p>
+            <Link to={`/utilisateurs/messages/${user.id}`}>
+              <p className="dashboard_tabs">Messages</p>
+            </Link>
 
             <FontAwesomeIcon icon={faTruckFast} size="lg" />
-            <p className="dashboard_tabs"><Link to={`/utilisateurs/infos-livraison/${user.id}`}>Infos de livraison</Link></p>
+            <Link to={`/utilisateurs/infos-livraison/${user.id}`}>
+              <p className="dashboard_tabs">Infos de livraison</p>
+            </Link>
 
             <FontAwesomeIcon icon={faIdBadge} />
-            <p className="dashboard_tabs"><Link to={`/utilisateurs/infos-connexion/${user.id}`}>Infos de connexion </Link></p>
-
+            <Link to={`/utilisateurs/infos-connexion/${user.id}`}>
+              <p className="dashboard_tabs">Infos de connexion</p>
+            </Link>
           </nav>
 
           <BackToStore />

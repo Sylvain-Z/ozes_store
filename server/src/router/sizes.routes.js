@@ -1,16 +1,16 @@
 import { Router } from "express";
-import { getSizes /* , getSizesById */ , getSizesByProductId  , getProductSizeByIds , AddSizes , UpdateSizes , DeleteSizes} from "../controller/sizes.js";
+import { getSizesByProductId  , getProductSizeByIds , AddSizes , UpdateSizes , DeleteSizes} from "../controller/sizes.js";
+import { authe } from "../middlewares/authe.js";
 
 const router = Router();
 
-router.post("/add-sizes/:product_id", AddSizes); //  composant : Employees/Stock/Products/productAddSizes
-router.post("/update-sizes/:product_id/:size_id", UpdateSizes); //  composant : Employees/Stock/Sizes/updateSizes
+router.post("/add-sizes/:product_id", authe, AddSizes); //  composant : Employees/Stock/Products/ProductAddSizes
+router.post("/update-sizes/:product_id/:size_id", authe, UpdateSizes); //  composant : Employees/Stock/Sizes/updateSizes
 
-router.delete("/delete/:product_id/:size_id", DeleteSizes); // composant : Employees//Stock/Sizes/deleteSizes
+router.delete("/delete/:product_id/:size_id", authe, DeleteSizes); // composant : Employees//Stock/Sizes/DeleteSizes
 
-router.get("/all", getSizes); // composant : Employees/Stock/sizes/ pas utilisé pour le moment
-router.get("/:product_id", getSizesByProductId); // Employees/Stock/Products/productAddSizes
-router.get("/:product_id/:id", getProductSizeByIds); //  composant : Employees/Stock/Sizes/updateSizes
+router.get("/:product_id", authe, getSizesByProductId); // Employees/Stock/Products/productAddSizes
+router.get("/:product_id/:id", authe, getProductSizeByIds); //  composant : Employees/Stock/Sizes/UpdateSizes
 
 
 export default router;

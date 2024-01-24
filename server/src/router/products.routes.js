@@ -1,15 +1,16 @@
 import { Router } from "express";
-import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getRandom , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddSubCategories , AddPictures , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
+import { getOneProductsFull , getProductsGlimpse , getProductsGalery , getRandom , getProductsDetails , getQuantitybyId, getSizesByProductId , getProductsCart , getLastId , getSubcategories , getProdSubcateById , AddProduct , AddSubCategories , UpdateProduct , UpdateProductSubcate , UpdateProductPicById, DeleteProduct } from "../controller/products.js";
+import { authe } from "../middlewares/authe.js";
 
 const router = Router();
 
-router.post("/add-product", AddProduct); //  composant : Employees/ProductAdd 
-router.post("/add-subcategorie", AddSubCategories); // composant : Employees/ProductAddCate
-router.post("/update/:id", UpdateProduct); // composant : Employees/ProductUpdate
-router.post("/update-subcate/:id", UpdateProductSubcate); // composant : Employees/ProductUpdate
-router.post("/update-pictures/:id", UpdateProductPicById); // composant : Employees/ProductUpdate
+router.post("/add-product", authe, AddProduct); //  composant : Employees/ProductAdd 
+router.post("/add-subcategorie", authe, AddSubCategories); // composant : Employees/ProductAddCate
+router.post("/update/:id", authe, UpdateProduct); // composant : Employees/ProductUpdate
+router.post("/update-subcate/:id", authe, UpdateProductSubcate); // composant : Employees/ProductUpdate
+router.post("/update-pictures/:id", authe, UpdateProductPicById); // composant : Employees/ProductUpdate  // à supprimer ??
 
-router.delete("/delete/:id", DeleteProduct); // composant : Employees/ProductDelete
+router.delete("/delete/:id", authe, DeleteProduct); // composant : Employees/ProductDelete
 
 router.get("/one_full/:id", getOneProductsFull); // composant : Employees/ProductUpdate
 router.get("/glimpse/:id", getProductsGlimpse); // composant : Employees/ProductDelete
@@ -20,7 +21,7 @@ router.get("/quantity/:id", getQuantitybyId); // sert à afficher la quantité t
 router.get("/:title_url/:id", getProductsDetails); // page détails produits laissé de côté pour le moment
 router.get("/last-product_id", getLastId); // sert à récupérer l'ID du dernier produit ajouté afin de renseigner le bon ID lors de la créatioin d'un produit sur les pages Employees/ProductPicAdd, Employees/ProductUpdate et Employees/ProductDelete
 router.get("/subcate", getSubcategories); // sert à récupérer la categorie et son ID pour y faire référence
-router.get("/random", getRandom); // sert à récupérer la categorie et son ID pour y faire référence
+router.get("/random", getRandom); // sert à afficher 4 produits aléatoires // composant : Containers/Suggestion ->  Cart/Index + Shop/ProductPage
 
 router.get("/:title_url", getProductsCart);
 

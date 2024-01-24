@@ -24,8 +24,22 @@ const createAccount = async (req, res) => {
         let msg3 = "";
         const datas = { 
             pseudo: req.body.pseudo,
+            email: req.body.email,
+            password: req.body.password,
         };
 
+        // Expression régulière pour la validation du format des champs
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,12}$/; 
+
+        if (!emailRegex.test(datas.email)) {
+            return res.status(400).json({ msg: "L'email n'est pas dans un format valide"})
+        }
+        if (!passwordRegex.test(datas.password)) {
+            return res.status(400).json({ msg: "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un caractère spécial et a une longueur comprise entre 8 et 12 caractères."})
+        }
+
+        // Vérification de l'unicité du pseudo
         const queryUser =
             "SELECT pseudo FROM users WHERE pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, datas);
@@ -34,7 +48,7 @@ const createAccount = async (req, res) => {
             msg = "Un utilisateur avec ce pseudo existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!user.length) {
+        } else {
             const datas = {
                 id: req.body.id,
                 pseudo: req.body.pseudo,
@@ -71,11 +85,11 @@ const signin = async (req, res) => {
             const TOKEN = sign({ pseudo: user[0].pseudo }, SK);
             res.status(200).json({ msg, TOKEN });
             } else {
-                msg = "Mot de passe incorrecte";
+                msg = "Le pseudo ou le mot de passe est incorrecte";
                 res.status(401).json({msg})
             }
 
-        } else if (!user.length) {
+        } else {
             msg = "Le pseudo ou le mot de passe est incorrecte";
             res.status(409).json({ msg });
         }
@@ -99,8 +113,7 @@ const userInformations = async (req, res) => {
 
     if(!user.length){
         res.status(404).json({msg: "utilisateur non reconnu"})
-    }
-    if(user.length) {        
+    } else {        
         res.status(200).json(user);
         return;
     } 
@@ -141,11 +154,26 @@ const updateDelivery = async (req, res) => {
 const updateLogin = async (req, res) => {
     try {
         let msg = "";
+        let msg2 = "";
         const datas = { 
             password: await hash(req.body.password, SALT),
             email: req.body.email,       
             pseudo: req.body.pseudo,       
                        };
+
+        // Expression régulière pour la validation du format des champs
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]).{8,12}$/; 
+
+        if (!emailRegex.test(datas.email)) {
+            return res.status(400).json({ msg: "L'email n'est pas dans un format valide"})
+        }
+        if (!passwordRegex.test(req.body.password)) {
+            return res.status(400).json({ msg: "Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un caractère spécial et a une longueur comprise entre 8 et 12 caractères."})
+        }
+
+        
+        // Vérification de l'unicité du pseudo
         const queryUser =
             "SELECT id, pseudo, email, password FROM users WHERE users.pseudo = ?";
         const [user] = await Query.findByDatas(queryUser, req.params);
@@ -155,8 +183,8 @@ const updateLogin = async (req, res) => {
                 "UPDATE users SET password = ? , email = ? WHERE users.pseudo = ?";
             await Query.write(query, datas);
 
-            msg = "Vos informations ont été mise à jour !";
-            res.status(201).json({ msg });
+            msg2 = "Vos informations ont été mise à jour !";
+            res.status(201).json({ msg2 });
         }
     } catch (error) {
         throw Error(error);

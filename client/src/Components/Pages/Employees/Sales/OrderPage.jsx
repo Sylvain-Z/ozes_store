@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import Loading from "../../Containers/Loading/Index";
 
@@ -14,16 +15,24 @@ function OrderPage() {
     const params = useParams();
     const navigate = useNavigate();
 
-    const [orders, setOrders] = useState("");
+    const [orders, setOrders] = useState(null);
 
     const [tracking_number, setTracking_number] = useState("");
     const [id, setId] = useState("");
     const [msg, setMsg] = useState("");
 
+    const TOKEN_EMPL = getItemWithExpiration('authe');
+
     useEffect(() => {
         async function getData() {
             try {
-                const orders = await fetch(FETCH_URL + "orders/" + params.order_id); // récupère les informations d'une commande par rapport à son id
+                const orders = await fetch(FETCH_URL + "orders/" + params.order_id, { // récupère les informations d'une commande par rapport à son id
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authentication': `Bearer ${TOKEN_EMPL}`,
+                    },
+                });
                 if (orders.status === 404) {
                     navigate("/not-found");
                 }
@@ -43,8 +52,11 @@ function OrderPage() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "orders/tracking_number/" + params.id, { // met à jour le numéro de suivi d'une commande par rapport à son id
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ tracking_number, id }),
         });
         const json = await res.json();

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import React from 'react';
 
 import { FETCH_URL } from '../../../../assets/const';
+import { getItemWithExpiration } from '../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faIdBadge } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +18,14 @@ function Profil() {
   useEffect(() => {
     async function getData() {
       try {
-        const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id);
+        const TOKEN_EMPL = getItemWithExpiration('authe');
+        const employees = await fetch(FETCH_URL + "employees/employeeBy/" + params.id, {
+          method: 'GET',
+          headers: {
+              'Content-Type': 'application/json',
+              'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
+      });
         if (employees.status === 200) {
           const json = await employees.json();
           setEmployees(json);

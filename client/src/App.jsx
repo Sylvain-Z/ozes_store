@@ -55,8 +55,8 @@ import ProductUpdate from "./Components/Pages/Employees/Stock/Products/ProductUp
 import ProductDelete from "./Components/Pages/Employees/Stock/Products/ProductDelete";
 import MsgRead from "./Components/Pages/Employees/Messages/MsgRead";
 import MsgAnswer from "./Components/Pages/Employees/Messages/MsgAnswer";
-import EmployeesInfo from "./Components/Pages/Employees/Infos/employeesInfo";
-import EmployeesInfoUpdate from "./Components/Pages/Employees/Infos/employeesInfoUpdate";
+import EmployeesInfo from "./Components/Pages/Employees/Infos/EmployeesInfo";
+import EmployeesInfoUpdate from "./Components/Pages/Employees/Infos/EmployeesInfoUpdate";
 
 import AccountManagement from "./Components/Pages/Employees/Management/Index";
 import AddProfil from "./Components/Pages/Employees/Management/Addprofil";
@@ -112,45 +112,45 @@ function App() {
           <Route path="connexion" element={<HOCEmployees child={Takein} />} />
           <Route path="deconnexion" element={<HOCEmployees child={TakeOut} />} />
           <Route path="" element={<HOCEmployees child={Desk} />} />
-          <Route path="ventes" element={<HOCEmployees child={Sales} auth={true} />} />
-          <Route path="commande/:order_id" element={<HOCEmployees child={OrderPage} auth={true} />} />
+          <Route path="ventes" element={<HOCEmployees child={Sales} authe={true} />} />
+          <Route path="commande/:order_id" element={<HOCEmployees child={OrderPage} authe={true} />} />
 
           <Route path="stock">
-            <Route path="" element={<HOCEmployees child={Reserve} auth={true} />} />
+            <Route path="" element={<HOCEmployees child={Reserve} authe={true} />} />
             <Route path="categories">
-              <Route path="" element={<HOCEmployees child={Categories} auth={true} />} />
-              <Route path="categories/delete/:id" element={<HOCEmployees child={DeleteCategories} auth={true} />} />
-              <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} auth={true} />} />
+              <Route path="" element={<HOCEmployees child={Categories} authe={true} />} />
+              <Route path="categories/delete/:id" element={<HOCEmployees child={DeleteCategories} authe={true} />} />
+              <Route path="subcategories/delete/:id" element={<HOCEmployees child={DeleteSubCategories} authe={true} />} />
             </Route>
-            <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} auth={true} />} />
-            <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddSubCate} auth={true} />} />
-            <Route path="ajouter-image" element={<HOCEmployees child={ProductAddPic} auth={true} />} />
-            <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} auth={true} />} />
-            <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} auth={true} />} />
-            <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} auth={true} />} />
-            <Route path="delete-picture/:product_id/:picture_id" element={<HOCEmployees child={DeletePicture} auth={true} />} />
-            <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} auth={true} />} />
+            <Route path="ajouter-produit" element={<HOCEmployees child={ProductAdd} authe={true} />} />
+            <Route path="attribuer-sous-catégorie" element={<HOCEmployees child={ProductAddSubCate} authe={true} />} />
+            <Route path="ajouter-image" element={<HOCEmployees child={ProductAddPic} authe={true} />} />
+            <Route path="actualiser/:id" element={<HOCEmployees child={ProductUpdate} authe={true} />} />
+            <Route path="update-size/:product_id/:size_id" element={<HOCEmployees child={UpdateSizes} authe={true} />} />
+            <Route path="delete-size/:product_id/:size_id" element={<HOCEmployees child={DeleteSizes} authe={true} />} />
+            <Route path="delete-picture/:product_id/:picture_id" element={<HOCEmployees child={DeletePicture} authe={true} />} />
+            <Route path="suppression/:id" element={<HOCEmployees child={ProductDelete} authe={true} />} />
           </Route>
 
           <Route path="messages" >
-            <Route path="" element={<HOCEmployees child={MsgRead} auth={true} />} />
-            <Route path="repondre/:id" element={<HOCEmployees child={MsgAnswer} auth={true} />} />
+            <Route path="" element={<HOCEmployees child={MsgRead} authe={true} />} />
+            <Route path="repondre/:id" element={<HOCEmployees child={MsgAnswer} authe={true} />} />
           </Route>
 
           <Route path="gestion-comptes">
-            <Route path="" element={<HOCEmployees child={AccountManagement} auth={true} />} />
-            <Route path="creer-compte" element={<HOCEmployees child={AddProfil} auth={true} />} />
-            <Route path=":id" element={<HOCEmployees child={Profil} auth={true} />} />
-            <Route path="actualiser/:id" element={<HOCEmployees child={UpdateProfil} auth={true} />} />
-            <Route path="suppression/:id" element={<HOCEmployees child={DeleteProfil} auth={true} />} />
+            <Route path="" element={<HOCEmployees child={AccountManagement} authe={true} />} />
+            <Route path="creer-compte" element={<HOCEmployees child={AddProfil} authe={true} />} />
+            <Route path=":id" element={<HOCEmployees child={Profil} authe={true} />} />
+            <Route path="actualiser/:id" element={<HOCEmployees child={UpdateProfil} authe={true} />} />
+            <Route path="suppression/:id" element={<HOCEmployees child={DeleteProfil} authe={true} />} />
           </Route>
 
-          <Route path=":id" element={<HOCEmployees child={EmployeesInfo} auth={true} />} />
-          <Route path="actualiser-mes-infos/:id" element={<HOCEmployees child={EmployeesInfoUpdate} auth={true} />} />
+          <Route path=":id" element={<HOCEmployees child={EmployeesInfo} authe={true} />} />
+          <Route path="actualiser-mes-infos/:id" element={<HOCEmployees child={EmployeesInfoUpdate} authe={true} />} />
         </Route>
 
         <Route path="not-found" element={<HOC child={NotFound} />} />
-        <Route path="employes/not-found" element={<HOCEmployees child={NotFoundEmployees} auth={true} />} />
+        <Route path="employes/not-found" element={<HOCEmployees child={NotFoundEmployees} authe={true} />} />
 
       </Routes>
     </BrowserRouter>

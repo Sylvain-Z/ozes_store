@@ -13,8 +13,7 @@ const getCategoryById = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "catégorie non reconnue"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -33,8 +32,7 @@ const getSubategoryById = async (req, res) => {
     const [datas] = await Query.findByDatas(query, req.params);
     if(!datas.length){
         res.status(404).json({msg: "catégorie non reconnue"})
-    }
-    if(datas.length) {        
+    } else {        
         res.status(200).json(datas);
         return;
     }  
@@ -53,7 +51,7 @@ const AddCategories = async (req, res) => {
             msg = "Une catégorie avec cet appellation existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!cate.length) {
+        } else {
             const datas = {
                 cate_title: req.body.cate_title,
             };
@@ -85,7 +83,7 @@ const AddSubcategories = async (req, res) => {
             msg = "Une sous-catégorie avec cet appellation existe déjà";
             res.status(409).json({ msg });
 
-        } else if (!cate.length) {
+        } else {
             const datas = {
                 subcate_title: req.body.subcate_title,
                 categorie_id: req.body.categorie_id,

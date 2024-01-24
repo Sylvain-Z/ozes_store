@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleInfo, faCircleCheck } from '@fortawesome/free-solid-svg-icons';
@@ -19,9 +20,13 @@ function AddSubcategories({ categories }) {
 
     async function handleSubmit(e) {
         e.preventDefault();
+        const TOKEN_EMPL = getItemWithExpiration('authe');
         const res = await fetch(FETCH_URL + "categories/add-subcategory", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+            },
             body: JSON.stringify({ subcate_title, categorie_id }),
         });
         const json = await res.json();
@@ -41,7 +46,7 @@ function AddSubcategories({ categories }) {
                     type={!inputHidden ? "hidden" : "text"}
                     name="subcate_title"
                     value={subcate_title}
-                    onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-z]/g, ''))}
+                    onChange={(e) => setSubcate_title(e.target.value.replace(/[^a-zA-Z]/g, ''))}
                 />
 
                 <input

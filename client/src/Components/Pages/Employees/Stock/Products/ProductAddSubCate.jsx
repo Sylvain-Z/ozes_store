@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../../../assets/const';
+import { getItemWithExpiration } from '../../../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck, faCircleInfo, faDeleteLeft } from '@fortawesome/free-solid-svg-icons';
@@ -13,8 +14,10 @@ function ProductAddSubCate() {
     const [isShown, setIsShown] = useState(false); // gère la dissimulation et l'apparition de l'infobulle
 
     const [product_id, setProduct_id] = useState(null);  // stocke l'id du dernier produit ajouté
-    const [id, setId] = useState(null);  // state pour injecter dans la fonction du boutton d'annulation de la création du produit
-    const [subcate, setSubcate] = useState(null);
+    const [id, setId] = useState("");  // state pour injecter dans la fonction du boutton d'annulation de la création du produit
+    const [subcate, setSubcate] = useState("");
+
+    const TOKEN_EMPL = getItemWithExpiration('authe');
 
     useEffect(() => {
         async function getData() {
@@ -47,8 +50,11 @@ function ProductAddSubCate() {
     async function handleSubmit(e) {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "products/add-subcategorie", {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ product_id, subcategorie_id }),
         });
         const json = await res.json();
@@ -62,7 +68,10 @@ function ProductAddSubCate() {
         e.preventDefault();
         const res = await fetch(FETCH_URL + "products/delete/" + id, { // supprime le produit qui vient d'être ajouté
             method: "DELETE",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authentication': `Bearer ${TOKEN_EMPL}`,
+              },
             body: JSON.stringify({ id }),
         });
         const json = await res.json();

@@ -200,7 +200,7 @@ $White : rgb(240, 240, 240);
     .display_cart {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
     }
     .cart_ctn-cart, .address {
         width: 65%;

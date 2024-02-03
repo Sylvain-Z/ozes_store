@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 import { FETCH_URL } from '../../../assets/const';
+import { getItemWithExpiration } from '../../../assets/functions';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTruckFast } from '@fortawesome/free-solid-svg-icons';
@@ -10,7 +11,8 @@ import Resume from './Resume';
 
 function CartDeliveryInfos() {
 
-    const myuserid = localStorage.getItem("myuserid");
+    const TOKEN = getItemWithExpiration('auth');
+    const myuserid = getItemWithExpiration("myuserid");
     const [users, setUsers] = useState(null);
 
     const [firstname, setFirstname] = useState(""); // les states servent à remplir le formulaire
@@ -32,8 +34,6 @@ function CartDeliveryInfos() {
                 } else {
                     id = myuserid;
                 }
-
-                const TOKEN = localStorage.getItem('auth');
                 const users = await fetch(FETCH_URL + "users/" + id, {
                     method: 'GET',
                     headers: {

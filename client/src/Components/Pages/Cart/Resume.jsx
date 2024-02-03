@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { v4 as uuidv4 } from 'uuid';
 
 import { FETCH_URL } from '../../../assets/const';
+import { getItemWithExpiration } from '../../../assets/functions';
 
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
@@ -61,7 +62,8 @@ function Resume() {
 
   // EFFECTUER LA COMMANDE
 
-  const myuserid = localStorage.getItem("myuserid");
+  const TOKEN = getItemWithExpiration('auth');
+  const myuserid = getItemWithExpiration("myuserid");
   const [users, setUsers] = useState(null);  // fetch query table orders
   const [user_id, setUser_id] = useState(null);  // fetch query table orders
 
@@ -74,8 +76,6 @@ function Resume() {
         } else {
           id = myuserid;
         }
-
-        const TOKEN = localStorage.getItem('auth');
         const users = await fetch(FETCH_URL + "users/" + id, {
           method: 'GET',
           headers: {
@@ -266,11 +266,11 @@ function Resume() {
 
             {!userInfos ? (
               <>
-                {!users ? (<></>) : (<><p className="continue"><Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}>Continuer</Link></p></>)}
+                {!users ? (<></>) : (<><Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}><p className="continue">Continuer</p></Link></>)}
               </>
             ) : (
               <>
-                <p className="continue"><Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}>Continuer</Link></p>
+                <Link to="/panier/paiement" className={pathname === "/panier/info-livraison" ? "continuelink" : "hidden"}><p className="continue">Continuer</p></Link>
               </>
             )}
           </>
@@ -286,7 +286,6 @@ function Resume() {
           {msg && <p className="msg_buy">{msg}</p>}
 
         </form>
-
 
       </article>
     </>

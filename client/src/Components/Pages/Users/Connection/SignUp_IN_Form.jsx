@@ -88,7 +88,7 @@ function Form({ type }) {
                             <input
                                 required
                                 placeholder="Votre email"
-                                type="text" // vérification du format de l'entrée de l'utilisateur côté server
+                                type="email" // vérification du format de l'entrée de l'utilisateur côté server
                                 name="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}

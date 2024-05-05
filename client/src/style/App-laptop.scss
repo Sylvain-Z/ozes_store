@@ -1,0 +1,226 @@
+/* RESPONSIVE */
+
+$White : rgb(240, 240, 240);
+
+/* LAPTOP */
+
+@media screen and (min-width: 781px){
+
+    /* COMMUNES */
+    #home_body {
+        background-image: url("../assets/img/home/Background.jpg");
+        background-position: 0 0;
+
+    }
+    
+    .navigation_header {
+        .french_label{
+            margin-left: 19%;
+        }
+        .header_width {
+            width: 80%;
+            flex-direction: row;
+        }
+        .divlogo{
+            flex-direction: row;
+            h1 {
+                text-align: left;
+                border-right: 3px solid $White;
+            }
+        }
+        nav {
+            justify-content: flex-start;
+        }
+        .ctn_pictoheader {
+            width: 20%;
+            justify-content: space-between;
+        }
+        .ctn_empl_laptop {
+            width: 40%;
+            margin-left: 50px;
+        }
+    }
+    .navigation_footer {
+        flex-direction: column;
+        .other_pages{
+            flex-direction: row;
+        }
+    }
+    .navigation_main {
+        width: 80%;
+    }
+    .back_to_cart {
+        top: 10px;
+        right: 20%;
+    }
+    .back_to_store {
+        margin-bottom: 100px;
+    }
+
+    /* CONTENU SITE  */
+    /* LE STORE */
+
+    .store_page_title { //h2
+        position: absolute;
+        top : 30px;
+        right: 10%;
+    }
+    .shipping_costs {
+        flex-direction: row;
+        img {
+            width: 50px;
+        }
+        p {
+            width: 70%;
+            text-align: center;
+            margin: 0 25px;
+        }
+    }
+
+    .shop, .size_guide_t-shirts,
+    .size_guide_rings {    
+        .product_grid {
+            width: 30%;
+        }
+        figure:hover {  // community & shop
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+        .product_grid figcaption{
+            font-size: 20px;
+            }
+    }
+
+    /* PAGE PRODUIT */
+
+    .product_page {
+        .shop {
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .product_image_ctn {
+            width: 50%;
+        }
+        .product_name{
+            margin-bottom: 0px;
+        }
+        .product_form {
+            width: 45%;
+        }
+    }
+    
+    /* LA MARQUE */
+    
+    .brand {
+        .brand_logo {
+            width: 10%;
+            height: 10%;
+            margin: 0;
+        }
+    }
+    
+    .community {
+        .community_elements figure {
+            width: 25%;
+        }
+        .social_medias_links figure {
+            width: 15%;
+        }
+    }
+
+
+    /* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES */
+
+    .form_section {
+        width: 100%;
+    }
+    form {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        label { 
+            margin-top : 25px;
+        }
+        input, .form_input {
+            width: 80%;
+            height: 30px;
+            text-align: center;
+            font-size: 16px;
+            border: transparent;
+            margin: 15px auto;
+        }
+        .textarea {
+            height: 150px;
+        }
+        button, .button_retour_rouge {
+            height: 40px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 5px;
+            margin: 25px auto;
+        }
+    }
+
+    /* PAGES UTILISATEUR */
+
+    
+    .dashboard_div:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    /* PAGES EMPLOYES */
+    
+    .reserve {
+        width : 80vw;
+         .products_list {
+            padding: 15px 0px;
+            img {
+                width: 50px;
+            }
+    }}
+
+    .categories_actions, .reserve_actions {
+        flex-direction: row;
+        justify-content: center;
+        margin-top: 50px;
+        .form_reserve {
+            flex-direction: row;
+            align-items: flex-start;
+        }
+        .form_cate {
+            width: 30%;
+            margin: 0 10px;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+    
+    /* PAGE PANIER */
+
+    .display_cart {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart_ctn-cart, .address {
+        width: 65%;
+        margin: 0;
+    }
+    .cart_ctn-resume {
+        width: 30%;
+    }
+    .cart, .resume, .payment {
+        width: 100%;
+    }
+    .address {
+        margin-top: 0;
+    }
+    .empty_cart_btn, .modifyLink {
+        width: 30%;
+    }
+
+    .suggestion_ctn {
+        width: 100%;
+    }
+}

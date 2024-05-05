@@ -1,0 +1,129 @@
+/* RESPONSIVE */
+/* TABLETTE */
+@media screen and (min-width: 426px) {
+  /* COMMUNES */
+  #home_body {
+    background-image: url("../assets/img/home/Background.jpg");
+    background-position: -100px 0;
+  }
+  .navigation_header .header_width {
+    width: 95%;
+  }
+  .navigation_header h1 {
+    width: 200px;
+    margin: auto;
+  }
+  .navigation_header nav,
+  .navigation_header .ctn_nav,
+  .navigation_header .ctn_pictoheader {
+    flex-direction: row;
+  }
+  .navigation_header .ctn_nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .navigation_header nav,
+  .navigation_header .ctn_pictoheader {
+    width: 50%;
+    justify-content: space-around;
+  }
+  .navigation_header nav a,
+  .navigation_header .ctn_pictoheader a {
+    margin: 25px 0;
+  }
+  .navigation_header .mediaQ_hidden {
+    display: none;
+  }
+  .navigation_header .mediaQ_show {
+    display: flex;
+  }
+  /* CONTENU SITE  */
+  /* LE STORE */
+  .shipping_costs p {
+    width: 50%;
+  }
+  .shop .product_grid,
+  .size_guide_t-shirts .product_grid,
+  .size_guide_rings .product_grid {
+    width: 45%;
+  }
+  .shop .product_grid figcaption,
+  .size_guide_t-shirts .product_grid figcaption,
+  .size_guide_rings .product_grid figcaption {
+    font-size: 20px;
+  }
+  /* PAGE PRODUIT */
+  .product_page .shop {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .product_page .product_image_ctn {
+    width: 50%;
+  }
+  .product_page .product_name {
+    margin-bottom: 0px;
+  }
+  .product_page .product_form {
+    width: 45%;
+  }
+  /* LA MARQUE */
+  .brand .brand_logo {
+    width: 10%;
+    height: 10%;
+    margin: 0;
+  }
+  /* PAGES UTILISATEURS */
+  .dashboard_nav {
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  .dashboard_nav .dashboard_div {
+    margin: 0 0 25px 0;
+    width: 200px;
+    height: 200px;
+  }
+  /* PAGES EMPLOYES */
+  .reserve .products_list {
+    padding: 15px 0px;
+  }
+  .reserve .products_list img {
+    width: 50px;
+  }
+  .reserve .mobile_hidden {
+    display: block;
+    width: 16%;
+    justify-content: center;
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+  .categories_actions,
+  .reserve_actions {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .categories_actions .reserve_btn,
+  .categories_actions .delete,
+  .reserve_actions .reserve_btn,
+  .reserve_actions .delete {
+    margin-right: 20px;
+  }
+  .categories_actions .form_reserve,
+  .reserve_actions .form_reserve {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .categories_actions .form_cate,
+  .reserve_actions .form_cate {
+    width: 30%;
+    margin: 0 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+  .suggestion_ctn .suggestion_link {
+    width: 24%;
+  }
+}/*# sourceMappingURL=App-tablet.css.map */

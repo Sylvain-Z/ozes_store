@@ -1,0 +1,124 @@
+/* RESPONSIVE */
+/* LAPTOP */
+@media screen and (min-width: 1201px) {
+  /* COMMUNES */
+  .navigation_footer {
+    flex-direction: row;
+  }
+  .back_to_store {
+    margin: 50px auto;
+  }
+  /* CONTENU SITE  */
+  /* LE STORE */
+  .store_page_title {
+    position: absolute;
+    top: 100px;
+    right: 10%;
+  }
+  .shipping_costs {
+    flex-direction: row;
+  }
+  .shipping_costs img {
+    width: 50px;
+  }
+  .shipping_costs p {
+    width: 70%;
+    text-align: center;
+    margin: 0 25px;
+  }
+  .shop figure:hover, .size_guide_t-shirts figure:hover,
+  .size_guide_rings figure:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  .shop .product_grid figcaption, .size_guide_t-shirts .product_grid figcaption,
+  .size_guide_rings .product_grid figcaption {
+    font-size: 20px;
+  }
+  /* PAGE PRODUIT */
+  .product_page .shop {
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .product_page .product_image_ctn {
+    width: 50%;
+  }
+  .product_page .product_name {
+    margin-bottom: 0px;
+  }
+  .product_page .product_form {
+    width: 45%;
+  }
+  /* LA MARQUE */
+  .brand .brand_logo {
+    width: 10%;
+    height: 10%;
+    margin: 0;
+  }
+  .community .community_elements figure {
+    width: 25%;
+  }
+  .community .social_medias_links figure {
+    width: 15%;
+  }
+  /* PAGE DE CONNEXION ET D'ENREGISTREMENT - FORMULAIRES */
+  .form_section {
+    width: 900px;
+  }
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  form label {
+    margin-top: 25px;
+  }
+  form input, form .form_input {
+    width: 80%;
+    height: 30px;
+    text-align: center;
+    font-size: 16px;
+    border: transparent;
+    margin: 15px auto;
+  }
+  form .textarea {
+    height: 150px;
+  }
+  form button {
+    height: 40px;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 5px;
+    margin: 25px auto;
+  }
+  /* PAGES UTILISATEUR */
+  /* PAGES EMPLOYES */
+  .reserve {
+    width: 60%;
+  }
+  .reserve .products_list {
+    padding: 15px 0px;
+  }
+  .reserve .products_list img {
+    width: 50px;
+  }
+  .categories {
+    width: 50%;
+  }
+  .categories_actions, .reserve_actions {
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 50px;
+  }
+  .categories_actions .form_reserve, .reserve_actions .form_reserve {
+    width: 70%;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .categories_actions .form_cate, .reserve_actions .form_cate {
+    width: 30%;
+    margin: 0 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+}/*# sourceMappingURL=App-desktop.css.map */

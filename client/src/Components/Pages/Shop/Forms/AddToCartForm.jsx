@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import { FETCH_URL } from '../../../../assets/const';
 import { getItemWithExpiration } from '../../../../assets/functions';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'; 
+
 import { addToCart } from "../../../../store/slices/cart";
 
 function AddToCartForm({ product }) {
@@ -19,6 +22,8 @@ function AddToCartForm({ product }) {
 
     const [sizes, setSizes] = useState(""); // affiche dynamiquement via la BDD les tailles disponible pour l'article
     const [sizesChoice, setSizesChoice] = useState(""); // sert à gérer le choix de taille dans le formulaire
+    
+    const [quantity, setQuantity] = useState(1); //quantité initialisé à 1 en accord avec le <select></select>
 
     const [msg, setMsg] = useState(null);
     const [msg2, setMsg2] = useState(null);
@@ -58,6 +63,7 @@ function AddToCartForm({ product }) {
             }, 5000)
         }
         if (validSizeSelected) { // la fonction n'est active que si une taille a été choisie dans le <select>
+
             if (indexProduct === -1) {
                 const newCart = {
                     product: [
@@ -65,7 +71,7 @@ function AddToCartForm({ product }) {
                         {
                             ref: product.reference,
                             product_id: product.product_id,
-                            quantity: 1,
+                            quantity: parseInt(quantity, 10),
                             size: sizesChoice,
                             priceEach: parseFloat(product.price)
                         },
@@ -83,7 +89,7 @@ function AddToCartForm({ product }) {
                 };
                 newCart.product[indexProduct] = {
                     ...newCart.product[indexProduct],
-                    quantity: cartInfo.product[indexProduct].quantity + 1,
+                    quantity: cartInfo.product[indexProduct].quantity + parseInt(quantity, 10),
                 };
                 localStorage.setItem("cart", JSON.stringify(newCart));
                 dispatch(addToCart(newCart));
@@ -95,6 +101,23 @@ function AddToCartForm({ product }) {
             }, 5000)
         }
     };
+
+    const handleIncrease = () => {
+        if (quantity >= 9) {
+            return;
+        } else {
+            setQuantity(quantity+1);
+        }
+      };
+    
+      // fonction de décrémentation de la quantité d'un produit présent dans le panier
+      const handleDecrease = () => {
+        if (quantity <= 1) {
+            return;
+        } else {
+            setQuantity(quantity-1);
+        }
+      };
 
     return (
         <>
@@ -123,6 +146,20 @@ function AddToCartForm({ product }) {
                         </option>
                     )))}
                 </select>
+
+                <label htmlFor="quantity" >Quantité</label>
+                <div className="quantity-div">
+                    <button type="button" onClick={handleDecrease} className='quantity-btn'>-</button>
+                    <input
+                        disabled
+                        className="options quantity-input"
+                        type="text"
+                        name="quantity"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value.replace(/[^0-9]/g, ''))}
+                    />
+                    <button  type="button" onClick={handleIncrease} className='quantity-btn'>+</button>
+                </div>
 
 
                 {msg && <p className="msg_size">{msg}</p>}

@@ -792,6 +792,28 @@ article {
                 }
             }
 
+            .quantity-div {
+                display: flex;
+                justify-content: space-between;
+                margin: 15px 0;
+
+                .quantity-input {
+                    width: 65%;
+                    border: 1px solid $Blue;
+                    margin: 0;
+                }
+                .quantity-btn {
+                    width: 15%;
+                    height: 30px;
+                    color: $Blue;
+                    border-radius: 0;
+                    background-color: transparent;
+                    border: 1px solid $Blue;
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+
             .add_to_cart {
                 width: 75%;
                 height: 40px;

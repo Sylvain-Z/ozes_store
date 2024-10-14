@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import { FETCH_URL } from '../../../../assets/const';
+import { fetchData } from '../../../../assets/api';
 
 import Loading from "../Loading/Index";
 
@@ -12,9 +12,7 @@ function Suggestion() {
     useEffect(() => {
         async function getProductSuggestion() {
             try {
-                const products = await (
-                    await fetch(FETCH_URL + "products/random") // récupère aléatoirement 4 produits de la base de données
-                ).json();
+                const products = await fetchData(`products/random`) // récupère aléatoirement 4 produits de la base de données
                 setProducts(products.datas);
 
             } catch (error) {

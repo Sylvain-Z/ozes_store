@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { useSnackbar } from 'notistack';
 
-import { FETCH_URL } from "../../../assets/const";
+import { fetchData } from "../../../assets/api";
 
 import Loading from "../Containers/Loading/Index";
 
@@ -29,14 +30,16 @@ function ProductGalery() {
   const [cateTitle, setCateTitle] = useState(""); // pour filtre + pagination
   const [currentPage, setCurrentPage] = useState(1); // pour pagination
   const [totalPages, setTotalPages] = useState(0); // pour pagination
+  
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     async function getProductGalery() {
       try {
         if (cancelFiltersBtn === false) {
           const products = await (
-            await fetch(FETCH_URL + "products/galery/" + currentPage)
-          ).json();
+            await fetchData(`products/galery/${currentPage}`)
+          );
           setProducts(products.datas);
           setTotalPages(products.totalPages[0].totalPages);
         } else {
@@ -46,23 +49,10 @@ function ProductGalery() {
           // Lorsque j'exécute un filtre avec FilterByCategory, la state products est bien mis à jour avec les produits filtrés.
           // Mais lorsque je clique sur le bouton nextPage, la state products  est réinitialiser au fetch précédent et donc je vois la page deux mais de la state sans le filtre
           // Sans currentPage dans le tableau des dépendences la state n'est pas réactualisé au clic sur next ou prev, mais l'affichage des produits ne maj pas.
-          const products = await fetch(
-            FETCH_URL +
-              "products/galerie_filtre/" +
-              cateTitle +
-              "/" +
-              currentPage,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-              },
-            }
-          );
-          if (products.status === 200) {
-            const json = await products.json();
-            setProducts(json.datas);
-            setTotalPages(json.totalPages[0].totalPages);
+          const products = await fetchData(`products/galerie_filtre/${cateTitle}/${currentPage}`);
+          if (products) {
+            setProducts(products);
+            setTotalPages(products.totalPages[0].totalPages);
           } else {
             setMsg(
               "Il y a un soucis avec les filtres rechargez la page ou contactez nous si le problème persiste."
@@ -80,15 +70,9 @@ function ProductGalery() {
   useEffect(() => {
     async function getCategories() {
       try {
-        const categories = await fetch(FETCH_URL + "categories/categories", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        if (categories.status === 200) {
-          const json = await categories.json();
-          setCategories(json.datas);
+        const categories = await fetchData("categories/categories");
+        if (categories) {
+          setCategories(categories.datas);
         }
       } catch (error) {
         throw Error(error);
@@ -99,9 +83,7 @@ function ProductGalery() {
 
   // Fonction des filtres --------------------------------------------------------
   async function ResetFilter() {
-    const products = await (
-      await fetch(FETCH_URL + "products/galery/1")
-    ).json();
+    const products = await fetchData("products/galery/1");
     setProducts(products.datas);
     setTotalPages(products.totalPages[0].totalPages);
     setCurrentPage(1);
@@ -110,19 +92,10 @@ function ProductGalery() {
   }
 
   async function FilterByCategory(cate_title) {
-    const products = await fetch(
-      FETCH_URL + "products/galerie_filtre/" + cate_title + "/1", // fetch sur la première page de la liste
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (products.status === 200) {
-      const json = await products.json();
-      setProducts(json.datas);
-      setTotalPages(json.totalPages[0].totalPages);
+    const products = await fetchData(`products/galerie_filtre/${cate_title}/1`);
+    if (products) {
+      setProducts(products.datas);
+      setTotalPages(products.totalPages[0].totalPages);
       setCurrentPage(1); // remet la page courante à un pour repartir du début de la liste des filtres
       setCancelFiltersBtn(true); // affiche le bouton d'annulation des filtres
       setCateTitle(cate_title); // set la state pour le fetch du useEffect

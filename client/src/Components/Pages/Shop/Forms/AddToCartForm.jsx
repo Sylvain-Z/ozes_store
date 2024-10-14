@@ -2,11 +2,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { FETCH_URL } from '../../../../assets/const';
+import { fetchData } from '../../../../assets/api';
 import { getItemWithExpiration } from '../../../../assets/functions';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons'; 
 
 import { addToCart } from "../../../../store/slices/cart";
 
@@ -31,13 +28,11 @@ function AddToCartForm({ product }) {
     useEffect(() => {
         async function getSizeAddToCart() {
             try {
-                const sizes = await fetch(FETCH_URL + "products/sizes/" + params.id);
-                if (sizes.status === 404) {
+                const sizes = await fetchData(`products/sizes/${params.id}`);
+                if (!sizes) {
                     navigate("/not-found");
-                }
-                if (sizes.status === 200) {
-                    const json = await sizes.json();
-                    setSizes(json);
+                } else {
+                    setSizes(sizes);
                 }
             } catch (error) {
                 throw Error(error);
@@ -94,7 +89,6 @@ function AddToCartForm({ product }) {
                 localStorage.setItem("cart", JSON.stringify(newCart));
                 dispatch(addToCart(newCart));
             }
-
             setMsg2("Votre article a été ajouté au panier");
             setTimeout(() => {
                 setMsg2("")
@@ -122,7 +116,6 @@ function AddToCartForm({ product }) {
     return (
         <>
             <form onSubmit={handleAddToCart} className="choose">
-
 
                 <label htmlFor="size" >Taille</label>
                 <select
@@ -160,7 +153,6 @@ function AddToCartForm({ product }) {
                     />
                     <button  type="button" onClick={handleIncrease} className='quantity-btn'>+</button>
                 </div>
-
 
                 {msg && <p className="msg_size">{msg}</p>}
                 {msg2 && <p className="msg_green">{msg2}</p>}

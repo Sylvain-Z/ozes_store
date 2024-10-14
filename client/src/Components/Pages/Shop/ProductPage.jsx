@@ -1,7 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { FETCH_URL } from '../../../assets/const';
+import { fetchData } from '../../../assets/api';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCottonBureau } from '@fortawesome/free-brands-svg-icons';
@@ -19,40 +19,37 @@ function ProductPage() {
         window.scrollTo(0, 0);
     }, [params]);
 
-    const [products, setProducts] = useState(null); // stocke les informations du produit
-    const [pictures, setPictures] = useState(null); // stocke les images secondaires du produit
+    const [product, setProduct] = useState(null);
+    const [pictures, setPictures] = useState(null);
 
     useEffect(() => {
         async function getProductDetails() {
             try {
-                const products = await fetch(FETCH_URL + "products/" + params.title_url + "/" + params.id);
-                if (products.status === 404) {
-                    navigate("/not-found");
-                }
-                if (products.status === 200) {
-                    const json = await products.json();
-                    setProducts(json);
+                const productInfo = await fetchData(`products/${params.title_url}/${params.id}`);
+                if (productInfo) {
+                    setProduct(productInfo[0]);
 
-                    const pictures = await fetch(FETCH_URL + "pictures/products/" + params.id);
-                    const jsonP = await pictures.json();
-                    setPictures(jsonP);
+                    const picturesList = await fetchData(`pictures/products/${params.id}`);
+                    setPictures(picturesList);
+                } else {
+                    navigate("/not-found");
                 }
             } catch (error) {
                 throw Error(error);
             }
         }
         getProductDetails();
-    }, []);
+    }, [product, pictures]);
 
 
     return (
         <>
             <p className="previous_page"><Link to="/le_store">Retour à la liste des produits</Link></p>
 
-            {!products ? (
+            {!product ? (
                 <Loading />
 
-            ) : (products.map(product =>
+            ) : (
                 <div className="product_page" key={product.id}>
                     <div className="shop">
 
@@ -94,7 +91,7 @@ function ProductPage() {
                     <p className="infosup">{product.madeplace}</p>
 
                 </div>
-            ))}
+            )}
 
             <Suggestion />
         </>

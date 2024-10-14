@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { FETCH_URL } from '../../../assets/const';
+import { fetchData } from '../../../assets/api';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
@@ -30,20 +30,15 @@ function Cart() {
   }, []);
 
   // utilise les informations sur les produits stockés en localstorage pour fetch en boucle sur la base de donnée et afficher les images etc..
-  const [product, setProduct] = useState([]);
+  const [productsCart, setProductsCart] = useState([]);
 
   useEffect(() => {
     async function getCart() {
       try {
         for (const item of cart) { // fecth dynamique via la référence du produit qui doit être unique
-          const product = await fetch(FETCH_URL + "orders/product/" + item.ref);
-          if (product.status === 404) {
-            // navigate("/not-found");
-          }
-          if (product.status === 200) {
-            const json = await product.json();
-            setProduct((prevProduct) => [...prevProduct, ...json]);
-          }
+          const productList = await fetchData(`orders/product/${item.ref}`);
+          console.log(item.ref)
+          setProductsCart((prevProductList) => [...prevProductList, productList]);
         }
       } catch (error) {
         throw Error(error);
@@ -107,7 +102,7 @@ function Cart() {
   return (
     <>
       <h2>Panier</h2>
-      {!product.length ? (
+      {!productsCart.length ? (
         <>
           <h2>Votre panier est vide</h2>
           <BackToStore />
@@ -126,15 +121,15 @@ function Cart() {
                     <th>Prix</th>
                   </tr>
                 </thead>
-                {product.map((item, index) => (  // affiche dynamiquement les produit dans le panier grâce au fetch
+                {productsCart.map((item, index) => (  // affiche dynamiquement les produit dans le panier grâce au fetch
                   <>
                     <tbody className='cart_list' key={index}>
                       <tr>
                         <td className='first_col'>
-                          <Link to={`/le_store/${item.title_url}/${item.id}`}>
-                            <img className="product_image_sub" src={`/${item.file_name}`} alt={item.caption} />
+                          <Link to={`/le_store/${item[0].title_url}/${item[0].id}`}>
+                            <img className="product_image_sub" src={`/${item[0].file_name}`} alt={item[0].caption} />
                           </Link>
-                          <p>{item.title} {cartInfo.product[index] ? cartInfo.product[index].size : ""}</p>
+                          <p>{item[0].title} {cartInfo.product[index] ? cartInfo.product[index].size : ""}</p>
                         </td>
                         {/* affiche dans l'ordre du LS le prix de chaque article en fonction de leur quantité */}
                         <td>

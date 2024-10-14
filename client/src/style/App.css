@@ -429,23 +429,24 @@ article {
 .filter-ctn {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin: 25px 0;
 }
 .filter-ctn .filter-btn {
   border: none;
-  border-left: 1px solid rgb(15, 15, 15);
-  border-right: 1px solid rgb(15, 15, 15);
-  background: transparent;
+  background: rgb(240, 240, 240);
   color: rgb(15, 15, 15);
   font-family: "Caviar Dreams Bold";
   text-transform: capitalize;
-  padding: 10px 50px;
+  margin: 0 25px 25px 25px;
+  padding: 10px 25px;
+  transition: all 0.3s ease 0s;
 }
 .filter-ctn .filter-btn:hover {
-  background: rgb(240, 240, 240);
+  background: rgb(255, 196, 50);
+  transform: translateY(-2px);
 }
 .filter-ctn .selected {
-  color: rgb(15, 15, 15);
   background: rgb(255, 196, 50);
 }
 .filter-ctn .cancel {
@@ -453,8 +454,21 @@ article {
   color: rgb(15, 15, 15);
 }
 
-.paginationcurrent {
-  background-color: rgb(3, 149, 8);
+.pagination-ctn {
+  width: 80%;
+  margin: 50px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.pagination-ctn .pagination-btn {
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+}
+.pagination-ctn .current {
+  background: rgb(15, 15, 15);
   color: rgb(240, 240, 240);
 }
 
@@ -702,6 +716,26 @@ article {
 }
 .product_page .product_form .choose .options option {
   font-family: "NeutraTextBook";
+}
+.product_page .product_form .choose .quantity-div {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+}
+.product_page .product_form .choose .quantity-div .quantity-input {
+  width: 65%;
+  border: 1px solid rgb(26, 28, 93);
+  margin: 0;
+}
+.product_page .product_form .choose .quantity-div .quantity-btn {
+  width: 15%;
+  height: 30px;
+  color: rgb(26, 28, 93);
+  border-radius: 0;
+  background-color: transparent;
+  border: 1px solid rgb(26, 28, 93);
+  margin: 0;
+  padding: 0;
 }
 .product_page .product_form .choose .add_to_cart {
   width: 75%;
